@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- Esta meta tag é crucial para evitar que o celular dê zoom automático e estrague o jogo -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mestre da Clave V2.10 (Fix Colisão)</title>
+    <title>Mestre da Clave V2.11 (Correção Clave)</title>
     <style>
         /* Importa a fonte bonita do Google */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
@@ -149,8 +149,8 @@
 
     <!-- Tela Inicial -->
     <div id="start-screen" class="overlay">
-        <h1>Mestre da Clave V2.10</h1>
-        <p>Ajuste Fino:<br>As notas agora somem ao sair da zona verde.</p>
+        <h1>Mestre da Clave V2.11</h1>
+        <p>Ajuste: Clave de Sol centralizada na 2ª Linha.</p>
         <button class="btn-primary" onclick="startGame()">JOGAR</button>
     </div>
 
@@ -264,11 +264,9 @@
                 
                 // [MODIFICAÇÃO V2.10]
                 // Se a nota sair da zona verde (x < hitZone.start), morre imediatamente.
-                // Isso evita que ela ande por cima da Clave.
                 if (this.x < hitZone.start && !this.marked) {
                     this.marked = true; 
                     loseLife();
-                    // Feedback visual no local exato onde sumiu
                     showFloatText(this.x, this.y, "Passou!", "#c0392b");
                 }
             }
@@ -322,10 +320,12 @@
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
             
-            // Desenha o símbolo da Clave de Sol
+            // --- [ALTERAÇÃO V2.11 - POSIÇÃO DA CLAVE] ---
             ctx.fillStyle = '#2c3e50'; ctx.font = `${lineGap * 5.5}px serif`;
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.fillText('𝄞', 60, staffCenterY - (lineGap * 0.2));
+            // Ajustado para 'staffCenterY + (lineGap * 0.8)' para descer a clave
+            // Isso a centraliza na 2ª linha (Sol)
+            ctx.fillText('𝄞', 60, staffCenterY + (lineGap * 0.8));
 
             // Desenha a Zona Verde (Alvo)
             ctx.fillStyle = 'rgba(39, 174, 96, 0.1)';
