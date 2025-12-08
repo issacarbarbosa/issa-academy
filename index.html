@@ -2,22 +2,28 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <!-- Esta meta tag é crucial para evitar que o celular dê zoom automático e estrague o jogo -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mestre da Clave V2.9</title>
+    <title>Mestre da Clave V2.9 (Didática)</title>
     <style>
+        /* Importa a fonte bonita do Google */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+        
+        /* Reset básico para garantir tamanhos previsíveis */
         * { box-sizing: border-box; touch-action: manipulation; } 
 
         body {
             margin: 0; padding: 0;
             background-color: #2c3e50;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; 
+            overflow: hidden; /* Impede a tela de rolar para baixo */
             width: 100vw; height: 100vh;
-            color: #333; user-select: none;
+            color: #333; user-select: none; /* Impede selecionar texto */
             display: flex; flex-direction: column;
         }
 
+        /* --- TRAVA DE ROTAÇÃO --- */
+        /* Só aparece se a orientação for 'portrait' (celular em pé) */
         #rotate-message {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #2c3e50; color: white; z-index: 9999;
@@ -25,30 +31,38 @@
         }
         @media screen and (orientation: portrait) {
             #rotate-message { display: flex; }
-            #main-wrapper { display: none !important; }
+            #main-wrapper { display: none !important; } /* Esconde o jogo se estiver em pé */
         }
 
+        /* --- LAYOUT PRINCIPAL --- */
         #main-wrapper { 
             flex: 1; display: flex; flex-direction: column; width: 100%; height: 100%; 
             background: radial-gradient(circle, #fdf6e3 0%, #f0e4d0 100%);
         }
 
+        /* Área onde as notas correm */
         #game-area { 
-            flex: 1; position: relative; width: 100%; overflow: hidden; 
+            flex: 1; /* Ocupa todo o espaço que sobrar */
+            position: relative; width: 100%; overflow: hidden; 
             display: flex; justify-content: center; align-items: center; 
         }
         canvas { display: block; width: 100%; height: 100%; }
 
+        /* Placar (HUD) flutuando sobre o canvas */
         #hud { position: absolute; top: 5px; left: 10px; right: 10px; display: flex; justify-content: space-between; pointer-events: none; z-index: 5; }
         .hud-pill { background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 15px; font-weight: bold; font-size: 0.9rem; color: #2c3e50; border: 1px solid #2c3e50; }
 
+        /* --- BOTÕES E CONTROLES --- */
         #controls-container {
-            flex: 0 0 auto; height: auto; background: #34495e;
+            flex: 0 0 auto; /* Não deixa encolher */
+            height: auto; 
+            background: #34495e;
             display: flex; flex-direction: column; justify-content: center;
             padding: 5px 5px 10px 5px; gap: 5px;
             box-shadow: 0 -4px 10px rgba(0,0,0,0.3); z-index: 10;
         }
 
+        /* Fileira de cima (Sustenido e Bemol) */
         #modifiers-row { display: flex; justify-content: center; gap: 15px; height: 35px; }
         .mod-btn {
             width: 60px; height: 100%; background: #95a5a6; color: white;
@@ -56,9 +70,11 @@
             font-size: 1.2rem; line-height: 1; font-weight: bold;
             cursor: pointer; transition: all 0.1s; display: flex; align-items: center; justify-content: center;
         }
+        /* Estilo quando o botão de acidente está ATIVO */
         .mod-btn.active-sharp { background: #e74c3c; border-color: white; box-shadow: 0 0 8px white; }
         .mod-btn.active-flat { background: #3498db; border-color: white; box-shadow: 0 0 8px white; }
 
+        /* Fileira de baixo (Notas Naturais) */
         #notes-row { display: flex; gap: 4px; height: 45px; }
         .note-btn {
             flex: 1; background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
@@ -66,32 +82,43 @@
             color: #2c3e50; cursor: pointer; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
         }
         .note-btn:active { background: #95a5a6; transform: translateY(2px); }
+        /* Cores sutis na base das teclas */
         .btn-do { border-bottom: 3px solid #e74c3c; } .btn-re { border-bottom: 3px solid #e67e22; }
         .btn-mi { border-bottom: 3px solid #f1c40f; } .btn-fa { border-bottom: 3px solid #2ecc71; }
         .btn-sol { border-bottom: 3px solid #3498db; } .btn-la { border-bottom: 3px solid #9b59b6; }
         .btn-si { border-bottom: 3px solid #34495e; }
 
+        /* --- TELAS DE INÍCIO E FIM (OVERLAY) --- */
         .overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(44, 62, 80, 0.98); display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 9999; text-align: center; color: white;
         }
         .hidden { display: none !important; }
+        
         h1 { font-size: 1.8rem; margin: 0 0 10px 0; color: #f1c40f; }
         p { font-size: 1rem; max-width: 80%; margin-bottom: 25px; color: #ecf0f1; }
-        .btn-primary { padding: 12px 40px; font-size: 1.2rem; background-color: #27ae60; color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 0 #1e8449; }
         
+        .btn-primary { 
+            padding: 12px 40px; font-size: 1.2rem; background-color: #27ae60; 
+            color: white; border: none; border-radius: 50px; cursor: pointer; 
+            box-shadow: 0 4px 0 #1e8449; 
+        }
+        
+        /* Texto flutuante ("Boa!", "Errou!") */
         .feedback { position: absolute; font-weight: 900; font-size: 2rem; animation: popUp 0.8s forwards; pointer-events: none; z-index: 50; text-shadow: 1px 1px 0 #fff; }
         @keyframes popUp { 0% { transform: scale(0.5) translateY(0); opacity: 0; } 100% { transform: scale(1) translateY(-60px); opacity: 0; } }
     </style>
 </head>
 <body>
 
+    <!-- Mensagem se o usuário estiver com celular em pé -->
     <div id="rotate-message">
         <h1 style="font-size: 3rem;">↻</h1>
         <h2>Gire o celular</h2>
     </div>
 
+    <!-- Interface Principal -->
     <div id="main-wrapper">
         <div id="game-area">
             <canvas id="gameCanvas"></canvas>
@@ -102,10 +129,12 @@
         </div>
 
         <div id="controls-container">
+            <!-- Botões de Acidente -->
             <div id="modifiers-row">
                 <button id="btn-flat" class="mod-btn" onpointerdown="toggleModifier('flat')">♭</button>
                 <button id="btn-sharp" class="mod-btn" onpointerdown="toggleModifier('sharp')">♯</button>
             </div>
+            <!-- Botões de Notas -->
             <div id="notes-row">
                 <button class="note-btn btn-do" onpointerdown="inputNote('Dó')">Dó</button>
                 <button class="note-btn btn-re" onpointerdown="inputNote('Ré')">Ré</button>
@@ -118,12 +147,14 @@
         </div>
     </div>
 
+    <!-- Tela Inicial -->
     <div id="start-screen" class="overlay">
         <h1>Mestre da Clave V2.9</h1>
         <p>Correção Musical:<br>Sol agudo limpo e Lá suplementar adicionado!</p>
         <button class="btn-primary" onclick="startGame()">JOGAR</button>
     </div>
 
+    <!-- Tela de Game Over -->
     <div id="game-over-screen" class="overlay hidden">
         <h1 style="color: #e74c3c;">Fim de Jogo!</h1>
         <p>Pontuação: <strong id="final-score" style="color:#f1c40f">0</strong></p>
@@ -131,107 +162,144 @@
     </div>
 
     <script>
+        // Configuração Inicial do Canvas
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const gameArea = document.getElementById('game-area');
 
+        // Variáveis de Estado (Memória do Jogo)
         let gameState = 'MENU';
-        let score = 0; let lives = 3; let gameSpeed = 3.0;
-        let spawnTimer = 0; let spawnInterval = 110; 
-        let notes = []; let animationId;
-        let activeModifier = null;
-        let staffCenterY, lineGap;
-        const hitZone = { start: 90, end: 320 }; 
+        let score = 0; 
+        let lives = 3; 
+        let gameSpeed = 3.0; // Velocidade inicial das notas
+        let spawnTimer = 0; 
+        let spawnInterval = 110; // Tempo entre notas (frames)
+        let notes = []; 
+        let animationId;
+        
+        let activeModifier = null; // Guarda se clicou em sustenido/bemol
+        let staffCenterY, lineGap; // Posição Y da pauta e tamanho das linhas
+        const hitZone = { start: 90, end: 320 }; // Área verde onde o clique vale
 
+        // --- SISTEMA DE ÁUDIO (Web Audio API) ---
+        // Browsers precisam de interação do usuário para tocar som, por isso iniciamos no 'startGame'
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
         function playFeedback(type) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
+            
+            // 'sine' = som suave (acerto), 'sawtooth' = som áspero (erro)
             osc.type = type === 'hit' ? 'sine' : 'sawtooth';
             osc.frequency.setValueAtTime(type === 'hit' ? 880 : 150, audioCtx.currentTime);
+            
+            // Controle de volume (fade out rápido)
             gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            
             osc.connect(gain); gain.connect(audioCtx.destination);
             osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         }
 
+        // Função para ativar Tela Cheia no celular
         function enterFullScreen() {
             const elem = document.documentElement;
             if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => {}); }
             else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
         }
 
+        // Ajusta o tamanho do Canvas quando a tela muda
         function resize() {
             canvas.width = gameArea.clientWidth;
             canvas.height = gameArea.clientHeight;
             staffCenterY = canvas.height / 2;
-            lineGap = Math.min(canvas.height / 10, 22); 
+            lineGap = Math.min(canvas.height / 10, 22); // Define tamanho da nota baseado na altura da tela
         }
         window.addEventListener('resize', resize); resize();
 
+        // --- CLASSE NOTA (O Coração do Jogo) ---
         class Note {
             constructor() {
-                this.x = canvas.width + 50;
-                // --- DEFINIÇÃO DE NOTAS E POSIÇÕES ---
-                // 0 = Mi (1ª linha). 8 = Fá (5ª linha). 9 = Sol (Espaço sup). 10 = Lá (1ª Linha Sup).
-                const options = [
-                    { base: 'Dó', pos: -2 }, { base: 'Ré', pos: -1 }, { base: 'Mi', pos: 0 },
-                    { base: 'Fá', pos: 1 },  { base: 'Sol', pos: 2 }, { base: 'Lá', pos: 3 },
-                    { base: 'Si', pos: 4 },  { base: 'Dó', pos: 5 },  { base: 'Ré', pos: 6 },
-                    { base: 'Mi', pos: 7 },  { base: 'Fá', pos: 8 },  { base: 'Sol', pos: 9 },
-                    { base: 'Lá', pos: 10 } // ADICIONADO LÁ AGUDO
-                ];
-                const pick = options[Math.floor(Math.random() * options.length)];
-                this.baseName = pick.base; this.pos = pick.pos;
+                this.x = canvas.width + 50; // Começa fora da tela na direita
                 
+                // --- MAPEAMENTO DE POSIÇÕES ---
+                // O sistema usa índices para definir altura na pauta.
+                // 0 = 1ª Linha (Mi4). Números positivos sobem, negativos descem.
+                const options = [
+                    { base: 'Dó', pos: -2 }, // Dó Central (Linha Sup. Inf.)
+                    { base: 'Ré', pos: -1 }, 
+                    { base: 'Mi', pos: 0 },  // 1ª Linha
+                    { base: 'Fá', pos: 1 },  
+                    { base: 'Sol', pos: 2 }, // 2ª Linha
+                    { base: 'Lá', pos: 3 },
+                    { base: 'Si', pos: 4 },  // 3ª Linha
+                    { base: 'Dó', pos: 5 },  
+                    { base: 'Ré', pos: 6 },  // 4ª Linha
+                    { base: 'Mi', pos: 7 },  
+                    { base: 'Fá', pos: 8 },  // 5ª Linha
+                    { base: 'Sol', pos: 9 }, // Espaço Suplementar Superior (SEM LINHA)
+                    { base: 'Lá', pos: 10 }  // 1ª Linha Suplementar Superior (COM LINHA)
+                ];
+                
+                const pick = options[Math.floor(Math.random() * options.length)];
+                this.baseName = pick.base; 
+                this.pos = pick.pos;
+                
+                // --- LÓGICA DE ACIDENTES ---
                 this.accidental = null;
-                if(Math.random() > 0.75) { 
+                if(Math.random() > 0.75) { // 25% de chance de ter acidente
+                    // Evita Mi# e Si# por simplificação didática
                     if(this.baseName !== 'Mi' && this.baseName !== 'Si') {
                          this.accidental = Math.random() > 0.5 ? 'sharp' : 'flat';
-                    } else { this.accidental = 'flat'; }
+                    } else { 
+                         this.accidental = 'flat'; // Apenas bemol para Mi e Si
+                    }
                 }
-                this.marked = false; this.color = '#000';
+                this.marked = false; // Evita contar ponto duas vezes
+                this.color = '#000';
             }
+
             update() {
-                this.x -= gameSpeed;
+                this.x -= gameSpeed; // Move a nota para a esquerda
+                // Se passar da zona de acerto, conta como erro
                 if (this.x < hitZone.start - 50 && !this.marked) {
                     this.marked = true; loseLife();
                     showFloatText(this.x, this.y, "Passou!", "#c0392b");
                 }
             }
+
             draw() {
+                // Calcula a altura Y baseada no índice (pos)
                 const y = staffCenterY + ((4 - this.pos) * (lineGap / 2));
                 ctx.save(); ctx.translate(this.x, y);
                 
-                // Nota
-                ctx.beginPath(); ctx.rotate(-0.1);
+                // Desenha a Nota (Semibreve vazada)
+                ctx.beginPath(); ctx.rotate(-0.1); // Leve inclinação estética
                 ctx.lineWidth = 2; ctx.strokeStyle = this.color;
                 ctx.ellipse(0, 0, lineGap * 0.7, lineGap * 0.45, 0, 0, Math.PI * 2);
                 ctx.stroke(); ctx.rotate(0.1);
 
-                // Acidente
+                // Desenha o Acidente (se houver)
                 if(this.accidental) {
                     ctx.font = `bold ${lineGap*1.3}px serif`;
                     ctx.fillStyle = this.color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
                     ctx.fillText(this.accidental === 'sharp' ? '♯' : '♭', -lineGap * 1.3, 0);
                 }
                 
-                // --- LINHAS SUPLEMENTARES (LÓGICA CORRIGIDA) ---
+                // --- DESENHO DAS LINHAS SUPLEMENTARES ---
                 ctx.lineWidth = 1.5; ctx.strokeStyle = '#555';
                 
-                // Inferiores (Dó Central e abaixo)
+                // Inferiores (Para Dó Central e Lá Grave)
                 if (this.pos <= -2) {
                     ctx.beginPath(); ctx.moveTo(-lineGap*0.8, 0); ctx.lineTo(lineGap*0.8, 0); ctx.stroke();
+                    // Se fosse Lá grave (-3), desenharia outra linha abaixo
                     if(this.pos === -3) { ctx.beginPath(); ctx.moveTo(-lineGap*0.8, -lineGap); ctx.lineTo(lineGap*0.8, -lineGap); ctx.stroke(); }
                 }
                 
-                // Superiores (Apenas para Lá=10 ou superior)
-                // O Sol=9 é espaço, então NÃO entra aqui.
+                // Superiores (Apenas se for Lá agudo ou acima)
+                // O Sol (pos 9) não entra aqui, pois é nota de espaço.
                 if (this.pos >= 10) {
-                    // Desenha a linha na posição relativa correta
-                    // Se a nota é 10 (Lá), a linha é no meio (dy=0).
-                    // Se fosse 11 (Si), a linha seria deslocada para baixo.
                     const dy = (this.pos - 10) * (lineGap / 2);
                     ctx.beginPath(); ctx.moveTo(-lineGap*0.8, dy); ctx.lineTo(lineGap*0.8, dy); ctx.stroke();
                 }
@@ -240,30 +308,39 @@
             }
         }
 
+        // Desenha a Pauta (5 linhas) e a Clave
         function drawStaff() {
             ctx.strokeStyle = '#555'; ctx.lineWidth = 2;
             const startY = staffCenterY - (2 * lineGap);
+            
             for(let i=0; i<5; i++) {
                 let y = startY + (i * lineGap);
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
+            
+            // Desenha o símbolo da Clave de Sol
             ctx.fillStyle = '#2c3e50'; ctx.font = `${lineGap * 5.5}px serif`;
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText('𝄞', 60, staffCenterY - (lineGap * 0.2));
 
+            // Desenha a Zona Verde (Alvo)
             ctx.fillStyle = 'rgba(39, 174, 96, 0.1)';
             ctx.fillRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
             ctx.strokeStyle = 'rgba(39, 174, 96, 0.4)'; ctx.lineWidth = 2;
             ctx.strokeRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
         }
 
+        // Gerencia os botões de Acidente (# e b)
         function toggleModifier(type) {
             const sharp = document.getElementById('btn-sharp');
             const flat = document.getElementById('btn-flat');
+            
             if (activeModifier === type) {
+                // Se clicar de novo, desativa
                 activeModifier = null;
                 sharp.classList.remove('active-sharp'); flat.classList.remove('active-flat');
             } else {
+                // Ativa um e desativa o outro
                 activeModifier = type;
                 sharp.classList.toggle('active-sharp', type === 'sharp');
                 flat.classList.toggle('active-flat', type === 'flat');
@@ -272,16 +349,21 @@
             }
         }
 
+        // Verifica se o jogador acertou a nota
         function inputNote(base) {
             if (gameState !== 'PLAYING') return;
+            // Busca nota dentro da zona verde
             const target = notes.find(n => n.x > hitZone.start && n.x < hitZone.end && !n.marked);
 
             if (target) {
+                // Confere se o nome da nota e o acidente batem
                 if (target.baseName === base && target.accidental === activeModifier) {
                     score += 10 + (target.accidental ? 5 : 0);
                     playFeedback('hit'); target.marked = true;
-                    notes = notes.filter(n => n !== target);
+                    notes = notes.filter(n => n !== target); // Remove a nota acertada
                     showFloatText(target.x, target.y - 50, target.accidental ? "Boa!" : "Certo!", "#27ae60");
+                    
+                    // Aumenta velocidade a cada 50 pontos
                     if(score % 50 === 0) gameSpeed += 0.3;
                 } else {
                     lives--; playFeedback('miss');
@@ -289,9 +371,11 @@
                     target.color = '#e74c3c'; target.marked = true;
                 }
             }
-            toggleModifier(null); updateHUD();
+            toggleModifier(null); // Reseta o acidente após clicar na nota
+            updateHUD();
         }
 
+        // Efeito visual flutuante (+10, Errou)
         function showFloatText(x, y, text, color) {
             const el = document.createElement('div'); el.className = 'feedback';
             el.innerText = text; el.style.color = color; el.style.left = x+'px'; el.style.top = y+'px';
@@ -306,13 +390,22 @@
         }
         function updateHUD() { document.getElementById('score').innerText = score; document.getElementById('lives').innerText = lives; }
 
+        // Loop de Animação (Roda 60x por segundo)
         function loop() {
             if (gameState !== 'PLAYING') return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawStaff(); spawnTimer++;
-            if (spawnTimer > spawnInterval) { notes.push(new Note()); spawnTimer = 0; if (spawnInterval > 60) spawnInterval -= 0.2; }
-            notes.forEach(n => { n.update(); n.draw(); });
-            notes = notes.filter(n => n.x > -100 && !n.marked);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa tela
+            drawStaff(); // Desenha pauta
+            
+            spawnTimer++;
+            // Cria nota nova a cada X frames
+            if (spawnTimer > spawnInterval) { 
+                notes.push(new Note()); 
+                spawnTimer = 0; 
+                if (spawnInterval > 60) spawnInterval -= 0.2; // Acelera o spawn
+            }
+            
+            notes.forEach(n => { n.update(); n.draw(); }); // Move e desenha notas
+            notes = notes.filter(n => n.x > -100 && !n.marked); // Remove notas que saíram da tela
             animationId = requestAnimationFrame(loop);
         }
 
@@ -330,6 +423,3 @@
     </script>
 </body>
 </html>
-
-
-                
