@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mestre da Clave V3.2 (Fix Cor do Si)</title>
+    <title>Mestre da Clave V3.3 (Níveis)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
         * { box-sizing: border-box; touch-action: manipulation; } 
 
         body {
-            margin: 0; padding: 0;
-            background-color: #2c3e50;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden; 
-            width: 100vw; height: 100vh;
-            color: #333; user-select: none;
+            margin: 0; padding: 0; background-color: #2c3e50; font-family: 'Poppins', sans-serif;
+            overflow: hidden; width: 100vw; height: 100vh; color: #333; user-select: none;
             display: flex; flex-direction: column;
         }
 
-        /* --- TRAVA DE ROTAÇÃO --- */
         #rotate-message {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #2c3e50; color: white; z-index: 9999;
@@ -29,10 +24,17 @@
             #main-wrapper { display: none !important; }
         }
 
-        /* --- LAYOUT PRINCIPAL --- */
         #main-wrapper { 
             flex: 1; display: flex; flex-direction: column; width: 100%; height: 100%; 
             background: radial-gradient(circle, #fdf6e3 0%, #f0e4d0 100%);
+        }
+
+        /* BARRA DE PROGRESSO (XP) */
+        #xp-bar-container {
+            width: 100%; height: 6px; background: rgba(0,0,0,0.1); position: absolute; top: 0; left: 0; z-index: 20;
+        }
+        #xp-bar-fill {
+            height: 100%; width: 0%; background: #27ae60; transition: width 0.3s;
         }
 
         #game-area { 
@@ -41,10 +43,12 @@
         }
         canvas { display: block; width: 100%; height: 100%; }
 
-        #hud { position: absolute; top: 5px; left: 10px; right: 10px; display: flex; justify-content: space-between; pointer-events: none; z-index: 5; }
-        .hud-pill { background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 15px; font-weight: bold; font-size: 0.9rem; color: #2c3e50; border: 1px solid #2c3e50; }
+        /* HUD Atualizado com Nível */
+        #hud { position: absolute; top: 15px; left: 10px; right: 10px; display: flex; justify-content: space-between; pointer-events: none; z-index: 5; }
+        .hud-pill { background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 15px; font-weight: bold; font-size: 0.9rem; color: #2c3e50; border: 1px solid #2c3e50; display: flex; gap: 5px; }
+        
+        .level-badge { background: #f1c40f; color: #2c3e50; padding: 0 8px; border-radius: 10px; margin-left: 5px; }
 
-        /* --- CONTROLES --- */
         #controls-container {
             flex: 0 0 auto; height: auto; background: #34495e;
             display: flex; flex-direction: column; justify-content: center;
@@ -56,24 +60,21 @@
         
         .note-btn {
             flex: 1; background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
-            border: none; border-radius: 6px; 
-            font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 1rem;
-            color: #2c3e50; cursor: pointer; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
-            transition: transform 0.1s;
+            border: none; border-radius: 6px; font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 1rem;
+            color: #2c3e50; cursor: pointer; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2); transition: transform 0.1s;
         }
         .note-btn:active { background: #95a5a6; transform: translateY(2px); }
-        
-        /* CORES PADRONIZADAS (V3.2: Si mudou para Ciano) */
+        .btn-locked { opacity: 0.3; pointer-events: none; filter: grayscale(100%); } /* Estilo para botões bloqueados */
+
+        /* CORES */
         .btn-do { border-bottom: 4px solid #e74c3c; color: #c0392b; } 
         .btn-re { border-bottom: 4px solid #e67e22; color: #d35400; }
         .btn-mi { border-bottom: 4px solid #f1c40f; color: #f39c12; } 
         .btn-fa { border-bottom: 4px solid #2ecc71; color: #27ae60; }
         .btn-sol { border-bottom: 4px solid #3498db; color: #2980b9; } 
         .btn-la { border-bottom: 4px solid #9b59b6; color: #8e44ad; }
-        /* COR NOVA DO SI: Ciano Brilhante */
         .btn-si { border-bottom: 4px solid #00d2d3; color: #008c9e; }
 
-        /* --- OVERLAYS --- */
         .overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(44, 62, 80, 0.98); display: flex; flex-direction: column;
@@ -93,20 +94,23 @@
         
         .feedback { position: absolute; font-weight: 900; font-size: 2rem; animation: popUp 0.8s forwards; pointer-events: none; z-index: 50; text-shadow: 1px 1px 0 #fff; }
         @keyframes popUp { 0% { transform: scale(0.5) translateY(0); opacity: 0; } 100% { transform: scale(1) translateY(-60px); opacity: 0; } }
+
+        /* Level Up Flash */
+        .levelup-flash { animation: flashScreen 0.5s; }
+        @keyframes flashScreen { 0% { background: rgba(255, 255, 255, 0.8); } 100% { background: transparent; } }
     </style>
 </head>
 <body>
 
-    <div id="rotate-message">
-        <h1 style="font-size: 3rem;">↻</h1>
-        <h2>Gire o celular</h2>
-    </div>
+    <div id="rotate-message"><h1>↻</h1><h2>Gire o celular</h2></div>
 
     <div id="main-wrapper">
+        <div id="xp-bar-container"><div id="xp-bar-fill"></div></div>
+        
         <div id="game-area">
             <canvas id="gameCanvas"></canvas>
             <div id="hud">
-                <div class="hud-pill">Pontos: <span id="score">0</span></div>
+                <div class="hud-pill">Nível: <span id="level-display" class="level-badge">1</span></div>
                 <div class="hud-pill">Vidas: <span id="lives">3</span></div>
             </div>
         </div>
@@ -126,13 +130,13 @@
 
     <div id="start-screen" class="overlay">
         <h1>Mestre da Clave</h1>
-        <p>Identifique as notas pela posição e pela cor!<br>Modo Didático (Colorido)</p>
+        <p>Começamos fácil: Só <strong>Dó e Ré</strong>.<br>Acerte para liberar novas notas!</p>
         <button class="btn-primary" onclick="startGame()">JOGAR</button>
     </div>
 
     <div id="game-over-screen" class="overlay hidden">
         <h1 style="color: #e74c3c;">Fim de Jogo!</h1>
-        <p>Pontuação: <strong id="final-score" style="color:#f1c40f">0</strong></p>
+        <p>Você chegou no Nível <strong id="final-level" style="color:#f1c40f">1</strong></p>
         <button class="btn-primary" onclick="resetGame()">Tentar Novamente</button>
     </div>
 
@@ -141,127 +145,101 @@
         const ctx = canvas.getContext('2d');
         const gameArea = document.getElementById('game-area');
 
+        // --- SISTEMA DE PROGRESSÃO (V3.3) ---
+        // Lista Mestra de Notas em Ordem de Dificuldade (Dó3 -> Lá4)
+        // O jogo vai desbloqueando essa lista item por item.
+        const progressionList = [
+            { base: 'Dó', pos: -2 }, // Nível 1: Dó
+            { base: 'Ré', pos: -1 }, // Nível 1: Ré
+            { base: 'Mi', pos: 0 },  // Nível 2
+            { base: 'Fá', pos: 1 },  // Nível 3
+            { base: 'Sol', pos: 2 }, // Nível 4
+            { base: 'Lá', pos: 3 },  // Nível 5
+            { base: 'Si', pos: 4 },  // Nível 6
+            { base: 'Dó', pos: 5 },  // Nível 7 (Dó Agudo)
+            { base: 'Ré', pos: 6 },
+            { base: 'Mi', pos: 7 },
+            { base: 'Fá', pos: 8 },
+            { base: 'Sol', pos: 9 },
+            { base: 'Lá', pos: 10 }
+        ];
+
         let gameState = 'MENU';
-        let score = 0; let lives = 3; let gameSpeed = 3.0; 
-        let spawnTimer = 0; let spawnInterval = 110; 
+        let lives = 3; let gameSpeed = 2.5; 
+        let spawnTimer = 0; let spawnInterval = 120; 
         let notes = []; let animationId;
-        let staffCenterY, lineGap; 
-        const hitZone = { start: 90, end: 320 }; 
+        let staffCenterY, lineGap; const hitZone = { start: 90, end: 320 }; 
+
+        // Variáveis de Nível
+        let currentLevel = 1;
+        let hitsInLevel = 0;
+        const HITS_TO_LEVELUP = 10; // Precisa de 10 acertos para subir
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function playFeedback(type) {
+        const noteColors = { 'Dó':'#e74c3c', 'Ré':'#e67e22', 'Mi':'#f1c40f', 'Fá':'#2ecc71', 'Sol':'#3498db', 'Lá':'#9b59b6', 'Si':'#00d2d3' };
+
+        function playSound(freq, type='sine') {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            osc.type = type === 'hit' ? 'sine' : 'sawtooth';
-            osc.frequency.setValueAtTime(type === 'hit' ? 880 : 150, audioCtx.currentTime);
+            osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
             gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
             osc.connect(gain); gain.connect(audioCtx.destination);
             osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         }
 
-        function enterFullScreen() {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => {}); }
-            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
-        }
-
-        function resize() {
-            canvas.width = gameArea.clientWidth;
-            canvas.height = gameArea.clientHeight;
-            staffCenterY = canvas.height / 2;
-            lineGap = Math.min(canvas.height / 10, 24); 
-        }
+        function enterFullScreen() { const el = document.documentElement; if(el.requestFullscreen) el.requestFullscreen().catch(()=>{}); }
+        function resize() { canvas.width = gameArea.clientWidth; canvas.height = gameArea.clientHeight; staffCenterY = canvas.height/2; lineGap = Math.min(canvas.height/10, 24); }
         window.addEventListener('resize', resize); resize();
-
-        // --- MAPA DE CORES DIDÁTICAS (V3.2) ---
-        const noteColors = {
-            'Dó': '#e74c3c', // Vermelho
-            'Ré': '#e67e22', // Laranja
-            'Mi': '#f1c40f', // Amarelo
-            'Fá': '#2ecc71', // Verde
-            'Sol': '#3498db', // Azul Claro
-            'Lá': '#9b59b6', // Roxo
-            'Si': '#00d2d3'  // CIANO BRILHANTE (NOVO!)
-        };
 
         class Note {
             constructor() {
                 this.x = canvas.width + 50; 
                 
-                const options = [
-                    { base: 'Dó', pos: -2 }, { base: 'Ré', pos: -1 }, { base: 'Mi', pos: 0 },  
-                    { base: 'Fá', pos: 1 },  { base: 'Sol', pos: 2 }, { base: 'Lá', pos: 3 },
-                    { base: 'Si', pos: 4 },  { base: 'Dó', pos: 5 },  { base: 'Ré', pos: 6 },  
-                    { base: 'Mi', pos: 7 },  { base: 'Fá', pos: 8 },  { base: 'Sol', pos: 9 }, 
-                    { base: 'Lá', pos: 10 }  
-                ];
+                // --- LÓGICA DE SORTEIO DINÂMICO ---
+                // O número de notas disponíveis depende do nível atual.
+                // Nível 1 = 2 notas (índices 0 e 1). Nível 2 = 3 notas (índices 0, 1 e 2).
+                // Fórmula: min(currentLevel + 1, total)
+                const unlockedCount = Math.min(currentLevel + 1, progressionList.length);
+                const availableNotes = progressionList.slice(0, unlockedCount);
                 
-                const pick = options[Math.floor(Math.random() * options.length)];
+                // Sorteia uma nota DENTRO das desbloqueadas
+                const pick = availableNotes[Math.floor(Math.random() * availableNotes.length)];
+                
                 this.baseName = pick.base; 
                 this.pos = pick.pos;
-                
-                // Define a cor baseada no nome da nota
                 this.color = noteColors[this.baseName];
                 this.marked = false; 
             }
-
             update() {
                 this.x -= gameSpeed; 
                 if (this.x < hitZone.start && !this.marked) {
-                    this.marked = true; 
-                    loseLife();
+                    this.marked = true; loseLife();
                     showFloatText(this.x, this.y, "Passou!", "#c0392b");
                 }
             }
-
             draw() {
                 const y = staffCenterY + ((4 - this.pos) * (lineGap / 2));
                 ctx.save(); ctx.translate(this.x, y);
-                
-                // Desenha a Nota usando a COR DIDÁTICA
-                ctx.beginPath(); ctx.rotate(-0.1); 
-                ctx.lineWidth = 3; // Linha um pouco mais grossa para ver a cor
-                ctx.strokeStyle = this.color; // Usa a cor mapeada
+                ctx.beginPath(); ctx.rotate(-0.1); ctx.lineWidth = 3; ctx.strokeStyle = this.color;
                 ctx.ellipse(0, 0, lineGap * 0.7, lineGap * 0.45, 0, 0, Math.PI * 2);
                 ctx.stroke(); ctx.rotate(0.1);
-
-                // Linhas Suplementares (Sempre cinza escuro, para não confundir)
                 ctx.lineWidth = 1.5; ctx.strokeStyle = '#555';
-                
-                if (this.pos <= -2) {
-                    ctx.beginPath(); ctx.moveTo(-lineGap*0.8, 0); ctx.lineTo(lineGap*0.8, 0); ctx.stroke();
-                    if(this.pos === -3) { ctx.beginPath(); ctx.moveTo(-lineGap*0.8, -lineGap); ctx.lineTo(lineGap*0.8, -lineGap); ctx.stroke(); }
-                }
-                
-                if (this.pos >= 10) {
-                    const dy = (this.pos - 10) * (lineGap / 2);
-                    ctx.beginPath(); ctx.moveTo(-lineGap*0.8, dy); ctx.lineTo(lineGap*0.8, dy); ctx.stroke();
-                }
-                
+                if (this.pos <= -2) { ctx.beginPath(); ctx.moveTo(-lineGap*0.8, 0); ctx.lineTo(lineGap*0.8, 0); ctx.stroke(); 
+                    if(this.pos === -3) { ctx.beginPath(); ctx.moveTo(-lineGap*0.8, -lineGap); ctx.lineTo(lineGap*0.8, -lineGap); ctx.stroke(); } }
+                if (this.pos >= 10) { const dy = (this.pos - 10)*(lineGap/2); ctx.beginPath(); ctx.moveTo(-lineGap*0.8, dy); ctx.lineTo(lineGap*0.8, dy); ctx.stroke(); }
                 ctx.restore();
             }
         }
 
         function drawStaff() {
-            ctx.strokeStyle = '#555'; ctx.lineWidth = 2;
-            const startY = staffCenterY - (2 * lineGap);
-            
-            for(let i=0; i<5; i++) {
-                let y = startY + (i * lineGap);
-                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-            }
-            
-            ctx.fillStyle = '#2c3e50'; ctx.font = `${lineGap * 5.5}px serif`;
-            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.strokeStyle = '#555'; ctx.lineWidth = 2; const startY = staffCenterY - (2 * lineGap);
+            for(let i=0; i<5; i++) { let y = startY + (i * lineGap); ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+            ctx.fillStyle = '#2c3e50'; ctx.font = `${lineGap * 5.5}px serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText('𝄞', 60, staffCenterY + (lineGap * 0.8));
-
-            ctx.fillStyle = 'rgba(39, 174, 96, 0.1)';
-            ctx.fillRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
-            ctx.strokeStyle = 'rgba(39, 174, 96, 0.4)'; ctx.lineWidth = 2;
-            ctx.strokeRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
+            ctx.fillStyle = 'rgba(39, 174, 96, 0.1)'; ctx.fillRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
+            ctx.strokeStyle = 'rgba(39, 174, 96, 0.4)'; ctx.lineWidth = 2; ctx.strokeRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
         }
 
         function inputNote(base) {
@@ -270,21 +248,51 @@
 
             if (target) {
                 if (target.baseName === base) {
-                    score += 10;
-                    playFeedback('hit'); target.marked = true;
+                    hitsInLevel++;
+                    playSound(880, 'sine'); target.marked = true;
                     notes = notes.filter(n => n !== target); 
-                    // Feedback visual usa a cor da nota acertada!
                     showFloatText(target.x, target.y - 50, "Certo!", target.color);
                     
-                    if(score % 50 === 0) gameSpeed += 0.3;
+                    // --- CHECAGEM DE LEVEL UP ---
+                    checkLevelUp();
+                    
                 } else {
-                    lives--; playFeedback('miss');
+                    lives--; playSound(150, 'sawtooth');
                     showFloatText(target.x, target.y - 50, "Errou!", "#c0392b");
-                    target.color = '#e74c3c'; // Fica vermelha se errar
-                    target.marked = true;
+                    target.color = '#e74c3c'; target.marked = true;
                 }
             }
             updateHUD();
+        }
+
+        function checkLevelUp() {
+            // Atualiza barra de XP
+            const progress = (hitsInLevel / HITS_TO_LEVELUP) * 100;
+            document.getElementById('xp-bar-fill').style.width = progress + '%';
+
+            if (hitsInLevel >= HITS_TO_LEVELUP) {
+                // SÓ SOBE SE AINDA TIVER NOTAS PRA LIBERAR
+                if (currentLevel + 1 < progressionList.length) {
+                    currentLevel++;
+                    hitsInLevel = 0;
+                    gameSpeed += 0.2; // Aumenta um pouco a velocidade
+                    spawnInterval -= 2; // Nascem mais rápido
+                    
+                    // Feedback Visual e Sonoro
+                    playSound(1200, 'square'); // Som de Level Up
+                    document.getElementById('xp-bar-fill').style.width = '0%'; // Reseta barra
+                    
+                    // Mostra qual nota liberou
+                    const newNote = progressionList[currentLevel]; // A nova nota
+                    showFloatText(canvas.width/2, canvas.height/2, `Nível ${currentLevel}!`, "#f1c40f");
+                    
+                    // Flash na tela
+                    const flash = document.createElement('div');
+                    flash.className = 'overlay levelup-flash';
+                    document.body.appendChild(flash);
+                    setTimeout(() => flash.remove(), 500);
+                }
+            }
         }
 
         function showFloatText(x, y, text, color) {
@@ -299,20 +307,18 @@
             if (lives <= 0) endGame();
             else { gameArea.style.background = 'rgba(231, 76, 60, 0.3)'; setTimeout(() => gameArea.style.background = '', 150); }
         }
-        function updateHUD() { document.getElementById('score').innerText = score; document.getElementById('lives').innerText = lives; }
+        
+        function updateHUD() { 
+            document.getElementById('level-display').innerText = currentLevel; 
+            document.getElementById('lives').innerText = lives; 
+        }
 
         function loop() {
             if (gameState !== 'PLAYING') return;
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
             drawStaff(); 
-            
             spawnTimer++;
-            if (spawnTimer > spawnInterval) { 
-                notes.push(new Note()); 
-                spawnTimer = 0; 
-                if (spawnInterval > 60) spawnInterval -= 0.2; 
-            }
-            
+            if (spawnTimer > spawnInterval) { notes.push(new Note()); spawnTimer = 0; }
             notes.forEach(n => { n.update(); n.draw(); }); 
             notes = notes.filter(n => n.x > -100 && !n.marked); 
             animationId = requestAnimationFrame(loop);
@@ -320,13 +326,23 @@
 
         function startGame() {
             enterFullScreen();
-            gameState = 'PLAYING'; score = 0; lives = 3; gameSpeed = 3.0; spawnInterval = 110; notes = []; 
+            gameState = 'PLAYING'; score = 0; lives = 3; 
+            
+            // RESET DO PROGRESSO
+            currentLevel = 1; hitsInLevel = 0; gameSpeed = 2.5; spawnInterval = 120;
+            document.getElementById('xp-bar-fill').style.width = '0%';
+            
+            notes = []; 
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('game-over-screen').classList.add('hidden');
             if (audioCtx.state === 'suspended') audioCtx.resume();
             resize(); loop(); updateHUD();
         }
-        function endGame() { gameState = 'GAMEOVER'; cancelAnimationFrame(animationId); document.getElementById('final-score').innerText = score; document.getElementById('game-over-screen').classList.remove('hidden'); }
+        function endGame() { 
+            gameState = 'GAMEOVER'; cancelAnimationFrame(animationId); 
+            document.getElementById('final-level').innerText = currentLevel; 
+            document.getElementById('game-over-screen').classList.remove('hidden'); 
+        }
         function resetGame() { startGame(); }
     </script>
 </body>
