@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- Meta tag vital para evitar zoom indesejado no mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mestre da Clave V3.0 (Natural)</title>
+    <title>Mestre da Clave V3.1 (Colorida)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
         * { box-sizing: border-box; touch-action: manipulation; } 
@@ -36,30 +35,24 @@
             background: radial-gradient(circle, #fdf6e3 0%, #f0e4d0 100%);
         }
 
-        /* Área do Jogo (Canvas) */
         #game-area { 
             flex: 1; position: relative; width: 100%; overflow: hidden; 
             display: flex; justify-content: center; align-items: center; 
         }
         canvas { display: block; width: 100%; height: 100%; }
 
-        /* Placar (HUD) */
         #hud { position: absolute; top: 5px; left: 10px; right: 10px; display: flex; justify-content: space-between; pointer-events: none; z-index: 5; }
         .hud-pill { background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 15px; font-weight: bold; font-size: 0.9rem; color: #2c3e50; border: 1px solid #2c3e50; }
 
-        /* --- CONTROLES (Simplificado na V3.0) --- */
+        /* --- CONTROLES --- */
         #controls-container {
-            flex: 0 0 auto; 
-            height: auto; 
-            background: #34495e;
+            flex: 0 0 auto; height: auto; background: #34495e;
             display: flex; flex-direction: column; justify-content: center;
-            /* Padding reduzido pois não temos mais a linha de cima */
             padding: 10px 5px 15px 5px; gap: 5px;
             box-shadow: 0 -4px 10px rgba(0,0,0,0.3); z-index: 10;
         }
 
-        /* Fileira Única de Notas */
-        #notes-row { display: flex; gap: 4px; height: 55px; /* Botões um pouco mais altos para facilitar o toque */ }
+        #notes-row { display: flex; gap: 4px; height: 55px; }
         
         .note-btn {
             flex: 1; background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
@@ -70,16 +63,17 @@
         }
         .note-btn:active { background: #95a5a6; transform: translateY(2px); }
         
-        /* Cores de Identificação (Opcional, ajuda na memorização) */
-        .btn-do { border-bottom: 4px solid #e74c3c; } 
-        .btn-re { border-bottom: 4px solid #e67e22; }
-        .btn-mi { border-bottom: 4px solid #f1c40f; } 
-        .btn-fa { border-bottom: 4px solid #2ecc71; }
-        .btn-sol { border-bottom: 4px solid #3498db; } 
-        .btn-la { border-bottom: 4px solid #9b59b6; }
-        .btn-si { border-bottom: 4px solid #34495e; }
+        /* CORES PADRONIZADAS (Usadas no botão e na nota) */
+        /* Dó: Vermelho | Ré: Laranja | Mi: Amarelo | Fá: Verde | Sol: Azul Claro | Lá: Roxo | Si: Azul Escuro */
+        .btn-do { border-bottom: 4px solid #e74c3c; color: #c0392b; } 
+        .btn-re { border-bottom: 4px solid #e67e22; color: #d35400; }
+        .btn-mi { border-bottom: 4px solid #f1c40f; color: #f39c12; } 
+        .btn-fa { border-bottom: 4px solid #2ecc71; color: #27ae60; }
+        .btn-sol { border-bottom: 4px solid #3498db; color: #2980b9; } 
+        .btn-la { border-bottom: 4px solid #9b59b6; color: #8e44ad; }
+        .btn-si { border-bottom: 4px solid #34495e; color: #2c3e50; }
 
-        /* --- TELAS DE INÍCIO E FIM --- */
+        /* --- OVERLAYS --- */
         .overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(44, 62, 80, 0.98); display: flex; flex-direction: column;
@@ -95,7 +89,6 @@
             color: white; border: none; border-radius: 50px; cursor: pointer; 
             box-shadow: 0 4px 0 #1e8449; animation: pulse 2s infinite;
         }
-        
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         
         .feedback { position: absolute; font-weight: 900; font-size: 2rem; animation: popUp 0.8s forwards; pointer-events: none; z-index: 50; text-shadow: 1px 1px 0 #fff; }
@@ -119,7 +112,6 @@
         </div>
 
         <div id="controls-container">
-            <!-- NOTAS NATURAIS (Única fileira agora) -->
             <div id="notes-row">
                 <button class="note-btn btn-do" onpointerdown="inputNote('Dó')">Dó</button>
                 <button class="note-btn btn-re" onpointerdown="inputNote('Ré')">Ré</button>
@@ -132,14 +124,12 @@
         </div>
     </div>
 
-    <!-- Tela Inicial -->
     <div id="start-screen" class="overlay">
         <h1>Mestre da Clave</h1>
-        <p>Identifique as notas antes que sumam!<br>Modo Clássico (Notas Naturais)</p>
+        <p>Identifique as notas pela posição e pela cor!<br>Modo Didático (Colorido)</p>
         <button class="btn-primary" onclick="startGame()">JOGAR</button>
     </div>
 
-    <!-- Tela de Game Over -->
     <div id="game-over-screen" class="overlay hidden">
         <h1 style="color: #e74c3c;">Fim de Jogo!</h1>
         <p>Pontuação: <strong id="final-score" style="color:#f1c40f">0</strong></p>
@@ -151,33 +141,23 @@
         const ctx = canvas.getContext('2d');
         const gameArea = document.getElementById('game-area');
 
-        // --- ESTADO DO JOGO ---
         let gameState = 'MENU';
-        let score = 0; 
-        let lives = 3; 
-        let gameSpeed = 3.0; 
-        let spawnTimer = 0; 
-        let spawnInterval = 110; 
-        let notes = []; 
-        let animationId;
-        
-        // Configuração Visual
+        let score = 0; let lives = 3; let gameSpeed = 3.0; 
+        let spawnTimer = 0; let spawnInterval = 110; 
+        let notes = []; let animationId;
         let staffCenterY, lineGap; 
         const hitZone = { start: 90, end: 320 }; 
 
-        // --- ÁUDIO (Simples) ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         function playFeedback(type) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            
             osc.type = type === 'hit' ? 'sine' : 'sawtooth';
             osc.frequency.setValueAtTime(type === 'hit' ? 880 : 150, audioCtx.currentTime);
             gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-            
             osc.connect(gain); gain.connect(audioCtx.destination);
             osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         }
@@ -192,29 +172,30 @@
             canvas.width = gameArea.clientWidth;
             canvas.height = gameArea.clientHeight;
             staffCenterY = canvas.height / 2;
-            lineGap = Math.min(canvas.height / 10, 24); // Aumentei um pouco pois temos mais espaço vertical
+            lineGap = Math.min(canvas.height / 10, 24); 
         }
         window.addEventListener('resize', resize); resize();
 
-        // --- CLASSE NOTA (Simplificada V3.0) ---
+        // --- MAPA DE CORES DIDÁTICAS ---
+        const noteColors = {
+            'Dó': '#e74c3c', // Vermelho
+            'Ré': '#e67e22', // Laranja
+            'Mi': '#f1c40f', // Amarelo
+            'Fá': '#2ecc71', // Verde
+            'Sol': '#3498db', // Azul Claro
+            'Lá': '#9b59b6', // Roxo
+            'Si': '#34495e'  // Azul Escuro/Cinza
+        };
+
         class Note {
             constructor() {
                 this.x = canvas.width + 50; 
                 
-                // Opções de Notas (Sem acidentes)
                 const options = [
-                    { base: 'Dó', pos: -2 }, 
-                    { base: 'Ré', pos: -1 }, 
-                    { base: 'Mi', pos: 0 },  
-                    { base: 'Fá', pos: 1 },  
-                    { base: 'Sol', pos: 2 }, 
-                    { base: 'Lá', pos: 3 },
-                    { base: 'Si', pos: 4 },  
-                    { base: 'Dó', pos: 5 },  
-                    { base: 'Ré', pos: 6 },  
-                    { base: 'Mi', pos: 7 },  
-                    { base: 'Fá', pos: 8 },  
-                    { base: 'Sol', pos: 9 }, 
+                    { base: 'Dó', pos: -2 }, { base: 'Ré', pos: -1 }, { base: 'Mi', pos: 0 },  
+                    { base: 'Fá', pos: 1 },  { base: 'Sol', pos: 2 }, { base: 'Lá', pos: 3 },
+                    { base: 'Si', pos: 4 },  { base: 'Dó', pos: 5 },  { base: 'Ré', pos: 6 },  
+                    { base: 'Mi', pos: 7 },  { base: 'Fá', pos: 8 },  { base: 'Sol', pos: 9 }, 
                     { base: 'Lá', pos: 10 }  
                 ];
                 
@@ -222,16 +203,13 @@
                 this.baseName = pick.base; 
                 this.pos = pick.pos;
                 
-                // REMOVIDA LÓGICA DE ACIDENTES (V3.0)
-                
+                // Define a cor baseada no nome da nota
+                this.color = noteColors[this.baseName];
                 this.marked = false; 
-                this.color = '#000';
             }
 
             update() {
                 this.x -= gameSpeed; 
-                
-                // Lógica de colisão precisa (V2.10)
                 if (this.x < hitZone.start && !this.marked) {
                     this.marked = true; 
                     loseLife();
@@ -243,15 +221,14 @@
                 const y = staffCenterY + ((4 - this.pos) * (lineGap / 2));
                 ctx.save(); ctx.translate(this.x, y);
                 
-                // Desenho da Nota
+                // Desenha a Nota usando a COR DIDÁTICA
                 ctx.beginPath(); ctx.rotate(-0.1); 
-                ctx.lineWidth = 2.5; ctx.strokeStyle = this.color; // Linha um pouco mais grossa
+                ctx.lineWidth = 3; // Linha um pouco mais grossa para ver a cor
+                ctx.strokeStyle = this.color; // Usa a cor mapeada
                 ctx.ellipse(0, 0, lineGap * 0.7, lineGap * 0.45, 0, 0, Math.PI * 2);
                 ctx.stroke(); ctx.rotate(0.1);
 
-                // REMOVIDO DESENHO DE ACIDENTE (V3.0)
-                
-                // Linhas Suplementares
+                // Linhas Suplementares (Sempre cinza escuro, para não confundir)
                 ctx.lineWidth = 1.5; ctx.strokeStyle = '#555';
                 
                 if (this.pos <= -2) {
@@ -277,38 +254,34 @@
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
             
-            // Clave na 2ª Linha (Sol) (V2.11 Fix)
             ctx.fillStyle = '#2c3e50'; ctx.font = `${lineGap * 5.5}px serif`;
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText('𝄞', 60, staffCenterY + (lineGap * 0.8));
 
-            // Zona Verde
             ctx.fillStyle = 'rgba(39, 174, 96, 0.1)';
             ctx.fillRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
             ctx.strokeStyle = 'rgba(39, 174, 96, 0.4)'; ctx.lineWidth = 2;
             ctx.strokeRect(hitZone.start, 0, hitZone.end - hitZone.start, canvas.height);
         }
 
-        // REMOVIDA FUNÇÃO TOGGLE MODIFIER (V3.0)
-
-        // Verifica Acerto (Simplificado)
         function inputNote(base) {
             if (gameState !== 'PLAYING') return;
             const target = notes.find(n => n.x > hitZone.start && n.x < hitZone.end && !n.marked);
 
             if (target) {
-                // Checagem simples: Só o nome da nota importa
                 if (target.baseName === base) {
                     score += 10;
                     playFeedback('hit'); target.marked = true;
                     notes = notes.filter(n => n !== target); 
-                    showFloatText(target.x, target.y - 50, "Certo!", "#27ae60");
+                    // Feedback visual usa a cor da nota acertada!
+                    showFloatText(target.x, target.y - 50, "Certo!", target.color);
                     
                     if(score % 50 === 0) gameSpeed += 0.3;
                 } else {
                     lives--; playFeedback('miss');
                     showFloatText(target.x, target.y - 50, "Errou!", "#c0392b");
-                    target.color = '#e74c3c'; target.marked = true;
+                    target.color = '#e74c3c'; // Fica vermelha se errar
+                    target.marked = true;
                 }
             }
             updateHUD();
