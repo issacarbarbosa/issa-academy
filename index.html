@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mestre da Clave V3.4 (Recorde)</title>
+    <title>Mestre da Clave V3.7 (Juicy)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
         * { box-sizing: border-box; touch-action: manipulation; } 
@@ -14,6 +14,23 @@
             display: flex; flex-direction: column;
         }
 
+        /* Animação de Shake (Erro) */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .shake-effect { animation: shake 0.3s; }
+
+        /* TRAVA DE ROTAÇÃO */
         #rotate-message {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #2c3e50; color: white; z-index: 9999;
@@ -38,11 +55,11 @@
         }
         canvas { display: block; width: 100%; height: 100%; }
 
-        /* HUD COM 3 ELEMENTOS (Pontos, Nível, Vidas) */
+        /* HUD - Direita Superior */
         #hud { 
             position: absolute; top: 15px; left: 10px; right: 10px; 
-            display: flex; justify-content: space-between; align-items: center;
-            pointer-events: none; z-index: 5; 
+            display: flex; justify-content: flex-end; gap: 10px; align-items: center;
+            pointer-events: none; z-index: 50; 
         }
         .hud-pill { 
             background: rgba(255,255,255,0.95); padding: 5px 12px; border-radius: 15px; 
@@ -55,7 +72,7 @@
             flex: 0 0 auto; height: auto; background: #34495e;
             display: flex; flex-direction: column; justify-content: center;
             padding: 10px 5px 15px 5px; gap: 5px;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.3); z-index: 10;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.3); z-index: 60;
         }
 
         #notes-row { display: flex; gap: 4px; height: 55px; }
@@ -75,6 +92,7 @@
         .btn-la { border-bottom: 4px solid #9b59b6; color: #8e44ad; }
         .btn-si { border-bottom: 4px solid #00d2d3; color: #008c9e; }
 
+        /* OVERLAYS */
         .overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(44, 62, 80, 0.98); display: flex; flex-direction: column;
@@ -84,7 +102,6 @@
         
         h1 { font-size: 2rem; margin: 0 0 10px 0; color: #f1c40f; }
         p { font-size: 1.1rem; max-width: 80%; margin-bottom: 20px; color: #ecf0f1; }
-        
         .highscore-text { font-size: 0.9rem; color: #bdc3c7; margin-top: 10px; font-weight: 300; }
 
         .btn-primary { 
@@ -94,8 +111,21 @@
         }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         
-        .feedback { position: absolute; font-weight: 900; font-size: 2rem; animation: popUp 0.8s forwards; pointer-events: none; z-index: 50; text-shadow: 1px 1px 0 #fff; }
-        @keyframes popUp { 0% { transform: scale(0.5) translateY(0); opacity: 0; } 100% { transform: scale(1) translateY(-60px); opacity: 0; } }
+        /* FEEDBACK FLUTUANTE (Correção de Visibilidade) */
+        /* Z-Index altíssimo e fixado no body para não ser cortado */
+        .feedback { 
+            position: fixed; /* Fixado na tela, ignora containers */
+            font-weight: 900; font-size: 2.5rem; 
+            animation: popUp 0.8s forwards; 
+            pointer-events: none; z-index: 10000; 
+            text-shadow: 2px 2px 0 #fff, -1px -1px 0 #000;
+            transform: translate(-50%, -50%); /* Centraliza no ponto */
+        }
+        @keyframes popUp { 
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 
+            20% { transform: translate(-50%, -80%) scale(1.2); opacity: 1; } 
+            100% { transform: translate(-50%, -200%) scale(1); opacity: 0; } 
+        }
 
         .levelup-flash { animation: flashScreen 0.5s; }
         @keyframes flashScreen { 0% { background: rgba(255, 255, 255, 0.8); } 100% { background: transparent; } }
@@ -111,8 +141,8 @@
         <div id="game-area">
             <canvas id="gameCanvas"></canvas>
             <div id="hud">
-                <div class="hud-pill">Pts: <span id="score">0</span></div>
                 <div class="hud-pill">Nível <span id="level-display" class="level-badge">1</span></div>
+                <div class="hud-pill">Pts: <span id="score">0</span></div>
                 <div class="hud-pill">Vidas: <span id="lives">3</span></div>
             </div>
         </div>
@@ -130,7 +160,7 @@
         </div>
     </div>
 
-    <!-- TELA INICIAL COM RECORDE -->
+    <!-- TELA INICIAL -->
     <div id="start-screen" class="overlay">
         <h1>Mestre da Clave</h1>
         <p>Comece com <strong>Dó e Ré</strong>.<br>Acerte para subir de nível!</p>
@@ -138,7 +168,7 @@
         <div class="highscore-text">🏆 Seu Recorde: <span id="start-highscore">0</span></div>
     </div>
 
-    <!-- GAME OVER COM RECORDE -->
+    <!-- GAME OVER -->
     <div id="game-over-screen" class="overlay hidden">
         <h1 style="color: #e74c3c;">Fim de Jogo!</h1>
         <p>Você fez <strong id="final-score" style="color:#fff">0</strong> pontos<br>e chegou no Nível <strong id="final-level" style="color:#f1c40f">1</strong></p>
@@ -150,8 +180,33 @@
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const gameArea = document.getElementById('game-area');
+        const mainWrapper = document.getElementById('main-wrapper');
 
-        // PROGRESSÃO (Scaffolding)
+        // --- SISTEMA DE PARTÍCULAS (JUICY V3.7) ---
+        let particles = [];
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * 6 - 3;
+                this.life = 1.0; // Opacidade
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY; this.life -= 0.05;
+            }
+            draw() {
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+        }
+        function spawnParticles(x, y, color) {
+            for(let i=0; i<10; i++) particles.push(new Particle(x, y, color));
+        }
+
+        // --- PROGRESSÃO ---
         const progressionList = [
             { base: 'Dó', pos: -2 }, { base: 'Ré', pos: -1 }, 
             { base: 'Mi', pos: 0 }, { base: 'Fá', pos: 1 }, { base: 'Sol', pos: 2 }, 
@@ -166,11 +221,7 @@
         let notes = []; let animationId;
         let staffCenterY, lineGap; const hitZone = { start: 90, end: 320 }; 
 
-        let currentLevel = 1;
-        let hitsInLevel = 0;
-        const HITS_TO_LEVELUP = 10; 
-
-        // RECUPERA RECORDE DO CELULAR
+        let currentLevel = 1; let hitsInLevel = 0; const HITS_TO_LEVELUP = 10; 
         let highScore = localStorage.getItem('mestreClave_record') || 0;
         document.getElementById('start-highscore').innerText = highScore;
 
@@ -195,14 +246,20 @@
         class Note {
             constructor() {
                 this.x = canvas.width + 50; 
-                // Sorteio inteligente baseado no nível
                 const unlockedCount = Math.min(currentLevel + 1, progressionList.length);
                 const availableNotes = progressionList.slice(0, unlockedCount);
                 const pick = availableNotes[Math.floor(Math.random() * availableNotes.length)];
                 
-                this.baseName = pick.base; 
-                this.pos = pick.pos;
-                this.color = noteColors[this.baseName];
+                this.baseName = pick.base; this.pos = pick.pos;
+                
+                // Lógica Desmame (V3.6)
+                this.isBlack = false;
+                if (currentLevel >= 13) {
+                    const blackChance = (currentLevel - 12) * 0.2;
+                    if (Math.random() < blackChance) this.isBlack = true;
+                }
+                this.color = this.isBlack ? '#000000' : noteColors[this.baseName];
+                this.trueColor = noteColors[this.baseName];
                 this.marked = false; 
             }
             update() {
@@ -241,15 +298,23 @@
 
             if (target) {
                 if (target.baseName === base) {
-                    score += 10; // 10 Pontos por acerto
-                    hitsInLevel++;
+                    score += 10; hitsInLevel++;
                     playSound(880, 'sine'); target.marked = true;
+                    // SPAWN PARTICLES (JUICY)
+                    spawnParticles(target.x, target.y + (staffCenterY + ((4 - target.pos) * (lineGap / 2)) - target.y), target.trueColor); 
+                    // Correção: Posição Y da partícula deve ser a posição desenhada, não a lógica
+                    const drawY = staffCenterY + ((4 - target.pos) * (lineGap / 2));
+                    spawnParticles(target.x, drawY, target.trueColor);
+
                     notes = notes.filter(n => n !== target); 
-                    showFloatText(target.x, target.y - 50, "Certo!", target.color);
+                    showFloatText(target.x, drawY - 50, "Certo!", target.trueColor);
                     checkLevelUp();
                 } else {
                     lives--; playSound(150, 'sawtooth');
-                    showFloatText(target.x, target.y - 50, "Errou!", "#c0392b");
+                    // SCREEN SHAKE (JUICY)
+                    triggerShake();
+                    const drawY = staffCenterY + ((4 - target.pos) * (lineGap / 2));
+                    showFloatText(target.x, drawY - 50, "Errou!", "#c0392b");
                     target.color = '#e74c3c'; target.marked = true;
                 }
             }
@@ -259,33 +324,43 @@
         function checkLevelUp() {
             const progress = (hitsInLevel / HITS_TO_LEVELUP) * 100;
             document.getElementById('xp-bar-fill').style.width = progress + '%';
-
             if (hitsInLevel >= HITS_TO_LEVELUP) {
                 if (currentLevel + 1 < progressionList.length) {
-                    currentLevel++;
-                    hitsInLevel = 0;
-                    gameSpeed += 0.2; 
-                    spawnInterval -= 2; 
-                    playSound(1200, 'square'); 
-                    document.getElementById('xp-bar-fill').style.width = '0%'; 
-                    showFloatText(canvas.width/2, canvas.height/2, `Nível ${currentLevel}!`, "#f1c40f");
-                    const flash = document.createElement('div');
-                    flash.className = 'overlay levelup-flash';
-                    document.body.appendChild(flash);
-                    setTimeout(() => flash.remove(), 500);
+                    currentLevel++; hitsInLevel = 0; 
+                    if(currentLevel <= 12) { gameSpeed += 0.2; spawnInterval -= 2; }
+                    let msg = `Nível ${currentLevel}!`;
+                    if (currentLevel >= 13 && currentLevel <= 17) msg = "Modo Desmame!";
+                    playSound(1200, 'square'); document.getElementById('xp-bar-fill').style.width = '0%'; 
+                    showFloatText(canvas.width/2, canvas.height/2, msg, "#f1c40f");
+                    const flash = document.createElement('div'); flash.className = 'overlay levelup-flash';
+                    document.body.appendChild(flash); setTimeout(() => flash.remove(), 500);
                 }
             }
         }
 
+        // TEXTO FLUTUANTE (Correção: Append to Body)
         function showFloatText(x, y, text, color) {
+            // Ajusta coordenadas para serem globais (body)
+            const rect = canvas.getBoundingClientRect();
+            const globalX = rect.left + x;
+            const globalY = rect.top + y;
+
             const el = document.createElement('div'); el.className = 'feedback';
-            el.innerText = text; el.style.color = color; el.style.left = x+'px'; el.style.top = y+'px';
-            gameArea.appendChild(el); setTimeout(() => el.remove(), 800);
+            el.innerText = text; el.style.color = color; 
+            el.style.left = globalX+'px'; el.style.top = globalY+'px';
+            document.body.appendChild(el); // Fixa no body pra não cortar
+            setTimeout(() => el.remove(), 800);
+        }
+
+        // SCREEN SHAKE
+        function triggerShake() {
+            mainWrapper.classList.add('shake-effect');
+            setTimeout(() => mainWrapper.classList.remove('shake-effect'), 300);
         }
 
         function loseLife() {
             if (gameState !== 'PLAYING') return;
-            lives--; updateHUD();
+            lives--; updateHUD(); triggerShake(); // Shake tbm ao perder vida por passar
             if (lives <= 0) endGame();
             else { gameArea.style.background = 'rgba(231, 76, 60, 0.3)'; setTimeout(() => gameArea.style.background = '', 150); }
         }
@@ -299,7 +374,16 @@
         function loop() {
             if (gameState !== 'PLAYING') return;
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            drawStaff(); spawnTimer++;
+            drawStaff(); 
+            
+            // Desenha Partículas
+            for(let i=particles.length-1; i>=0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if(particles[i].life <= 0) particles.splice(i, 1);
+            }
+
+            spawnTimer++;
             if (spawnTimer > spawnInterval) { notes.push(new Note()); spawnTimer = 0; }
             notes.forEach(n => { n.update(); n.draw(); }); 
             notes = notes.filter(n => n.x > -100 && !n.marked); 
@@ -309,36 +393,4 @@
         function startGame() {
             enterFullScreen();
             gameState = 'PLAYING'; score = 0; lives = 3; 
-            currentLevel = 1; hitsInLevel = 0; gameSpeed = 2.5; spawnInterval = 120;
-            document.getElementById('xp-bar-fill').style.width = '0%';
-            notes = []; 
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('game-over-screen').classList.add('hidden');
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            resize(); loop(); updateHUD();
-        }
-
-        function endGame() { 
-            gameState = 'GAMEOVER'; cancelAnimationFrame(animationId); 
-            
-            // --- LÓGICA DE RECORDE (LocalStorage) ---
-            if (score > highScore) {
-                highScore = score;
-                localStorage.setItem('mestreClave_record', highScore);
-            }
-            
-            // Atualiza textos do Game Over
-            document.getElementById('final-score').innerText = score;
-            document.getElementById('final-level').innerText = currentLevel;
-            document.getElementById('end-highscore').innerText = highScore;
-            document.getElementById('start-highscore').innerText = highScore; // Atualiza para a próxima
-
-            document.getElementById('game-over-screen').classList.remove('hidden'); 
-        }
-        function resetGame() { startGame(); }
-    </script>
-</body>
-</html>
-
-
-                                                                                              
+            currentLevel = 1; hitsI
