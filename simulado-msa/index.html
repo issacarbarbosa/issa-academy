@@ -2,8 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Atualizado Título -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Simulado MSA | Issa Academy</title>
     
     <!-- Analytics -->
@@ -16,444 +15,731 @@
     </script>
 
     <!-- Fonte e Ícones -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Music&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Music&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root { 
-            --primary: #4f46e5; 
-            --primary-dark: #4338ca;
-            --accent: #f59e0b; 
-            --success: #10b981; --success-bg: #ecfdf5; 
-            --error: #ef4444; --error-bg: #fef2f2; 
-            --text: #111827; --text-sec: #6b7280; 
-            --bg: #f3f4f6; --white: #ffffff; 
+            /* Paleta Gamificada (Baseada na Issa Academy) */
+            --brand-blue: #1a3c5a;
+            --brand-gold: #c5a059;
+            
+            --duo-bg: #ffffff;
+            --duo-surface: #f7f9fa;
+            
+            /* Cores de Fundo da Pergunta */
+            --q-bg: #e5f6fd; 
+            --q-border: #c3e3f7;
+            
+            /* Botões e Interação (Juicy Colors) */
+            --btn-blue: #1cb0f6; --btn-blue-shade: #1899d6;
+            --btn-green: #58cc02; --btn-green-shade: #58a700;
+            --btn-red: #ff4b4b;   --btn-red-shade: #ea2b2b;
+            --btn-gold: #ffc800;  --btn-gold-shade: #e5b400;
+            --btn-gray: #e5e5e5;  --btn-gray-shade: #cecece;
+            
+            --text-main: #4b4b4b;
+            --text-light: #777;
+            
             --radius: 16px; 
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
-        * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        * { box-sizing: border-box; font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* CONTAINER */
-        .quiz-container { 
-            background: var(--white); width: 100%; max-width: 500px; 
-            border-radius: var(--radius); box-shadow: var(--shadow-md); 
-            padding: 32px 24px; position: relative; overflow: hidden; 
+        body { 
+            background-color: var(--duo-surface); 
+            color: var(--text-main); 
+            margin: 0; padding: 0; 
+            min-height: 100vh; 
+            display: flex; flex-direction: column; 
+            /* Evita seleção de texto no mobile para parecer app */
+            user-select: none;
+        }
+
+        /* HEADER SIMPLES */
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px; max-width: 800px; margin: 0 auto; width: 100%;
+        }
+        .close-btn { font-size: 1.5rem; color: #e5e5e5; cursor: pointer; transition: color 0.2s; text-decoration: none;}
+        .close-btn:hover { color: var(--text-main); }
+        
+        .progress-container { flex: 1; margin: 0 20px; background: #e5e5e5; height: 16px; border-radius: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--btn-gold); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 20px; position: relative; }
+        .progress-highlight { position: absolute; top: 3px; left: 0; right: 0; height: 4px; background: rgba(255,255,255,0.3); border-radius: 20px; }
+
+        /* ÁREA DO MASCOTE (FUFU) */
+        .mascot-area {
+            display: flex; align-items: flex-end; gap: 15px;
+            max-width: 800px; margin: 10px auto 10px; width: 100%;
+            padding: 0 20px;
+            min-height: 100px;
         }
         
-        /* MENU */
-        .menu-header { text-align: center; margin-bottom: 30px; }
-        .menu-header h2 { font-size: 1.5rem; font-weight: 700; margin: 0 0 8px 0; }
-        .menu-header p { color: var(--text-sec); font-size: 0.95rem; margin: 0; }
-
-        .filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
-        .filter-btn { 
-            padding: 16px; border: 2px solid #e5e7eb; border-radius: 12px; 
-            background: white; color: var(--text); cursor: pointer; 
-            transition: all 0.2s; text-align: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+        .fufu-avatar {
+            width: 80px; height: 80px;
+            font-size: 60px; /* Placeholder Emoji Size */
+            display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .filter-btn span { font-weight: 600; font-size: 1rem; }
-        .filter-btn small { font-weight: 400; font-size: 0.8rem; color: var(--text-sec); }
         
-        .filter-btn:hover:not(.disabled) { border-color: var(--primary); background: #eef2ff; transform: translateY(-2px); }
-        .filter-btn.selected { background: var(--primary); color: white; border-color: var(--primary); }
-        .filter-btn.selected small { color: rgba(255,255,255,0.8); }
-        .filter-btn.disabled { opacity: 0.6; cursor: not-allowed; background: #f9fafb; border-color: #f3f4f6; }
-        .filter-full { grid-column: span 2; }
-
-        /* QUIZ HEADER */
-        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f3f4f6; }
-        .quiz-title { font-size: 0.85rem; font-weight: 600; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn-close { background: none; border: none; font-size: 1.2rem; color: #d1d5db; cursor: pointer; transition: color 0.2s; }
-        .btn-close:hover { color: var(--error); }
-
-        /* COMBO COUNTER */
-        .combo-box {
-            display: flex; align-items: center; gap: 6px; 
-            font-weight: 800; font-size: 0.9rem; color: var(--text-sec);
-            transition: transform 0.2s ease;
+        .speech-bubble {
+            background: white; border: 2px solid #e5e5e5;
+            padding: 12px 18px; border-radius: 18px;
+            border-top-left-radius: 2px;
+            font-weight: 700; color: var(--text-main); font-size: 1rem;
+            position: relative; box-shadow: 0 4px 0 #e5e5e5;
+            flex: 1;
+            transform-origin: left bottom;
+            animation: popIn 0.3s;
         }
-        .combo-box.active { color: var(--accent); }
-        .combo-box.shake { animation: shake 0.4s ease-in-out; color: var(--error); }
-        .combo-box.pop { animation: pop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-        
-        /* PROGRESSO */
-        .progress-bar-bg { width: 100%; height: 8px; background: #f3f4f6; border-radius: 99px; margin-bottom: 32px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #818cf8); width: 0%; transition: width 0.5s ease; border-radius: 99px; }
+        .speech-bubble::before {
+            content: ''; position: absolute; left: -12px; top: 0;
+            border-top: 12px solid #e5e5e5; border-left: 12px solid transparent;
+        }
+        .speech-bubble::after {
+            content: ''; position: absolute; left: -8px; top: 2px;
+            border-top: 12px solid white; border-left: 12px solid transparent;
+        }
 
-        /* PERGUNTA */
-        .question-text { font-size: 1.25rem; font-weight: 700; margin-bottom: 32px; line-height: 1.5; color: var(--text); }
-        .time-sig { display: inline-flex; flex-direction: column; vertical-align: middle; font-family: 'Noto Music', serif; font-weight: 400; font-size: 0.85em; line-height: 0.8; margin: 0 4px; background: #f3f4f6; padding: 4px 6px; border-radius: 6px; }
-        .time-sig span { display: block; text-align: center; }
+        /* CONTEÚDO DO QUIZ */
+        .quiz-content {
+            flex: 1; max-width: 600px; margin: 0 auto; width: 100%; padding: 0 20px 100px;
+            display: flex; flex-direction: column; justify-content: flex-start;
+        }
+
+        /* CARTÃO DA PERGUNTA */
+        .question-card {
+            background-color: var(--q-bg);
+            border: 2px solid var(--q-border);
+            border-radius: var(--radius);
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.05);
+        }
+
+        .q-number-badge {
+            position: absolute; top: -15px; left: -10px;
+            background-color: var(--brand-blue); color: white;
+            font-weight: 800; font-size: 1.1rem;
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+            transform: rotate(-5deg); border: 2px solid white;
+        }
+
+        h2.question-text {
+            font-size: 1.25rem; color: var(--brand-blue); 
+            margin: 0; line-height: 1.5;
+            text-align: left; font-weight: 700;
+        }
 
         /* OPÇÕES */
-        .options-grid { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn { 
-            background: white; border: 2px solid #e5e7eb; padding: 18px; border-radius: 12px; 
-            text-align: left; font-size: 1rem; color: var(--text); font-weight: 500; 
-            cursor: pointer; position: relative; transition: all 0.2s;
-            display: flex; flex-direction: column; gap: 6px;
-        }
-        .option-btn:hover:not([disabled]) { border-color: var(--primary); background: #f5f3ff; }
-        
-        .option-btn.correct { background: var(--success-bg); border-color: var(--success); color: #065f46; }
-        .option-btn.wrong { background: var(--error-bg); border-color: var(--error); color: #991b1b; }
-        
-        .btn-label { 
-            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; 
-            display: none; align-items: center; gap: 6px; margin-bottom: 4px; 
-        }
-        .option-btn.correct .btn-label { display: flex; color: var(--success); }
+        .options-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+        @media (min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
 
-        /* FEEDBACK */
-        #feedback-area { 
-            margin-top: 24px; padding: 20px; border-radius: 12px; 
-            background: #f8fafc; border-left: 4px solid var(--primary);
-            animation: slideUp 0.4s ease;
+        .duo-btn {
+            background: white; 
+            border: 2px solid #e5e5e5; border-bottom: 4px solid #e5e5e5;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 1rem; color: var(--text-main); font-weight: 700;
+            cursor: pointer; position: relative;
+            transition: all 0.1s; text-align: left;
+            display: flex; align-items: center; gap: 15px;
         }
-        .feedback-label { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .feedback-label.success { color: var(--success); } .feedback-label.error { color: var(--error); }
-        .feedback-content { font-size: 0.95rem; line-height: 1.6; color: var(--text); }
-        .feedback-ref { margin-top: 16px; font-size: 0.8rem; color: var(--text-sec); background: white; padding: 6px 12px; border-radius: 6px; width: fit-content; border: 1px solid #e5e7eb; }
+        .duo-btn:active { transform: translateY(4px); border-bottom-width: 0; margin-bottom: 4px; }
+        .duo-btn:hover:not(:disabled) { background: #f7f9fa; border-color: #d1d5db; border-bottom-color: #d1d5db; }
 
-        /* BOTÕES AÇÃO */
-        .action-btn { 
-            background: var(--primary); color: white; border: none; padding: 18px; border-radius: 99px; 
-            font-size: 1rem; font-weight: 600; margin-top: 32px; width: 100%; cursor: pointer; 
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3); transition: transform 0.1s;
+        .option-letter {
+            width: 32px; height: 32px; flex-shrink: 0;
+            border: 2px solid #e5e5e5; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; color: #afafaf; background: white; font-size: 0.9rem;
+            transition: all 0.2s;
         }
-        .action-btn:active { transform: scale(0.98); }
-        .action-btn.secondary { background: white; color: var(--text); border: 2px solid #e5e7eb; box-shadow: none; margin-top: 12px; }
-        .action-btn:disabled { opacity: 0.6; cursor: wait; }
 
-        /* RESULTADOS */
-        .result-box { text-align: center; padding: 40px 0; }
-        .score-circle { 
-            width: 140px; height: 140px; background: #e0e7ff; border-radius: 50%; 
-            margin: 0 auto 32px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        .duo-btn.selected { border-color: var(--btn-blue); border-bottom-color: var(--btn-blue-shade); background: #ddf4ff; color: var(--btn-blue-shade); }
+        .duo-btn.selected .option-letter { background: var(--btn-blue); color: white; border-color: var(--btn-blue); }
+
+        .duo-btn.correct { border-color: var(--btn-green); border-bottom-color: var(--btn-green-shade); background: #dfffc8; color: var(--btn-green-shade); }
+        .duo-btn.correct .option-letter { background: var(--btn-green); color: white; border-color: var(--btn-green); }
+
+        .duo-btn.wrong { border-color: var(--btn-red); border-bottom-color: var(--btn-red-shade); background: #ffdfe0; color: var(--btn-red-shade); }
+        .duo-btn.wrong .option-letter { background: var(--btn-red); color: white; border-color: var(--btn-red); }
+
+        /* CAIXA DE FEEDBACK */
+        #feedback-box {
+            margin-top: 20px; padding: 20px; border-radius: 16px;
+            animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: none;
         }
-        .score-number { font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
-        .score-label { font-size: 0.9rem; color: var(--text-sec); font-weight: 600; text-transform: uppercase; margin-top: 4px; }
+        #feedback-box.correct { background: #d7ffb8; color: var(--btn-green-shade); border: 2px solid #b8f28b; }
+        #feedback-box.wrong { background: #ffdfe0; color: var(--btn-red-shade); border: 2px solid #ffc1c1; }
+
+        .feedback-header { font-weight: 800; font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .feedback-body { color: var(--text-main); font-size: 1rem; line-height: 1.5; }
         
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-        .stat-card { background: #f9fafb; padding: 16px; border-radius: 12px; border: 1px solid #f3f4f6; }
-        .stat-val { font-weight: 800; font-size: 1.5rem; display: block; margin-bottom: 4px; }
-        .stat-lbl { font-size: 0.85rem; color: var(--text-sec); }
-        .stat-val.green { color: var(--success); } .stat-val.red { color: var(--error); }
+        .ref-badge {
+            display: inline-block; background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(0,0,0,0.1); padding: 6px 12px; border-radius: 12px;
+            font-size: 0.85rem; font-weight: 700; color: var(--brand-blue);
+            margin-top: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+        }
 
-        .hidden { display: none; }
-        .nav-back { position: absolute; top: 20px; left: 20px; text-decoration: none; color: var(--text-sec); font-size: 1.1rem; }
+        /* FOOTER DE AÇÃO */
+        .action-footer {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: white; border-top: 2px solid #e5e5e5;
+            padding: 15px 20px; display: flex; justify-content: flex-end; align-items: center;
+            z-index: 100; transition: border-color 0.3s, background 0.3s;
+        }
+        .action-footer.correct { border-top-color: var(--btn-green); background: #f0ffe0; }
+        .action-footer.wrong { border-top-color: var(--btn-red); background: #fff0f0; }
+
+        .check-btn {
+            background: var(--btn-green); color: white;
+            border: none; border-bottom: 4px solid var(--btn-green-shade);
+            border-radius: 12px; padding: 15px 30px;
+            font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; width: 100%; transition: all 0.1s;
+        }
+        .check-btn:active { transform: translateY(4px); border-bottom-width: 0; }
+        .check-btn.disabled { background: #e5e5e5; color: #afafaf; border-bottom-color: #cecece; pointer-events: none; }
+        .check-btn.continue { background: var(--btn-blue); border-bottom-color: var(--btn-blue-shade); }
+        .check-btn.continue-error { background: var(--btn-red); border-bottom-color: var(--btn-red-shade); }
+
+        @media (min-width: 600px) { .check-btn { width: auto; min-width: 150px; } }
+
+        /* TELA DE RESULTADO (UPGRADE) */
+        .result-stats-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 20px;
+        }
+        .stat-box {
+            background: #f7f9fa; border: 2px solid #e5e5e5; border-radius: 16px; padding: 15px;
+            text-align: center;
+        }
+        .stat-label { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; font-weight: 700; display: block; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--brand-blue); display: block; }
+
+        .review-section {
+            width: 100%; text-align: left; margin-top: 20px;
+            max-height: 300px; overflow-y: auto;
+            border-top: 2px solid #e5e5e5; padding-top: 20px;
+        }
+        .review-item {
+            background: #fff5f5; border-left: 4px solid var(--btn-red);
+            padding: 12px; border-radius: 8px; margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .review-q { font-weight: 700; color: var(--text-main); margin-bottom: 5px; }
+        .review-a { color: var(--btn-green-shade); font-weight: 600; }
+        .review-ref { font-size: 0.75rem; color: #888; margin-top: 4px; display: block; }
+
+        /* TELA MENU E SELEÇÃO DE FASES */
+        #menu-screen { text-align: center; padding-top: 30px; max-width: 600px; margin: 0 auto; padding-bottom: 40px;}
         
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .period-grid {
+            display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px;
+        }
+        @media (min-width: 480px) { .period-grid { grid-template-columns: 1fr 1fr; } }
+
+        .period-card {
+            background: white; border: 2px solid #e5e5e5; border-bottom: 4px solid #e5e5e5;
+            border-radius: 16px; padding: 20px; text-align: left;
+            transition: transform 0.1s; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 140px; cursor: pointer;
+        }
+        .period-card:active { transform: translateY(4px); border-bottom-width: 2px; }
+        
+        /* Estado Ativo (Período 1) */
+        .period-card.active { border-color: var(--btn-blue); border-bottom-color: var(--btn-blue-shade); }
+        .period-card.active .p-icon { color: var(--btn-blue); }
+        
+        /* Estado Bloqueado */
+        .period-card.locked { 
+            background: #f7f9fa; border-color: #e5e5e5; cursor: not-allowed; opacity: 0.7; 
+            pointer-events: none;
+        }
+        .period-card.locked .p-icon { color: #ccc; }
+
+        .p-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .p-title { font-weight: 800; font-size: 1.1rem; color: var(--text-main); margin: 0; }
+        .p-subtitle { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+        .p-icon { font-size: 1.8rem; }
+
+        .start-btn-big {
+            background: var(--btn-green); color: white; width: 100%;
+            border: none; border-bottom: 4px solid var(--btn-green-shade);
+            border-radius: 16px; padding: 18px; font-size: 1.2rem; font-weight: 800;
+            text-transform: uppercase; margin-top: 30px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(88, 204, 2, 0.3);
+        }
+        .start-btn-big:active { transform: translateY(4px); border-bottom: 0; box-shadow: none; }
+
+        .hidden { display: none !important; }
+        .time-sig { background: #eee; padding: 2px 5px; border-radius: 4px; display: inline-block; vertical-align: middle; line-height: 0.9; font-family: 'Noto Music', serif; text-align: center; }
+        .time-sig span { display: block; font-size: 0.8em; }
+
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes slideUp { 0% { transform: translateY(10px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="quiz-container">
+    <!-- MENU INICIAL (SELEÇÃO DE FASES) -->
+    <div id="menu-screen">
+        <div class="mascot-area" style="justify-content: center; margin-bottom: 0;">
+            <div class="fufu-avatar" style="font-size: 80px;">😺</div>
+        </div>
+        <h1 style="color: var(--brand-blue); margin-bottom: 5px;">Simulado MSA</h1>
         
-        <!-- MENU -->
-        <div id="menu-screen">
-            <div class="menu-header">
-                <h2>Simulado MSA | Issa Academy</h2>
-                <p>Selecione o conteúdo da avaliação</p>
+        <p style="color: var(--text-light); margin-bottom: 25px;">Selecione o conteúdo:</p>
+        
+        <div class="period-grid">
+            <!-- Período 1 (Ativo) -->
+            <div class="period-card active" onclick="selectPeriod(1)">
+                <div class="p-header">
+                    <div>
+                        <h3 class="p-title">Período 1</h3>
+                        <p class="p-subtitle">Fases 1, 2 e 3</p>
+                    </div>
+                    <i class="fas fa-book-open p-icon"></i>
+                </div>
+                <div style="background: var(--btn-blue); color: white; font-size: 0.7rem; padding: 4px 8px; border-radius: 10px; width: fit-content; font-weight: 800;">SELECIONADO</div>
             </div>
-            
-            <div class="filter-grid">
-                <div class="filter-btn selected" onclick="togglePeriod(1, this)">
-                    <span>Período 1</span>
-                    <small>Fases 1, 2 e 3</small>
-                </div>
-                <div class="filter-btn disabled">
-                    <span>Período 2</span>
-                    <small><i class="fas fa-lock"></i> Em breve</small>
-                </div>
-                <div class="filter-btn disabled">
-                    <span>Período 3</span>
-                    <small><i class="fas fa-lock"></i> Em breve</small>
-                </div>
-                <div class="filter-btn disabled">
-                    <span>Período 4</span>
-                    <small><i class="fas fa-lock"></i> Em breve</small>
-                </div>
-                <div class="filter-btn filter-full disabled" style="opacity: 0.5;">
-                    <span>Selecionar Todos</span>
+
+            <!-- Período 2 (Bloqueado) -->
+            <div class="period-card locked">
+                <div class="p-header">
+                    <div>
+                        <h3 class="p-title">Período 2</h3>
+                        <p class="p-subtitle">Em Breve</p>
+                    </div>
+                    <i class="fas fa-lock p-icon"></i>
                 </div>
             </div>
 
-            <button id="start-btn" class="action-btn" onclick="prepareAndStart()">Iniciar Avaliação</button>
-            <!-- Atualizado Texto do Botão -->
-            <a href="../index.html" class="action-btn secondary" style="text-align:center; display:block; text-decoration:none;">Voltar para Academy</a>
+            <!-- Período 3 (Bloqueado) -->
+            <div class="period-card locked">
+                <div class="p-header">
+                    <div>
+                        <h3 class="p-title">Período 3</h3>
+                        <p class="p-subtitle">Em Breve</p>
+                    </div>
+                    <i class="fas fa-lock p-icon"></i>
+                </div>
+            </div>
+
+            <!-- Período 4 (Bloqueado) -->
+            <div class="period-card locked">
+                <div class="p-header">
+                    <div>
+                        <h3 class="p-title">Período 4</h3>
+                        <p class="p-subtitle">Em Breve</p>
+                    </div>
+                    <i class="fas fa-lock p-icon"></i>
+                </div>
+            </div>
         </div>
 
-        <!-- QUIZ -->
-        <div id="quiz-screen" class="hidden">
-            <div class="header-bar">
-                <span class="quiz-title" id="quiz-header">Carregando...</span>
-                
-                <!-- COMBO STREAK -->
-                <div class="combo-box" id="combo-display">
-                    <i class="fas fa-fire"></i> <span id="combo-count">0</span>
-                </div>
+        <button class="start-btn-big" onclick="prepareAndStart()">COMEÇAR SIMULADO</button>
+        <a href="../index.html" style="display: block; margin-top: 20px; color: var(--text-light); text-decoration: none; font-weight: 700;">VOLTAR PARA ACADEMY</a>
+    </div>
 
-                <button class="btn-close" onclick="location.reload()" aria-label="Cancelar"><i class="fas fa-times"></i></button>
-            </div>
-            
-            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
-            <div class="question-text" id="q-text"></div>
-            <div class="options-grid" id="options-container"></div>
-
-            <div id="feedback-area" class="hidden">
-                <span class="feedback-label" id="fb-label"></span>
-                <p class="feedback-content" id="fb-text"></p>
-                <div class="feedback-ref" id="fb-ref"></div>
-            </div>
-
-            <button id="next-btn" class="action-btn hidden" onclick="nextQuestion()">Próxima</button>
-            <button id="review-controls" class="action-btn secondary hidden" onclick="showResults()">Encerrar Revisão</button>
+    <!-- TELA DO QUIZ -->
+    <div id="quiz-screen" class="hidden">
+        
+        <div class="top-bar">
+            <!-- Botão de Sair com Confirmação -->
+            <a href="javascript:void(0)" onclick="confirmExit()" class="close-btn"><i class="fas fa-times"></i></a>
+            <div class="progress-container"><div class="progress-fill" id="progress-bar"><div class="progress-highlight"></div></div></div>
+            <div style="color: var(--btn-red); font-weight: 800;"><i class="fas fa-heart"></i> ∞</div>
         </div>
 
-        <!-- RESULTADO -->
-        <div id="result-screen" class="hidden result-box">
-            <h2 style="margin-bottom: 30px; font-size: 1.8rem; color: var(--text);">Desempenho</h2>
-            <div class="score-circle">
-                <span class="score-number" id="final-score">0%</span>
-                <span class="score-label">Aproveitamento</span>
+        <div class="mascot-area">
+            <div id="fufu-img" class="fufu-avatar">🐱</div>
+            <div id="fufu-speech" class="speech-bubble">Vamos lá, Issa! Qual é a resposta?</div>
+        </div>
+
+        <div class="quiz-content">
+            <!-- PERGUNTA COM FUNDO E NÚMERO -->
+            <div class="question-card">
+                <div id="q-number" class="q-number-badge">1</div>
+                <h2 id="q-text" class="question-text">Carregando pergunta...</h2>
             </div>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-val green" id="stat-correct">0</span>
-                    <span class="stat-lbl">Respostas Corretas</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-val red" id="stat-wrong">0</span>
-                    <span class="stat-lbl">Respostas Incorretas</span>
-                </div>
-            </div>
+
+            <div id="options-container" class="options-grid"></div>
             
-            <!-- FEEDBACK DO MAESTRO -->
-            <div style="background: #f9fafb; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; margin-bottom: 32px;">
-                <h3 style="margin:0 0 8px 0; font-size:1rem; color:var(--text);">Veredito do Maestro:</h3>
-                <p id="final-msg" style="margin: 0; color: var(--text-sec); font-size: 1rem; line-height: 1.5; font-style: italic;"></p>
+            <!-- CAIXA DE FEEDBACK -->
+            <div id="feedback-box">
+                <div class="feedback-header" id="feedback-title"></div>
+                <div class="feedback-body" id="feedback-content"></div>
+                <div id="feedback-ref-container"></div>
             </div>
-            
-            <button class="action-btn secondary" onclick="startReviewMode()">Revisar Simulado</button>
-            <button class="action-btn" onclick="location.reload()">Nova Avaliação</button>
+        </div>
+
+        <!-- FOOTER DE AÇÃO -->
+        <div id="footer-area" class="action-footer">
+            <button id="check-btn" class="check-btn disabled" onclick="checkOrNext()">VERIFICAR</button>
+        </div>
+
+    </div>
+
+    <!-- TELA DE RESULTADO FINAL (ATUALIZADA) -->
+    <div id="result-screen" class="hidden" style="text-align: center; padding: 40px 20px;">
+        <div id="fufu-result-img" class="fufu-avatar" style="font-size: 120px; margin: 0 auto 20px;">😺</div>
+        <h1 id="result-title" style="color: var(--brand-blue); margin-bottom: 5px;">Treino Concluído!</h1>
+        <p id="result-msg" style="color: var(--text-light); margin-bottom: 20px;">Veja como você se saiu</p>
+        
+        <div class="big-card" style="background: white; border-radius: 20px; border: 2px solid #e5e5e5; padding: 30px; margin: 20px auto; max-width: 400px; box-shadow: 0 10px 0 #e5e5e5;">
+            <div class="result-stats-container">
+                <div class="stat-box">
+                    <span class="stat-label">Precisão</span>
+                    <span class="stat-value" id="final-percent" style="color: var(--btn-green);">0%</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Tempo</span>
+                    <span class="stat-value" id="final-time" style="color: var(--btn-gold-shade);">00:00</span>
+                </div>
+            </div>
+
+            <!-- ÁREA DE REVISÃO (Só aparece se houver erros) -->
+            <div id="review-container" class="hidden">
+                <h4 style="text-align: left; color: var(--btn-red); margin-bottom: 10px;"> <i class="fas fa-exclamation-circle"></i> O que precisa melhorar:</h4>
+                <div id="review-list" class="review-section"></div>
+            </div>
+
+            <button class="start-btn-big" onclick="location.reload()">NOVO SIMULADO</button>
+            <a href="../index.html" style="display: block; margin-top: 20px; color: var(--text-light); text-decoration: none; font-weight: 700;">VOLTAR PARA ACADEMY</a>
         </div>
     </div>
 
     <script>
-        window.bancoQuestoes = []; 
-        let selectedPeriods = [1];
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let shuffledQuestions = [];
-        let userAnswers = [];
-        let isReviewMode = false;
-        let canAnswer = true;
-        let currentStreak = 0;
-
-        const periodMap = {
-            1: ['q_f01.js', 'q_f02.js', 'q_f03.js']
+        // === CONFIGURAÇÃO DO FUFU ===
+        const FUFU_STATES = {
+            NEUTRAL: { type: 'emoji', content: '🐱' }, 
+            HAPPY:   { type: 'emoji', content: '😺' },
+            SAD:     { type: 'emoji', content: '😾' },
+            JUDGE:   { type: 'emoji', content: '😼' }
         };
 
+        const FUFU_PHRASES = {
+            START: ["Vamos nessa!", "Mostre o que sabe!", "Afinação, maestro!", "Foco total!"],
+            CORRECT: ["Miau! Isso aí!", "Perfeito!", "Orgulho do Fufu!", "Na mosca!"],
+            WRONG: ["Hiss... errou.", "Essa doeu no ouvido.", "Preste atenção!", "Miauuu (Não!)"]
+        };
+
+        window.bancoQuestoes = []; 
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let selectedOption = null; 
+        let currentQuestionData = null;
+        let isAnswerChecked = false;
+        
+        // VARIÁVEIS PARA FEEDBACK RICO
+        let quizStartTime;
+        let wrongAnswers = [];
+
+        // FUNÇÃO DE FULL SCREEN
+        function enterFullScreen() {
+            const el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen().catch(err => console.log(err));
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); // Safari
+            else if (el.msRequestFullscreen) el.msRequestFullscreen(); // IE11
+        }
+
+        function exitFullScreen() {
+            if (document.exitFullscreen) document.exitFullscreen().catch(err => console.log(err));
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+
+        function confirmExit() {
+            if (confirm("Tem certeza? Se sair agora, perderá o progresso do simulado.")) {
+                exitFullScreen();
+                location.reload();
+            }
+        }
+
+        function setFufu(state, text) {
+            const imgEl = document.getElementById('fufu-img');
+            const speechEl = document.getElementById('fufu-speech');
+            
+            if(state.type === 'emoji') {
+                imgEl.innerHTML = state.content;
+                imgEl.removeAttribute('src');
+            } else {
+                imgEl.innerHTML = '';
+                imgEl.src = state.content;
+            }
+
+            imgEl.style.transform = 'scale(0.8)';
+            setTimeout(() => imgEl.style.transform = 'scale(1)', 150);
+
+            if(text) speechEl.innerText = text;
+        }
+
         function formatMusicText(text) {
+            if(!text) return "";
             return text.replace(/(\d{1,2})\/(\d{1,2})/g, function(match, num, den) {
                 return `<span class="time-sig"><span>${num}</span><span>${den}</span></span>`;
             });
         }
 
+        const periodMap = { 1: ['q_f01.js', 'q_f02.js', 'q_f03.js'] };
+
+        // Função placeholder para seleção de período (futuramente carregará dinamicamente)
+        function selectPeriod(p) {
+            if(p !== 1) return; // Só permite 1 por enquanto
+            // Lógica visual já está estática no HTML, futuramente aqui mudaria a classe active
+        }
+
         async function loadScripts(scripts) {
-            const promises = scripts.map(scriptName => {
-                return new Promise((resolve, reject) => {
-                    const script = document.createElement('script');
-                    script.src = scriptName;
-                    script.onload = resolve;
-                    script.onerror = () => { console.warn(`Arquivo ${scriptName} não encontrado.`); resolve(); };
-                    document.body.appendChild(script);
-                });
-            });
+            const promises = scripts.map(src => new Promise((resolve) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = () => { console.warn('Falha: ' + src); resolve(); };
+                document.body.appendChild(s);
+            }));
             return Promise.all(promises);
         }
 
         async function prepareAndStart() {
-            const btn = document.getElementById('start-btn');
+            // Tenta entrar em Full Screen
+            enterFullScreen();
+
+            const btn = document.querySelector('.start-btn-big');
             const originalText = btn.innerText;
-            btn.innerText = "Preparando Avaliação...";
+            btn.innerText = "Carregando...";
             btn.disabled = true;
 
-            let filesToLoad = [];
-            selectedPeriods.forEach(p => { if (periodMap[p]) filesToLoad = filesToLoad.concat(periodMap[p]); });
-
-            await loadScripts(filesToLoad);
-
+            await loadScripts(periodMap[1]);
+            
             if (!window.bancoQuestoes || window.bancoQuestoes.length === 0) {
-                alert("Nenhuma questão encontrada. Verifique os arquivos.");
+                alert("Erro ao carregar questões. Verifique se os arquivos estão na pasta.");
                 btn.innerText = originalText;
                 btn.disabled = false;
                 return;
             }
-            startQuiz();
-        }
-
-        function togglePeriod(p, btn) {
-            if (p === 1) return; 
-            alert("Disponível em breve!");
-        }
-
-        function toggleAll(btn) {}
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function startQuiz() {
-            const activeQuestions = window.bancoQuestoes.filter(q => q.ativo !== false);
-            shuffledQuestions = shuffleArray([...activeQuestions]).slice(0, 20);
-            shuffledQuestions.forEach(q => {
-                if(!q.shuffledOptions) q.shuffledOptions = shuffleArray([...q.opcoes]);
-            });
-
-            currentQuestionIndex = 0; score = 0; currentStreak = 0;
-            userAnswers = []; isReviewMode = false;
             
-            updateStreakUI();
+            // CONFIGURAÇÃO DE 20 PERGUNTAS (ESCALA AUMENTADA)
+            currentQuestions = window.bancoQuestoes
+                .filter(q => q.ativo !== false)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 20); // Agora pega 20
+            
+            currentIndex = 0;
+            score = 0;
+            wrongAnswers = [];
+            quizStartTime = new Date(); // Inicia cronômetro
+            
             document.getElementById('menu-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('hidden');
             renderQuestion();
         }
 
         function renderQuestion() {
-            const q = shuffledQuestions[currentQuestionIndex];
-            canAnswer = !isReviewMode;
+            isAnswerChecked = false;
+            selectedOption = null;
+            currentQuestionData = currentQuestions[currentIndex];
+            
+            document.getElementById('footer-area').className = 'action-footer';
+            document.getElementById('feedback-box').style.display = 'none';
+            document.getElementById('feedback-box').className = ''; 
+            
+            const btn = document.getElementById('check-btn');
+            btn.innerText = "VERIFICAR";
+            btn.className = "check-btn disabled";
+            btn.onclick = checkAnswer;
 
-            document.getElementById('q-text').innerHTML = formatMusicText(q.pergunta);
-            document.getElementById('quiz-header').innerText = isReviewMode ? 'Modo Revisão' : `QUESTÃO ${currentQuestionIndex + 1} DE ${shuffledQuestions.length}`;
-            document.getElementById('progress-bar').style.width = `${(isReviewMode ? 100 : ((currentQuestionIndex) / shuffledQuestions.length) * 100)}%`;
+            const pct = (currentIndex / currentQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = pct + '%';
 
-            const optsContainer = document.getElementById('options-container');
-            optsContainer.innerHTML = '';
-            document.getElementById('feedback-area').classList.add('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-            document.getElementById('review-controls').classList.add('hidden');
+            const randomPhrase = FUFU_PHRASES.START[Math.floor(Math.random() * FUFU_PHRASES.START.length)];
+            setFufu(FUFU_STATES.NEUTRAL, randomPhrase);
 
-            q.shuffledOptions.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerHTML = `<span class="btn-label"><i class="fas fa-check"></i> Resposta Correta</span><span>${formatMusicText(opt.texto)}</span>`;
-                
-                if (!isReviewMode) btn.onclick = () => checkAnswer(btn, opt, q);
-                optsContainer.appendChild(btn);
+            // ATUALIZA NÚMERO DA QUESTÃO E TEXTO
+            document.getElementById('q-number').innerText = currentIndex + 1;
+            document.getElementById('q-text').innerHTML = formatMusicText(currentQuestionData.pergunta);
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            const opts = [...currentQuestionData.opcoes].sort(() => 0.5 - Math.random());
+            currentQuestionData.shuffledOpts = opts; 
 
-                if (isReviewMode) {
-                    const answer = userAnswers[currentQuestionIndex];
-                    if (opt.correta) btn.classList.add('correct');
-                    if (answer && !answer.isCorrect && answer.selectedText === opt.texto) btn.classList.add('wrong');
-                    if (answer && answer.selectedText === opt.texto) showFeedback(opt, q, answer.isCorrect);
-                }
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+
+            opts.forEach((opt, idx) => {
+                const btnEl = document.createElement('button');
+                btnEl.className = 'duo-btn';
+                const letter = letters[idx] || '?';
+                btnEl.innerHTML = `<span class="option-letter">${letter}</span><span>${formatMusicText(opt.texto)}</span>`;
+                btnEl.onclick = () => selectOption(btnEl, opt);
+                container.appendChild(btnEl);
             });
-
-            if (isReviewMode) {
-                document.getElementById('combo-display').style.opacity = '0';
-                
-                const nextBtn = document.getElementById('next-btn');
-                nextBtn.innerText = (currentQuestionIndex === shuffledQuestions.length - 1) ? "Encerrar Revisão" : "Próxima Questão";
-                nextBtn.classList.remove('hidden');
-                nextBtn.onclick = nextQuestion;
-                document.getElementById('review-controls').classList.remove('hidden');
-            } else {
-                document.getElementById('combo-display').style.opacity = '1';
-            }
+            
+            window.scrollTo(0, 0);
         }
 
-        function checkAnswer(btn, opt, q) {
-            if (!canAnswer) return;
-            canAnswer = false;
-            const isCorrect = opt.correta === true;
+        function selectOption(btnEl, optData) {
+            if (isAnswerChecked) return;
+
+            document.querySelectorAll('.duo-btn').forEach(b => b.classList.remove('selected'));
             
-            const comboEl = document.getElementById('combo-display');
+            btnEl.classList.add('selected');
+            selectedOption = { el: btnEl, data: optData };
+            
+            const checkBtn = document.getElementById('check-btn');
+            checkBtn.classList.remove('disabled');
+        }
+
+        function checkAnswer() {
+            if (!selectedOption || isAnswerChecked) return;
+            isAnswerChecked = true;
+
+            const isCorrect = selectedOption.data.correta === true;
+            const footer = document.getElementById('footer-area');
+            const checkBtn = document.getElementById('check-btn');
+            
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackContent = document.getElementById('feedback-content');
+            const feedbackRef = document.getElementById('feedback-ref-container');
+
+            let refBadgeHTML = "";
+            if(currentQuestionData.referencia) {
+                const ref = currentQuestionData.referencia;
+                const itemText = ref.item ? ` • ${ref.item}` : "";
+                const refText = `📖 ${ref.livro} • Fase ${ref.fase} • Pág. ${ref.pagina}${itemText}`;
+                refBadgeHTML = `<div class="ref-badge">${refText}</div>`;
+            }
+
             if (isCorrect) {
                 score++;
-                currentStreak++;
-                comboEl.classList.remove('shake');
-                comboEl.classList.add('pop');
-                if(currentStreak > 2) comboEl.classList.add('active');
-                setTimeout(() => comboEl.classList.remove('pop'), 300);
+                selectedOption.el.classList.add('correct');
+                footer.classList.add('correct');
+                
+                feedbackBox.className = 'correct';
+                feedbackBox.style.display = 'block';
+                feedbackTitle.innerHTML = '<i class="fas fa-check-circle"></i> Correto!';
+                feedbackContent.innerHTML = formatMusicText(selectedOption.data.feedback || "Resposta exata!");
+                feedbackRef.innerHTML = refBadgeHTML;
+
+                const phrase = FUFU_PHRASES.CORRECT[Math.floor(Math.random() * FUFU_PHRASES.CORRECT.length)];
+                setFufu(FUFU_STATES.HAPPY, phrase);
+                
+                checkBtn.className = "check-btn continue";
             } else {
-                currentStreak = 0;
-                comboEl.classList.remove('active');
-                comboEl.classList.add('shake');
-                setTimeout(() => comboEl.classList.remove('shake'), 400);
-            }
-            updateStreakUI();
-
-            userAnswers.push({ qId: q.id, selectedText: opt.texto, isCorrect: isCorrect });
-
-            btn.classList.add(isCorrect ? 'correct' : 'wrong');
-            if (!isCorrect) {
-                const allBtns = document.querySelectorAll('.option-btn');
-                allBtns.forEach(b => {
-                    if (b.innerText.includes(q.shuffledOptions.find(o => o.correta).texto)) b.classList.add('correct');
-                    b.disabled = true;
+                selectedOption.el.classList.add('wrong');
+                
+                // Salva o erro para o relatório final
+                const correctOpt = currentQuestionData.opcoes.find(o => o.correta);
+                wrongAnswers.push({
+                    question: currentQuestionData.pergunta,
+                    correctAnswer: correctOpt.texto,
+                    ref: refBadgeHTML
                 });
+
+                document.querySelectorAll('.duo-btn').forEach((b, idx) => {
+                    if(currentQuestionData.shuffledOpts[idx].correta) {
+                        b.classList.add('correct'); 
+                    }
+                });
+                
+                footer.classList.add('wrong'); 
+                feedbackBox.className = 'wrong';
+                feedbackBox.style.display = 'block';
+                feedbackTitle.innerHTML = '<i class="fas fa-times-circle"></i> Incorreto...';
+                
+                const wrongExplanation = selectedOption.data.feedback ? 
+                    `<div style="margin-bottom:10px; font-style:italic;">"${formatMusicText(selectedOption.data.feedback)}"</div>` : "";
+                
+                feedbackContent.innerHTML = `
+                    ${wrongExplanation}
+                    <div style="margin-top:10px; border-top:1px solid rgba(0,0,0,0.1); padding-top:10px;">
+                        <strong>Solução:</strong> ${formatMusicText(correctOpt.texto)}
+                    </div>
+                `;
+                feedbackRef.innerHTML = refBadgeHTML;
+
+                const phrase = FUFU_PHRASES.WRONG[Math.floor(Math.random() * FUFU_PHRASES.WRONG.length)];
+                setFufu(FUFU_STATES.SAD, phrase);
+                
+                checkBtn.className = "check-btn continue-error";
             }
-            showFeedback(opt, q, isCorrect);
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.innerText = (currentQuestionIndex === shuffledQuestions.length - 1) ? "Ver Resultado" : "Próxima";
-            nextBtn.classList.remove('hidden');
-            nextBtn.onclick = nextQuestion;
-        }
 
-        function updateStreakUI() {
-            document.getElementById('combo-count').innerText = currentStreak;
-        }
-
-        function showFeedback(opt, q, isCorrect) {
-            const label = document.getElementById('fb-label');
-            label.innerHTML = isCorrect ? '<i class="fas fa-check-circle"></i> Correto!' : '<i class="fas fa-times-circle"></i> Incorreto';
-            label.className = `feedback-label ${isCorrect ? 'success' : 'error'}`;
-            document.getElementById('fb-text').innerHTML = formatMusicText(opt.feedback);
-            document.getElementById('fb-ref').innerHTML = `<i class="fas fa-book"></i> MSA Pág. ${q.referencia.pagina} (Item ${q.referencia.item})`;
-            document.getElementById('feedback-area').classList.remove('hidden');
+            checkBtn.innerText = "CONTINUAR";
+            checkBtn.onclick = nextQuestion;
+            
+            setTimeout(() => {
+                feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
         }
 
         function nextQuestion() {
-            if (currentQuestionIndex < shuffledQuestions.length - 1) {
-                currentQuestionIndex++;
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
                 renderQuestion();
-            } else { showResults(); }
+            } else {
+                showResults();
+            }
         }
 
         function showResults() {
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('result-screen').classList.remove('hidden');
-            const percentage = Math.round((score / shuffledQuestions.length) * 100);
-            document.getElementById('final-score').innerText = `${percentage}%`;
-            document.getElementById('stat-correct').innerText = score;
-            document.getElementById('stat-wrong').innerText = shuffledQuestions.length - score;
             
-            let msg = "";
-            if(percentage === 100) msg = "“Excelente! Execução perfeita, digna de um solista. Você domina este conteúdo.” 🎻";
-            else if(percentage >= 80) msg = "“Muito bom! Uma performance sólida. Faltam apenas pequenos ajustes de afinação nos conceitos.” 🎺";
-            else if(percentage >= 60) msg = "“Bom começo. Você está no caminho, mas alguns trechos precisam de mais ensaio individual.” 🎼";
-            else msg = "“Ainda estamos no início do aprendizado. Recomendo voltar à partitura (MSA) e estudar os fundamentos novamente.” 📚";
-            
-            document.getElementById('final-msg').innerText = msg;
-        }
+            // CÁLCULO DE TEMPO
+            const timeSpent = Math.floor((new Date() - quizStartTime) / 1000);
+            const minutes = Math.floor(timeSpent / 60);
+            const seconds = timeSpent % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('final-time').innerText = timeString;
 
-        function startReviewMode() {
-            isReviewMode = true; currentQuestionIndex = 0;
-            document.getElementById('result-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.remove('hidden');
-            renderQuestion();
+            // CÁLCULO DE PRECISÃO
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('final-percent').innerText = percentage + "%";
+
+            // FEEDBACK DO FUFU
+            const fufuImg = document.getElementById('fufu-result-img');
+            const resultMsg = document.getElementById('result-msg');
+            
+            if (percentage === 100) {
+                fufuImg.innerText = '😻';
+                resultMsg.innerText = "Perfeito! Você é um virtuoso!";
+            } else if (percentage >= 80) {
+                fufuImg.innerText = '😺';
+                resultMsg.innerText = "Muito bom! Quase lá.";
+            } else if (percentage >= 50) {
+                fufuImg.innerText = '😸';
+                resultMsg.innerText = "Bom esforço, mas vamos revisar?";
+            } else {
+                fufuImg.innerText = '🙀';
+                resultMsg.innerText = "Ouch! O Fufu recomenda mais estudo.";
+            }
+
+            // LISTA DE REVISÃO (SE HOUVER ERROS)
+            const reviewContainer = document.getElementById('review-container');
+            const reviewList = document.getElementById('review-list');
+            
+            if (wrongAnswers.length > 0) {
+                reviewContainer.classList.remove('hidden');
+                reviewList.innerHTML = wrongAnswers.map(item => `
+                    <div class="review-item">
+                        <div class="review-q">${formatMusicText(item.question)}</div>
+                        <div class="review-a"><i class="fas fa-check"></i> ${formatMusicText(item.correctAnswer)}</div>
+                        <div class="review-ref">${item.ref}</div>
+                    </div>
+                `).join('');
+            } else {
+                reviewContainer.classList.add('hidden');
+            }
         }
     </script>
 </body>

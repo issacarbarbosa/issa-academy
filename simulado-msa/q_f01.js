@@ -22,22 +22,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Preparar os candidatos com condições mínimas para execução dos métodos do instrumento.",
         "correta": false,
-        "feedback": "Incorreto. O objetivo vai além de condições mínimas, buscando preparo satisfatório para os Hinos e a Oficialização."
+        "feedback": "O objetivo vai além de condições mínimas, buscando preparo satisfatório para os Hinos e a Oficialização."
       },
       {
         "texto": "Preparar os candidatos com condições satisfatórias para execução dos Hinos e do exame de Oficialização.",
         "correta": true,
-        "feedback": "Correto. O objetivo principal do GEM é habilitar os candidatos com condições satisfatórias para a execução dos Hinos e os testes de ingresso na orquestra."
+        "feedback": "O objetivo principal do GEM é habilitar os candidatos com condições satisfatórias para a execução dos Hinos e os testes de ingresso na orquestra."
       },
       {
         "texto": "Apenas preparar os candidatos ao estudo do MSA e dos Hinos, sem foco nos exames de Oficialização.",
         "correta": false,
-        "feedback": "Incorreto. A preparação visa a execução dos Hinos e a habilitação para os testes, incluindo o exame de Oficialização."
+        "feedback": "A preparação visa a execução dos Hinos e a habilitação para os testes, incluindo o exame de Oficialização."
       },
       {
         "texto": "Preparar os candidatos para tocarem somente nos Ensaios e na Reunião de Jovens e Menores.",
         "correta": false,
-        "feedback": "Incorreto. O preparo abrange todos os serviços divinos e visa a oficialização na orquestra."
+        "feedback": "O preparo abrange todos os serviços divinos e visa a oficialização na orquestra."
       }
     ]
   },
@@ -61,22 +61,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Auxiliar a irmandade no cantar dos hinos.",
         "correta": true,
-        "feedback": "Correto. A orquestra tem como objetivo auxiliar a irmandade no canto dos Hinos de Louvores e Súplicas a Deus."
+        "feedback": "A orquestra tem como objetivo auxiliar a irmandade no canto dos Hinos de Louvores e Súplicas a Deus."
       },
       {
         "texto": "Promover apresentações para destaque pessoal dos músicos, honrando a congregação.",
         "correta": false,
-        "feedback": "Incorreto. A orquestra existe para servir a irmandade e não para destaque pessoal de seus integrantes."
+        "feedback": "A orquestra existe para servir a irmandade e não para destaque pessoal de seus integrantes."
       },
       {
         "texto": "Produzir um efeito sonoro que atraia novos membros para os serviços divinos.",
         "correta": false,
-        "feedback": "Incorreto. O foco é sacro e de reverência a Deus, auxiliando os fiéis que já professam a fé."
+        "feedback": "O foco é sacro e de reverência a Deus, auxiliando os fiéis que já professam a fé."
       },
       {
         "texto": "Destina-se à reunião previamente marcada de músicos para uma apresentação musical.",
         "correta": false,
-        "feedback": "Incorreto. Embora haja reuniões (cultos), o propósito central é auxiliar o canto congregacional."
+        "feedback": "Embora haja reuniões (cultos), o propósito central é auxiliar o canto congregacional."
       }
     ]
   },
@@ -100,22 +100,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Timbre, Duração e Altura.",
         "correta": false,
-        "feedback": "Incorreto. Timbre, Duração e Altura são Propriedades do Som, e não Elementos da Música."
+        "feedback": "Timbre, Duração e Altura são Propriedades do Som, e não Elementos da Música."
       },
       {
         "texto": "Harmonia, Ritmo e Solfejo.",
         "correta": false,
-        "feedback": "Incorreto. Solfejo é uma forma de leitura/canto, não um elemento constituinte da música. Os elementos são Melodia, Harmonia e Ritmo."
+        "feedback": "Solfejo é uma forma de leitura/canto, não um elemento constituinte da música. Os elementos são Melodia, Harmonia e Ritmo."
       },
       {
         "texto": "Melodia, Harmonia e Ritmo.",
         "correta": true,
-        "feedback": "Correto. Os elementos mais importantes da música são Melodia, Harmonia e Ritmo."
+        "feedback": "Os elementos mais importantes da música são Melodia, Harmonia e Ritmo."
       },
       {
         "texto": "Tonalidade, Compasso e Ritmo.",
         "correta": false,
-        "feedback": "Incorreto. Tonalidade e Compasso são conceitos de estrutura musical, mas não os três elementos fundamentais."
+        "feedback": "Tonalidade e Compasso são conceitos de estrutura musical, mas não os três elementos fundamentais."
       }
     ]
   },
@@ -139,22 +139,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É a manifestação involuntária das vibrações das ondas no ar, não captadas por nossos ouvidos.",
         "correta": false,
-        "feedback": "Incorreto. O som é definido como TUDO o que ouvimos, sendo captado pelos nossos ouvidos."
+        "feedback": "O som é definido como TUDO o que ouvimos, sendo captado pelos nossos ouvidos."
       },
       {
         "texto": "É a propagação das ondas de calor no ar produzidas por instrumentos musicais ou vozes.",
         "correta": false,
-        "feedback": "Incorreto. O som é formado pela propagação de ondas no ar, não necessariamente ondas de calor."
+        "feedback": "O som é formado pela propagação de ondas no ar, não necessariamente ondas de calor."
       },
       {
         "texto": "São vibrações irregulares produzidas por diferentes objetos.",
         "correta": false,
-        "feedback": "Incorreto. Vibrações irregulares produzem ruídos, mas o som musical é coordenado."
+        "feedback": "Vibrações irregulares produzem ruídos, mas o som musical é coordenado."
       },
       {
         "texto": "É tudo o que ouvimos, formado pela propagação de ondas no ar, ao serem captadas por nossos ouvidos.",
         "correta": true,
-        "feedback": "Correto. Som é tudo o que ouvimos, formado pela propagação de ondas no ar que são captadas pelos nossos ouvidos."
+        "feedback": "Som é tudo o que ouvimos, formado pela propagação de ondas no ar que são captadas pelos nossos ouvidos."
       }
     ]
   },
@@ -178,22 +178,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Timbre, Altura, Tempo e Velocidade.",
         "correta": false,
-        "feedback": "Incorreto. Tempo e Velocidade não são listados como as quatro propriedades principais. As corretas são Timbre, Duração, Altura e Intensidade."
+        "feedback": "Tempo e Velocidade não são listados como as quatro propriedades principais. As corretas são Timbre, Duração, Altura e Intensidade."
       },
       {
         "texto": "Timbre, Densidade, Altura e Afinação.",
         "correta": false,
-        "feedback": "Incorreto. Densidade e Afinação não são listados como as quatro propriedades principais. As corretas são Timbre, Duração, Altura e Intensidade."
+        "feedback": "Densidade e Afinação não são listados como as quatro propriedades principais. As corretas são Timbre, Duração, Altura e Intensidade."
       },
       {
         "texto": "Timbre, Duração, Altura e Intensidade.",
         "correta": true,
-        "feedback": "Correto. As principais propriedades do som são Timbre, Duração, Altura e Intensidade."
+        "feedback": "As principais propriedades do som são Timbre, Duração, Altura e Intensidade."
       },
       {
         "texto": "Duração, Altura, Tamanho e Variedade.",
         "correta": false,
-        "feedback": "Incorreto. Tamanho e Variedade não são listados como as quatro propriedades principais. As corretas são Timbre, Duração, Altura e Intensidade."
+        "feedback": "Tamanho e Variedade não são listados como as quatro propriedades principais. As corretas são Timbre, Duração, Altura e Intensidade."
       }
     ]
   },
@@ -217,22 +217,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Existem 8 notas e seus nomes são: Dó, Ré, Mi, Fá, Sol, Lá, Si, Dó.",
         "correta": false,
-        "feedback": "Incorreto. Embora a escala tenha 8 notas (incluindo a repetição da primeira), existem apenas 7 notas de nomes distintos (Dó, Ré, Mi, Fá, Sol, Lá, Si)."
+        "feedback": "Embora a escala tenha 8 notas (incluindo a repetição da primeira), existem apenas 7 notas de nomes distintos (Dó, Ré, Mi, Fá, Sol, Lá, Si)."
       },
       {
         "texto": "Existem 7 notas e seus nomes são: Dó, Ré, Mi, Fá, Sol, Lá, Si.",
         "correta": true,
-        "feedback": "Correto. Existem sete notas na escrita musical na maioria dos países de língua latina, ordenadas de Dó a Si."
+        "feedback": "Existem sete notas na escrita musical na maioria dos países de língua latina, ordenadas de Dó a Si."
       },
       {
         "texto": "Existem 7 notas e seus nomes são: Dó, Mi, Ré, Sol, Fá, Si, Lá.",
         "correta": false,
-        "feedback": "Incorreto. Embora existam 7 notas, a ordem apresentada está misturada. A ordem correta é Dó, Ré, Mi, Fá, Sol, Lá, Si."
+        "feedback": "Embora existam 7 notas, a ordem apresentada está misturada. A ordem correta é Dó, Ré, Mi, Fá, Sol, Lá, Si."
       },
       {
         "texto": "Existem 8 notas e seus nomes são: Dó, Si, Lá, Sol, Fá, Mi, Ré, Dó.",
         "correta": false,
-        "feedback": "Incorreto. A sequência apresenta 8 nomes e está em ordem decrescente, não da mais grave para a mais aguda."
+        "feedback": "A sequência apresenta 8 nomes e está em ordem decrescente, não da mais grave para a mais aguda."
       }
     ]
   },
@@ -256,22 +256,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Representam graficamente um determinado ruído.",
         "correta": false,
-        "feedback": "Incorreto. Notas musicais representam sons, não ruídos."
+        "feedback": "Notas musicais representam sons, não ruídos."
       },
       {
         "texto": "São sinais que representam o som na música escrita.",
         "correta": true,
-        "feedback": "Correto. As notas musicais são os sinais utilizados para representar o som na partitura."
+        "feedback": "As notas musicais são os sinais utilizados para representar o som na partitura."
       },
       {
         "texto": "São textos escritos pelo compositor, no rodapé da partitura.",
         "correta": false,
-        "feedback": "Incorreto. As notas musicais são sinais gráficos para o som, e não textos explicativos."
+        "feedback": "As notas musicais são sinais gráficos para o som, e não textos explicativos."
       },
       {
         "texto": "São explicações técnicas a respeito do modo como uma peça musical deve ser executada pela orquestra.",
         "correta": false,
-        "feedback": "Incorreto. Explicações técnicas se referem à interpretação ou articulação, não à representação do som."
+        "feedback": "Explicações técnicas se referem à interpretação ou articulação, não à representação do som."
       }
     ]
   },
@@ -295,22 +295,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É o conjunto de 5 linhas e 4 espaços onde são escritas as notas musicais.",
         "correta": true,
-        "feedback": "Correto. O Pentagrama é composto por 5 linhas e 4 espaços, servindo como base para a escrita das notas."
+        "feedback": "O Pentagrama é composto por 5 linhas e 4 espaços, servindo como base para a escrita das notas."
       },
       {
         "texto": "É o conjunto de 4 linhas e 5 espaços, onde são escritas as figuras de pausa.",
         "correta": false,
-        "feedback": "Incorreto. O Pentagrama possui 5 linhas e 4 espaços."
+        "feedback": "O Pentagrama possui 5 linhas e 4 espaços."
       },
       {
         "texto": "É o sinal que representa a pauta musical e a sua extensão no hinário.",
         "correta": false,
-        "feedback": "Incorreto. O Pentagrama é a pauta em si, não um sinal para representá-la."
+        "feedback": "O Pentagrama é a pauta em si, não um sinal para representá-la."
       },
       {
         "texto": "É o conjunto de 5 linhas e 5 espaços onde são escritas as figuras rítmicas.",
         "correta": false,
-        "feedback": "Incorreto. O Pentagrama possui 5 linhas e 4 espaços."
+        "feedback": "O Pentagrama possui 5 linhas e 4 espaços."
       }
     ]
   },
@@ -334,22 +334,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "As linhas e os espaços são lidos sempre de cima para baixo, exceto quando há claves suplementares.",
         "correta": false,
-        "feedback": "Incorreto. A leitura é sempre feita de baixo para cima."
+        "feedback": "A leitura é sempre feita de baixo para cima."
       },
       {
         "texto": "As linhas e os espaços são lidos de baixo para cima, sendo a primeira linha a mais aguda.",
         "correta": false,
-        "feedback": "Incorreto. Embora a leitura seja de baixo para cima, a primeira linha é a mais grave dentro do pentagrama, sendo as linhas superiores mais agudas."
+        "feedback": "Embora a leitura seja de baixo para cima, a primeira linha é a mais grave dentro do pentagrama, sendo as linhas superiores mais agudas."
       },
       {
         "texto": "As linhas e os espaços são sempre lidos de baixo para cima.",
         "correta": true,
-        "feedback": "Correto. No pentagrama, as linhas e os espaços são sempre lidos de baixo para cima."
+        "feedback": "No pentagrama, as linhas e os espaços são sempre lidos de baixo para cima."
       },
       {
         "texto": "A leitura é feita do centro para as extremidades, priorizando as notas na clave de referência.",
         "correta": false,
-        "feedback": "Incorreto. A leitura segue a ordem sequencial de baixo para cima."
+        "feedback": "A leitura segue a ordem sequencial de baixo para cima."
       }
     ]
   },
@@ -373,22 +373,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É um símbolo gráfico que determina a duração do som no compasso.",
         "correta": false,
-        "feedback": "Incorreto. As figuras musicais (notas e pausas) determinam a duração do som; a Clave determina o nome da nota."
+        "feedback": "As figuras musicais (notas e pausas) determinam a duração do som; a Clave determina o nome da nota."
       },
       {
         "texto": "É um sinal para representar a pauta musical em um sistema com 11 linhas.",
         "correta": false,
-        "feedback": "Incorreto. A Clave é um sinal para nomear a nota, não para representar a pauta; o sistema de 11 linhas é o Endecagrama."
+        "feedback": "A Clave é um sinal para nomear a nota, não para representar a pauta; o sistema de 11 linhas é o Endecagrama."
       },
       {
         "texto": "É um sinal que, em sua linha de referência, determina o nome da nota escrita.",
         "correta": true,
-        "feedback": "Correto. A Clave é um sinal gráfico que, ao ser posicionado em uma linha de referência, determina o nome da nota naquela linha e, por consequência, o nome das demais notas."
+        "feedback": "A Clave é um sinal gráfico que, ao ser posicionado em uma linha de referência, determina o nome da nota naquela linha e, por consequência, o nome das demais notas."
       },
       {
         "texto": "É uma figura que, em sua linha de referência, determina a altura do compasso.",
         "correta": false,
-        "feedback": "Incorreto. A Clave não determina a altura do compasso, mas sim a altura e o nome das notas."
+        "feedback": "A Clave não determina a altura do compasso, mas sim a altura e o nome das notas."
       }
     ]
   },
@@ -412,22 +412,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Na 3ª linha, nomeando a nota Dó.",
         "correta": false,
-        "feedback": "Incorreto. A Clave que nomeia a nota Dó na 3ª linha é a Clave de Dó."
+        "feedback": "A Clave que nomeia a nota Dó na 3ª linha é a Clave de Dó."
       },
       {
         "texto": "Na 2ª linha, nomeando a nota Sol.",
         "correta": true,
-        "feedback": "Correto. A Clave de Sol é escrita na 2ª linha e determina que a nota escrita nessa linha é Sol."
+        "feedback": "A Clave de Sol é escrita na 2ª linha e determina que a nota escrita nessa linha é Sol."
       },
       {
         "texto": "Na 4ª linha, nomeando a nota Fá.",
         "correta": false,
-        "feedback": "Incorreto. A Clave que nomeia a nota Fá na 4ª linha é a Clave de Fá."
+        "feedback": "A Clave que nomeia a nota Fá na 4ª linha é a Clave de Fá."
       },
       {
         "texto": "Na 1ª linha, nomeando a nota Mi.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Sol, usada em nossos hinários, é centrada na 2ª linha."
+        "feedback": "A Clave de Sol, usada em nossos hinários, é centrada na 2ª linha."
       }
     ]
   },
@@ -451,22 +451,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Na 3ª linha, nomeando a nota Dó.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Fá é utilizada para sons graves, posicionada na 4ª linha."
+        "feedback": "A Clave de Fá é utilizada para sons graves, posicionada na 4ª linha."
       },
       {
         "texto": "Na 5ª linha, nomeando a nota Sol.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Fá utilizada no hinário é na 4ª linha."
+        "feedback": "A Clave de Fá utilizada no hinário é na 4ª linha."
       },
       {
         "texto": "Na 4ª linha, nomeando a nota Fá.",
         "correta": true,
-        "feedback": "Correto. A Clave de Fá é escrita na 4ª linha e determina que a nota escrita nessa linha é Fá."
+        "feedback": "A Clave de Fá é escrita na 4ª linha e determina que a nota escrita nessa linha é Fá."
       },
       {
         "texto": "Na 1ª linha, nomeando a nota Mi.",
         "correta": false,
-        "feedback": "Incorreto. Embora a nota Mi seja grave, a Clave de Fá é centrada no Fá da 4ª linha."
+        "feedback": "Embora a nota Mi seja grave, a Clave de Fá é centrada no Fá da 4ª linha."
       }
     ]
   },
@@ -490,22 +490,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Melodia é a produção ordenada de sons sucessivos.",
         "correta": true,
-        "feedback": "Correto. Melodia é a sequência ordenada de sons (notas) tocados um após o outro, sucessivamente."
+        "feedback": "Melodia é a sequência ordenada de sons (notas) tocados um após o outro, sucessivamente."
       },
       {
         "texto": "Melodia é a execução coordenada dos sons aleatórios.",
         "correta": false,
-        "feedback": "Incorreto. Melodia é ordenada e não aleatória."
+        "feedback": "Melodia é ordenada e não aleatória."
       },
       {
         "texto": "Melodia é a parte da música que combina todos os sons tocados simultaneamente.",
         "correta": false,
-        "feedback": "Incorreto. A combinação de sons simultâneos define a Harmonia."
+        "feedback": "A combinação de sons simultâneos define a Harmonia."
       },
       {
         "texto": "Melodia é a maneira como os sons estão dispostos em uma escala, definindo sua altura.",
         "correta": false,
-        "feedback": "Incorreto. Embora use sons de diferentes alturas, a definição principal é a sucessão ordenada no tempo."
+        "feedback": "Embora use sons de diferentes alturas, a definição principal é a sucessão ordenada no tempo."
       }
     ]
   },
@@ -529,22 +529,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É a execução de vários sons iguais emitidos por diferentes instrumentos.",
         "correta": false,
-        "feedback": "Incorreto. A Harmonia envolve sons diferentes, tocados simultaneamente, e não sons iguais."
+        "feedback": "A Harmonia envolve sons diferentes, tocados simultaneamente, e não sons iguais."
       },
       {
         "texto": "É a produção ordenada de vários sons diferentes, emitidos de forma simultânea.",
         "correta": true,
-        "feedback": "Correto. Harmonia é a emissão ordenada de vários sons diferentes ao mesmo tempo."
+        "feedback": "Harmonia é a emissão ordenada de vários sons diferentes ao mesmo tempo."
       },
       {
         "texto": "Nos Hinos, a Harmonia acontece quando apenas uma voz soa durante a execução.",
         "correta": false,
-        "feedback": "Incorreto. Quando apenas uma voz soa, temos Melodia."
+        "feedback": "Quando apenas uma voz soa, temos Melodia."
       },
       {
         "texto": "É quando todos os instrumentos tocam na mesma altura e intensidade, a uma só voz.",
         "correta": false,
-        "feedback": "Incorreto. Harmonia combina sons de diferentes alturas (vozes)."
+        "feedback": "Harmonia combina sons de diferentes alturas (vozes)."
       }
     ]
   },
@@ -568,22 +568,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Acontece quando aparecem mais silêncios do que sons em uma música.",
         "correta": false,
-        "feedback": "Incorreto. O ritmo lida com a disposição tanto de sons quanto de silêncios no tempo."
+        "feedback": "O ritmo lida com a disposição tanto de sons quanto de silêncios no tempo."
       },
       {
         "texto": "São os sons fortes executados pela voz do baixo, marcando a pulsação.",
         "correta": false,
-        "feedback": "Incorreto. O ritmo é a disposição ordenada de sons e silêncios, e não está restrito à voz do baixo."
+        "feedback": "O ritmo é a disposição ordenada de sons e silêncios, e não está restrito à voz do baixo."
       },
       {
         "texto": "É quando os sons curtos são executados com mais intensidade, marcando o tempo.",
         "correta": false,
-        "feedback": "Incorreto. A intensidade se refere à dinâmica, não ao ritmo em si."
+        "feedback": "A intensidade se refere à dinâmica, não ao ritmo em si."
       },
       {
         "texto": "É a disposição ordenada de sons no tempo, combinando sons curtos, longos e silêncios.",
         "correta": true,
-        "feedback": "Correto. Ritmo é a organização dos sons e silêncios ao longo do tempo."
+        "feedback": "Ritmo é a organização dos sons e silêncios ao longo do tempo."
       }
     ]
   },
@@ -607,22 +607,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Timbre",
         "correta": false,
-        "feedback": "Incorreto. Timbre é a 'cor' do som, o que distingue as fontes sonoras."
+        "feedback": "Timbre é a 'cor' do som, o que distingue as fontes sonoras."
       },
       {
         "texto": "Duração",
         "correta": true,
-        "feedback": "Correto. Duração refere-se ao tempo em que o som é mantido (curto ou longo)."
+        "feedback": "Duração refere-se ao tempo em que o som é mantido (curto ou longo)."
       },
       {
         "texto": "Altura",
         "correta": false,
-        "feedback": "Incorreto. Altura está ligada à frequência (grave, médio ou agudo)."
+        "feedback": "Altura está ligada à frequência (grave, médio ou agudo)."
       },
       {
         "texto": "Intensidade",
         "correta": false,
-        "feedback": "Incorreto. Intensidade é o volume do som (fraco ou forte)."
+        "feedback": "Intensidade é o volume do som (fraco ou forte)."
       }
     ]
   },
@@ -646,22 +646,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Timbre",
         "correta": false,
-        "feedback": "Incorreto. Timbre diferencia a fonte sonora (o instrumento)."
+        "feedback": "Timbre diferencia a fonte sonora (o instrumento)."
       },
       {
         "texto": "Duração",
         "correta": false,
-        "feedback": "Incorreto. Duração refere-se ao tempo de sustentação do som."
+        "feedback": "Duração refere-se ao tempo de sustentação do som."
       },
       {
         "texto": "Altura",
         "correta": true,
-        "feedback": "Correto. A Altura está ligada à frequência das ondas sonoras e define se o som é grave, médio ou agudo."
+        "feedback": "A Altura está ligada à frequência das ondas sonoras e define se o som é grave, médio ou agudo."
       },
       {
         "texto": "Intensidade",
         "correta": false,
-        "feedback": "Incorreto. Intensidade está ligada ao volume (fraco ou forte)."
+        "feedback": "Intensidade está ligada ao volume (fraco ou forte)."
       }
     ]
   },
@@ -685,22 +685,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Pauta, Sons livres e Afinador.",
         "correta": false,
-        "feedback": "Incorreto. Sons livres e Afinador não são elementos constituintes da escrita musical."
+        "feedback": "Sons livres e Afinador não são elementos constituintes da escrita musical."
       },
       {
         "texto": "Notas Musicais, Pentagrama e Clave.",
         "correta": true,
-        "feedback": "Correto. Para registrar graficamente a altura do som, utilizamos as Notas Musicais, o Pentagrama e a Clave."
+        "feedback": "Para registrar graficamente a altura do som, utilizamos as Notas Musicais, o Pentagrama e a Clave."
       },
       {
         "texto": "Alfabeto, Letra cursiva e Clave de abertura.",
         "correta": false,
-        "feedback": "Incorreto. A escrita musical utiliza elementos gráficos próprios, como Notas, Pentagrama e Clave."
+        "feedback": "A escrita musical utiliza elementos gráficos próprios, como Notas, Pentagrama e Clave."
       },
       {
         "texto": "Pentagrama, Notas alternativas e Chave mestra.",
         "correta": false,
-        "feedback": "Incorreto. Os três elementos centrais são Notas Musicais, Pentagrama e Clave."
+        "feedback": "Os três elementos centrais são Notas Musicais, Pentagrama e Clave."
       }
     ]
   },
@@ -724,22 +724,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "No MOO - Manual de Orientação Orquestral.",
         "correta": true,
-        "feedback": "Correto. O Manual de Orientação Orquestral (MOO) lista os instrumentos permitidos, com suas características e especificações."
+        "feedback": "O Manual de Orientação Orquestral (MOO) lista os instrumentos permitidos, com suas características e especificações."
       },
       {
         "texto": "No Programa Mínimo de Estudos do Instrumento.",
         "correta": false,
-        "feedback": "Incorreto. O Programa Mínimo de Estudos trata do aprendizado prático do instrumento, não da lista de instrumentos permitidos."
+        "feedback": "O Programa Mínimo de Estudos trata do aprendizado prático do instrumento, não da lista de instrumentos permitidos."
       },
       {
         "texto": "No MSA - Método Simplificado de Aprendizagem Musical.",
         "correta": false,
-        "feedback": "Incorreto. O MSA faz referência ao MOO para a lista de instrumentos."
+        "feedback": "O MSA faz referência ao MOO para a lista de instrumentos."
       },
       {
         "texto": "Na internet, consultando a lista padrão de uma Orquestra Sinfônica.",
         "correta": false,
-        "feedback": "Incorreto. Os instrumentos permitidos são listados especificamente nas publicações oficiais da Congregação."
+        "feedback": "Os instrumentos permitidos são listados especificamente nas publicações oficiais da Congregação."
       }
     ]
   },
@@ -763,22 +763,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Utilizando-se da escrita musical, composta por Notas Musicais, Pentagrama e Clave.",
         "correta": true,
-        "feedback": "Correto. A escrita musical é o sistema utilizado para registrar a altura do som, diferenciando graficamente sons graves, médios e agudos."
+        "feedback": "A escrita musical é o sistema utilizado para registrar a altura do som, diferenciando graficamente sons graves, médios e agudos."
       },
       {
         "texto": "Por meio dos algarismos romanos, indicando a força da nota.",
         "correta": false,
-        "feedback": "Incorreto. Algarismos romanos são usados para indicar os Graus da Escala, e não para registrar a altura gráfica do som."
+        "feedback": "Algarismos romanos são usados para indicar os Graus da Escala, e não para registrar a altura gráfica do som."
       },
       {
         "texto": "Por meio da frequência da onda em Hertz ou Decibéis.",
         "correta": false,
-        "feedback": "Incorreto. Hertz e Decibéis são unidades de medida científicas, mas a notação musical usa sinais gráficos (notas na pauta e clave)."
+        "feedback": "Hertz e Decibéis são unidades de medida científicas, mas a notação musical usa sinais gráficos (notas na pauta e clave)."
       },
       {
         "texto": "Pode-se utilizar um caderno pautado com margem lateral, para orientar a leitura.",
         "correta": false,
-        "feedback": "Incorreto. O caderno pautado (Pentagrama) é o local da escrita, mas a técnica para registrar a altura é a escrita musical completa (notas + clave + pauta)."
+        "feedback": "O caderno pautado (Pentagrama) é o local da escrita, mas a técnica para registrar a altura é a escrita musical completa (notas + clave + pauta)."
       }
     ]
   },
@@ -802,22 +802,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "As notas se repetem na ordem crescente, a cada grupo de sete.",
         "correta": true,
-        "feedback": "Correto. As sete notas (Dó a Si) se repetem continuamente em ordem crescente (ascendente) à medida que os sons ficam mais agudos."
+        "feedback": "As sete notas (Dó a Si) se repetem continuamente em ordem crescente (ascendente) à medida que os sons ficam mais agudos."
       },
       {
         "texto": "As notas se alternam na ordem crescente, a cada grupo de sete.",
         "correta": false,
-        "feedback": "Incorreto. As notas se repetem na mesma sequência, em grupos de sete (oitavas), não se alternam."
+        "feedback": "As notas se repetem na mesma sequência, em grupos de sete (oitavas), não se alternam."
       },
       {
         "texto": "As notas se repetem na ordem decrescente, a cada grupo de sete.",
         "correta": false,
-        "feedback": "Incorreto. A repetição na ordem decrescente ocorre quando os sons estão ficando mais graves."
+        "feedback": "A repetição na ordem decrescente ocorre quando os sons estão ficando mais graves."
       },
       {
         "texto": "As notas podem variar a cada grupo de sete, dependendo da intensidade do som, do mais grave para o mais agudo.",
         "correta": false,
-        "feedback": "Incorreto. A sequência de notas (Dó a Si) é fixa e não depende da intensidade (volume) do som."
+        "feedback": "A sequência de notas (Dó a Si) é fixa e não depende da intensidade (volume) do som."
       }
     ]
   },
@@ -841,22 +841,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Determinar o nome da nota escrita na sua linha de referência.",
         "correta": false,
-        "feedback": "Incorreto. Esta é apenas uma das funções. A Clave também define a região sonora da nota."
+        "feedback": "Esta é apenas uma das funções. A Clave também define a região sonora da nota."
       },
       {
         "texto": "Determinar a altura do som da nota, isto é, se é uma nota que soa na região aguda, média ou grave.",
         "correta": false,
-        "feedback": "Incorreto. Esta é a função relacionada ao posicionamento da Clave, mas ela também nomeia a nota em sua linha de referência."
+        "feedback": "Esta é a função relacionada ao posicionamento da Clave, mas ela também nomeia a nota em sua linha de referência."
       },
       {
         "texto": "A Clave tem a função de nomear a nota em sua linha de referência e, simultaneamente, determinar se essa nota soa nas regiões aguda, média ou grave.",
         "correta": true,
-        "feedback": "Correto. A Clave nomeia a nota em sua linha e define a região sonora (altura) do som no Pentagrama."
+        "feedback": "A Clave nomeia a nota em sua linha e define a região sonora (altura) do som no Pentagrama."
       },
       {
         "texto": "A Clave deve apenas determinar o valor rítmico das figuras na pauta.",
         "correta": false,
-        "feedback": "Incorreto. A Clave não tem função rítmica; ela trata da altura e do nome das notas."
+        "feedback": "A Clave não tem função rítmica; ela trata da altura e do nome das notas."
       }
     ]
   },
@@ -880,22 +880,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Existem 7 posições de Claves que devem ser memorizadas pelos candidatos.",
         "correta": false,
-        "feedback": "Incorreto. Existem 7 posições no total na teoria musical, mas o hinário utiliza apenas 3 posições."
+        "feedback": "Existem 7 posições no total na teoria musical, mas o hinário utiliza apenas 3 posições."
       },
       {
         "texto": "Três posições: Clave de Sol na 2ª linha, Clave de Dó na 3ª linha e Clave de Fá na 4ª linha.",
         "correta": true,
-        "feedback": "Correto. As três posições utilizadas no hinário são a Clave de Sol (2ª linha), Clave de Dó (3ª linha) e Clave de Fá (4ª linha)."
+        "feedback": "As três posições utilizadas no hinário são a Clave de Sol (2ª linha), Clave de Dó (3ª linha) e Clave de Fá (4ª linha)."
       },
       {
         "texto": "Duas posições: Clave de Sol (2ª linha) e Clave de Fá (4ª linha).",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Dó na 3ª linha também é utilizada no hinário (por exemplo, na voz da Viola no Hinário de Cordas)."
+        "feedback": "A Clave de Dó na 3ª linha também é utilizada no hinário (por exemplo, na voz da Viola no Hinário de Cordas)."
       },
       {
         "texto": "Quatro posições: Clave de Sol (1ª e 2ª linhas), Clave de Dó (3ª linha) e Clave de Fá (4ª linha).",
         "correta": false,
-        "feedback": "Incorreto. O hinário utiliza apenas 3 posições de claves."
+        "feedback": "O hinário utiliza apenas 3 posições de claves."
       }
     ]
   },
@@ -919,22 +919,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Altura, pois as frequências das ondas sonoras seriam diferentes.",
         "correta": false,
-        "feedback": "Incorreto. Se a nota é a mesma, a Altura (frequência) é a mesma."
+        "feedback": "Se a nota é a mesma, a Altura (frequência) é a mesma."
       },
       {
         "texto": "Intensidade, pois o volume é o que diferencia os instrumentos.",
         "correta": false,
-        "feedback": "Incorreto. A premissa é que a intensidade é a mesma."
+        "feedback": "A premissa é que a intensidade é a mesma."
       },
       {
         "texto": "Duração, pois a sustentação do som é diferente em cada instrumento.",
         "correta": false,
-        "feedback": "Incorreto. A Duração não define a cor do som, apenas seu tempo."
+        "feedback": "A Duração não define a cor do som, apenas seu tempo."
       },
       {
         "texto": "Timbre, que é a 'cor do som', permitindo distinguir sons produzidos por diferentes fontes sonoras.",
         "correta": true,
-        "feedback": "Correto. O Timbre é a propriedade que nos permite identificar a origem do som, mesmo quando a altura e a intensidade são iguais."
+        "feedback": "O Timbre é a propriedade que nos permite identificar a origem do som, mesmo quando a altura e a intensidade são iguais."
       }
     ]
   },
@@ -958,22 +958,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Altura, pois a intensidade está ligada à frequência da onda.",
         "correta": false,
-        "feedback": "Incorreto. Altura está ligada à frequência (grave/agudo), não ao volume."
+        "feedback": "Altura está ligada à frequência (grave/agudo), não ao volume."
       },
       {
         "texto": "Timbre, pois está ligada à distinção de sons produzidos por diferentes fontes sonoras.",
         "correta": false,
-        "feedback": "Incorreto. Timbre está ligado à 'cor' do som, não ao volume."
+        "feedback": "Timbre está ligado à 'cor' do som, não ao volume."
       },
       {
         "texto": "Intensidade, referindo-se à amplitude da onda sonora (volume).",
         "correta": true,
-        "feedback": "Correto. Intensidade é o volume do som, ou seja, se é fraco ou forte."
+        "feedback": "Intensidade é o volume do som, ou seja, se é fraco ou forte."
       },
       {
         "texto": "Duração, pois está ligada à sustentação do som num determinado espaço de tempo.",
         "correta": false,
-        "feedback": "Incorreto. Duração refere-se ao tempo de sustentação (curto/longo), não ao volume."
+        "feedback": "Duração refere-se ao tempo de sustentação (curto/longo), não ao volume."
       }
     ]
   },
@@ -997,22 +997,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Duração",
         "correta": false,
-        "feedback": "Incorreto. Duração está ligada ao tempo de sustentação do som."
+        "feedback": "Duração está ligada ao tempo de sustentação do som."
       },
       {
         "texto": "Altura",
         "correta": true,
-        "feedback": "Correto. A Altura é determinada pela frequência das ondas sonoras, distinguindo grave, médio ou agudo."
+        "feedback": "A Altura é determinada pela frequência das ondas sonoras, distinguindo grave, médio ou agudo."
       },
       {
         "texto": "Intensidade",
         "correta": false,
-        "feedback": "Incorreto. Intensidade está ligada ao volume, não à frequência."
+        "feedback": "Intensidade está ligada ao volume, não à frequência."
       },
       {
         "texto": "Timbre",
         "correta": false,
-        "feedback": "Incorreto. Timbre está ligado à fonte sonora (cor do som)."
+        "feedback": "Timbre está ligado à fonte sonora (cor do som)."
       }
     ]
   },
@@ -1036,22 +1036,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "O candidato pode escolher e adquirir qualquer instrumento musical que deseja tocar.",
         "correta": false,
-        "feedback": "Incorreto. A escolha é regulamentada para garantir o equilíbrio da orquestra e a adequação do instrumento."
+        "feedback": "A escolha é regulamentada para garantir o equilíbrio da orquestra e a adequação do instrumento."
       },
       {
         "texto": "O candidato pode escolher e adquirir qualquer instrumento musical, basta apenas comunicar o Ministério Local, o Encarregado Local ou Regional.",
         "correta": false,
-        "feedback": "Incorreto. A aquisição deve ser feita somente após a consulta e orientação do Encarregado, e não apenas uma comunicação posterior."
+        "feedback": "A aquisição deve ser feita somente após a consulta e orientação do Encarregado, e não apenas uma comunicação posterior."
       },
       {
         "texto": "O candidato pode escolher e adquirir o seu instrumento musical somente após consultar tanto o MOO – Manual de Orientação Orquestral, quanto o Encarregado Local ou Regional.",
         "correta": true,
-        "feedback": "Correto. O instrumento deve ser escolhido somente após consultar o MOO e o Encarregado, que orientará sobre a necessidade da orquestra e o porte físico do candidato."
+        "feedback": "O instrumento deve ser escolhido somente após consultar o MOO e o Encarregado, que orientará sobre a necessidade da orquestra e o porte físico do candidato."
       },
       {
         "texto": "O candidato pode escolher e adquirir qualquer instrumento musical desde que esteja no MOO - Manual de Orientação Orquestral. Não é necessário consultar o Encarregado Local ou Regional.",
         "correta": false,
-        "feedback": "Incorreto. É obrigatório consultar o Encarregado Local ou Regional para alinhar a escolha com as necessidades da orquestra."
+        "feedback": "É obrigatório consultar o Encarregado Local ou Regional para alinhar a escolha com as necessidades da orquestra."
       }
     ]
   },
@@ -1075,22 +1075,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É formada por músicos e coral para apresentar uma série de canções ou peças musicais.",
         "correta": false,
-        "feedback": "Incorreto. Esta é uma definição genérica de orquestra, mas a composição na CCB é focada nas famílias de instrumentos listadas no MOO."
+        "feedback": "Esta é uma definição genérica de orquestra, mas a composição na CCB é focada nas famílias de instrumentos listadas no MOO."
       },
       {
         "texto": "É composta por 5 famílias de instrumentos: Cordas, Madeiras, Saxofones, Metais e Teclas.",
         "correta": false,
-        "feedback": "Incorreto. A Orquestra é composta por 3 famílias de instrumentos e, adicionalmente, o Órgão Eletrônico (instrumento de teclas) que tem uma função especial."
+        "feedback": "A Orquestra é composta por 3 famílias de instrumentos e, adicionalmente, o Órgão Eletrônico (instrumento de teclas) que tem uma função especial."
       },
       {
         "texto": "É composta por 3 famílias de instrumentos: Cordas, Madeiras (que inclui os Saxofones) e Metais, além do Órgão Eletrônico.",
         "correta": true,
-        "feedback": "Correto. A orquestra é composta por Cordas, Madeiras (incluindo os Saxofones) e Metais, mais o Órgão Eletrônico."
+        "feedback": "A orquestra é composta por Cordas, Madeiras (incluindo os Saxofones) e Metais, mais o Órgão Eletrônico."
       },
       {
         "texto": "É formada por um conjunto de músicos separados por tipo de instrumento, sendo classificados em Madeiras e suas cordas, Palhetas, Bocais e Percussão.",
         "correta": false,
-        "feedback": "Incorreto. A classificação correta é Cordas, Madeiras e Metais."
+        "feedback": "A classificação correta é Cordas, Madeiras e Metais."
       }
     ]
   },
@@ -1114,22 +1114,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Música é a arte de pensar com os sons, um pensamento sem conceitos (Jules Combarieu).",
         "correta": false,
-        "feedback": "Incorreto. Embora seja uma definição válida, o MSA adota outra definição para o contexto sacro."
+        "feedback": "Embora seja uma definição válida, o MSA adota outra definição para o contexto sacro."
       },
       {
         "texto": "Música é a manifestação humana que organiza os sons e os ruídos no tempo (Mário de Andrade).",
         "correta": false,
-        "feedback": "Incorreto. Esta definição não inclui o aspecto de expressar sentimentos nem o propósito sacro."
+        "feedback": "Esta definição não inclui o aspecto de expressar sentimentos nem o propósito sacro."
       },
       {
         "texto": "Música é a arte de expressar os diversos afetos da nossa alma mediante aos sons (Rafael Coelho Machado).",
         "correta": false,
-        "feedback": "Incorreto. O MSA utiliza uma definição mais completa, enfatizando a coordenação dos sons e a expressão de sentimentos."
+        "feedback": "O MSA utiliza uma definição mais completa, enfatizando a coordenação dos sons e a expressão de sentimentos."
       },
       {
         "texto": "Música é a arte de expressar sentimentos por meio de Sons coordenados, produzidos por voz ou instrumento musical.",
         "correta": true,
-        "feedback": "Correto. Esta é a definição adotada pelo MSA para o contexto de música sacra da Congregação Cristã no Brasil."
+        "feedback": "Esta é a definição adotada pelo MSA para o contexto de música sacra da Congregação Cristã no Brasil."
       }
     ]
   },
@@ -1153,22 +1153,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Quando os sons curtos são executados com mais intensidade, marcando o tempo.",
         "correta": false,
-        "feedback": "Incorreto. Esta descrição se refere ao Ritmo e à Intensidade."
+        "feedback": "Esta descrição se refere ao Ritmo e à Intensidade."
       },
       {
         "texto": "Quando a melodia principal (Soprano) se repete em diferentes instrumentos.",
         "correta": false,
-        "feedback": "Incorreto. A harmonia exige a combinação de sons diferentes."
+        "feedback": "A harmonia exige a combinação de sons diferentes."
       },
       {
         "texto": "Quando mais de uma voz (Soprano, Contralto, Tenor e Baixo) soa ao mesmo tempo.",
         "correta": true,
-        "feedback": "Correto. A harmonia é a produção de vários sons diferentes, emitidos simultaneamente, como ocorre na execução das quatro vozes do hinário."
+        "feedback": "A harmonia é a produção de vários sons diferentes, emitidos simultaneamente, como ocorre na execução das quatro vozes do hinário."
       },
       {
         "texto": "Quando cada uma das vozes é considerada individualmente, de forma sucessiva.",
         "correta": false,
-        "feedback": "Incorreto. Esta descrição corresponde à Melodia."
+        "feedback": "Esta descrição corresponde à Melodia."
       }
     ]
   },
@@ -1192,22 +1192,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "As linhas e os espaços são lidos de baixo para cima, sendo que as notas localizadas na parte inferior são as mais graves e as da parte superior, as mais agudas.",
         "correta": true,
-        "feedback": "Correto. A leitura é sempre de baixo para cima, e quanto mais alta a nota no pentagrama, mais agudo é o som."
+        "feedback": "A leitura é sempre de baixo para cima, e quanto mais alta a nota no pentagrama, mais agudo é o som."
       },
       {
         "texto": "As linhas e os espaços são lidos sempre de cima para baixo, do mais agudo para o mais grave.",
         "correta": false,
-        "feedback": "Incorreto. A leitura padrão do pentagrama é de baixo para cima."
+        "feedback": "A leitura padrão do pentagrama é de baixo para cima."
       },
       {
         "texto": "A contagem se inicia pela linha central (3ª linha) e se expande simetricamente para cima e para baixo.",
         "correta": false,
-        "feedback": "Incorreto. A contagem sequencial se dá a partir da primeira linha (inferior)."
+        "feedback": "A contagem sequencial se dá a partir da primeira linha (inferior)."
       },
       {
         "texto": "As linhas e espaços são sempre contados em relação à clave, e não em uma ordem fixa.",
         "correta": false,
-        "feedback": "Incorreto. As linhas e espaços são numerados de baixo para cima, independentemente da clave."
+        "feedback": "As linhas e espaços são numerados de baixo para cima, independentemente da clave."
       }
     ]
   },
@@ -1231,22 +1231,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Fá",
         "correta": false,
-        "feedback": "Incorreto. A nota Fá é nomeada pela Clave de Fá na 4ª linha."
+        "feedback": "A nota Fá é nomeada pela Clave de Fá na 4ª linha."
       },
       {
         "texto": "Sol",
         "correta": false,
-        "feedback": "Incorreto. A nota Sol é nomeada pela Clave de Sol na 2ª linha."
+        "feedback": "A nota Sol é nomeada pela Clave de Sol na 2ª linha."
       },
       {
         "texto": "Dó",
         "correta": true,
-        "feedback": "Correto. A Clave de Dó, utilizada na 3ª linha (para a Viola), determina o Dó central (Dó3) naquela linha."
+        "feedback": "A Clave de Dó, utilizada na 3ª linha (para a Viola), determina o Dó central (Dó3) naquela linha."
       },
       {
         "texto": "Lá",
         "correta": false,
-        "feedback": "Incorreto. A nota Dó é a nota de referência na Clave de Dó."
+        "feedback": "A nota Dó é a nota de referência na Clave de Dó."
       }
     ]
   },
@@ -1270,22 +1270,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É usada principalmente para sons agudos e nomeia a nota Sol.",
         "correta": false,
-        "feedback": "Incorreto. Esta descrição refere-se à Clave de Sol."
+        "feedback": "Esta descrição refere-se à Clave de Sol."
       },
       {
         "texto": "É usada principalmente para sons graves e nomeia a nota Fá na 4ª linha.",
         "correta": true,
-        "feedback": "Correto. A Clave de Fá é utilizada para a região grave e tem o Fá na 4ª linha como sua nota de referência."
+        "feedback": "A Clave de Fá é utilizada para a região grave e tem o Fá na 4ª linha como sua nota de referência."
       },
       {
         "texto": "É usada principalmente para sons médios e nomeia a nota Dó na 3ª linha.",
         "correta": false,
-        "feedback": "Incorreto. Esta descrição refere-se à Clave de Dó."
+        "feedback": "Esta descrição refere-se à Clave de Dó."
       },
       {
         "texto": "É usada para sons superagudos, nomeando a nota Dó na 5ª linha.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Fá é para sons graves."
+        "feedback": "A Clave de Fá é para sons graves."
       }
     ]
   },
@@ -1309,22 +1309,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "5 linhas.",
         "correta": true,
-        "feedback": "Correto. É comum a utilização de, no máximo, 5 linhas suplementares, embora o uso seja teoricamente ilimitado."
+        "feedback": "É comum a utilização de, no máximo, 5 linhas suplementares, embora o uso seja teoricamente ilimitado."
       },
       {
         "texto": "3 linhas, para não prejudicar o campo visual.",
         "correta": false,
-        "feedback": "Incorreto. O MSA cita o uso de até 5 linhas no Hinário para Tuba."
+        "feedback": "O MSA cita o uso de até 5 linhas no Hinário para Tuba."
       },
       {
         "texto": "7 linhas, um para cada nota musical.",
         "correta": false,
-        "feedback": "Incorreto. 5 linhas é o limite comum para evitar confusão."
+        "feedback": "5 linhas é o limite comum para evitar confusão."
       },
       {
         "texto": "9 linhas, o número total de sons naturais no pentagrama.",
         "correta": false,
-        "feedback": "Incorreto. 5 linhas é o limite prático comum para as suplementares."
+        "feedback": "5 linhas é o limite prático comum para as suplementares."
       }
     ]
   },
@@ -1348,22 +1348,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Ritmo e Pulsação.",
         "correta": false,
-        "feedback": "Incorreto. Ritmo e Pulsação são essenciais tanto para a Leitura Métrica quanto para a Leitura Rítmica."
+        "feedback": "Ritmo e Pulsação são essenciais tanto para a Leitura Métrica quanto para a Leitura Rítmica."
       },
       {
         "texto": "Figuras Musicais e Barras de Compasso.",
         "correta": false,
-        "feedback": "Incorreto. Figuras e Barras de Compasso são necessárias para estabelecer o ritmo na Leitura Rítmica e Métrica."
+        "feedback": "Figuras e Barras de Compasso são necessárias para estabelecer o ritmo na Leitura Rítmica e Métrica."
       },
       {
         "texto": "Melodia e Harmonia.",
         "correta": false,
-        "feedback": "Incorreto. Melodia e Harmonia são elementos da música, mas não especificamente os elementos gráficos que viabilizam a leitura nominal das notas."
+        "feedback": "Melodia e Harmonia são elementos da música, mas não especificamente os elementos gráficos que viabilizam a leitura nominal das notas."
       },
       {
         "texto": "Notas Musicais, Pentagrama e Clave.",
         "correta": true,
-        "feedback": "Correto. Estes elementos definem a altura e o nome da nota, permitindo a leitura métrica, mas não são estritamente necessários para a leitura rítmica (falar TÁ)."
+        "feedback": "Estes elementos definem a altura e o nome da nota, permitindo a leitura métrica, mas não são estritamente necessários para a leitura rítmica (falar TÁ)."
       }
     ]
   },
@@ -1387,22 +1387,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Clave de Sol.",
         "correta": true,
-        "feedback": "Correto. A Clave de Sol é utilizada principalmente para sons agudos."
+        "feedback": "A Clave de Sol é utilizada principalmente para sons agudos."
       },
       {
         "texto": "Clave de Dó.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Dó é utilizada principalmente para sons médios."
+        "feedback": "A Clave de Dó é utilizada principalmente para sons médios."
       },
       {
         "texto": "Clave de Fá.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Fá é utilizada principalmente para sons graves."
+        "feedback": "A Clave de Fá é utilizada principalmente para sons graves."
       },
       {
         "texto": "A escolha da clave é irrelevante para a altura do som, apenas para o nome da nota.",
         "correta": false,
-        "feedback": "Incorreto. A Clave, ao ser posicionada, determina a região de altura (aguda, média ou grave) do som."
+        "feedback": "A Clave, ao ser posicionada, determina a região de altura (aguda, média ou grave) do som."
       }
     ]
   },
@@ -1426,22 +1426,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Clave de Sol.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Sol é para sons agudos."
+        "feedback": "A Clave de Sol é para sons agudos."
       },
       {
         "texto": "Clave de Dó.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Dó é para sons médios."
+        "feedback": "A Clave de Dó é para sons médios."
       },
       {
         "texto": "Clave de Fá.",
         "correta": true,
-        "feedback": "Correto. A Clave de Fá é utilizada principalmente para sons graves."
+        "feedback": "A Clave de Fá é utilizada principalmente para sons graves."
       },
       {
         "texto": "Nenhuma das anteriores; Claves apenas nomeiam notas.",
         "correta": false,
-        "feedback": "Incorreto. A Clave determina tanto o nome da nota quanto a região de altura."
+        "feedback": "A Clave determina tanto o nome da nota quanto a região de altura."
       }
     ]
   },
@@ -1465,22 +1465,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Clave de Sol.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Sol é para sons agudos."
+        "feedback": "A Clave de Sol é para sons agudos."
       },
       {
         "texto": "Clave de Dó.",
         "correta": true,
-        "feedback": "Correto. A Clave de Dó, especialmente na 3ª linha, é utilizada principalmente para sons médios."
+        "feedback": "A Clave de Dó, especialmente na 3ª linha, é utilizada principalmente para sons médios."
       },
       {
         "texto": "Clave de Fá.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Fá é para sons graves."
+        "feedback": "A Clave de Fá é para sons graves."
       },
       {
         "texto": "Clave Suplementar.",
         "correta": false,
-        "feedback": "Incorreto. Não existe 'Clave Suplementar'; as claves são Sol, Dó e Fá."
+        "feedback": "Não existe 'Clave Suplementar'; as claves são Sol, Dó e Fá."
       }
     ]
   },
@@ -1504,22 +1504,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "1 ano, dividido em 2 Períodos, totalizando 30 aulas.",
         "correta": false,
-        "feedback": "Incorreto. Os estudos do MSA compreendem 4 Períodos."
+        "feedback": "Os estudos do MSA compreendem 4 Períodos."
       },
       {
         "texto": "2 anos, divididos em 4 Períodos, com aproximadamente 60 aulas.",
         "correta": true,
-        "feedback": "Correto. O tempo mínimo para o MSA é de 2 anos, divididos em 4 Períodos de 15 aulas cada."
+        "feedback": "O tempo mínimo para o MSA é de 2 anos, divididos em 4 Períodos de 15 aulas cada."
       },
       {
         "texto": "4 anos, que é o tempo total para a conclusão de todos os estudos, incluindo os métodos do instrumento.",
         "correta": false,
-        "feedback": "Incorreto. 4 anos não é o tempo mínimo, e a prática do instrumento pode demandar tempo além dos 2 anos do MSA."
+        "feedback": "4 anos não é o tempo mínimo, e a prática do instrumento pode demandar tempo além dos 2 anos do MSA."
       },
       {
         "texto": "6 meses, correspondente a um único Período de estudos.",
         "correta": false,
-        "feedback": "Incorreto. 6 meses corresponde a apenas um Período."
+        "feedback": "6 meses corresponde a apenas um Período."
       }
     ]
   },
@@ -1543,22 +1543,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Basta saber tocar os Hinos, mesmo sem conhecimento mínimo musical.",
         "correta": false,
-        "feedback": "Incorreto. O candidato precisa cumprir todas as etapas do processo, incluindo estudos teóricos e práticos com o MSA e o método do instrumento."
+        "feedback": "O candidato precisa cumprir todas as etapas do processo, incluindo estudos teóricos e práticos com o MSA e o método do instrumento."
       },
       {
         "texto": "O candidato pode aprender por conta própria e apenas solicitar o ingresso na Orquestra após obter o instrumento.",
         "correta": false,
-        "feedback": "Incorreto. O processo exige participação ativa no GEM e alinhamento com o programa proposto."
+        "feedback": "O processo exige participação ativa no GEM e alinhamento com o programa proposto."
       },
       {
         "texto": "O candidato deve estudar obrigatoriamente em escolas particulares para ingressar na Orquestra.",
         "correta": false,
-        "feedback": "Incorreto. Os estudos são realizados no Grupo de Estudos Musicais (GEM)."
+        "feedback": "Os estudos são realizados no Grupo de Estudos Musicais (GEM)."
       },
       {
         "texto": "O candidato deve participar ativamente do GEM – Grupo de Estudos Musicais, além de estar alinhado ao processo de aprendizado proposto.",
         "correta": true,
-        "feedback": "Correto. A participação ativa no GEM e o alinhamento com o processo de aprendizado (MSA, métodos do instrumento e Hinário) são obrigatórios para o ingresso."
+        "feedback": "A participação ativa no GEM e o alinhamento com o processo de aprendizado (MSA, métodos do instrumento e Hinário) são obrigatórios para o ingresso."
       }
     ]
   },
@@ -1582,22 +1582,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "O uso de mais de cinco linhas é tecnicamente impossível na impressão tradicional de partituras.",
         "correta": false,
-        "feedback": "Incorreto. Não é uma limitação técnica, mas sim de legibilidade."
+        "feedback": "Não é uma limitação técnica, mas sim de legibilidade."
       },
       {
         "texto": "As linhas suplementares facilitam o campo visual e a leitura das notas, evitando a confusão de nomes causada por excesso de linhas na pauta.",
         "correta": true,
-        "feedback": "Correto. A principal função das linhas suplementares é preservar a clareza visual e evitar que o leitor confunda os nomes das notas se houvesse muitas linhas contínuas."
+        "feedback": "A principal função das linhas suplementares é preservar a clareza visual e evitar que o leitor confunda os nomes das notas se houvesse muitas linhas contínuas."
       },
       {
         "texto": "O Pentagrama só comporta cinco linhas porque, originalmente, as partituras eram escritas em Tetragramas de apenas quatro linhas.",
         "correta": false,
-        "feedback": "Incorreto. O Pentagrama tem cinco linhas, mas o limite para o uso das suplementares é uma decisão prática de design para a leitura, não histórica."
+        "feedback": "O Pentagrama tem cinco linhas, mas o limite para o uso das suplementares é uma decisão prática de design para a leitura, não histórica."
       },
       {
         "texto": "Elas são reservadas apenas para instrumentos mais raros, como o Fagote e a Tuba, que ultrapassam os limites normais.",
         "correta": false,
-        "feedback": "Incorreto. As linhas suplementares são usadas para qualquer instrumento que exceda a extensão de 9 sons do pentagrama (acima ou abaixo)."
+        "feedback": "As linhas suplementares são usadas para qualquer instrumento que exceda a extensão de 9 sons do pentagrama (acima ou abaixo)."
       }
     ]
   },
@@ -1621,22 +1621,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Representar a duração do som e do silêncio, garantindo a execução rítmica exata.",
         "correta": false,
-        "feedback": "Incorreto. As Figuras Musicais (notas e pausas) representam a duração. O foco da Escrita Musical (notas, pauta, clave) é a altura."
+        "feedback": "As Figuras Musicais (notas e pausas) representam a duração. O foco da Escrita Musical (notas, pauta, clave) é a altura."
       },
       {
         "texto": "Definir a melodia, harmonia e ritmo, os elementos básicos da música.",
         "correta": false,
-        "feedback": "Incorreto. A escrita musical representa esses elementos, mas o propósito imediato da tríade (notas, pauta, clave) é o registro da altura."
+        "feedback": "A escrita musical representa esses elementos, mas o propósito imediato da tríade (notas, pauta, clave) é o registro da altura."
       },
       {
         "texto": "Registrar graficamente a altura do som, possibilitando diferenciar de forma visual o que é som grave, médio ou agudo.",
         "correta": true,
-        "feedback": "Correto. A união de Notas, Pentagrama e Clave é o sistema utilizado para registrar e identificar a altura (grave, médio ou agudo) do som na partitura."
+        "feedback": "A união de Notas, Pentagrama e Clave é o sistema utilizado para registrar e identificar a altura (grave, médio ou agudo) do som na partitura."
       },
       {
         "texto": "Apenas nomear as notas e as linhas do pentagrama, para facilitar a leitura rítmica.",
         "correta": false,
-        "feedback": "Incorreto. O registro da altura é o objetivo principal, e o Pentagrama não é nomeado; suas linhas e espaços são numerados."
+        "feedback": "O registro da altura é o objetivo principal, e o Pentagrama não é nomeado; suas linhas e espaços são numerados."
       }
     ]
   },
@@ -1660,22 +1660,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Quanto maior a frequência da onda, mais agudo é o Som. Quanto menor a frequência da onda, mais grave é o Som.",
         "correta": true,
-        "feedback": "Correto. A frequência é diretamente proporcional à altura: alta frequência resulta em som agudo, e baixa frequência em som grave."
+        "feedback": "A frequência é diretamente proporcional à altura: alta frequência resulta em som agudo, e baixa frequência em som grave."
       },
       {
         "texto": "Quanto maior a frequência da onda, mais grave é o Som. Quanto menor a frequência da onda, mais agudo é o Som.",
         "correta": false,
-        "feedback": "Incorreto. A Altura e a frequência são diretamente proporcionais (maior frequência = mais agudo)."
+        "feedback": "A Altura e a frequência são diretamente proporcionais (maior frequência = mais agudo)."
       },
       {
         "texto": "A frequência da onda sonora só influencia a Intensidade (volume), não a Altura.",
         "correta": false,
-        "feedback": "Incorreto. A frequência é o que define a Altura do som."
+        "feedback": "A frequência é o que define a Altura do som."
       },
       {
         "texto": "A frequência só é relevante na Escala Geral dos Sons e não nas notas escritas no Pentagrama.",
         "correta": false,
-        "feedback": "Incorreto. A Escala Geral dos Sons é baseada na frequência dos sons."
+        "feedback": "A Escala Geral dos Sons é baseada na frequência dos sons."
       }
     ]
   },
@@ -1699,22 +1699,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Indica que o som é regulamentado e restrito para manter o estilo sacro, evitando instrumentos que não sejam coerentes com a adoração e reverência a Deus.",
         "correta": true,
-        "feedback": "Correto. O uso restrito dos instrumentos é uma medida para garantir a manutenção do estilo sacro e da finalidade da orquestra."
+        "feedback": "O uso restrito dos instrumentos é uma medida para garantir a manutenção do estilo sacro e da finalidade da orquestra."
       },
       {
         "texto": "Indica que o som é meramente uma manifestação humana que organiza ruídos no tempo, sendo a orquestra um recurso estético.",
         "correta": false,
-        "feedback": "Incorreto. A ênfase é no estilo sacro, não apenas na estética genérica."
+        "feedback": "A ênfase é no estilo sacro, não apenas na estética genérica."
       },
       {
         "texto": "Indica que a organização dos instrumentos visa apenas o equilíbrio de forças sonoras entre os naipes de Cordas, Madeiras e Metais.",
         "correta": false,
-        "feedback": "Incorreto. Embora o equilíbrio seja importante, a razão primária para a lista restrita é o contexto sacro."
+        "feedback": "Embora o equilíbrio seja importante, a razão primária para a lista restrita é o contexto sacro."
       },
       {
         "texto": "Indica que o som deve ser sempre forte, para auxiliar a irmandade, e os instrumentos listados são os únicos capazes de atingir essa intensidade.",
         "correta": false,
-        "feedback": "Incorreto. O estilo sacro exige uma execução sóbria, pura e exata, que não se resume a ser 'forte'."
+        "feedback": "O estilo sacro exige uma execução sóbria, pura e exata, que não se resume a ser 'forte'."
       }
     ]
   },
@@ -1738,22 +1738,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Orquestração completa (Cordas, Madeiras, Metais e Percussão).",
         "correta": false,
-        "feedback": "Incorreto. Esta é a composição de uma orquestra sinfônica. A base estrutural do hinário é o quarteto vocal."
+        "feedback": "Esta é a composição de uma orquestra sinfônica. A base estrutural do hinário é o quarteto vocal."
       },
       {
         "texto": "Quarteto Vocal, constituído de Soprano, Contralto, Tenor e Baixo.",
         "correta": true,
-        "feedback": "Correto. O Hinário n. 5 tem como base o Quarteto Vocal, embora a orquestração da CCB reproduza em 6 vozes."
+        "feedback": "O Hinário n. 5 tem como base o Quarteto Vocal, embora a orquestração da CCB reproduza em 6 vozes."
       },
       {
         "texto": "Soprano, Tenor, Barítono e Contralto.",
         "correta": false,
-        "feedback": "Incorreto. O quarteto vocal básico é Soprano, Contralto, Tenor e Baixo."
+        "feedback": "O quarteto vocal básico é Soprano, Contralto, Tenor e Baixo."
       },
       {
         "texto": "Soprano 8ª, Soprano, Contralto, Tenor, Baixo, Baixo 8ª.",
         "correta": false,
-        "feedback": "Incorreto. Esta é a forma como o som é reproduzido pelos instrumentos na orquestra, mas o hinário é escrito em 4 vozes."
+        "feedback": "Esta é a forma como o som é reproduzido pelos instrumentos na orquestra, mas o hinário é escrito em 4 vozes."
       }
     ]
   },
@@ -1777,22 +1777,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Implica que somente a voz do Soprano (melodia principal) deve ser cantada e tocada pelo músico.",
         "correta": false,
-        "feedback": "Incorreto. Todas as vozes são melodias individuais e devem ser tocadas como tal, inclusive o Baixo."
+        "feedback": "Todas as vozes são melodias individuais e devem ser tocadas como tal, inclusive o Baixo."
       },
       {
         "texto": "Implica que as outras vozes (Contralto, Tenor, Baixo) devem ter pouca articulação, focando apenas na sustentação harmônica.",
         "correta": false,
-        "feedback": "Incorreto. O MSA enfatiza que, por exemplo, 'a voz do baixo é uma voz melódica e deve ser entoada como tal'."
+        "feedback": "O MSA enfatiza que, por exemplo, 'a voz do baixo é uma voz melódica e deve ser entoada como tal'."
       },
       {
         "texto": "Implica que o instrumentista deve executar a sua voz melódica (produção ordenada de sons sucessivos) com o mesmo cuidado e expressividade dedicados à voz principal (Soprano).",
         "correta": true,
-        "feedback": "Correto. Ao reconhecer que cada voz é uma melodia individual, o músico deve executá-la com precisão e cuidado."
+        "feedback": "Ao reconhecer que cada voz é uma melodia individual, o músico deve executá-la com precisão e cuidado."
       },
       {
         "texto": "Implica que a voz do instrumento deve ser sempre executada uma oitava acima ou abaixo, para evitar o cruzamento de vozes.",
         "correta": false,
-        "feedback": "Incorreto. A execução em oitavas é uma adaptação de tessitura, mas a Melodia em si é a linha de sons sucessivos escrita."
+        "feedback": "A execução em oitavas é uma adaptação de tessitura, mas a Melodia em si é a linha de sons sucessivos escrita."
       }
     ]
   },
@@ -1816,22 +1816,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Clave de Sol, Clave de Dó, Clave de Fá.",
         "correta": false,
-        "feedback": "Incorreto. Esta ordem vai da mais aguda para a mais grave, mas o pedido é da mais grave para a mais aguda."
+        "feedback": "Esta ordem vai da mais aguda para a mais grave, mas o pedido é da mais grave para a mais aguda."
       },
       {
         "texto": "Clave de Dó, Clave de Sol, Clave de Fá.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Fá é a mais grave das três."
+        "feedback": "A Clave de Fá é a mais grave das três."
       },
       {
         "texto": "Clave de Fá, Clave de Dó, Clave de Sol.",
         "correta": true,
-        "feedback": "Correto. A Clave de Fá é para sons graves, a Clave de Dó para sons médios, e a Clave de Sol para sons agudos."
+        "feedback": "A Clave de Fá é para sons graves, a Clave de Dó para sons médios, e a Clave de Sol para sons agudos."
       },
       {
         "texto": "Clave de Fá, Clave de Sol, Clave de Dó.",
         "correta": false,
-        "feedback": "Incorreto. A Clave de Dó representa a região média, sendo menos aguda que a Clave de Sol."
+        "feedback": "A Clave de Dó representa a região média, sendo menos aguda que a Clave de Sol."
       }
     ]
   },
@@ -1855,22 +1855,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "É a capacidade de um som ser grave, médio ou agudo, determinada pela frequência da onda sonora.",
         "correta": false,
-        "feedback": "Incorreto. Esta é a definição de Altura."
+        "feedback": "Esta é a definição de Altura."
       },
       {
         "texto": "É a sustentação do som num determinado espaço de tempo, distinguindo sons curtos de sons longos.",
         "correta": false,
-        "feedback": "Incorreto. Esta é a definição de Duração."
+        "feedback": "Esta é a definição de Duração."
       },
       {
         "texto": "É o volume do som, ou seja, som fraco, ou som forte.",
         "correta": false,
-        "feedback": "Incorreto. Esta é a definição de Intensidade."
+        "feedback": "Esta é a definição de Intensidade."
       },
       {
         "texto": "É a distinção de sons produzidos por diferentes fontes sonoras, ainda que de mesma altura e intensidade.",
         "correta": true,
-        "feedback": "Correto. Timbre é a 'cor' do som que permite diferenciar a fonte sonora (o instrumento ou a voz)."
+        "feedback": "Timbre é a 'cor' do som que permite diferenciar a fonte sonora (o instrumento ou a voz)."
       }
     ]
   },
@@ -1894,22 +1894,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "Alegria, tristeza ou euforia, em conformidade com o discurso musical erudito.",
         "correta": false,
-        "feedback": "Incorreto. Embora a música possa expressar isso, a finalidade na CCB é mais específica."
+        "feedback": "Embora a música possa expressar isso, a finalidade na CCB é mais específica."
       },
       {
         "texto": "Adoração, veneração, louvor e reverência a Deus, mantendo o estilo sacro.",
         "correta": true,
-        "feedback": "Correto. A execução musical nos serviços divinos visa promover adoração, veneração, louvor e reverência a Deus, mantendo o estilo sacro."
+        "feedback": "A execução musical nos serviços divinos visa promover adoração, veneração, louvor e reverência a Deus, mantendo o estilo sacro."
       },
       {
         "texto": "Apenas o sentimento do compositor da melodia, sem influência da poesia.",
         "correta": false,
-        "feedback": "Incorreto. A interpretação é determinada pela inspiração da poesia do hino."
+        "feedback": "A interpretação é determinada pela inspiração da poesia do hino."
       },
       {
         "texto": "A intensidade sonora (volume), ajustada de forma a agradar os vizinhos e cumprir a legislação vigente.",
         "correta": false,
-        "feedback": "Incorreto. A intensidade é uma técnica de execução; a finalidade é espiritual (adoração e louvor)."
+        "feedback": "A intensidade é uma técnica de execução; a finalidade é espiritual (adoração e louvor)."
       }
     ]
   },
@@ -1933,22 +1933,22 @@ window.bancoQuestoes = window.bancoQuestoes.concat([
       {
         "texto": "A necessidade de acomodar as figuras musicais (semínima, mínima, etc.) que não existiam no sistema de uma linha.",
         "correta": false,
-        "feedback": "Incorreto. A principal motivação foi a busca por maior precisão na representação da altura do som."
+        "feedback": "A principal motivação foi a busca por maior precisão na representação da altura do som."
       },
       {
         "texto": "A introdução das Claves, que exigiu mais linhas para serem escritas no início da pauta.",
         "correta": false,
-        "feedback": "Incorreto. A adição de linhas visou melhorar a leitura da altura, antes da padronização das claves."
+        "feedback": "A adição de linhas visou melhorar a leitura da altura, antes da padronização das claves."
       },
       {
         "texto": "A necessidade de ter exatamente 5 linhas e 4 espaços para corresponder aos 9 sons naturais da escala diatônica.",
         "correta": false,
-        "feedback": "Incorreto. Embora o pentagrama tenha 9 sons naturais, a motivação principal foi corrigir a falta de precisão na notação primitiva."
+        "feedback": "Embora o pentagrama tenha 9 sons naturais, a motivação principal foi corrigir a falta de precisão na notação primitiva."
       },
       {
         "texto": "A falta de precisão do sistema de notação anterior (linha única), que não permitia determinar claramente a altura do som.",
         "correta": true,
-        "feedback": "Correto. A pauta evoluiu para o Pentagrama para oferecer maior precisão na escrita e leitura da altura dos sons, substituindo sistemas imprecisos como a linha única."
+        "feedback": "A pauta evoluiu para o Pentagrama para oferecer maior precisão na escrita e leitura da altura dos sons, substituindo sistemas imprecisos como a linha única."
       }
     ]
   }
