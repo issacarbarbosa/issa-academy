@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mestre da Clave V3.26 (Game Over Nav)</title>
+    <!-- Atualizado Título -->
+    <title>Mestre da Clave | Issa Academy</title>
 
     <!-- Google Analytics 4 (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF25LGNKEJ"></script>
@@ -23,7 +24,7 @@
         })(window, document, "clarity", "script", "ujlb9c5vzi");
     </script>
 
-    <!-- Ícones (FontAwesome) - Adicionado para os botões -->
+    <!-- Ícones (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -75,7 +76,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             display: flex; justify-content: center; align-items: center;
             transition: transform 0.2s;
-            text-decoration: none; /* Para o link <a> */
+            text-decoration: none;
         }
         .nav-btn:active { transform: scale(0.9); }
         .nav-btn.disabled { opacity: 0.5; pointer-events: none; filter: grayscale(100%); }
@@ -127,10 +128,9 @@
             justify-content: center; align-items: center; z-index: 9999; text-align: center; color: white;
             transition: opacity 0.3s;
         }
-        /* Overlay específico de pausa (mais translúcido mas com blur para não ver as notas) */
         .pause-overlay {
             background: rgba(44, 62, 80, 0.95);
-            backdrop-filter: blur(10px); /* O Segredo Anti-Cola */
+            backdrop-filter: blur(10px);
             z-index: 9998;
         }
         .hidden { display: none !important; opacity: 0; pointer-events: none; }
@@ -147,7 +147,7 @@
         .btn-secondary {
              padding: 10px 30px; font-size: 1rem; background-color: #e74c3c; 
              color: white; border: none; border-radius: 30px; cursor: pointer; margin-top: 15px;
-             text-decoration: none; display: inline-block; /* Garante visual correto no link */
+             text-decoration: none; display: inline-block;
         }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -187,13 +187,12 @@
     <div id="main-wrapper">
         <div id="xp-bar-container"><div id="xp-bar-fill"></div></div>
         
-        <!-- Botão Voltar (Link para a Home) -->
-        <!-- NOTA: O href="../index.html" assume que este arquivo está na pasta /mestre-da-clave/ -->
-        <a href="../index.html" id="btn-back" class="nav-btn" aria-label="Voltar para Home">
+        <!-- Botão Voltar atualizado para a Home da Academy -->
+        <a href="../index.html" id="btn-back" class="nav-btn" aria-label="Voltar para Issa Academy">
             <i class="fas fa-arrow-left"></i>
         </a>
 
-        <!-- Botão Pause (Com contador) -->
+        <!-- Botão Pause -->
         <button id="btn-pause" class="nav-btn" onclick="togglePause()" aria-label="Pausar Jogo">
             <i class="fas fa-pause"></i>
             <span id="pause-count">3</span>
@@ -235,7 +234,7 @@
         <h1>JOGO PAUSADO</h1>
         <p>Pausas restantes: <strong id="pause-msg-count" style="color: #f1c40f;">3</strong></p>
         <button class="btn-primary" onclick="togglePause()">CONTINUAR</button>
-        <a href="../index.html" class="btn-secondary">Sair</a>
+        <a href="../index.html" class="btn-secondary">Sair para Academy</a>
     </div>
 
     <!-- TELA DE GAME OVER -->
@@ -243,8 +242,7 @@
         <h1 style="color: #e74c3c;">Fim de Jogo!</h1>
         <p>Você fez <strong id="final-score" style="color:#fff">0</strong> pontos<br>e chegou no Nível <strong id="final-level" style="color:#f1c40f">1</strong></p>
         <button class="btn-primary" onclick="resetGame()">Jogar Novamente</button>
-        <!-- BOTÃO SAIR ADICIONADO AQUI -->
-        <a href="../index.html" class="btn-secondary">Sair</a>
+        <a href="../index.html" class="btn-secondary">Sair para Academy</a>
         <div class="highscore-text">🏆 Recorde Atual: <span id="end-highscore">0</span></div>
     </div>
 
@@ -361,7 +359,7 @@
         let spawnTimer = 0; 
         let spawnIntervalMS = 2000; 
         
-        // CONTROLE DE PAUSA (Novo)
+        // CONTROLE DE PAUSA
         let pausesLeft = 3;
         let isPaused = false;
 
@@ -450,7 +448,7 @@
         }
 
         function inputNote(base) {
-            if (gameState !== 'PLAYING' || isPaused) return; // Bloqueia input se pausado
+            if (gameState !== 'PLAYING' || isPaused) return; 
             const target = notes.find(n => n.x > hitZone.start && n.x < hitZone.end && !n.marked);
             if (target) {
                 if (target.baseName === base) {
@@ -475,44 +473,36 @@
             updateHUD();
         }
 
-        // LÓGICA DE PAUSA
         function togglePause() {
             if (gameState !== 'PLAYING') return;
 
             const pauseBtn = document.getElementById('btn-pause');
             const pauseScreen = document.getElementById('pause-screen');
 
-            // Se JÁ está pausado -> DESPAUSAR
             if (isPaused) {
                 isPaused = false;
                 pauseScreen.classList.add('hidden');
-                lastTime = performance.now(); // Resetar timer para não "pular" o tempo
+                lastTime = performance.now(); 
                 loop(lastTime);
                 return;
             }
 
-            // Se NÃO está pausado -> Tentar PAUSAR
             if (pausesLeft > 0) {
                 isPaused = true;
                 pausesLeft--;
                 
-                // UI Update
                 document.getElementById('pause-count').innerText = pausesLeft;
                 document.getElementById('pause-msg-count').innerText = pausesLeft;
                 
-                // Mostrar Overlay
                 pauseScreen.classList.remove('hidden');
                 
-                // Cancelar Loop
                 cancelAnimationFrame(animationId);
 
-                // Desabilitar botão se acabaram as pausas
                 if (pausesLeft === 0) {
                     pauseBtn.classList.add('disabled');
                     pauseBtn.style.opacity = '0.5';
                 }
             } else {
-                // Feedback visual de que acabou (opcional: shake no botão)
                 pauseBtn.classList.add('shake-effect');
                 setTimeout(() => pauseBtn.classList.remove('shake-effect'), 300);
             }
@@ -524,7 +514,6 @@
             if (hitsInLevel >= HITS_TO_LEVELUP) {
                 currentLevel++; hitsInLevel = 0; 
 
-                // GA4: Registrar Subida de Nível
                 if(typeof gtag !== 'undefined') {
                     gtag('event', 'level_up', { 'level': currentLevel });
                 }
@@ -568,7 +557,7 @@
         }
 
         function loop(timestamp) {
-            if (gameState !== 'PLAYING' || isPaused) return; // Double check no pause
+            if (gameState !== 'PLAYING' || isPaused) return; 
             if (!lastTime) lastTime = timestamp;
             const deltaTime = (timestamp - lastTime) / 1000; lastTime = timestamp;
             ctx.clearRect(0, 0, canvas.width, canvas.height); 
@@ -584,7 +573,6 @@
         function startGame() {
             enterFullScreen(); AudioEngine.init(); 
             
-            // GA4: Registrar Início de Jogo
             if(typeof gtag !== 'undefined') {
                 gtag('event', 'game_start', { 'level': 1 });
             }
@@ -592,7 +580,6 @@
             gameState = 'PLAYING'; score = 0; lives = 3; 
             currentLevel = 1; hitsInLevel = 0; gameSpeedPPS = 150; spawnIntervalMS = 2000; 
             
-            // Reset Pause
             pausesLeft = 3;
             isPaused = false;
             document.getElementById('pause-count').innerText = pausesLeft;
@@ -609,7 +596,6 @@
         function endGame() { 
             gameState = 'GAMEOVER'; cancelAnimationFrame(animationId); 
             
-            // GA4: Registrar Fim de Jogo e Pontuação
             if(typeof gtag !== 'undefined') {
                 gtag('event', 'game_over', { 
                     'score': score, 

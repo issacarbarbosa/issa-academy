@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulado MSA | ISSA Musical</title>
+    <!-- Atualizado Título -->
+    <title>Simulado MSA | Issa Academy</title>
     
     <!-- Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF25LGNKEJ"></script>
@@ -69,7 +70,7 @@
         .btn-close { background: none; border: none; font-size: 1.2rem; color: #d1d5db; cursor: pointer; transition: color 0.2s; }
         .btn-close:hover { color: var(--error); }
 
-        /* COMBO COUNTER (NOVO) */
+        /* COMBO COUNTER */
         .combo-box {
             display: flex; align-items: center; gap: 6px; 
             font-weight: 800; font-size: 0.9rem; color: var(--text-sec);
@@ -158,7 +159,7 @@
         <!-- MENU -->
         <div id="menu-screen">
             <div class="menu-header">
-                <h2>Simulado MSA</h2>
+                <h2>Simulado MSA | Issa Academy</h2>
                 <p>Selecione o conteúdo da avaliação</p>
             </div>
             
@@ -185,7 +186,8 @@
             </div>
 
             <button id="start-btn" class="action-btn" onclick="prepareAndStart()">Iniciar Avaliação</button>
-            <a href="../index.html" class="action-btn secondary" style="text-align:center; display:block; text-decoration:none;">Voltar ao Início</a>
+            <!-- Atualizado Texto do Botão -->
+            <a href="../index.html" class="action-btn secondary" style="text-align:center; display:block; text-decoration:none;">Voltar para Academy</a>
         </div>
 
         <!-- QUIZ -->
@@ -193,7 +195,7 @@
             <div class="header-bar">
                 <span class="quiz-title" id="quiz-header">Carregando...</span>
                 
-                <!-- COMBO STREAK (Gamificação) -->
+                <!-- COMBO STREAK -->
                 <div class="combo-box" id="combo-display">
                     <i class="fas fa-fire"></i> <span id="combo-count">0</span>
                 </div>
@@ -253,7 +255,7 @@
         let userAnswers = [];
         let isReviewMode = false;
         let canAnswer = true;
-        let currentStreak = 0; // Combo atual
+        let currentStreak = 0;
 
         const periodMap = {
             1: ['q_f01.js', 'q_f02.js', 'q_f03.js']
@@ -360,7 +362,6 @@
             });
 
             if (isReviewMode) {
-                // Esconde combo na revisão
                 document.getElementById('combo-display').style.opacity = '0';
                 
                 const nextBtn = document.getElementById('next-btn');
@@ -378,23 +379,21 @@
             canAnswer = false;
             const isCorrect = opt.correta === true;
             
-            // --- LÓGICA DE COMBO (GAMIFICAÇÃO) ---
             const comboEl = document.getElementById('combo-display');
             if (isCorrect) {
                 score++;
                 currentStreak++;
                 comboEl.classList.remove('shake');
-                comboEl.classList.add('pop'); // Animação de pulo
-                if(currentStreak > 2) comboEl.classList.add('active'); // Fica laranja se > 2
+                comboEl.classList.add('pop');
+                if(currentStreak > 2) comboEl.classList.add('active');
                 setTimeout(() => comboEl.classList.remove('pop'), 300);
             } else {
                 currentStreak = 0;
                 comboEl.classList.remove('active');
-                comboEl.classList.add('shake'); // Treme se errar
+                comboEl.classList.add('shake');
                 setTimeout(() => comboEl.classList.remove('shake'), 400);
             }
             updateStreakUI();
-            // -------------------------------------
 
             userAnswers.push({ qId: q.id, selectedText: opt.texto, isCorrect: isCorrect });
 
@@ -441,7 +440,6 @@
             document.getElementById('stat-correct').innerText = score;
             document.getElementById('stat-wrong').innerText = shuffledQuestions.length - score;
             
-            // --- FEEDBACK DO MAESTRO (GAMIFICAÇÃO) ---
             let msg = "";
             if(percentage === 100) msg = "“Excelente! Execução perfeita, digna de um solista. Você domina este conteúdo.” 🎻";
             else if(percentage >= 80) msg = "“Muito bom! Uma performance sólida. Faltam apenas pequenos ajustes de afinação nos conceitos.” 🎺";
