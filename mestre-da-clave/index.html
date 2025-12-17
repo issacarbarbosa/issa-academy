@@ -52,15 +52,17 @@
             display: flex; flex-direction: column;
         }
 
-        /* TELA DE ROTAÇÃO */
+        /* TELA DE ROTAÇÃO - Z-Index Aumentado para cobrir tudo */
         #rotate-message {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--brand-blue); color: white; z-index: 9999;
+            background: var(--brand-blue); color: white; z-index: 20000;
             flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;
         }
+        
+        /* CORREÇÃO: O bloqueio de rotação só ativa se a classe .game-active estiver no body */
         @media screen and (orientation: portrait) {
-            #rotate-message { display: flex; }
-            #main-wrapper { display: none !important; }
+            body.game-active #rotate-message { display: flex; }
+            body.game-active #main-wrapper { display: none !important; }
         }
 
         /* ÁREA PRINCIPAL */
@@ -658,6 +660,13 @@
         }
 
         function loop(timestamp) {
+            // CORREÇÃO DE BUG: Pausa lógica se estiver em modo retrato (sem gastar pause)
+            if (window.innerHeight > window.innerWidth) {
+                lastTime = timestamp; // Mantém o tempo sincronizado para evitar "pulos" ao retomar
+                animationId = requestAnimationFrame(loop); // Mantém o loop rodando para checar orientação
+                return; // Pula a atualização lógica (movimento das notas)
+            }
+
             if (gameState !== 'PLAYING' || isPaused) return; 
             if (!lastTime) lastTime = timestamp;
             const deltaTime = (timestamp - lastTime) / 1000; lastTime = timestamp;
@@ -673,6 +682,7 @@
 
         function startGame() {
             enterFullScreen(); AudioEngine.init(); 
+            document.body.classList.add('game-active'); // ATIVA O BLOQUEIO DE ROTAÇÃO
             
             if(typeof gtag !== 'undefined') {
                 gtag('event', 'game_start', { 'level': 1 });
@@ -696,6 +706,7 @@
 
         function endGame() { 
             gameState = 'GAMEOVER'; cancelAnimationFrame(animationId); 
+            document.body.classList.remove('game-active'); // DESATIVA O BLOQUEIO DE ROTAÇÃO
             
             if(typeof gtag !== 'undefined') {
                 gtag('event', 'game_over', { 

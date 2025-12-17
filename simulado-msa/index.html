@@ -545,13 +545,18 @@
         }
 
         function toggleSelectAll() {
+            // CORREÇÃO: A lógica agora verifica o estado dos DADOS (selectedPeriods)
+            // Se todos os disponíveis já estiverem na lista, limpamos tudo.
+            // Caso contrário (se faltar 1 ou todos), selecionamos tudo.
+            const allAlreadySelected = availablePeriods.every(p => selectedPeriods.has(p));
+            const shouldSelectAll = !allAlreadySelected;
+
             const checkBox = document.getElementById('select-all-check');
-            const targetState = !checkBox.checked; // Clicou no container, inverte estado atual
-            checkBox.checked = targetState;
+            checkBox.checked = shouldSelectAll;
 
             availablePeriods.forEach(p => {
                 const card = document.getElementById(`card-p${p}`);
-                if (targetState) {
+                if (shouldSelectAll) {
                     selectedPeriods.add(p);
                     card.classList.add('active');
                 } else {
