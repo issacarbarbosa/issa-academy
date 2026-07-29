@@ -68,7 +68,7 @@ issa-academy/
 │       ├── 📄 social-home.png
 │       └── 📄 social-whatsapp.png
 ├── 📁 src/ # Código-fonte da aplicação React/TypeScript
-│   ├── 📁 core/ # Componentes centrais, hooks, utilitários e motor de áudio
+│   ├── 📁 core/ # Componentes centrais, hooks, utilitários, serviços e motor de áudio
 │   │   ├── 📁 components/ # Componentes UI reutilizáveis (ex: StaffSvgEngine, OrientationGuard)
 │   │   │   ├── 📄 OrientationGuard.tsx
 │   │   │   ├── 📄 StaffSvgEngine.tsx
@@ -78,6 +78,10 @@ issa-academy/
 │   │   ├── 📁 hooks/
 │   │   │   ├── 📄 useLocalStorage.ts
 │   │   │   └── 📄 useMobileOrientation.ts
+│   │   ├── 📁 services/ # [Futuro/Escala] Conectores de infraestrutura (Supabase Auth/DB, PostHog, Analytics)
+│   │   │   ├── 📄 supabase.ts (Supabase Auth & Database client)
+│   │   │   ├── 📄 posthog.ts (Product Telemetry & Feature Flags)
+│   │   │   └── 📄 analytics.ts (Cloudflare Web Analytics wrapper)
 │   │   ├── 📁 utils/ # Motores lógicos e utilitários (ex: audio.ts)
 │   │   │   ├── 📄 audio.ts
 │   │   │   ├── 📄 notesData.test.ts
@@ -133,4 +137,4 @@ issa-academy/
 ```
 
 ---
-*Gerado automaticamente em: 03/07/2026, 23:15:58*
+*Gerado e sincronizado com os planos de escalabilidade cloud em: 29/07/2026, 05:53:00*

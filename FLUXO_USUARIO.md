@@ -67,7 +67,36 @@ graph TD
 
 ---
 
-## 🧭 Legenda da Arquitetura de UX
+## ☁️ Arquitetura de Nuvem, Autenticação & Telemetria (Escala Futura)
+
+```mermaid
+graph TD
+    classDef cloud fill:#0284c7,stroke:#38bdf8,stroke-width:2px,color:#ffffff,rx:8px;
+    classDef db fill:#6366f1,stroke:#818cf8,stroke-width:2px,color:#ffffff,rx:8px;
+    classDef analytics fill:#d97706,stroke:#fbbf24,stroke-width:2px,color:#ffffff,rx:8px;
+
+    %% CI/CD & Hospedagem
+    PC["💻 Seu PC / Antigravity IDE"] -- "1. git push" --> GH["🐙 GitHub Main Branch"]
+    GH -- "2. Webhook & Auto Build" --> CF["☁️ Cloudflare Pages (Hosting & CDN)"]
+    CF -- "3. Deploy em 30s" --> WEB["🌐 Site na Web (issa-academy.pages.dev)"]
+    class CF,WEB cloud;
+
+    %% Camada de Usuário & Sessão
+    WEB --> SESS{Modo de Acesso}
+    SESS -- "Visitante (Offline/Guest)" --> LS["💾 LocalStorage Browser Cache<br>(Degradação Graciosa)"]
+    SESS -- "Aluno Autenticado" --> SUPA_AUTH["🔐 Supabase Auth<br>(Email/Senha + Google OAuth)"]
+    SUPA_AUTH --> SUPA_DB[("🗄️ Supabase PostgreSQL<br>(profiles, user_progress, quiz_attempts, game_scores)")]
+    class SUPA_AUTH,SUPA_DB db;
+
+    %% Telemetria & Analytics
+    WEB -- "Telemetria Leve" --> CF_ANA["📊 Cloudflare Web Analytics"]
+    WEB -- "Eventos Pedagógicos & Retenção" --> PH["🦔 PostHog Product Analytics"]
+    class CF_ANA,PH analytics;
+```
+
+---
+
+## 🧭 Legenda da Arquitetura de UX e Infraestrutura
 
 | Elemento / Cor | Significado Arquitetural | Exemplo no Projeto |
 | :--- | :--- | :--- |
@@ -75,6 +104,10 @@ graph TD
 | **🟩 Ambientes Interativos (Verde)** | Telas ou modais de alta interatividade que utilizam motores visuais, síntese de áudio ou o motor vetorial `<StaffSvgEngine />`. | Gameplay do Mestre da Clave, Slideshow do Endecagrama |
 | **🟥 Guardas de UX (Vermelho Tracejado)** | Bloqueios condicionais de interface que previnem experiências ruins no celular. | Componente `<OrientationGuard />` bloqueando orientação retrato na pauta |
 | **⬛ Estados e Abas (Cinza)** | Sub-telas controladas por estado interno sem transição de URL na rota ativa. | Abas da Sala de Aula, Fases de carregamento do Simulado |
+| **🌐 Infraestrutura Cloud (Azul Claro)** | Hospedagem de borda com deploy contínuo acionado via `git push`. | **Cloudflare Pages** integrando com repositório GitHub |
+| **🟪 Autenticação & Banco (Roxo)** | Gestão de contas de estudantes e sincronização de dados de progresso e score. | **Supabase Auth** + **Supabase PostgreSQL** |
+| **🟧 Analytics & Métricas (Âmbar)** | Telemetria de uso sem privacidade violada e mapas de retenção de alunos. | **Cloudflare Web Analytics** + **PostHog** |
 
 ---
-*Mapa atualizado automaticamente em: 03/07/2026 pela skill map-builder do agente Antigravity.*
+
+*Mapa de fluxo e infraestrutura atualizado em: 29/07/2026.*

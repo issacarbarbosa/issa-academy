@@ -15,7 +15,12 @@ O **Issa Academy** é uma plataforma educacional gamificada de ensino musical vo
 - **Animações**: Motion / Framer Motion
 - **Sons**: Web Audio API (Síntese acústica dinâmica em tempo de execução)
 - **Tipagem**: TypeScript (Strict Mode e checagem sem `implicitAny`) + Zod para validação em tempo de execução
-- **Arquitetura**: Estado global de quiz via Zustand (`useQuizStore`), desmembramento modular de telas curriculares (`PhaseCard`, `LessonItemRow` com layout unificado linear de lição sem abas integrado com materiais de apoio do Google Drive, manifesto de 16 fases em `msaPhasesManifest.ts`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`) e testes unitários co-localizados via Vitest e Testing Library (`*.test.ts`, `*.test.tsx`).
+- **Infraestrutura Cloud & Serviços (Escala)**:
+  - **Hospedagem & CI/CD**: Cloudflare Pages (Deploy automático via `git push` no GitHub)
+  - **Web Analytics**: Cloudflare Web Analytics (Telemetria leve e privativa)
+  - **Autenticação & Banco de Dados**: Supabase Auth + Supabase PostgreSQL (`@supabase/supabase-js`)
+  - **Product Analytics**: PostHog (`posthog-js` para engajamento e métricas de retenção dos estudantes)
+- **Arquitetura**: Estado global de quiz via Zustand (`useQuizStore`), desmembramento modular de telas curriculares (`PhaseCard`, `LessonItemRow` com layout unificado linear de lição sem abas integrado com materiais de apoio do Google Drive, manifesto de 16 fases em `msaPhasesManifest.ts`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), conectores SDK encapsulados em `src/core/services/` com suporte obrigatório a modo visitante (*graceful degradation* via `localStorage`), e testes unitários co-localizados via Vitest e Testing Library (`*.test.ts`, `*.test.tsx`).
 
 ---
 
@@ -23,8 +28,9 @@ O **Issa Academy** é uma plataforma educacional gamificada de ensino musical vo
 O projeto segue o padrão monorepo dividido em `core` e `modules`. O agente deve respeitar estritamente estas fronteiras ao criar ou editar arquivos:
 
 ### 1. Fronteira `src/core/`
-- **Regra:** Aqui residem APENAS lógicas globais e fundamentais. O agente NUNCA deve criar componentes de interface (UI) neste diretório.
-- **Conteúdo permitido:** Provedores de estado global (`stores/` e `contexts/`), hooks utilitários (`hooks/`), lógicas de áudio/frequência (`utils/`), motores visuais reutilizáveis (`engine/` / `components/`), tipagens globais e componentes de controle (como guards de orientação).
+- **Regra:** Aqui residem APENAS lógicas globais, conectores de serviço e infraestrutura fundamental. O agente NUNCA deve criar componentes de interface (UI) neste diretório.
+- **Conteúdo permitido:** Provedores de estado global (`stores/` e `contexts/`), hooks utilitários (`hooks/`), conectores de serviços cloud e analytics (`services/`), lógicas de áudio/frequência (`utils/`), motores visuais reutilizáveis (`engine/` / `components/`), tipagens globais e componentes de controle (como guards de orientação).
+- **Graceful Degradation em Services:** Todos os conectores em `src/core/services/` (ex: Supabase e PostHog) devem possuir tratamentos de fallback gracioso para operar com `localStorage` caso as chaves de API não estejam presentes ou a aplicação esteja offline.
 
 ### 2. Fronteira `src/modules/`
 - **Regra:** Domínios de negócio isolados e interfaces do usuário vivem aqui.

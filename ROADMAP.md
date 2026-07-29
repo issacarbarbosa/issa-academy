@@ -19,8 +19,13 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] **Prioridade Arquitetural #3 - Centralização de Áudio e SVG**: Refatoração do `MestreDaClave.tsx` para consumir unicamente `audio.ts` (filtro lowpass 1000Hz + ADSR) e extração do motor de pauta compartilhado `<StaffSvgEngine />`.
 - [x] **Prioridade Arquitetural #4 - Roteamento Declarativo e PWA**: Substituição de roteamento ad-hoc por React Router (`HashRouter`), Code Splitting com `React.lazy` nas 5 views principais e ativação de PWA offline-first via Workbox (`vite-plugin-pwa`).
 - [x] **Prioridade Arquitetural #5 - Blindagem de Dados e Testes**: Adoção de Valibot/Zod para checagem dos JSONs de simulados e criação da suíte inicial de testes unitários com Vitest.
-- [] Estudar a viabilidade de criar um Módulo para Podcast
-- [] Criar um Módulo para Jogos Educativos e colocar o Mestre da Clave lá dentro.
+- [ ] **Escalabilidade Cloud & CI/CD**: Conectar repositório ao Cloudflare Pages para deploy automático contínuo a cada commit na branch `main`.
+- [ ] **Telemetria de Tráfego**: Ativar Cloudflare Web Analytics para medição leve e sem cookies de acessos e performance global.
+- [ ] **Autenticação de Alunos**: Integrar Supabase Auth (`@supabase/supabase-js`) para contas de alunos (Email/Senha e OAuth Google).
+- [ ] **Banco de Dados Relacional**: Criar esquemas no Supabase PostgreSQL (`profiles`, `user_progress`, `quiz_attempts`, `game_scores`) para sincronizar progresso local.
+- [ ] **Product Analytics & Retenção**: Configurar PostHog (`posthog-js`) para métricas de engajamento, conclusão de lições e diagnóstico de simulados.
+- [ ] Estudar a viabilidade de criar um Módulo para Podcast
+- [ ] Criar um Módulo para Jogos Educativos e colocar o Mestre da Clave lá dentro.
 
 ### 2. Módulo: Mestre da Clave (Jogo)
 - [x] Mecânica central em React + Canvas (geração de notas, nível, vidas, recorde)
@@ -65,6 +70,7 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - **2026-07-03 (V)**: Conclusão da **Prioridade #5**: Implementação de blindagem de dados com Zod (`src/modules/curso-msa/questions/schema.ts`) para validação estrita das questões do Simulado MSA e eliminação do tipo `any` em `SimuladoMsa.tsx`. Instalação e configuração do framework de testes Vitest (`vitest.config.ts`, `jsdom`, `@testing-library/react`). Criação de 3 suítes de testes unitários co-localizados com 12 testes aprovados (100% de sucesso): motor de frequências de notas (`notesData.test.ts`), store global do quiz em Zustand (`useQuizStore.test.ts`) e validação de schema JSON (`schema.test.ts`). Compilação TypeScript Strict, ESLint e build de produção validados sem erros.
 - **2026-07-04 (II)**: Reformulação das lições do Curso MSA Digital para o formato linear unificado, removendo a estrutura de 3 abas, resumos de texto e quizzes locais para dar lugar a player direto e materiais de apoio hospedados no Google Drive com ícones dinâmicos de tipo. Remodelagem do slide de encerramento da aula para um visual escuro premium (Dark Mode) em duas colunas (Split-Screen) no desktop, contendo o mascote Fufu ampliado segurando troféu e CTAs de engajamento do YouTube convertidas de cards estáticos em links reais clicáveis (para se inscrever, curtir e comentar dúvidas no vídeo exato da lição). Implementação de testes de renderização de UI no JSDOM para o componente LessonItemRow (suíte de testes gerais subiu para 21 testes ativos aprovados com typecheck/linter 100% verdes).
 - **2026-07-04 (III)**: Atualização completa do manifesto curricular (`msaPhasesManifest.ts`) e banco de lições (`lessonsData.ts`) em conformidade com o novo sumário unificado do MSA (Fases 1 a 16). Sincronização e injeção de links reais de vídeos do YouTube das Fases 1 e 2, organizando e dividindo exercícios de forma exata, além de remover links de prática e de vídeos não gravados na Fase 3 (itens 3.1, 3.2 e 3.3). Testes unitários, linter e build de produção homologados com 100% de sucesso.
+- **2026-07-29**: Mapeamento da estratégia de escalabilidade cloud e telemetria nos documentos de arquitetura (`ROADMAP.md`, `MAPA_RAIZ.md`, `FLUXO_USUARIO.md` e `project-context.md`). Inclusão do plano de integração para Cloudflare Pages (CI/CD), Cloudflare Web Analytics, Supabase Auth, Supabase PostgreSQL e PostHog.
 
 
 
