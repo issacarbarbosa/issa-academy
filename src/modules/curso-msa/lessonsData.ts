@@ -44,22 +44,33 @@ export const lessonsData: Record<string, LessonDetail> = {
     videoUrl: 'iEZgDyyC1e8'
   },
   '1.6': {
-    videoUrl: 'Lcy6r__GOOY',
-    practiceLink: {
-      label: 'Treinar Claves no Mestre da Clave',
-      view: 'mestre_da_clave'
-    }
+    videoUrl: 'Lcy6r__GOOY'
   },
-  '1.e': {
-    practiceLink: {
-      label: 'Fazer Simulado da Fase 1',
-      view: 'simulado_msa'
-    }
+  '1.e1_7': {
+    videoUrl: 'qr0dp4ryV90'
+  },
+  '1.e8s': {
+    videoUrl: 'CzCbSzkh9Y0'
+  },
+  '1.e8d': {
+    videoUrl: 'OjYXGLw3NlE'
+  },
+  '1.e8f': {
+    videoUrl: 'kaD7Qkuz7Cg'
+  },
+  '1.e9s': {
+    videoUrl: 'xgGCuawxNvk'
+  },
+  '1.e9d': {
+    videoUrl: 'oNLFuipETIs'
+  },
+  '1.e9f': {
+    videoUrl: 'MmU-j95eYKQ'
   },
 
   // FASE 2
   '2.1': {
-    videoUrl: 'qr0dp4ryV90',
+    videoUrl: 'EUBHo-1EEYI',
     complementaryLinks: [
       {
         label: 'Tabela de Figuras e Silêncios (PDF)',
@@ -68,58 +79,49 @@ export const lessonsData: Record<string, LessonDetail> = {
       }
     ]
   },
-  '2.e1': {},
-  '2.2': {
-    videoUrl: 'CzCbSzkh9Y0'
+  '2.e1_3': {
+    videoUrl: 'S2IvhjKIONI'
   },
-  '2.3': {
-    videoUrl: 'OjYXGLw3NlE'
+  '2.e4_6': {
+    videoUrl: 'SInJma4zXzE'
+  },
+  '2.2_2.3': {
+    videoUrl: 'ALeGxsbs4Jk'
   },
   '2.4': {
-    videoUrl: 'kaD7Qkuz7Cg'
+    videoUrl: 'XauWxpDX9e0'
   },
-  '2.5': {
-    videoUrl: 'xgGCuawxNvk'
+  '2.5_2.6': {
+    videoUrl: 'JMex6FU3mgY'
   },
-  '2.6': {
-    videoUrl: 'oNLFuipETIs'
+  '2.e2_3': {
+    videoUrl: 'vPb0D4gt2ns'
   },
-  '2.e2': {
-    practiceLink: {
-      label: 'Fazer Simulado das Fases 1 e 2',
-      view: 'simulado_msa'
-    }
+  '2.e4_8': {
+    videoUrl: '-B6CFYtHZeo'
+  },
+  '2.e9_10': {
+    videoUrl: 'Wp4FSM8XQII'
+  },
+  '2.e11_13': {
+    videoUrl: 'BLYNi9mFbn4'
   },
 
   // FASE 3
-  '3.1': {
-    videoUrl: 'MmU-j95eYKQ',
-    hasInteractiveSlideshow: true,
-    complementaryLinks: [
-      {
-        label: 'Diagrama do Endecagrama Colorido (PDF)',
-        url: 'https://drive.google.com/file/d/1_example_endecagrama_pdf/view?usp=sharing',
-        type: 'pdf'
-      }
-    ]
-  },
-  '3.2': {
-    videoUrl: 'EUBHo-1EEYI',
-    practiceLink: {
-      label: 'Treinar Leitura no Mestre da Clave',
-      view: 'mestre_da_clave'
+'3.1': {
+  hasInteractiveSlideshow: true,
+  complementaryLinks: [
+    {
+      label: 'Diagrama do Endecagrama Colorido (PDF)',
+      url: 'https://drive.google.com/file/d/1_example_endecagrama_pdf/view?usp=sharing',
+      type: 'pdf'
     }
-  },
-  '3.e1': {},
-  '3.3': {
-    videoUrl: 'S2IvhjKIONI'
-  },
-  '3.4': {},
-  '3.5': {},
-  '3.e2': {
-    practiceLink: {
-      label: 'Fazer Simulado da Fase 3',
-      view: 'simulado_msa'
-    }
-  }
+  ]
+},
+'3.2': { },
+'3.e1': { },
+'3.3': { },
+'3.4': { },
+'3.5': { },
+'3.l1_5': { }
 };

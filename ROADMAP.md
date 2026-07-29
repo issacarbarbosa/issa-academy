@@ -19,7 +19,8 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] **Prioridade Arquitetural #3 - Centralização de Áudio e SVG**: Refatoração do `MestreDaClave.tsx` para consumir unicamente `audio.ts` (filtro lowpass 1000Hz + ADSR) e extração do motor de pauta compartilhado `<StaffSvgEngine />`.
 - [x] **Prioridade Arquitetural #4 - Roteamento Declarativo e PWA**: Substituição de roteamento ad-hoc por React Router (`HashRouter`), Code Splitting com `React.lazy` nas 5 views principais e ativação de PWA offline-first via Workbox (`vite-plugin-pwa`).
 - [x] **Prioridade Arquitetural #5 - Blindagem de Dados e Testes**: Adoção de Valibot/Zod para checagem dos JSONs de simulados e criação da suíte inicial de testes unitários com Vitest.
-
+- [] Estudar a viabilidade de criar um Módulo para Podcast
+- [] Criar um Módulo para Jogos Educativos e colocar o Mestre da Clave lá dentro.
 
 ### 2. Módulo: Mestre da Clave (Jogo)
 - [x] Mecânica central em React + Canvas (geração de notas, nível, vidas, recorde)
@@ -27,30 +28,25 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [ ] Implementação de seleção de Claves (Clave de Fá e Clave de Dó)
 - [ ] Rever a estrutura de dificuldade dos níveis
 - [ ] Rever o som do 'acerto' e do 'passar de nível' para ficar mais musical e divertido.
-- [ ] Rever o card que aparece quando passa de nível. Ele está atrapalhando a experiência no mobile.
-
+- [ ] Rever o card que aparece quando passa de nível. Ele está atrapalhando a experiência no mobile. Precisa ser discreto e menor.
 
 ### 3. Módulo: Simulado MSA (Questões)
 - [x] Mecânica central (20 questões aleatórias, cronômetro, revisão e feedbacks em áudio/sticker)
 - [x] Banco de Questões do Período 1 (Fases 1, 2 e 3)
 - [x] Banco de Questões do Período 2 (Fases 4 e 5)
 - [ ] Bancos de Questões dos Períodos 3 e 4 (Fases 6 a 16)
+- [ ] Reformular a home do Simulado para o aluno ter a opção de escolher fazer o Simulado por Período ou por Fase, se for por Período, mantém as 20 questões, se for por Fase vão ser apenas 10 questões.
 
 ### 4. Módulo: Curso MSA Digital (Trilha Didática)
 - [x] Dashboard do Curso (grade interativa contendo as 16 Fases de ensino)
-- [x] **Fase 1 - Teoria Geral**: Estudo teórico das propriedades do som (altura, intensidade, duração, timbre)
-- [x] **Fase 2 - Teoria Rítmica**: Estudo das figuras musicais, compasso e uso do metrônomo
-
-- [/] **Fase 3 - O Endecagrama**:
-  - [x] Item 3.1: Aula em Slides interativos (Dó3 Central, claves alinhadas)
-  - [x] Item 3.1: Teclado e Pauta interativa integrados nos Slides de Aula
-  - [x] Item 3.1: Encerramento com CTA de YouTube Dark Mode & Fufu Troféu
-  - [ ] Item 3.2 a 3.4: Solfejo e movimentos gráficos de condução em 4 tempos (French curves)
-- [ ] **Fase 4 - Fundamentos Rítmicos**: Ligadura, ponto de aumento, intervalo, compassos em 2 e 3, e movimentos de condução em 2 e 3 tempos.
-- [ ] **Fase 5 - Subdivisões**: Tercinas, Fermata, compasso e movimentos de solfejo em 6 tempos.
-- [ ] **Fase 6 a 16**: (Escalas maiores com sustenidos/bemóis, armadura de clave, tonalidades, repetições, dinâmica, compasso composto, síncopa/contratempo, ritmos iniciais, andamento e interpretação).
+- [x] **Fase 1 - Música e Som**: Música, som, elementos da música, propriedades do som, notas musicais, pentagrama e claves.
+- [x] **Fase 2 - Figuras e Ritmo**: Figuras musicais, compasso simples, pulsação, barras e exercícios rítmicos.
+- [x] **Fase 3 - O Endecagrama**: Endecagrama, leitura rítmica/métrica/solfejo, movimentos de condução em 4 tempos e metrônomo.
+- [ ] **Fase 4 - Ligadura, Ponto e Compassos de 2 e 3**: Ligadura, ponto de aumento, intervalos, compassos em 3 e 2 tempos, movimentos de solfejo e lições.
+- [ ] **Fase 5 - Tercinas, Fermata e Compasso em 6**: Tercinas, fermata, compasso de 6 tempos, movimentos de solfejo e lições.
+- [ ] **Fase 6 a 16**: (Tons e semitons, acidentes, escalas maiores com sustenidos e bemóis, armadura de clave, compassos em 9 e 12, tonalidades, barras de repetição, dinâmica, acento métrico, síncopa e contratempo, ritmos iniciais, notas pontuadas, andamentos e fraseologia/interpretação).
 - [ ] **Correção do Player de Vídeo no Retrato (Mobile)**: Investigar por que os botões de pause, play e tela cheia do iframe do YouTube não respondem a cliques/toques no dispositivo real na orientação retrato, e implementar a correção.
-- [ ] **Atualizar Manifesto Curricular:** Atualizar conforme Sumário do MSA e grade das aulas já gravadas no YouTube.
+- [x] **Atualizar Manifesto Curricular:** Atualizar conforme Sumário do MSA e grade das aulas já gravadas no YouTube.
 
 ---
 
@@ -68,6 +64,7 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - **2026-07-03 (IV)**: Conclusão da **Prioridade #4**: Migração para roteamento declarativo utilizando `react-router-dom` (`<HashRouter>`, `<Routes>`, `<Route>`) e Code Splitting via `React.lazy` com separação de chunks. Implementação de Progressive Web App (PWA) utilizando `vite-plugin-pwa` e Workbox, garantindo operação offline-first e cache inteligente para fontes e iframes. Refatoração dos componentes (`WelcomeHome`, `CourseHome`, `MestreDaClave`, `SimuladoMsa`, `LessonSlideshow`) para tornarem-se autônomos e consumirem `useNavigate` e `useLocation`. Compilação validada em TypeScript Strict e ESLint com zero erros.
 - **2026-07-03 (V)**: Conclusão da **Prioridade #5**: Implementação de blindagem de dados com Zod (`src/modules/curso-msa/questions/schema.ts`) para validação estrita das questões do Simulado MSA e eliminação do tipo `any` em `SimuladoMsa.tsx`. Instalação e configuração do framework de testes Vitest (`vitest.config.ts`, `jsdom`, `@testing-library/react`). Criação de 3 suítes de testes unitários co-localizados com 12 testes aprovados (100% de sucesso): motor de frequências de notas (`notesData.test.ts`), store global do quiz em Zustand (`useQuizStore.test.ts`) e validação de schema JSON (`schema.test.ts`). Compilação TypeScript Strict, ESLint e build de produção validados sem erros.
 - **2026-07-04 (II)**: Reformulação das lições do Curso MSA Digital para o formato linear unificado, removendo a estrutura de 3 abas, resumos de texto e quizzes locais para dar lugar a player direto e materiais de apoio hospedados no Google Drive com ícones dinâmicos de tipo. Remodelagem do slide de encerramento da aula para um visual escuro premium (Dark Mode) em duas colunas (Split-Screen) no desktop, contendo o mascote Fufu ampliado segurando troféu e CTAs de engajamento do YouTube convertidas de cards estáticos em links reais clicáveis (para se inscrever, curtir e comentar dúvidas no vídeo exato da lição). Implementação de testes de renderização de UI no JSDOM para o componente LessonItemRow (suíte de testes gerais subiu para 21 testes ativos aprovados com typecheck/linter 100% verdes).
+- **2026-07-04 (III)**: Atualização completa do manifesto curricular (`msaPhasesManifest.ts`) e banco de lições (`lessonsData.ts`) em conformidade com o novo sumário unificado do MSA (Fases 1 a 16). Sincronização e injeção de links reais de vídeos do YouTube das Fases 1 e 2, organizando e dividindo exercícios de forma exata, além de remover links de prática e de vídeos não gravados na Fase 3 (itens 3.1, 3.2 e 3.3). Testes unitários, linter e build de produção homologados com 100% de sucesso.
 
 
 
