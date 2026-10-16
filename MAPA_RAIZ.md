@@ -5,9 +5,6 @@ Este arquivo foi gerado automaticamente e apresenta a estrutura de diretórios e
 ```text
 issa-academy/
 ├── 📁 .agents/ # Configurações de agentes IA, skills especializadas e regras de projeto
-│   ├── 📁 .agents/
-│   │   └── 📁 hooks/
-│   │       └── 📄 run-linter.js
 │   ├── 📁 hooks/
 │   │   └── 📄 run-linter.cjs
 │   ├── 📁 rules/
@@ -37,6 +34,9 @@ issa-academy/
 │   │       └── 📄 SKILL.md
 │   ├── 📄 hooks.json
 │   └── 📄 mcp_config.json
+├── 📁 .github/
+│   └── 📁 workflows/
+│       └── 📄 deploy.yml
 ├── 📁 public/ # Assets estáticos musicais, imagens e ícones do PWA
 │   └── 📁 assets/
 │       ├── 📄 Issa_Academy-Fufu.png
@@ -82,7 +82,9 @@ issa-academy/
 │   │   ├── 📁 utils/ # Motores lógicos e utilitários (ex: audio.ts)
 │   │   │   ├── 📄 audio.ts
 │   │   │   ├── 📄 notesData.test.ts
-│   │   │   └── 📄 notesData.ts
+│   │   │   ├── 📄 notesData.ts
+│   │   │   ├── 📄 paths.test.ts
+│   │   │   └── 📄 paths.ts
 │   │   └── 📄 types.ts
 │   ├── 📁 modules/ # Módulos de funcionalidades do projeto
 │   │   ├── 📁 home/
@@ -112,6 +114,7 @@ issa-academy/
 ├── 📄 .gitignore
 ├── 📄 FLUXO_USUARIO.md # Mapa de fluxo UX e navegação
 ├── 📄 MAPA_RAIZ.md # Mapa arquitetural físico do projeto
+├── 📄 README.md
 ├── 📄 ROADMAP.md # Controle de pendências e histórico do projeto
 ├── 📄 eslint.config.js
 ├── 📄 index.html
@@ -124,4 +127,4 @@ issa-academy/
 ```
 
 ---
-*Gerado automaticamente em: 16/10/2026, 05:52:32*
+*Gerado automaticamente em: 16/10/2026, 07:23:11*

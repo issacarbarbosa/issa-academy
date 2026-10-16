@@ -15,12 +15,10 @@ O **Issa Academy** é uma plataforma educacional gamificada de ensino musical vo
 - **Animações**: Motion / Framer Motion
 - **Sons**: Web Audio API (Síntese acústica dinâmica em tempo de execução)
 - **Tipagem**: TypeScript (Strict Mode e checagem sem `implicitAny`) + Zod para validação em tempo de execução
-- **Infraestrutura Cloud & Serviços (Escala)**:
-  - **Hospedagem & CI/CD**: Cloudflare Pages (Deploy automático via `git push` no GitHub)
-  - **Web Analytics**: Cloudflare Web Analytics (Telemetria leve e privativa)
-  - **Autenticação & Banco de Dados**: Supabase Auth + Supabase PostgreSQL (`@supabase/supabase-js`)
-  - **Product Analytics**: PostHog (`posthog-js` para engajamento e métricas de retenção dos estudantes)
-- **Arquitetura**: Estado global de quiz via Zustand (`useQuizStore`), desmembramento modular de telas curriculares (`PhaseCard`, `LessonItemRow` com layout unificado linear de lição sem abas integrado com materiais de apoio do Google Drive, manifesto de 16 fases em `msaPhasesManifest.ts`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), conectores SDK encapsulados em `src/core/services/` com suporte obrigatório a modo visitante (*graceful degradation* via `localStorage`), e testes unitários co-localizados via Vitest e Testing Library (`*.test.ts`, `*.test.tsx`).
+- **Infraestrutura & Hospedagem**:
+  - **Hospedagem & CI/CD**: GitHub Pages com pipeline automatizado via GitHub Actions (`.github/workflows/deploy.yml`)
+  - **Analytics**: Google Analytics 4 (`G-LF25LGNKEJ`) + Microsoft Clarity (`ujlb9c5vzi`)
+- **Arquitetura**: Desmembramento modular em domínios isolados (`src/modules/home`, `mestre-da-clave`, `simulado`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), resolução dinâmica de assets via `getAssetUrl` (respeitando `BASE_URL` em subdiretórios), e testes unitários co-localizados via Vitest (`*.test.ts`).
 
 ---
 
@@ -28,18 +26,14 @@ O **Issa Academy** é uma plataforma educacional gamificada de ensino musical vo
 O projeto segue o padrão monorepo dividido em `core` e `modules`. O agente deve respeitar estritamente estas fronteiras ao criar ou editar arquivos:
 
 ### 1. Fronteira `src/core/`
-- **Regra:** Aqui residem APENAS lógicas globais, conectores de serviço e infraestrutura fundamental. O agente NUNCA deve criar componentes de interface (UI) neste diretório.
-- **Conteúdo permitido:** Provedores de estado global (`stores/` e `contexts/`), hooks utilitários (`hooks/`), conectores de serviços cloud e analytics (`services/`), lógicas de áudio/frequência (`utils/`), motores visuais reutilizáveis (`engine/` / `components/`), tipagens globais e componentes de controle (como guards de orientação).
-- **Graceful Degradation em Services:** Todos os conectores em `src/core/services/` (ex: Supabase e PostHog) devem possuir tratamentos de fallback gracioso para operar com `localStorage` caso as chaves de API não estejam presentes ou a aplicação esteja offline.
+- **Regra:** Aqui residem APENAS lógicas globais, conectores de serviço e infraestrutura fundamental. O agente NUNCA deve criar componentes de tela (views) neste diretório.
+- **Conteúdo permitido:** Provedores e hooks utilitários (`hooks/`), lógicas de áudio e caminhos (`utils/`), e componentes globais de controle (como `OrientationGuard`).
 
 ### 2. Fronteira `src/modules/`
-- **Regra:** Domínios de negócio isolados e interfaces do usuário vivem aqui.
-- **Diretiva para o Curso MSA:** Todo o ecossistema didático do método MSA fica isolado em `src/modules/curso-msa/`.
-- **Diretiva de Banco de Dados Local:** O agente deve ler e criar bancos de dados do simulado exclusivamente como arquivos JSON dentro do subdiretório `src/modules/curso-msa/questions/`, devidamente tipados e validados por schema via Zod.
-
-### 3. Motor Visual Compartilhado (`<StaffSvgEngine />`)
-- **Regra:** A representação visual de pautas musicais (5 linhas, endecagrama, claves e linhas suplementares) é centralizada no componente `<StaffSvgEngine />` exportado por `src/core/components/`.
-- **Uso:** Quizzes, aulas e minijogos devem consumir o `<StaffSvgEngine />` ao invés de desenhar elementos `<svg>`, `<line>` ou claves manualmente na UI.
+- **Regra:** Domínios de negócio isolados e interfaces do usuário vivem aqui:
+  - `src/modules/home/`: Tela de entrada (`WelcomeHome.tsx`) com seleção de modo e apresentação do mascote Fufu.
+  - `src/modules/mestre-da-clave/`: Jogo interativo de leitura musical em pauta Canvas a 60fps, com física e partículas desacopladas em `engine/gameEntities.ts`.
+  - `src/modules/simulado/`: Simulado oficial do método MSA com bancos de dados JSON em `questions/`, validação Zod e reações dinâmicas.
 
 ### 4. Roteamento Declarativo e PWA Offline-First
 - **Regra de Roteamento:** O roteamento da SPA deve ser gerido de forma declarativa por `react-router-dom` com `<HashRouter>` (devido ao suporte à hospedagem estática no GitHub Pages).

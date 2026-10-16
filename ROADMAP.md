@@ -18,11 +18,8 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] **Prioridade Arquitetural #2 - Roteamento Declarativo e PWA**: Substituição de roteamento ad-hoc por React Router (`HashRouter`), Code Splitting com `React.lazy` e ativação de PWA offline-first via Workbox (`vite-plugin-pwa`).
 - [x] **Prioridade Arquitetural #3 - Blindagem de Dados e Testes**: Adoção de Zod para checagem dos JSONs de simulados e criação de suíte de testes unitários com Vitest (100% de aprovação).
 - [x] **Prioridade Arquitetural #4 - Desacoplamento e Foco no Core**: Remoção integral dos resíduos do Curso MSA Digital (`CourseHome`, `LessonSlideshow`, `PhaseCard`, `LessonItemRow`, `TheoryQuiz`, `EndecagramaStaff`, `PianoKeyboard`, `lessonsData`, `msaPhasesManifest`, `useQuizStore`), modularização em domínios limpos (`home`, `mestre-da-clave`, `simulado`) e correção de caminhos de assets sem acento.
-- [ ] **Escalabilidade Cloud & CI/CD**: Conectar repositório ao Cloudflare Pages para deploy automático contínuo a cada commit na branch `main`.
-- [ ] **Telemetria de Tráfego**: Ativar Cloudflare Web Analytics para medição leve e sem cookies de acessos e performance global.
-- [ ] **Autenticação de Alunos**: Integrar Supabase Auth (`@supabase/supabase-js`) para contas de alunos (Email/Senha e OAuth Google).
-- [ ] **Banco de Dados Relacional**: Criar esquemas no Supabase PostgreSQL (`profiles`, `user_progress`, `quiz_attempts`, `game_scores`) para sincronizar progresso local.
-- [ ] **Product Analytics & Retenção**: Configurar PostHog (`posthog-js`) para métricas de engajamento e retenção dos estudantes.
+- [x] **CI/CD e GitHub Pages**: Pipeline de deploy automatizado via GitHub Actions (`.github/workflows/deploy.yml`) publicando bundles de produção e PWA na branch `main` do repositório oficial `issacarbarbosa/issa-academy`.
+- [x] **Resolução Dinâmica de Assets**: Criação do utilitário `getAssetUrl` para compatibilidade com subdiretórios (`BASE_URL`), eliminando erros 404 em produção na web pública.
 
 ### 2. Módulo: Mestre da Clave (Jogo)
 - [x] Mecânica central em React + Canvas (geração de notas, nível, vidas, recorde persistido no `localStorage`)
@@ -61,3 +58,5 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
   3. Mestre da Clave: extração da engine (`gameEntities.ts` com testes unitários), loop de Canvas a 60fps livre de recriação de efeito, barra de XP sincronizada e persistência com `useLocalStorage`.
   4. Simulado MSA: correção de 404 de assets com acento, substituição de `dangerouslySetInnerHTML` por JSX seguro, shuffle Fisher-Yates, reações acústicas de acerto/erro e remoção de `alert`/`confirm`.
   5. Infraestrutura: hook `run-linter.cjs` corrigido para ESM/CommonJS e configurado sem falhas de resolução; fontes otimizadas com preconnect e CDN FontAwesome removido em favor de ícones SVG offline nativos; suíte de testes com 18 testes aprovados e build homologado sem erros.
+  6. Resolução de Assets em Subdiretório: implementação do helper `getAssetUrl` (`src/core/utils/paths.ts`) e injeção dinâmica de `BASE_URL`, eliminando 404 de imagens no GitHub Pages (`/issa-academy/`).
+  7. Deploy Automático e Repositório Oficial: pipeline GitHub Actions (`deploy.yml`) configurado na branch `main` do repositório oficial definitivo `https://github.com/issacarbarbosa/issa-academy.git`, homologado no ar em `https://issacarbarbosa.github.io/issa-academy/` com 21 testes unitários aprovados e 0 erros no console.
