@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getAssetUrl } from '../../core/utils/paths';
 
 interface WelcomeHomeProps {
   onNavigate?: (view: 'home' | 'mestre_da_clave' | 'simulado_msa') => void;
@@ -27,7 +28,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       {/* Mascot welcoming banner */}
       <div className="max-w-xl mx-auto w-full px-6 py-8 flex items-center gap-5 border-b border-slate-100 welcome-section">
         <img
-          src="/assets/fufu-capa-home-pagge.png"
+          src={getAssetUrl('assets/fufu-capa-home-pagge.png')}
           alt="Mascote Fufu da Issa Academy"
           className="w-[120px] md:w-[130px] h-auto object-contain animate-float drop-shadow-md saturate-[1.1]"
         />
@@ -50,7 +51,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
         >
           <div className="w-[80px] h-[80px] rounded-xl bg-[#1cb0f6] flex items-center justify-center shadow-md shadow-sky-500/10 overflow-visible shrink-0">
             <img
-              src="/assets/fufu-capa-mestre-da-clave.png"
+              src={getAssetUrl('assets/fufu-capa-mestre-da-clave.png')}
               alt="Fufu Mestre da Clave"
               className="w-full h-full object-contain transform scale-[1.45] -translate-y-2 drop-shadow-md"
             />
@@ -79,7 +80,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
         >
           <div className="w-[80px] h-[80px] rounded-xl bg-[#58cc02] flex items-center justify-center shadow-md shadow-emerald-500/10 overflow-visible shrink-0">
             <img
-              src="/assets/fufu-capa-simulado.png"
+              src={getAssetUrl('assets/fufu-capa-simulado.png')}
               alt="Fufu Simulado MSA"
               className="w-full h-full object-contain transform scale-[1.45] -translate-y-2 drop-shadow-md"
             />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { useMobileOrientation } from '../hooks/useMobileOrientation';
+import { getAssetUrl } from '../utils/paths';
 
 interface OrientationGuardProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export const OrientationGuard: React.FC<OrientationGuardProps> = ({ children }) 
       <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/95 backdrop-blur-md px-6 text-center font-sans">
         {/* Mascote Fufu com animação suave de flutuação */}
         <motion.img
-          src="/assets/fufu-pensativo.png"
+          src={getAssetUrl('assets/fufu-pensativo.png')}
           alt="Mascote Fufu Pensativo"
           className="w-36 h-auto object-contain mb-6 drop-shadow-md"
           animate={{ y: [0, -10, 0] }}

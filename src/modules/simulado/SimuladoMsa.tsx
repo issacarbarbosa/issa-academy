@@ -8,6 +8,7 @@ import {
   validateQuestionBank,
 } from './questions/schema';
 import { playSuccessSound, playErrorSound } from '../../core/utils/audio';
+import { getAssetUrl } from '../../core/utils/paths';
 
 interface SimuladoMsaProps {
   onBack?: () => void;
@@ -28,20 +29,23 @@ export function computeQuizResult(
   let img = '';
   let msg = '';
   if (pct === 100) {
-    img = '/assets/fufu-comemorando-trofeu-gabarito.png';
+    img = getAssetUrl('assets/fufu-comemorando-trofeu-gabarito.png');
     msg = 'Perfeito! Você gabaritou o Simulado!';
   } else if (pct >= 80) {
-    img = '/assets/fufu-comemorando-trofeu-G-clave.png';
+    img = getAssetUrl('assets/fufu-comemorando-trofeu-G-clave.png');
     msg = 'Muito bom! Você está super preparado para a oficialização!';
   } else if (pct >= 50) {
-    const midImgs = ['/assets/fufu-erro-presente.png', '/assets/fufu-erro-encorajador.png'];
+    const midImgs = [
+      getAssetUrl('assets/fufu-erro-presente.png'),
+      getAssetUrl('assets/fufu-erro-encorajador.png'),
+    ];
     img = midImgs[Math.floor(randomValue * midImgs.length)];
     msg = 'Bom esforço! Mais alguns estudos e você chega lá!';
   } else {
     const lowImgs = [
-      '/assets/fufu-erro-nao-desista.png',
-      '/assets/fufu-erro-carinho.png',
-      '/assets/fufu-erro-acontece.png',
+      getAssetUrl('assets/fufu-erro-nao-desista.png'),
+      getAssetUrl('assets/fufu-erro-carinho.png'),
+      getAssetUrl('assets/fufu-erro-acontece.png'),
     ];
     img = lowImgs[Math.floor(randomValue * lowImgs.length)];
     msg = 'Não desanime! Teoria musical exige prática. Estude e tente novamente!';
@@ -253,7 +257,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
           id="simulado-menu"
         >
           <img
-            src="/assets/fufu-capa-simulado.png"
+            src={getAssetUrl('assets/fufu-capa-simulado.png')}
             className="w-28 h-auto mx-auto mb-4 drop-shadow-lg animate-float"
             alt="Fufu Simulado"
           />
@@ -512,8 +516,8 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
               <img
                 src={
                   selectedOption.correta
-                    ? '/assets/fufu-acerto-joinha.png'
-                    : '/assets/fufu-erro-nao-desista.png'
+                    ? getAssetUrl('assets/fufu-acerto-joinha.png')
+                    : getAssetUrl('assets/fufu-erro-nao-desista.png')
                 }
                 className="w-16 h-auto absolute right-4 top-4 opacity-25 md:opacity-100"
                 alt="Fufu Reação"

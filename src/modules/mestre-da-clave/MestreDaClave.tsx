@@ -3,6 +3,7 @@ import { Pause } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { initAudio, playLevelUpFanfare, playRewardChord, playError } from '../../core/utils/audio';
+import { getAssetUrl } from '../../core/utils/paths';
 import { useLocalStorage } from '../../core/hooks/useLocalStorage';
 import {
   FloatText,
@@ -544,7 +545,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             <div className="bg-white p-5 sm:p-6 rounded-3xl text-center max-w-sm sm:max-w-2xl w-full border-2 border-slate-200 shadow-2xl animate-pop flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
               <div className="w-full sm:w-1/2 flex flex-col items-center sm:border-r sm:border-slate-100 sm:pr-6">
                 <img
-                  src="/assets/fufu-capa-mestre-da-clave.png"
+                  src={getAssetUrl('assets/fufu-capa-mestre-da-clave.png')}
                   className="w-20 sm:w-28 h-auto object-contain mx-auto mb-2 drop-shadow-lg"
                   alt="Fufu Mestre da Clave"
                 />
@@ -585,7 +586,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             <div className="bg-white p-5 sm:p-6 rounded-3xl text-center max-w-sm sm:max-w-2xl w-full border-2 border-slate-200 shadow-2xl my-auto animate-pop flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
               <div className="w-full sm:w-1/2 flex flex-col items-center sm:border-r sm:border-slate-100 sm:pr-6">
                 <img
-                  src="/assets/fufu-pensativo.png"
+                  src={getAssetUrl('assets/fufu-pensativo.png')}
                   className="w-16 sm:w-24 h-auto object-contain mx-auto mb-2"
                   alt="Fufu Pausado"
                 />
@@ -629,7 +630,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             <div className="bg-white p-5 sm:p-6 rounded-3xl text-center max-w-sm sm:max-w-2xl w-full border-2 border-slate-200 shadow-2xl my-auto animate-pop flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
               <div className="w-full sm:w-1/2 flex flex-col items-center sm:border-r sm:border-slate-100 sm:pr-6">
                 <img
-                  src="/assets/fufu-erro-acontece.png"
+                  src={getAssetUrl('assets/fufu-erro-acontece.png')}
                   className="w-20 sm:w-28 h-auto object-contain mx-auto mb-2"
                   alt="Fufu Game Over"
                 />

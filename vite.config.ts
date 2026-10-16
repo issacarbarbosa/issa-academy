@@ -4,9 +4,9 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   return {
-    base: './',
+    base: mode === 'production' ? '/issa-academy/' : '/',
     plugins: [
       react(),
       tailwindcss(),
