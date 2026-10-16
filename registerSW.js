@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/issa-academy/sw.js', { scope: '/issa-academy/' })})}
