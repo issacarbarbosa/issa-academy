@@ -5,8 +5,11 @@ Este arquivo foi gerado automaticamente e apresenta a estrutura de diretórios e
 ```text
 issa-academy/
 ├── 📁 .agents/ # Configurações de agentes IA, skills especializadas e regras de projeto
+│   ├── 📁 .agents/
+│   │   └── 📁 hooks/
+│   │       └── 📄 run-linter.js
 │   ├── 📁 hooks/
-│   │   └── 📄 run-linter.js
+│   │   └── 📄 run-linter.cjs
 │   ├── 📁 rules/
 │   │   ├── 📁 Always On/
 │   │   │   ├── 📄 atualizacao-roadmap.md
@@ -68,36 +71,29 @@ issa-academy/
 │       ├── 📄 social-home.png
 │       └── 📄 social-whatsapp.png
 ├── 📁 src/ # Código-fonte da aplicação React/TypeScript
-│   ├── 📁 core/ # Componentes centrais, hooks, utilitários, serviços e motor de áudio
+│   ├── 📁 core/ # Componentes centrais, hooks, utilitários e motor de áudio
 │   │   ├── 📁 components/ # Componentes UI reutilizáveis (ex: StaffSvgEngine, OrientationGuard)
 │   │   │   ├── 📄 OrientationGuard.tsx
-│   │   │   ├── 📄 StaffSvgEngine.tsx
 │   │   │   └── 📄 index.ts
 │   │   ├── 📁 contexts/
-│   │   │   └── 📄 MsaCourseContext.tsx
 │   │   ├── 📁 hooks/
 │   │   │   ├── 📄 useLocalStorage.ts
 │   │   │   └── 📄 useMobileOrientation.ts
-│   │   ├── 📁 services/ # [Futuro/Escala] Conectores de infraestrutura (Supabase Auth/DB, PostHog, Analytics)
-│   │   │   ├── 📄 supabase.ts (Supabase Auth & Database client)
-│   │   │   ├── 📄 posthog.ts (Product Telemetry & Feature Flags)
-│   │   │   └── 📄 analytics.ts (Cloudflare Web Analytics wrapper)
 │   │   ├── 📁 utils/ # Motores lógicos e utilitários (ex: audio.ts)
 │   │   │   ├── 📄 audio.ts
 │   │   │   ├── 📄 notesData.test.ts
 │   │   │   └── 📄 notesData.ts
 │   │   └── 📄 types.ts
 │   ├── 📁 modules/ # Módulos de funcionalidades do projeto
-│   │   └── 📁 curso-msa/ # Trilha digital didática do MSA (slideshows, simulados e jogos)
-│   │       ├── 📁 components/ # Componentes da trilha MSA (LessonSlideshow, PhaseCard, etc.)
-│   │       │   ├── 📄 LessonItemRow.test.tsx
-│   │       │   ├── 📄 LessonItemRow.tsx
-│   │       │   ├── 📄 LessonSlideshow.tsx
-│   │       │   ├── 📄 PhaseCard.tsx
-│   │       │   └── 📄 WelcomeHome.tsx
-│   │       ├── 📁 content/
-│   │       │   └── 📄 msaPhasesManifest.ts
-│   │       ├── 📁 questions/ # Bancos de questões Zod em JSON (q_f01 a q_f05)
+│   │   ├── 📁 home/
+│   │   │   └── 📄 WelcomeHome.tsx
+│   │   ├── 📁 mestre-da-clave/
+│   │   │   ├── 📁 engine/
+│   │   │   │   ├── 📄 gameEntities.test.ts
+│   │   │   │   └── 📄 gameEntities.ts
+│   │   │   └── 📄 MestreDaClave.tsx
+│   │   └── 📁 simulado/
+│   │       ├── 📁 questions/
 │   │       │   ├── 📄 q_f01.json
 │   │       │   ├── 📄 q_f02.json
 │   │       │   ├── 📄 q_f03.json
@@ -105,17 +101,8 @@ issa-academy/
 │   │       │   ├── 📄 q_f05.json
 │   │       │   ├── 📄 schema.test.ts
 │   │       │   └── 📄 schema.ts
-│   │       ├── 📁 stores/ # Gerenciamento de estado global via Zustand (useQuizStore)
-│   │       │   ├── 📄 useQuizStore.test.ts
-│   │       │   └── 📄 useQuizStore.ts
-│   │       ├── 📄 CourseHome.tsx
-│   │       ├── 📄 EndecagramaStaff.tsx
-│   │       ├── 📄 MestreDaClave.tsx
-│   │       ├── 📄 PianoKeyboard.tsx
 │   │       ├── 📄 SimuladoMsa.test.ts
-│   │       ├── 📄 SimuladoMsa.tsx
-│   │       ├── 📄 TheoryQuiz.tsx
-│   │       └── 📄 lessonsData.ts
+│   │       └── 📄 SimuladoMsa.tsx
 │   ├── 📁 test/
 │   │   └── 📄 setup.ts
 │   ├── 📄 App.tsx
@@ -137,4 +124,4 @@ issa-academy/
 ```
 
 ---
-*Gerado e sincronizado com os planos de escalabilidade cloud em: 29/07/2026, 05:53:00*
+*Gerado automaticamente em: 16/10/2026, 05:52:32*

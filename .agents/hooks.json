@@ -1,4 +1,4 @@
-{
+﻿{
   "linter-automatico": {
     "enabled": true,
     "PostToolUse": [
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .agents/hooks/run-linter.js",
+            "command": "node hooks/run-linter.cjs",
             "timeout": 15
           }
         ]

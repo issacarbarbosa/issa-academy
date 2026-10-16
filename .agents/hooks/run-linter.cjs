@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
@@ -11,7 +11,6 @@ function readStdin() {
     process.stdin.on('end', () => {
       resolve(data);
     });
-    // Set a timeout so we don't hang if no stdin is provided
     setTimeout(() => resolve(data), 1000);
   });
 }
@@ -31,18 +30,16 @@ async function main() {
     }
   }
 
-  // Se o arquivo existe e é TypeScript/React
   if (targetFile && fs.existsSync(targetFile) && (targetFile.endsWith('.ts') || targetFile.endsWith('.tsx'))) {
     try {
-      // Injeta D:\nodejs no PATH para que o npx/node resolva os pacotes
+      const rootDir = path.resolve(__dirname, '../../');
       const env = { ...process.env, PATH: `D:\\nodejs;${process.env.PATH || ''}` };
-      execSync(`npx eslint "${targetFile}" --fix`, { env, stdio: 'ignore' });
+      execSync(`npx eslint "${targetFile}" --fix`, { cwd: rootDir, env, stdio: 'ignore' });
     } catch (err) {
-      // Falha do ESLint é capturada para não interromper a escrita de arquivo
+      // Falha do ESLint é capturada para não interromper
     }
   }
 
-  // RETORNO OBRIGATÓRIO: JSON vazio no stdout de acordo com o contrato do Antigravity 2.0
   console.log(JSON.stringify({}));
 }
 

@@ -1,8 +1,5 @@
 {
-  "name": "Curso MSA Digital",
-  "description": "Uma plataforma EdTech interativa para o aprendizado completo do Método Simplificado de Aprendizagem (MSA), com simuladores acústicos, metrônomos práticos, exercícios rítmicos e o explorador do Endecagrama.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "Issa Academy",
+  "description": "Plataforma de ensino musical gamificado CCB com o jogo Mestre da Clave e o Simulado MSA oficial com gabarito e cronômetro.",
+  "requestFramePermissions": []
 }

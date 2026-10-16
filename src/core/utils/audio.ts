@@ -1,9 +1,16 @@
 let audioCtx: AudioContext | null = null;
 let activeOscillators: { [key: string]: { osc: OscillatorNode; gain: GainNode } } = {};
 
+interface WebkitWindow extends Window {
+  webkitAudioContext?: typeof AudioContext;
+}
+
 export function getAudioContext(): AudioContext {
   if (!audioCtx) {
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContextClass = window.AudioContext || (window as unknown as WebkitWindow).webkitAudioContext;
+    if (!AudioContextClass) {
+      throw new Error('Web Audio API não suportada neste navegador.');
+    }
     audioCtx = new AudioContextClass();
   }
   if (audioCtx.state === 'suspended') {
