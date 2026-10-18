@@ -43,4 +43,36 @@ describe('MestreDaClave Game Entities & Engine', () => {
     expect(particle.speedY).toBeCloseTo(-70, 1); // -100 + (300 * 0.1)
     expect(particle.life).toBeCloseTo(0.95, 2);
   });
+
+  it('should accurately return newly unlocked note for each level up without off-by-one errors', async () => {
+    const { getNewlyUnlockedNote } = await import('./gameEntities');
+
+    // Level 1 starts with Dó and Ré; Level 2 unlocks Mi (pos 0)
+    const lvl2Note = getNewlyUnlockedNote(2);
+    expect(lvl2Note).not.toBeNull();
+    expect(lvl2Note?.base).toBe('Mi');
+    expect(lvl2Note?.pos).toBe(0);
+    expect(lvl2Note?.label).toContain('Mi');
+
+    // Level 3 unlocks Fá (pos 1)
+    const lvl3Note = getNewlyUnlockedNote(3);
+    expect(lvl3Note?.base).toBe('Fá');
+    expect(lvl3Note?.pos).toBe(1);
+
+    // Level 8 unlocks Ré Agudo (pos 6)
+    const lvl8Note = getNewlyUnlockedNote(8);
+    expect(lvl8Note?.base).toBe('Ré');
+    expect(lvl8Note?.pos).toBe(6);
+    expect(lvl8Note?.label).toContain('Ré Agudo');
+
+    // Level 12 unlocks Lá Agudo (pos 10, the 13th note)
+    const lvl12Note = getNewlyUnlockedNote(12);
+    expect(lvl12Note?.base).toBe('Lá');
+    expect(lvl12Note?.pos).toBe(10);
+    expect(lvl12Note?.label).toContain('Lá Agudo');
+
+    // Level 13+ (all 13 notes already unlocked)
+    expect(getNewlyUnlockedNote(13)).toBeNull();
+    expect(getNewlyUnlockedNote(1)).toBeNull();
+  });
 });

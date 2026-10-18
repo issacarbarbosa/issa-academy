@@ -5,24 +5,23 @@ Este arquivo foi gerado automaticamente e apresenta a estrutura de diretórios e
 ```text
 issa-academy/
 ├── 📁 .agents/ # Configurações de agentes IA, skills especializadas e regras de projeto
-│   ├── 📁 hooks/
+│   ├── 📁 hooks/ # Hooks de ciclo de vida do agente (ESLint automático)
 │   │   └── 📄 run-linter.cjs
-│   ├── 📁 rules/
-│   │   ├── 📁 Always On/
-│   │   │   ├── 📄 atualizacao-roadmap.md
-│   │   │   ├── 📄 project-context.md
-│   │   │   └── 📄 search-first.md
-│   │   ├── 📁 Glob/
-│   │   │   ├── 📄 code-quality.md
-│   │   │   ├── 📄 design-blueprint.md
-│   │   │   └── 📄 ts-rules.md
-│   │   └── 📁 Model Decision/
-│   │       ├── 📄 git-workflow.md
-│   │       └── 📄 security.md
-│   ├── 📁 skills/
+│   ├── 📁 rules/ # Regras de comportamento, qualidade e diretrizes de projeto
+│   │   ├── 📄 atualizacao-roadmap.md
+│   │   ├── 📄 code-quality.md
+│   │   ├── 📄 design-blueprint.md
+│   │   ├── 📄 git-workflow.md
+│   │   ├── 📄 project-context.md
+│   │   ├── 📄 search-first.md
+│   │   ├── 📄 security.md
+│   │   └── 📄 ts-rules.md
+│   ├── 📁 skills/ # Habilidades especializadas do agente (áudio, teoria, deploy, mapas)
+│   │   ├── 📁 canvas-playtest/
+│   │   │   └── 📄 SKILL.md
 │   │   ├── 📁 deploy-helper/
 │   │   │   ├── 📁 scripts/
-│   │   │   │   └── 📄 deploy.sh
+│   │   │   │   └── 📄 pre-deploy-check.js
 │   │   │   └── 📄 SKILL.md
 │   │   ├── 📁 map-builder/
 │   │   │   ├── 📁 scripts/
@@ -32,8 +31,7 @@ issa-academy/
 │   │   │   └── 📄 SKILL.md
 │   │   └── 📁 rhythm-audio-engine/
 │   │       └── 📄 SKILL.md
-│   ├── 📄 hooks.json
-│   └── 📄 mcp_config.json
+│   └── 📄 hooks.json
 ├── 📁 .github/
 │   └── 📁 workflows/
 │       └── 📄 deploy.yml
@@ -72,14 +70,13 @@ issa-academy/
 │       └── 📄 social-whatsapp.png
 ├── 📁 src/ # Código-fonte da aplicação React/TypeScript
 │   ├── 📁 core/ # Componentes centrais, hooks, utilitários e motor de áudio
-│   │   ├── 📁 components/ # Componentes UI reutilizáveis (ex: StaffSvgEngine, OrientationGuard)
+│   │   ├── 📁 components/ # Componentes UI globais reutilizáveis (OrientationGuard)
 │   │   │   ├── 📄 OrientationGuard.tsx
 │   │   │   └── 📄 index.ts
-│   │   ├── 📁 contexts/
-│   │   ├── 📁 hooks/
+│   │   ├── 📁 hooks/ # Hooks utilitários reutilizáveis (useMobileOrientation, useLocalStorage)
 │   │   │   ├── 📄 useLocalStorage.ts
 │   │   │   └── 📄 useMobileOrientation.ts
-│   │   ├── 📁 utils/ # Motores lógicos e utilitários (ex: audio.ts)
+│   │   ├── 📁 utils/ # Motores lógicos e utilitários (ex: audio.ts, notesData.ts, paths.ts)
 │   │   │   ├── 📄 audio.ts
 │   │   │   ├── 📄 notesData.test.ts
 │   │   │   ├── 📄 notesData.ts
@@ -87,15 +84,15 @@ issa-academy/
 │   │   │   └── 📄 paths.ts
 │   │   └── 📄 types.ts
 │   ├── 📁 modules/ # Módulos de funcionalidades do projeto
-│   │   ├── 📁 home/
+│   │   ├── 📁 home/ # Tela inicial de boas-vindas e seleção de modos (WelcomeHome)
 │   │   │   └── 📄 WelcomeHome.tsx
-│   │   ├── 📁 mestre-da-clave/
-│   │   │   ├── 📁 engine/
+│   │   ├── 📁 mestre-da-clave/ # Jogo interativo de leitura musical em pauta Canvas 60fps
+│   │   │   ├── 📁 engine/ # Motor de física, partículas e geração de notas (gameEntities)
 │   │   │   │   ├── 📄 gameEntities.test.ts
 │   │   │   │   └── 📄 gameEntities.ts
 │   │   │   └── 📄 MestreDaClave.tsx
-│   │   └── 📁 simulado/
-│   │       ├── 📁 questions/
+│   │   └── 📁 simulado/ # Simulado oficial do método MSA com validação Zod e feedbacks sonoros
+│   │       ├── 📁 questions/ # Bancos de questões Zod em JSON (q_f01 a q_f05)
 │   │       │   ├── 📄 q_f01.json
 │   │       │   ├── 📄 q_f02.json
 │   │       │   ├── 📄 q_f03.json
@@ -127,4 +124,4 @@ issa-academy/
 ```
 
 ---
-*Gerado automaticamente em: 16/10/2026, 07:23:11*
+*Gerado automaticamente em: 17/10/2026, 21:50:05*

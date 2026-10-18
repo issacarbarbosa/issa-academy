@@ -20,17 +20,20 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] **Prioridade Arquitetural #4 - Desacoplamento e Foco no Core**: Remoção integral dos resíduos do Curso MSA Digital (`CourseHome`, `LessonSlideshow`, `PhaseCard`, `LessonItemRow`, `TheoryQuiz`, `EndecagramaStaff`, `PianoKeyboard`, `lessonsData`, `msaPhasesManifest`, `useQuizStore`), modularização em domínios limpos (`home`, `mestre-da-clave`, `simulado`) e correção de caminhos de assets sem acento.
 - [x] **CI/CD e GitHub Pages**: Pipeline de deploy automatizado via GitHub Actions (`.github/workflows/deploy.yml`) publicando bundles de produção e PWA na branch `main` do repositório oficial `issacarbarbosa/issa-academy`.
 - [x] **Resolução Dinâmica de Assets**: Criação do utilitário `getAssetUrl` para compatibilidade com subdiretórios (`BASE_URL`), eliminando erros 404 em produção na web pública.
+- [x] **Higienização e Modernização da Governança de IA (.agents/)**: Achatamento de regras em `.agents/rules/*.md` com frontmatter nativo, correção do contrato `stdin` do hook `run-linter.cjs` (`PostToolUse`), remoção de MCP fantasma, calibragem das skills (`deploy-helper`, `map-builder`, `music-theory-core`, `rhythm-audio-engine`) e adição do comando `npm run map`.
 
 ### 2. Módulo: Mestre da Clave (Jogo)
 - [x] Mecânica central em React + Canvas (geração de notas, nível, vidas, recorde persistido no `localStorage`)
 - [x] Leitura de notas na Clave de Sol (Fase 1 e Fase 2)
 - [x] Extração da engine de partículas, notas e entidades para `src/modules/mestre-da-clave/engine/gameEntities.ts` com testes unitários
 - [x] Estabilização do game loop: `useEffect` desacoplado dos parâmetros de velocidade/nível, eliminando reinício de `requestAnimationFrame`
-- [x] Barra de XP sincronizada com estado React e teclado gerado dinamicamente com paleta cromática
+- [x] Barra de XP sincronizada com estado React, cor temática Sky Blue (`h-3`) e badge de contagem de XP (`0/10`) no HUD
+- [x] Destaque visual das teclas ativas do nível atual com atenuação pedagógica das inativas (`opacity-60`) e correção de contraste (rótulo da nota Mi em tom âmbar escuro `#b45309`)
+- [x] Notificação de Level Up compacta (`top-3`) e lúdica com miniatura do Fufu dando joinha
 - [ ] Implementação de seleção de Claves (Clave de Fá e Clave de Dó)
-- [ ] Rever a estrutura de dificuldade dos níveis
-- [ ] Rever o som do 'acerto' e do 'passar de nível' para ficar mais musical e divertido.
-- [ ] Rever o card que aparece quando passa de nível (mais discreto no mobile).
+- [x] Correção do bug de progressão de níveis (off-by-one) e anúncios didáticos de notas com `getNewlyUnlockedNote` e normalização responsiva de velocidade da pauta
+- [x] Reformulação do motor de áudio (síntese diatônica harmônica com oitava sutil, filtro passa-baixa adaptativo por key-tracking e fanfarra de 4 notas desacoplada)
+- [x] Refinamento visual e de usabilidade: renderização HiDPI via `devicePixelRatio`, z-index das linhas suplementares corrigido, atalhos de teclado físico no Desktop (`1-7`, `C-B`, `Espaço`/`Esc`) e botões inativos com contraste sólido
 
 ### 3. Módulo: Simulado MSA (Questões)
 - [x] Mecânica central (20 questões aleatórias sorteadas via Fisher-Yates, cronômetro, revisão e feedbacks em áudio/sticker)
@@ -38,6 +41,11 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] Eliminação de `dangerouslySetInnerHTML` na formatação de compassos (`formatText` agora gera JSX puro)
 - [x] Resposta com feedback sonoro integrado (`playSuccessSound` e `playErrorSound`)
 - [x] Modal e mensagens inline substituindo `alert()` e `confirm()` nativos
+- [x] Otimização ergonômica de toque (touch targets `>= 44px` no botão de fechar X, voltar e seleção de períodos)
+- [x] Cronômetro em tempo real no header do quiz com ícone de relógio e formatação `mm:ss`
+- [x] Painel de feedback visual desacoplado com mascote Fufu em 100% de opacidade e layout flex
+- [x] Rodapé de ação sticky com botões `rounded-2xl` de alta acessibilidade ("Verificar" e "Continuar")
+- [x] Lista de revisão de erros no fluxo natural da página (remoção de container claustrofóbico `max-h-40` com scroll duplo)
 - [x] Banco de Questões do Período 1 (Fases 1, 2 e 3)
 - [x] Banco de Questões do Período 2 (Fases 4 e 5)
 - [ ] Bancos de Questões dos Períodos 3 e 4 (Fases 6 a 16)
@@ -60,3 +68,34 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
   5. Infraestrutura: hook `run-linter.cjs` corrigido para ESM/CommonJS e configurado sem falhas de resolução; fontes otimizadas com preconnect e CDN FontAwesome removido em favor de ícones SVG offline nativos; suíte de testes com 18 testes aprovados e build homologado sem erros.
   6. Resolução de Assets em Subdiretório: implementação do helper `getAssetUrl` (`src/core/utils/paths.ts`) e injeção dinâmica de `BASE_URL`, eliminando 404 de imagens no GitHub Pages (`/issa-academy/`).
   7. Deploy Automático e Repositório Oficial: pipeline GitHub Actions (`deploy.yml`) configurado na branch `main` do repositório oficial definitivo `https://github.com/issacarbarbosa/issa-academy.git`, homologado no ar em `https://issacarbarbosa.github.io/issa-academy/` com 21 testes unitários aprovados e 0 erros no console.
+- **2026-10-16 (II)**: Higienização Completa de Governança e Regras de Agentes (.agents/):
+  1. Correção técnica do hook `run-linter.cjs` em `PostToolUse` (detecção de arquivos alterados via `git status` e conformidade com `stdin`/`stdout`) e limpeza de hooks mortos em `hooks.json`.
+  2. Achatamento das regras diretamente em `.agents/rules/*.md` com frontmatter YAML nativo (`always_on`, `glob`, `model_decision`), eliminando subpastas com espaços que prejudicavam a descoberta automática.
+  3. Remoção de todos os resíduos arquiteturais obsoletos (Curso MSA, `CourseHome`, `LessonSlideshow`, Zustand `useQuizStore`) de todas as regras e scripts.
+  4. Remoção do arquivo fantasma `.agents/mcp_config.json`.
+  5. Calibragem das skills (`deploy-helper`, `map-builder`, `music-theory-core`, `rhythm-audio-engine`) com descrições em 3ª pessoa (`Use esta skill quando...`), contrato real `SimuladoQuestionSchema` (`schema.ts`), assinaturas reais de `audio.ts` e scripts cross-platform.
+  6. Otimização de latência em `run-linter.cjs` (filtro `mtimeMs <= 15000` e tratamento de renomeações Git), adição do Quality Gate (`typecheck`, `lint`, `test`) no CI/CD (`deploy.yml`), script `clean` via Node `fs.rmSync` e comando `npm run map` no `package.json`.
+- **2026-10-16 (III)**: Auditoria Profunda de UX/UI, Gamificação e Acessibilidade (Mobile Portrait, Mobile Landscape e Desktop):
+  1. **Acessibilidade e Touch Targets**: Elevação de todas as áreas de toque interativas para o padrão mínimo de `44px` (botão de fechar `X` do quiz, links sociais, botões de voltar no header e no guarda de orientação, seleção de períodos).
+  2. **OrientationGuard com Saída de Emergência**: Adição do botão "Voltar ao Início" (`rounded-2xl` e `min-h-[44px]`) permitindo ao usuário cancelar o jogo sem ficar preso na tela de aviso vertical.
+  3. **Mestre da Clave**: Destaque visual das notas ativas do nível (`opacity-100`, bordas e sombras) com atenuação sutil das inativas (`opacity-60`), correção do contraste da nota Mi com rótulo `#b45309`, barra de XP temática em Sky Blue (`h-3`), contador `XP {hitsInLevel}/10` no header e notificação de Level Up compacta com Fufu joinha.
+  4. **Simulado MSA**: Cronômetro ao vivo no header com ícone de relógio `mm:ss`, redução de padding excessivo no menu para eliminar rolagem desnecessária no mobile, painel de feedback desacoplado com Fufu em 100% de opacidade, rodapé de ação sticky com botões `rounded-2xl` e expansão da revisão de erros no fluxo natural da página (removendo a caixa claustrofóbica com rolagem dupla).
+  5. **Responsividade Desktop e Mobile-Landscape**: Grid de 2 colunas na Home (`md:grid-cols-2`) e nas alternativas do Simulado, ocultação limpa de rodapé/header em landscape estreito via `.mobile-landscape-hidden` e correção dos fallbacks de borda do Tailwind v4 (`*-200`).
+  6. **Validação Visual no Navegador**: Testes automatizados executados nos 3 viewports (`390x844`, `844x390`, `1280x800`) com 100% de aprovação e conformidade com o Blueprint Issa Academy.
+- **2026-10-17**: Auditoria de Lógica, Psicoacústica e UX/UI no Mestre da Clave:
+  1. **Correção de Lógica de Level Up (Off-by-One)**: Criação do helper `getNewlyUnlockedNote` e rótulos didáticos detalhados (`label` com posição, linha e espaço no pentagrama). O Nível 2 agora anuncia com precisão `Nova Nota: Mi (1ª Linha) 🎶` e o Nível 3 `Nova Nota: Fá (1º Espaço) 🎶`, eliminando a defasagem histórica.
+  2. **Psicoacústica e Motor de Áudio**: Reformulação de `playRewardChord` (substituição de tríades cromáticas estranhas ao tom por fundamental pura com oitava sutil de brilho harmônico), filtro passa-baixa adaptativo por key-tracking (`Math.min(4500, Math.max(1200, freq * 3.5))`) garantindo corpo acústico equilibrado para notas agudas, e desacoplamento de 220ms entre o 10º acerto e a nova fanfarra de 4 notas.
+  3. **Correção Gráfica e HiDPI**: Suporte integral a `devicePixelRatio` para nitidez absoluta em telas Retina/mobile e reordenação das linhas suplementares no Canvas (desenhadas sob a cabeça da nota, sem rasgar o brilho specular 3D).
+  4. **Equalização de Dificuldade e Usabilidade**: Velocidade das notas normalizada proporcionalmente à largura da tela (tempo de travessia idêntico de 3.8s em mobile e desktop), feedback pedagógico em cliques errados (`"Era Mi!"`) e antecipados (`"Espere na área verde!"`).
+  5. **Acessibilidade Desktop**: Suporte completo a atalhos de teclado físico (`1 a 7`, `C a B`, `Espaço`/`Esc` para pausa) com badges visuais nos botões musicais e contraste sólido nas teclas atenuadas.
+  6. **Validação Automatizada com Navegador**: Playtest real no navegador via subagente em Mobile Landscape e Desktop com 100% de taxa de acerto e 22 testes unitários aprovados no Vitest.
+- **2026-10-17 (II)**: Persistência de Diretrizes Permanentes (/learn):
+  1. Criação da skill `canvas-playtest` (`.agents/skills/canvas-playtest/SKILL.md`) com padrão de automação determinística via interceptação de protótipos de Canvas 2D e roteiro de auto-play.
+  2. Calibração da skill `rhythm-audio-engine` com fórmula de filtro passa-baixa adaptativo por key-tracking e acordes de reforço estritamente diatônicos.
+  3. Atualização das regras em `design-blueprint.md` (HiDPI, velocidade normalizada e z-order em Canvas) e `project-context.md` (harmonia pedagógica diatônica).
+- **2026-10-17 (III)**: Homologação e Deploy em Produção (GitHub Pages):
+  1. Encapsulamento de `handlePauseToggle` com `useCallback` em `MestreDaClave.tsx`, atingindo 0 erros e 0 warnings no ESLint.
+  2. Execução e aprovação completa do Quality Gate: `npm run typecheck` (0 erros), `npm run lint` (0 erros/avisos), `npm test` (22/22 testes unitários aprovados) e `npm run build` (geração de bundles e service worker PWA).
+  3. Sincronização do mapa arquitetural `MAPA_RAIZ.md` via `npm run map`.
+  4. Publicação da versão homologada na branch `main` com disparo do pipeline CI/CD no GitHub Actions para `https://issacarbarbosa.github.io/issa-academy/`.
+

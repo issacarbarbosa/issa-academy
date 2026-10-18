@@ -59,9 +59,9 @@ function MainLayout() {
             {!isHome && (
               <button
                 onClick={() => navigate(-1)}
-                className="flex items-center gap-1.5 px-4 py-2 bg-[#f7f9fa] hover:bg-slate-100 text-slate-600 border-2 border-slate-200 rounded-xl text-xs font-black transition-all cursor-pointer shadow-sm"
+                className="flex items-center gap-1.5 min-h-[44px] px-4 py-2 bg-[#f7f9fa] hover:bg-slate-100 text-slate-600 border-2 border-slate-200 rounded-xl text-xs font-black transition-all cursor-pointer shadow-sm active:translate-y-0.5"
               >
-                <ArrowLeft size={14} /> Voltar
+                <ArrowLeft size={16} /> Voltar
               </button>
             )}
 
@@ -69,9 +69,9 @@ function MainLayout() {
               href="https://www.youtube.com/@issacarbarbosa"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white border-b-4 border-red-800 active:border-b-0 active:translate-y-0.5 rounded-xl text-xs font-black transition-all shadow-md cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 min-h-[44px] px-4 py-2 bg-red-600 hover:bg-red-700 text-white border-b-4 border-red-800 active:border-b-0 active:translate-y-0.5 rounded-xl text-xs font-black transition-all shadow-md cursor-pointer"
             >
-              <Youtube size={14} fill="currentColor" /> Canal Oficial
+              <Youtube size={16} fill="currentColor" /> Canal Oficial
             </a>
           </div>
         </header>
@@ -104,7 +104,7 @@ function MainLayout() {
       </div>
 
       {/* ==================== BOTTOM STATUS BAR ==================== */}
-      <footer className="h-10 bg-[#1a3c5a] flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
+      <footer className="h-10 bg-[#1a3c5a] mobile-landscape-hidden flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
         <span>Issa Academy • Mestre da Clave & Simulado MSA</span>
         <div className="flex gap-4">
           <span className="hidden md:inline">CCB • Método de Teoria e Solfejo</span>

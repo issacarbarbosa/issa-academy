@@ -46,10 +46,11 @@ export function startNote(frequency: number, noteId: string = 'global') {
     gainNode.gain.setValueAtTime(0.3, now + 0.05);
     gainNode.gain.exponentialRampToValueAtTime(0.2, now + 0.3);
 
-    // Lowpass filter to make it sound warm and pleasant
+    // Lowpass filter to make it sound warm and pleasant with key tracking
     const filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(1000, now);
+    const cutoff = Math.min(4500, Math.max(1200, frequency * 3.5));
+    filter.frequency.setValueAtTime(cutoff, now);
 
     osc.connect(filter);
     filter.connect(gainNode);
@@ -190,7 +191,12 @@ export function initAudio() {
   }
 }
 
-export function playTone(freq: number, startTime?: number, duration = 0.5) {
+export function playTone(
+  freq: number,
+  startTime?: number,
+  duration = 0.5,
+  gainMultiplier = 1,
+) {
   try {
     const ctx = getAudioContext();
     const osc = ctx.createOscillator();
@@ -202,18 +208,19 @@ export function playTone(freq: number, startTime?: number, duration = 0.5) {
     const now = startTime || ctx.currentTime;
     gainNode.gain.setValueAtTime(0, now);
     // Attack (smooth fade-in)
-    gainNode.gain.linearRampToValueAtTime(0.25, now + 0.02);
+    gainNode.gain.linearRampToValueAtTime(0.25 * gainMultiplier, now + 0.02);
     // Decay / Sustain
-    gainNode.gain.exponentialRampToValueAtTime(0.18, now + Math.min(0.1, duration * 0.4));
+    gainNode.gain.exponentialRampToValueAtTime(0.18 * gainMultiplier, now + Math.min(0.1, duration * 0.4));
     // Release
     const releaseStart = now + duration - 0.08 > now ? now + duration - 0.08 : now;
-    gainNode.gain.setValueAtTime(0.18, releaseStart);
+    gainNode.gain.setValueAtTime(0.18 * gainMultiplier, releaseStart);
     gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
-    // Lowpass filter for warm organ timbre (1000Hz)
+    // Key-tracking lowpass filter for warm organ timbre across all octaves
     const filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(1000, now);
+    const cutoff = Math.min(4500, Math.max(1200, freq * 3.5));
+    filter.frequency.setValueAtTime(cutoff, now);
 
     osc.connect(filter);
     filter.connect(gainNode);
@@ -239,13 +246,14 @@ export function playLevelUpFanfare() {
     const ctx = getAudioContext();
     const now = ctx.currentTime;
     const notes = [
-      { freq: 523.25, time: now, dur: 0.15 },        // C5
-      { freq: 659.25, time: now + 0.15, dur: 0.15 }, // E5
-      { freq: 783.99, time: now + 0.3, dur: 0.6 },   // G5
+      { freq: 523.25, time: now, dur: 0.14 },         // C5
+      { freq: 659.25, time: now + 0.12, dur: 0.14 },  // E5
+      { freq: 783.99, time: now + 0.24, dur: 0.16 },  // G5
+      { freq: 1046.50, time: now + 0.40, dur: 0.55 }, // C6
     ];
 
     notes.forEach((n) => {
-      playTone(n.freq, n.time, n.dur);
+      playTone(n.freq, n.time, n.dur, 1.1);
     });
   } catch (error) {
     console.warn('Fanfare error:', error);
@@ -257,12 +265,10 @@ export function playRewardChord(rootFreq: number) {
     initAudio();
     if (!rootFreq) return;
     const ctx = getAudioContext();
-    const thirdFreq = rootFreq * 1.25992;
-    const fifthFreq = rootFreq * 1.49831;
     const now = ctx.currentTime;
-    playTone(rootFreq, now, 0.6);
-    playTone(thirdFreq, now + 0.06, 0.6);
-    playTone(fifthFreq, now + 0.12, 0.6);
+    // Toca a nota fundamental com riqueza harmônica e uma oitava sutil superior (brilho sem notas fora do tom)
+    playTone(rootFreq, now, 0.55, 1.0);
+    playTone(rootFreq * 2, now + 0.04, 0.45, 0.35);
   } catch (error) {
     console.warn('RewardChord error:', error);
   }

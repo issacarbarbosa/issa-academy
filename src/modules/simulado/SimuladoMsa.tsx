@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Check, CheckCircle2, X, XCircle, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Check, CheckCircle2, X, XCircle, AlertCircle, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {
   SimuladoQuestion,
@@ -116,9 +116,19 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
 
   // Timer & Results
   const [quizStartTime, setQuizStartTime] = useState<number>(0);
+  const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [timeSpentString, setTimeSpentString] = useState<string>('00:00');
   const [resultImg, setResultImg] = useState<string>('');
   const [resultMsg, setResultMsg] = useState<string>('');
+
+  // Cronômetro ao vivo durante o QUIZ
+  useEffect(() => {
+    if (quizState !== 'QUIZ') return;
+    const interval = setInterval(() => {
+      setElapsedSeconds(Math.floor((Date.now() - quizStartTime) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [quizState, quizStartTime]);
 
   const availablePeriods = [1, 2];
 
@@ -189,6 +199,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
     setIsAnswerChecked(false);
     setWrongAnswers([]);
     setQuizStartTime(Date.now());
+    setElapsedSeconds(0);
     setQuizState('QUIZ');
   };
 
@@ -253,16 +264,16 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
       {/* MENU SCREEN */}
       {quizState === 'MENU' && (
         <div
-          className="max-w-xl mx-auto w-full px-6 pt-16 pb-8 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade"
+          className="max-w-xl mx-auto w-full px-6 py-6 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade"
           id="simulado-menu"
         >
           <img
             src={getAssetUrl('assets/fufu-capa-simulado.png')}
-            className="w-28 h-auto mx-auto mb-4 drop-shadow-lg animate-float"
+            className="w-24 sm:w-28 h-auto mx-auto mb-3 drop-shadow-lg animate-float"
             alt="Fufu Simulado"
           />
-          <h2 className="text-3xl font-black text-slate-800 mb-1">Simulado MSA</h2>
-          <p className="text-sm text-slate-500 font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-1">Simulado MSA</h2>
+          <p className="text-xs sm:text-sm text-slate-500 font-bold mb-5">
             Prepare-se para o teste de oficialização CCB respondendo questões reais do método.
           </p>
 
@@ -274,13 +285,13 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
           )}
 
           <div className="bg-white p-5 rounded-2xl border-2 border-slate-200 mb-6 text-left">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-3">
               <span className="text-xs font-black text-slate-500 uppercase tracking-wider">
                 Selecione os Períodos:
               </span>
               <button
                 onClick={toggleSelectAll}
-                className="text-xs font-extrabold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                className="text-xs font-extrabold text-indigo-600 hover:text-indigo-800 cursor-pointer min-h-[44px] px-2 -my-2 flex items-center"
               >
                 {allPeriodsChecked ? 'Limpar Todos' : 'Selecionar Todos'}
               </button>
@@ -388,14 +399,14 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
       {/* QUIZ WORKSPACE */}
       {quizState === 'QUIZ' && currentQuestion && (
         <div
-          className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-6 py-6 pb-28 relative animate-fade"
+          className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-6 py-6 relative animate-fade min-h-full"
           id="simulado-quiz"
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="flex items-center justify-between gap-3 sm:gap-4 mb-6">
             <button
               onClick={() => setShowExitConfirm(true)}
-              className="text-slate-400 hover:text-slate-600 cursor-pointer p-1 -m-1"
+              className="w-11 h-11 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 transition-all cursor-pointer border border-slate-200 shrink-0"
               title="Sair do Simulado"
             >
               <X size={20} />
@@ -409,11 +420,17 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
               />
             </div>
 
-            <div className="text-slate-600 font-extrabold text-xs shrink-0 font-mono">
-              <span className="text-sm text-indigo-600 font-black">
-                {(currentIndex + 1).toString().padStart(2, '0')}
-              </span>{' '}
-              / {questions.length}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <div className="flex items-center gap-1.5 text-slate-600 font-extrabold text-xs font-mono bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200">
+                <Clock size={13} className="text-amber-500 shrink-0" />
+                <span>{formatTimeSpent(elapsedSeconds)}</span>
+              </div>
+              <div className="text-slate-600 font-extrabold text-xs font-mono">
+                <span className="text-sm text-indigo-600 font-black">
+                  {(currentIndex + 1).toString().padStart(2, '0')}
+                </span>{' '}
+                / {questions.length}
+              </div>
             </div>
           </div>
 
@@ -447,7 +464,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
           )}
 
           {/* Question card */}
-          <div className="bg-sky-50 border-2 border-sky-150 rounded-2xl p-6 relative shadow-sm mb-6 animate-slide">
+          <div className="bg-sky-50 border-2 border-sky-200 rounded-2xl p-6 relative shadow-sm mb-6 animate-slide">
             <span className="absolute -top-4 -left-3 w-10 h-10 bg-indigo-600 text-white font-black text-sm flex items-center justify-center rounded-xl border-2 border-white shadow shadow-indigo-600/20 rotate-[-5deg]">
               {currentIndex + 1}
             </span>
@@ -506,7 +523,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
           {/* Dynamic feedback panel */}
           {isAnswerChecked && selectedOption && (
             <div
-              className={`p-5 rounded-2xl border-2 mb-6 animate-pop relative overflow-hidden ${
+              className={`p-4 sm:p-5 rounded-2xl border-2 mb-6 animate-pop flex items-start gap-3 sm:gap-4 ${
                 selectedOption.correta
                   ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
                   : 'bg-red-50 border-red-200 text-red-800'
@@ -519,55 +536,57 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
                     ? getAssetUrl('assets/fufu-acerto-joinha.png')
                     : getAssetUrl('assets/fufu-erro-nao-desista.png')
                 }
-                className="w-16 h-auto absolute right-4 top-4 opacity-25 md:opacity-100"
+                className="w-14 sm:w-16 h-auto shrink-0 drop-shadow-sm"
                 alt="Fufu Reação"
               />
 
-              <h4 className="text-base font-black flex items-center gap-2 mb-1.5">
-                {selectedOption.correta ? (
-                  <>
-                    <CheckCircle2 className="text-emerald-500" size={18} /> Correto!
-                  </>
-                ) : (
-                  <>
-                    <XCircle className="text-red-500" size={18} /> Incorreto...
-                  </>
-                )}
-              </h4>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-base font-black flex items-center gap-1.5 mb-1.5">
+                  {selectedOption.correta ? (
+                    <>
+                      <CheckCircle2 className="text-emerald-600" size={18} /> Correto!
+                    </>
+                  ) : (
+                    <>
+                      <XCircle className="text-red-600" size={18} /> Incorreto...
+                    </>
+                  )}
+                </h4>
 
-              <div className="text-xs font-semibold leading-relaxed max-w-[80%]">
-                {selectedOption.feedback && (
-                  <p className="italic mb-2">"{formatText(selectedOption.feedback)}"</p>
-                )}
+                <div className="text-xs font-semibold leading-relaxed">
+                  {selectedOption.feedback && (
+                    <p className="italic mb-2">"{formatText(selectedOption.feedback)}"</p>
+                  )}
 
-                {!selectedOption.correta && (
-                  <p className="border-t border-red-200/50 pt-2 mt-2 font-black text-slate-800">
-                    Solução Correta:{' '}
-                    <span className="text-emerald-700">
-                      {formatText(currentQuestion.opcoes.find((o) => o.correta)?.texto || '')}
-                    </span>
-                  </p>
-                )}
+                  {!selectedOption.correta && (
+                    <p className="border-t border-red-200/50 pt-2 mt-2 font-black text-slate-800">
+                      Solução Correta:{' '}
+                      <span className="text-emerald-700">
+                        {formatText(currentQuestion.opcoes.find((o) => o.correta)?.texto || '')}
+                      </span>
+                    </p>
+                  )}
 
-                {/* Question reference */}
-                {currentQuestion.referencia && (
-                  <div className="inline-block mt-3 bg-white/70 px-2.5 py-1 rounded-lg border border-slate-200 text-[10px] text-slate-600 font-extrabold uppercase tracking-wide">
-                    📖 {currentQuestion.referencia.livro} • Fase {currentQuestion.referencia.fase} •
-                    Pág. {currentQuestion.referencia.pagina}
-                    {currentQuestion.referencia.item && ` (${currentQuestion.referencia.item})`}
-                  </div>
-                )}
+                  {/* Question reference */}
+                  {currentQuestion.referencia && (
+                    <div className="inline-block mt-3 bg-white/80 px-2.5 py-1 rounded-lg border border-slate-200 text-[10px] text-slate-600 font-extrabold uppercase tracking-wide">
+                      📖 {currentQuestion.referencia.livro} • Fase {currentQuestion.referencia.fase} •
+                      Pág. {currentQuestion.referencia.pagina}
+                      {currentQuestion.referencia.item && ` (${currentQuestion.referencia.item})`}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
 
           {/* Action Footer */}
-          <div className="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-slate-200 shadow flex justify-end">
+          <div className="sticky bottom-0 z-20 bg-white/95 backdrop-blur-xs border-t border-slate-200 p-4 -mx-6 -mb-6 mt-auto flex justify-end shadow-lg">
             {!isAnswerChecked ? (
               <button
                 disabled={!selectedOption}
                 onClick={handleCheckAnswer}
-                className={`w-full sm:w-auto px-8 py-3.5 rounded-xl text-white font-extrabold text-sm tracking-wider uppercase border-b-4 ${
+                className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-extrabold text-sm tracking-wider uppercase border-b-4 min-h-[48px] ${
                   selectedOption
                     ? 'bg-emerald-500 border-emerald-700 hover:bg-emerald-600 cursor-pointer active:border-b-0 active:translate-y-1'
                     : 'bg-slate-200 border-slate-300 text-slate-400 pointer-events-none'
@@ -578,7 +597,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
             ) : (
               <button
                 onClick={handleNextQuestion}
-                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 border-indigo-800 text-white font-extrabold text-sm tracking-wider uppercase border-b-4 active:border-b-0 active:translate-y-1 cursor-pointer"
+                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 border-indigo-800 text-white font-extrabold text-sm tracking-wider uppercase border-b-4 rounded-2xl min-h-[48px] active:border-b-0 active:translate-y-1 cursor-pointer"
               >
                 {currentIndex + 1 < questions.length ? 'Continuar' : 'Ver Resultados'}
               </button>
@@ -627,11 +646,11 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
 
             {/* Wrong Answers Review */}
             {wrongAnswers.length > 0 && (
-              <div className="text-left border-t border-slate-150 pt-4">
-                <h4 className="text-xs font-black text-red-500 flex items-center gap-1.5 mb-2 uppercase tracking-wide">
+              <div className="text-left border-t border-slate-200 pt-4">
+                <h4 className="text-xs font-black text-red-500 flex items-center gap-1.5 mb-2.5 uppercase tracking-wide">
                   ⚠️ O que precisa revisar:
                 </h4>
-                <div className="max-h-40 overflow-y-auto pr-2 space-y-2">
+                <div className="space-y-2.5">
                   {wrongAnswers.map((item, idx) => (
                     <div
                       key={`wrong-${idx}`}

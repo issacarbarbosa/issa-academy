@@ -43,7 +43,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       </div>
 
       {/* Main grid containing the cards: Mestre da Clave e Simulado MSA */}
-      <main className="flex-1 max-w-xl mx-auto w-full px-6 py-6 flex flex-col gap-4">
+      <main className="flex-1 max-w-xl md:max-w-3xl mx-auto w-full px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* CARD 1: MESTRE DA CLAVE */}
         <button
           onClick={() => handleNav('mestre_da_clave')}
@@ -57,9 +57,9 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
             />
           </div>
           <div className="flex-1">
-            <div className="text-base font-black text-slate-800 flex items-center gap-1.5">
-              Mestre da Clave
-              <span className="bg-[#1cb0f6] text-white font-black text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider scale-90">
+            <div className="text-base font-black text-slate-800 flex flex-wrap items-center gap-1.5">
+              <span>Mestre da Clave</span>
+              <span className="bg-[#1cb0f6] text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                 Jogo
               </span>
             </div>
@@ -69,7 +69,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </div>
           <ChevronRight
             size={18}
-            className="text-slate-300 group-hover:text-slate-500 transition-colors"
+            className="text-slate-300 group-hover:text-slate-500 transition-colors shrink-0"
           />
         </button>
 
@@ -86,9 +86,9 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
             />
           </div>
           <div className="flex-1">
-            <div className="text-base font-black text-slate-800 flex items-center gap-1.5">
-              Simulado MSA
-              <span className="bg-[#58cc02] text-white font-black text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider scale-90">
+            <div className="text-base font-black text-slate-800 flex flex-wrap items-center gap-1.5">
+              <span>Simulado MSA</span>
+              <span className="bg-[#58cc02] text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                 Oficial
               </span>
             </div>
@@ -98,7 +98,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </div>
           <ChevronRight
             size={18}
-            className="text-slate-300 group-hover:text-slate-500 transition-colors"
+            className="text-slate-300 group-hover:text-slate-500 transition-colors shrink-0"
           />
         </button>
       </main>
@@ -112,15 +112,15 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
         </p>
       </section>
 
-      {/* Footer with clean SVG social media links */}
-      <footer className="text-center p-6 border-t border-slate-100 text-slate-300 font-extrabold text-xs flex flex-col gap-3">
+      {/* Footer with accessible touch targets and clean contrast */}
+      <footer className="text-center p-6 border-t border-slate-100 text-slate-500 font-extrabold text-xs flex flex-col gap-3">
         <span>Feito com ❤️ por Issacar Barbosa - Brasil 🇧🇷</span>
-        <div className="flex justify-center items-center gap-5">
+        <div className="flex justify-center items-center gap-3">
           <a
             href="https://www.instagram.com/issacarbarbosa"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-indigo-600 transition-colors"
+            className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-colors shadow-xs"
             title="Instagram"
             aria-label="Instagram"
           >
@@ -132,7 +132,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
             href="https://www.facebook.com/issacarbarbosa"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-indigo-600 transition-colors"
+            className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-colors shadow-xs"
             title="Facebook"
             aria-label="Facebook"
           >
@@ -144,7 +144,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
             href="https://www.youtube.com/@issacarbarbosa"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-red-600 transition-colors"
+            className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-red-600 transition-colors shadow-xs"
             title="YouTube"
             aria-label="YouTube"
           >
@@ -156,7 +156,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       </footer>
 
       {/* Scroll indicator para mobile landscape */}
-      <div className="hidden landscape:flex md:landscape:hidden justify-center items-center gap-1.5 py-2 bg-indigo-50 border-t border-indigo-100 text-[10px] font-black text-indigo-600 uppercase tracking-widest animate-bounce shrink-0">
+      <div className="hidden mobile-landscape-only justify-center items-center gap-1.5 py-2 bg-indigo-50 border-t border-indigo-100 text-[10px] font-black text-indigo-600 uppercase tracking-widest animate-bounce shrink-0">
         <span>Role para ver mais</span> <span>👇</span>
       </div>
     </div>

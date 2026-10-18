@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useMobileOrientation } from '../hooks/useMobileOrientation';
 import { getAssetUrl } from '../utils/paths';
 
@@ -8,6 +10,7 @@ interface OrientationGuardProps {
 }
 
 export const OrientationGuard: React.FC<OrientationGuardProps> = ({ children }) => {
+  const navigate = useNavigate();
   const { isMobile, isPortrait } = useMobileOrientation();
 
   if (isMobile && isPortrait) {
@@ -55,9 +58,17 @@ export const OrientationGuard: React.FC<OrientationGuardProps> = ({ children }) 
           </svg>
         </div>
 
-        <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider mt-12 animate-pulse">
+        <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider mt-8 animate-pulse">
           Lembre-se de ativar a rotação automática do celular
         </span>
+
+        {/* Botão de fuga acessível (>= 44px) */}
+        <button
+          onClick={() => navigate('/')}
+          className="mt-6 min-h-[44px] px-6 py-2.5 bg-[#f7f9fa] hover:bg-slate-100 text-slate-700 font-extrabold text-xs uppercase tracking-wider rounded-2xl border-2 border-b-4 border-slate-300 active:border-b-2 active:translate-y-0.5 transition-all cursor-pointer flex items-center gap-2 shadow-sm"
+        >
+          <ArrowLeft size={16} /> Voltar ao Início
+        </button>
       </div>
     );
   }

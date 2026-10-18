@@ -16,6 +16,7 @@ import {
   POS_TO_FREQ,
   PROGRESSION_LIST,
   MUSICAL_KEYS,
+  getNewlyUnlockedNote,
 } from './engine/gameEntities';
 
 interface MestreDaClaveProps {
@@ -82,9 +83,10 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
 
   const spawnConfetti = useCallback(() => {
     if (!canvasRef.current) return;
+    const spawnWidth = canvasRef.current.clientWidth || 800;
     const colors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db', '#9b59b6'];
     for (let i = 0; i < 80; i++) {
-      const x = Math.random() * canvasRef.current.width;
+      const x = Math.random() * spawnWidth;
       const y = -10 - Math.random() * 50;
       const color = colors[Math.floor(Math.random() * colors.length)];
       const speedX = Math.random() * 160 - 80;
@@ -110,7 +112,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
     (base: string) => {
       if (gameState !== 'PLAYING' || !canvasRef.current) return;
 
-      const height = canvasRef.current.height;
+      const height = canvasRef.current.clientHeight || canvasRef.current.height;
       const staffCenterY = height / 2;
       const lineGap = Math.min(height / 10, 24);
       const hitZoneStart = 90;
@@ -144,18 +146,18 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             setHitsInLevel(0);
             const nextLvl = levelRef.current + 1;
             setLevel(nextLvl);
-            playLevelUpFanfare();
+            setTimeout(() => playLevelUpFanfare(), 220);
             spawnConfetti();
 
+            const newlyUnlocked = getNewlyUnlockedNote(nextLvl);
             let msg = `Nível ${nextLvl}! `;
-            if (nextLvl <= PROGRESSION_LIST.length) {
-              const newNote = PROGRESSION_LIST[nextLvl - 1]?.base || 'Si';
-              msg += `Nova Nota: ${newNote} 🎶`;
+            if (newlyUnlocked) {
+              msg += `Nova Nota: ${newlyUnlocked.label} 🎶`;
             } else {
               msg += `Desafio Máximo de Velocidade! ⚡`;
             }
             setLevelUpMessage(msg);
-            setTimeout(() => setLevelUpMessage(null), 3500);
+            setTimeout(() => setLevelUpMessage(null), 3800);
 
             if (nextLvl <= 12) {
               setActiveSpeed((v) => v + 12);
@@ -163,11 +165,11 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             }
           }
         } else {
-          // Nota errada
+          // Nota errada com feedback pedagógico da nota correta
           playError();
           target.marked = true;
           const drawY = staffCenterY + (4 - target.pos) * (lineGap / 2);
-          showFloatText(target.x, drawY - 30, 'Errou!', '#c0392b');
+          showFloatText(target.x, drawY - 30, `Era ${target.baseName}!`, '#c0392b');
           target.color = '#e74c3c';
 
           shakeIntensityRef.current = 15;
@@ -181,6 +183,12 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             }
             return nextLives;
           });
+        }
+      } else {
+        // Feedback para clique antecipado antes da nota chegar na zona
+        const approaching = notesRef.current.find((n) => n.x >= hitZoneEnd && n.x < hitZoneEnd + 140 && !n.marked);
+        if (approaching) {
+          showFloatText(hitZoneEnd, staffCenterY - 40, 'Espere na área verde!', '#f59e0b');
         }
       }
     },
@@ -206,7 +214,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
     setGameState('PLAYING');
   };
 
-  const handlePauseToggle = () => {
+  const handlePauseToggle = useCallback(() => {
     if (gameState === 'PLAYING') {
       if (pausesLeft > 0) {
         setGameState('PAUSED');
@@ -216,14 +224,15 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
       lastTimeRef.current = performance.now();
       setGameState('PLAYING');
     }
-  };
+  }, [gameState, pausesLeft]);
 
-  // Redimensionamento responsivo do Canvas
+  // Redimensionamento responsivo do Canvas com suporte a HiDPI (Retina / DPR mobile)
   useEffect(() => {
     const handleResize = () => {
       if (canvasRef.current && containerRef.current) {
-        canvasRef.current.width = containerRef.current.clientWidth;
-        canvasRef.current.height = containerRef.current.clientHeight;
+        const dpr = window.devicePixelRatio || 1;
+        canvasRef.current.width = Math.round(containerRef.current.clientWidth * dpr);
+        canvasRef.current.height = Math.round(containerRef.current.clientHeight * dpr);
       }
     };
 
@@ -254,9 +263,22 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
       const dt = (timestamp - lastTimeRef.current) / 1000;
       lastTimeRef.current = timestamp;
 
+      const dpr = window.devicePixelRatio || 1;
+      const logicalWidth = canvas.clientWidth || 800;
+      const logicalHeight = canvas.clientHeight || 400;
+      const targetWidth = Math.round(logicalWidth * dpr);
+      const targetHeight = Math.round(logicalHeight * dpr);
+
+      if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       ctx.save();
+      ctx.scale(dpr, dpr);
+
       // Aplica tremor de tela em caso de erro
       if (shakeIntensityRef.current > 0) {
         shakeIntensityRef.current = Math.max(0, shakeIntensityRef.current - dt * 35);
@@ -265,8 +287,8 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         ctx.translate(dx, dy);
       }
 
-      const staffCenterY = canvas.height / 2;
-      const lineGap = Math.min(canvas.height / 10, 24);
+      const staffCenterY = logicalHeight / 2;
+      const lineGap = Math.min(logicalHeight / 10, 24);
       const hitZoneStart = 90;
       const hitZoneEnd = 320;
 
@@ -278,7 +300,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         const y = startY + i * lineGap;
         ctx.beginPath();
         ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
+        ctx.lineTo(logicalWidth, y);
         ctx.stroke();
       }
 
@@ -291,15 +313,15 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
 
       // Zona de acerto
       ctx.fillStyle = 'rgba(34, 197, 94, 0.08)';
-      ctx.fillRect(hitZoneStart, 0, hitZoneEnd - hitZoneStart, canvas.height);
+      ctx.fillRect(hitZoneStart, 0, hitZoneEnd - hitZoneStart, logicalHeight);
       ctx.strokeStyle = 'rgba(34, 197, 94, 0.3)';
       ctx.lineWidth = 2;
-      ctx.strokeRect(hitZoneStart, 0, hitZoneEnd - hitZoneStart, canvas.height);
+      ctx.strokeRect(hitZoneStart, 0, hitZoneEnd - hitZoneStart, logicalHeight);
 
       // Spawn de notas
       spawnTimerRef.current += dt * 1000;
       if (spawnTimerRef.current > spawnIntervalRef.current) {
-        notesRef.current.push(new GameNote(canvas.width, levelRef.current));
+        notesRef.current.push(new GameNote(logicalWidth, levelRef.current));
         spawnTimerRef.current = 0;
       }
 
@@ -349,9 +371,12 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         }
       }
 
-      // Atualiza e desenha notas
+      // Atualiza e desenha notas com velocidade normalizada por resolução
+      const responsiveSpeedMultiplier = Math.max(1, (logicalWidth + 50 - hitZoneEnd) / 574);
+      const effectiveSpeed = activeSpeedRef.current * responsiveSpeedMultiplier;
+
       notesRef.current.forEach((n) => {
-        n.x -= activeSpeedRef.current * dt;
+        n.x -= effectiveSpeed * dt;
 
         // Se passar da zona sem marcação, computa erro
         if (n.x < hitZoneStart && !n.marked) {
@@ -372,8 +397,37 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
           });
         }
 
-        // Desenho da cabeça da nota com brilho suave
         const y = staffCenterY + (4 - n.pos) * (lineGap / 2);
+
+        // Linhas suplementares desenhadas ANTES da cabeça da nota (não riscam o brilho specular)
+        ctx.save();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#475569';
+        if (n.pos <= -2) {
+          const lineY = staffCenterY + (4 - -2) * (lineGap / 2);
+          ctx.beginPath();
+          ctx.moveTo(n.x - lineGap * 1.1, lineY);
+          ctx.lineTo(n.x + lineGap * 1.1, lineY);
+          ctx.stroke();
+
+          if (n.pos === -3) {
+            const lineY2 = staffCenterY + (4 - -3) * (lineGap / 2);
+            ctx.beginPath();
+            ctx.moveTo(n.x - lineGap * 1.1, lineY2);
+            ctx.lineTo(n.x + lineGap * 1.1, lineY2);
+            ctx.stroke();
+          }
+        }
+        if (n.pos >= 10) {
+          const dy = staffCenterY + (4 - 10) * (lineGap / 2);
+          ctx.beginPath();
+          ctx.moveTo(n.x - lineGap * 1.1, dy);
+          ctx.lineTo(n.x + lineGap * 1.1, dy);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Desenho da cabeça da nota com brilho suave
         ctx.save();
         const baseColor = n.color;
         const darkColor = NOTE_DARK_COLORS[n.baseName] || '#1e293b';
@@ -423,32 +477,6 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         }
         ctx.stroke();
         ctx.restore();
-
-        // Linhas suplementares se necessário
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = '#475569';
-        if (n.pos <= -2) {
-          const lineY = staffCenterY + (4 - -2) * (lineGap / 2);
-          ctx.beginPath();
-          ctx.moveTo(n.x - lineGap * 1.1, lineY);
-          ctx.lineTo(n.x + lineGap * 1.1, lineY);
-          ctx.stroke();
-
-          if (n.pos === -3) {
-            const lineY2 = staffCenterY + (4 - -3) * (lineGap / 2);
-            ctx.beginPath();
-            ctx.moveTo(n.x - lineGap * 1.1, lineY2);
-            ctx.lineTo(n.x + lineGap * 1.1, lineY2);
-            ctx.stroke();
-          }
-        }
-        if (n.pos >= 10) {
-          const dy = staffCenterY + (4 - 10) * (lineGap / 2);
-          ctx.beginPath();
-          ctx.moveTo(n.x - lineGap * 1.1, dy);
-          ctx.lineTo(n.x + lineGap * 1.1, dy);
-          ctx.stroke();
-        }
       });
 
       notesRef.current = notesRef.current.filter((n) => n.x > -100 && !n.marked);
@@ -464,8 +492,42 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
     };
   }, [gameState, showFloatText]);
 
+  // Atalhos de teclado no Desktop (1 a 7, C a B, e Espaço/Esc para pausa)
+  useEffect(() => {
+    if (gameState !== 'PLAYING') return;
+
+    const keyMap: Record<string, string> = {
+      '1': 'Dó', 'c': 'Dó', 'C': 'Dó',
+      '2': 'Ré', 'd': 'Ré', 'D': 'Ré',
+      '3': 'Mi', 'e': 'Mi', 'E': 'Mi',
+      '4': 'Fá', 'f': 'Fá', 'F': 'Fá',
+      '5': 'Sol', 'g': 'Sol', 'G': 'Sol',
+      '6': 'Lá', 'a': 'Lá', 'A': 'Lá',
+      '7': 'Si', 'b': 'Si', 'B': 'Si',
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.repeat) return;
+      const note = keyMap[e.key];
+      if (note) {
+        e.preventDefault();
+        inputNote(note);
+      } else if (e.key === ' ' || e.key === 'Escape') {
+        e.preventDefault();
+        handlePauseToggle();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameState, inputNote, handlePauseToggle]);
+
   // Barra de progresso para próximo nível (10 acertos por nível)
   const progressPercent = Math.min(100, (hitsInLevel / 10) * 100);
+
+  // Notas ativas do nível corrente
+  const unlockedCount = Math.min(level + 1, PROGRESSION_LIST.length);
+  const activeNoteNames = new Set(PROGRESSION_LIST.slice(0, unlockedCount).map((n) => n.base));
 
   return (
     <div
@@ -473,9 +535,9 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
       id="mestre-da-clave-screen"
     >
       {/* XP Bar */}
-      <div className="w-full h-2 bg-slate-100 relative z-20">
+      <div className="w-full h-3 bg-slate-100 relative z-20">
         <div
-          className="h-full bg-emerald-500 transition-all duration-300 shadow-md shadow-emerald-500/30"
+          className="h-full bg-[#1cb0f6] transition-all duration-300 shadow-md shadow-sky-500/30"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
@@ -484,14 +546,17 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
       <div className="flex justify-between items-center px-3 py-1.5 sm:px-4 sm:py-2.5 bg-white border-b border-slate-200 shadow-sm relative z-10">
         <div className="w-8 h-8 sm:w-10 sm:h-10 invisible" />
 
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           <div className="bg-amber-100 text-amber-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-amber-200 shadow-sm flex items-center gap-1 sm:gap-1.5">
             ⭐ Nível <span className="text-xs sm:text-base text-amber-600">{level}</span>
           </div>
-          <div className="bg-indigo-50 text-indigo-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-indigo-150 shadow-sm flex items-center gap-1 sm:gap-1.5">
+          <div className="bg-sky-50 text-sky-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-sky-200 shadow-sm flex items-center gap-1 sm:gap-1.5">
+            ⚡ XP <span className="text-xs sm:text-base text-sky-600 font-mono">{hitsInLevel}/10</span>
+          </div>
+          <div className="bg-indigo-50 text-indigo-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-indigo-200 shadow-sm flex items-center gap-1 sm:gap-1.5">
             🎯 Pontos <span className="text-xs sm:text-base text-indigo-600">{score}</span>
           </div>
-          <div className="bg-red-50 text-red-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-red-150 shadow-sm flex items-center gap-1 sm:gap-1.5">
+          <div className="bg-red-50 text-red-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-red-200 shadow-sm flex items-center gap-1 sm:gap-1.5">
             ❤️ Vidas <span className="text-xs sm:text-base text-red-600">{lives}</span>
           </div>
         </div>
@@ -499,7 +564,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         <button
           onClick={handlePauseToggle}
           disabled={gameState !== 'PLAYING'}
-          className={`flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2.5 rounded-xl border border-slate-200 transition-all cursor-pointer ${
+          className={`flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2.5 min-h-[40px] sm:min-h-[44px] rounded-xl border border-slate-200 transition-all cursor-pointer ${
             gameState !== 'PLAYING' ? 'opacity-50 pointer-events-none' : ''
           }`}
         >
@@ -520,19 +585,23 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         <AnimatePresence>
           {levelUpMessage && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: -50 }}
+              initial={{ opacity: 0, scale: 0.8, y: -40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 50 }}
+              exit={{ opacity: 0, scale: 0.8, y: 40 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-              className="absolute inset-x-0 top-12 mx-auto max-w-sm bg-slate-900/95 backdrop-blur-md text-white px-6 py-4 rounded-3xl border border-indigo-500/50 shadow-[0_20px_50px_rgba(99,102,241,0.25)] text-center z-40 pointer-events-none"
+              className="absolute inset-x-0 top-3 mx-auto max-w-sm bg-slate-900/95 backdrop-blur-md text-white px-4 py-2.5 rounded-2xl border border-indigo-500/50 shadow-[0_20px_50px_rgba(99,102,241,0.25)] flex items-center gap-3 z-40 pointer-events-none"
             >
-              <div className="text-xs uppercase tracking-widest font-black text-amber-400 mb-1">
-                🎉 Parabéns!
+              <img
+                src={getAssetUrl('assets/fufu-acerto-joinha.png')}
+                alt="Fufu Parabéns"
+                className="w-10 h-10 object-contain shrink-0"
+              />
+              <div className="text-left flex-1 min-w-0">
+                <div className="text-[10px] uppercase tracking-widest font-black text-amber-400">
+                  🎉 Subiu de Nível!
+                </div>
+                <p className="text-xs sm:text-sm font-bold text-indigo-100 truncate">{levelUpMessage}</p>
               </div>
-              <h3 className="text-lg font-black mb-1 tracking-tight text-white uppercase">
-                Subiu de Nível!
-              </h3>
-              <p className="text-sm font-bold text-indigo-200">{levelUpMessage}</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -679,19 +748,33 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             className="grid grid-cols-7 gap-1.5 md:gap-3 max-w-3xl w-full mx-auto"
             id="musical-buttons-row"
           >
-            {MUSICAL_KEYS.map((note) => (
-              <button
-                key={`musical-key-${note}`}
-                onPointerDown={() => inputNote(note)}
-                className="py-2.5 sm:py-4 md:py-5 bg-white text-slate-800 border-b-4 font-black text-xs sm:text-sm md:text-lg rounded-xl hover:bg-slate-50 active:translate-y-1 active:border-b-0 cursor-pointer transition-all hover:scale-[1.01]"
-                style={{
-                  color: NOTE_COLORS[note],
-                  borderBottomColor: NOTE_BORDER_COLORS[note],
-                }}
-              >
-                {note}
-              </button>
-            ))}
+            {MUSICAL_KEYS.map((note, idx) => {
+              const isActive = activeNoteNames.has(note);
+              const textColor = note === 'Mi' ? '#b45309' : NOTE_COLORS[note];
+              const borderBottomColor = NOTE_BORDER_COLORS[note];
+
+              return (
+                <button
+                  key={`musical-key-${note}`}
+                  onPointerDown={() => inputNote(note)}
+                  className={`py-2 sm:py-3.5 md:py-4 min-h-[44px] flex flex-col items-center justify-center border-b-4 font-black rounded-xl transition-all cursor-pointer select-none active:translate-y-1 active:border-b-0 ${
+                    isActive
+                      ? 'bg-white opacity-100 shadow-md ring-2 ring-white/20 hover:scale-[1.03]'
+                      : 'bg-slate-200/90 text-slate-500 border-slate-300 opacity-80 hover:opacity-100'
+                  }`}
+                  style={{
+                    color: isActive ? textColor : undefined,
+                    borderBottomColor: isActive ? borderBottomColor : undefined,
+                  }}
+                  title={isActive ? `Nota ${note} (Ativa no Nível ${level})` : `Nota ${note}`}
+                >
+                  <span className="text-xs sm:text-sm md:text-lg leading-tight">{note}</span>
+                  <span className="hidden md:inline-block text-[10px] font-mono text-slate-400 font-semibold leading-none mt-0.5">
+                    [{idx + 1}]
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

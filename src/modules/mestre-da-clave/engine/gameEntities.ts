@@ -100,21 +100,34 @@ export const POS_TO_FREQ: Record<number, number> = {
   [10]: 880.00, // Lá4
 };
 
-export const PROGRESSION_LIST = [
-  { base: 'Dó', pos: -2 },
-  { base: 'Ré', pos: -1 },
-  { base: 'Mi', pos: 0 },
-  { base: 'Fá', pos: 1 },
-  { base: 'Sol', pos: 2 },
-  { base: 'Lá', pos: 3 },
-  { base: 'Si', pos: 4 },
-  { base: 'Dó', pos: 5 },
-  { base: 'Ré', pos: 6 },
-  { base: 'Mi', pos: 7 },
-  { base: 'Fá', pos: 8 },
-  { base: 'Sol', pos: 9 },
-  { base: 'Lá', pos: 10 },
+export interface ProgressionStep {
+  base: string;
+  pos: number;
+  label: string;
+}
+
+export const PROGRESSION_LIST: readonly ProgressionStep[] = [
+  { base: 'Dó', pos: -2, label: 'Dó Central (1ª Linha Suplementar Inferior)' },
+  { base: 'Ré', pos: -1, label: 'Ré (Espaço Inferior à Pauta)' },
+  { base: 'Mi', pos: 0, label: 'Mi (1ª Linha)' },
+  { base: 'Fá', pos: 1, label: 'Fá (1º Espaço)' },
+  { base: 'Sol', pos: 2, label: 'Sol (2ª Linha da Clave)' },
+  { base: 'Lá', pos: 3, label: 'Lá (2º Espaço)' },
+  { base: 'Si', pos: 4, label: 'Si (3ª Linha)' },
+  { base: 'Dó', pos: 5, label: 'Dó Agudo (3º Espaço)' },
+  { base: 'Ré', pos: 6, label: 'Ré Agudo (4ª Linha)' },
+  { base: 'Mi', pos: 7, label: 'Mi Agudo (4º Espaço)' },
+  { base: 'Fá', pos: 8, label: 'Fá Agudo (5ª Linha)' },
+  { base: 'Sol', pos: 9, label: 'Sol Agudo (Espaço Superior)' },
+  { base: 'Lá', pos: 10, label: 'Lá Agudo (1ª Linha Suplementar Superior)' },
 ] as const;
+
+export function getNewlyUnlockedNote(targetLevel: number): ProgressionStep | null {
+  if (targetLevel < 2 || targetLevel >= PROGRESSION_LIST.length) {
+    return null;
+  }
+  return PROGRESSION_LIST[targetLevel] ?? null;
+}
 
 export class GameNote {
   x: number;
