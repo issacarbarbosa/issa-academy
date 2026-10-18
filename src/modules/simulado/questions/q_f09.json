@@ -1,0 +1,392 @@
+[
+  {
+    "id": "f09_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Para que servem as Barras de Repetição (também chamadas de Sinais de Ritornello)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "Para indicar que um determinado trecho musical compreendido entre os sinais deve ser repetido.",
+        "correta": true,
+        "feedback": "Correto! As barras de ritornello delimitam o início e o fim de um trecho musical que deve ser executado novamente."
+      },
+      {
+        "texto": "Para indicar que o músico deve parar definitivamente a execução da peça naquele compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O encerramento definitivo da peça é indicado pela Barra Final (sem pontos), e não pelo ritornello."
+      },
+      {
+        "texto": "Para indicar que a velocidade do hino deve dobrar a partir daquele compasso.",
+        "correta": false,
+        "feedback": "Incorreto. As barras de ritornello indicam repetição de trecho, e não alteração de andamento."
+      },
+      {
+        "texto": "Para separar os compassos simples dos compassos compostos sem repetir nenhuma nota.",
+        "correta": false,
+        "feedback": "Incorreto. Os dois pontos junto à barra dupla caracterizam o sinal de repetição (ritornello)."
+      }
+    ]
+  },
+  {
+    "id": "f09_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Como é constituído graficamente o sinal de Barra de Repetição (Ritornello) no pentagrama?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "Por duas linhas finas iguais sem nenhum ponto no pentagrama.",
+        "correta": false,
+        "feedback": "Incorreto. Duas linhas finas sem pontos formam a Barra Dupla de divisão de seções (estrofe/coro), que não indica repetição."
+      },
+      {
+        "texto": "Por duas linhas verticais paralelas (uma fina e outra grossa) acompanhadas de dois pontos posicionados nos espaços centrais (2º e 3º espaços) do pentagrama.",
+        "correta": true,
+        "feedback": "Correto! O sinal de ritornello é formado por uma barra dupla (uma fina e uma grossa) com dois pontos voltados para o lado do trecho que deve ser repetido."
+      },
+      {
+        "texto": "Por um semicírculo com um ponto no meio colocado acima da nota.",
+        "correta": false,
+        "feedback": "Incorreto. Um semicírculo com um ponto no meio é o sinal de Fermata."
+      },
+      {
+        "texto": "Por uma linha curva tracejada ligando duas notas da mesma altura.",
+        "correta": false,
+        "feedback": "Incorreto. Uma linha curva entre notas é uma Ligadura."
+      }
+    ]
+  },
+  {
+    "id": "f09_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quando um trecho musical possui apenas Barras de Repetição (início e final de ritornello), sem casas de variação nem outro sinal, quantas vezes esse trecho é tocado no total e o que se faz depois?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "O trecho é tocado três vezes seguidas e depois a música encerra imediatamente na barra de ritornello.",
+        "correta": false,
+        "feedback": "Incorreto. Sem casas de 3ª vez, o ritornello simples repete apenas uma vez (totalizando 2 execuções do trecho) e segue até a barra final."
+      },
+      {
+        "texto": "O trecho entre as barras deve ser pulado na primeira execução e tocado apenas no final.",
+        "correta": false,
+        "feedback": "Incorreto. O trecho é tocado normalmente e repetido logo em seguida."
+      },
+      {
+        "texto": "O trecho é tocado duas vezes (executa-se a 1ª vez e repete-se mais 1 vez) e, em seguida, prossegue-se normalmente até o final da partitura.",
+        "correta": true,
+        "feedback": "Correto! Conforme as atividades oficiais do MSA, o ritornello simples faz com que o trecho seja executado duas vezes antes de seguir adiante até o final."
+      },
+      {
+        "texto": "O trecho é repetido indefinidamente até o regente dar sinal de parada.",
+        "correta": false,
+        "feedback": "Incorreto. O ritornello simples indica apenas uma repetição (duas execuções do trecho)."
+      }
+    ]
+  },
+  {
+    "id": "f09_q004",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Quando aparece na partitura apenas a barra FINAL de ritornello (com os pontos voltados para a esquerda), sem que haja uma barra inicial de ritornello escrita anteriormente, de onde deve começar a repetição?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "Deve-se repetir apenas o último compasso antes da barra.",
+        "correta": false,
+        "feedback": "Incorreto. Na ausência de barra inicial de ritornello, volta-se ao início da música."
+      },
+      {
+        "texto": "Não se deve fazer nenhuma repetição, pois falta a barra inicial.",
+        "correta": false,
+        "feedback": "Incorreto. A barra inicial só é escrita quando a repetição começa no meio da música; quando volta ao início, ela é omitida."
+      },
+      {
+        "texto": "Deve-se voltar apenas até a última vírgula de respiração.",
+        "correta": false,
+        "feedback": "Incorreto. O retorno é feito para o início da partitura."
+      },
+      {
+        "texto": "Deve-se retornar e repetir desde o início da peça musical (1º compasso).",
+        "correta": true,
+        "feedback": "Correto! Quando o retorno se dá para o começo da música, dispensa-se a barra inicial de ritornello no 1º compasso."
+      }
+    ]
+  },
+  {
+    "id": "f09_q005",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a função das Casas de Ritornello (chaves numeradas como 1., 2., 3. acima dos compassos)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 87
+    },
+    "opcoes": [
+      {
+        "texto": "Indicar a sequência das casas (terminações diferentes) a serem tocadas ao final de cada repetição, seguindo rigorosamente a numeração.",
+        "correta": true,
+        "feedback": "Correto! As casas de ritornello indicam que um trecho repetido possui finais diferentes para a 1ª vez, 2ª vez (e 3ª vez, quando houver)."
+      },
+      {
+        "texto": "Indicar quantos músicos devem tocar em cada compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Os números nas chaves indicam a ordem das execuções (1ª vez, 2ª vez, etc.)."
+      },
+      {
+        "texto": "Indicar o dedilhado obrigatório da mão direita para as organistas.",
+        "correta": false,
+        "feedback": "Incorreto. O dedilhado é colocado junto às notas; as chaves horizontais no topo do sistema são casas de ritornello."
+      },
+      {
+        "texto": "Indicar a mudança de fórmula de compasso para 1, 2 ou 3 tempos.",
+        "correta": false,
+        "feedback": "Incorreto. As casas de ritornello determinam apenas qual final de seção deve ser executado em cada passagem."
+      }
+    ]
+  },
+  {
+    "id": "f09_q006",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em um hino com 2 Casas de Ritornello (Casa 1 e Casa 2, como nos Hinos 21, 63, 298 e 459), como deve ser feita a execução correta?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 87
+    },
+    "opcoes": [
+      {
+        "texto": "Na 1ª vez toca-se a Casa 1, e na 2ª vez tocam-se a Casa 1 e a Casa 2 seguidas sem pular nada.",
+        "correta": false,
+        "feedback": "Incorreto. Na 2ª vez a Casa 1 deve ser pulada, entrando-se diretamente na Casa 2."
+      },
+      {
+        "texto": "Na 1ª vez, toca-se até o final da Casa 1 e retorna-se ao início do ritornello; na 2ª vez, ao chegar onde começa a Casa 1, pula-se a Casa 1 e toca-se diretamente a Casa 2.",
+        "correta": true,
+        "feedback": "Correto! Na segunda passagem não se repete a Casa 1: salta-se do compasso anterior à Casa 1 diretamente para o início da Casa 2."
+      },
+      {
+        "texto": "Na 1ª vez toca-se a Casa 2, e na 2ª vez toca-se a Casa 1.",
+        "correta": false,
+        "feedback": "Incorreto. Deve-se seguir sempre a ordem numérica das casas (1ª vez na Casa 1; 2ª vez na Casa 2)."
+      },
+      {
+        "texto": "O músico escolhe livremente se prefere tocar a Casa 1 ou a Casa 2.",
+        "correta": false,
+        "feedback": "Incorreto. Ambas são executadas, cada uma em sua respectiva passagem (1ª e 2ª vez)."
+      }
+    ]
+  },
+  {
+    "id": "f09_q007",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No Hinário 5, existem hinos que possuem 3 Casas de Ritornello (Casa 1, Casa 2 e Casa 3, como os Hinos 6, 41, 42, 272, 457, 465 e 475). Como funciona a execução nesses hinos?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 88
+    },
+    "opcoes": [
+      {
+        "texto": "Toca-se a Casa 1 na 1ª estrofe, a Casa 2 na 2ª estrofe e a Casa 3 apenas na última estrofe do hino.",
+        "correta": false,
+        "feedback": "Incorreto. Em cada estrofe do hino (ou no trecho indicado), cumprem-se as três casas em sequência conforme os sinais de ritornello."
+      },
+      {
+        "texto": "Na 3ª vez tocam-se as Casas 1, 2 e 3 todas juntas em sequência.",
+        "correta": false,
+        "feedback": "Incorreto. Em cada passagem executa-se apenas a casa correspondente àquela vez, pulando as anteriores."
+      },
+      {
+        "texto": "Na 1ª vez faz-se a Casa 1 e volta; na 2ª vez pula-se a Casa 1, faz-se a Casa 2 e volta; na 3ª vez pulam-se as Casas 1 e 2 e conclui-se na Casa 3.",
+        "correta": true,
+        "feedback": "Correto! O trecho principal é executado 3 vezes, utilizando a Casa 1 na primeira passagem, a Casa 2 na segunda e a Casa 3 para encerrar na terceira passagem."
+      },
+      {
+        "texto": "As Casas 1 e 2 são tocadas pelos instrumentos de cordas e a Casa 3 apenas pelos metais.",
+        "correta": false,
+        "feedback": "Incorreto. Toda a orquestra executa a mesma sequência de casas de ritornello."
+      }
+    ]
+  },
+  {
+    "id": "f09_q008",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Considere uma lição de solfejo com 8 compassos numerados de C1 a C8: há uma barra inicial de ritornello no início do C3, a Casa 1 abrange o C6 (com barra final de ritornello ao fim do C6) e a Casa 2 abrange os compassos C7 e C8 (barra final). Qual é a ordem exata dos compassos executados do início ao fim?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 87
+    },
+    "opcoes": [
+      {
+        "texto": "C1 – C2 – C3 – C4 – C5 – C6 – C1 – C2 – C3 – C4 – C5 – C7 – C8.",
+        "correta": false,
+        "feedback": "Incorreto. Como há uma barra inicial de ritornello no C3, o retorno não volta para o C1, mas sim para o C3."
+      },
+      {
+        "texto": "C1 – C2 – C3 – C4 – C5 – C6 – C3 – C4 – C5 – C6 – C7 – C8.",
+        "correta": false,
+        "feedback": "Incorreto. Na segunda passagem, o compasso C6 (Casa 1) deve ser pulado para entrar diretamente no C7 (Casa 2)."
+      },
+      {
+        "texto": "C1 – C2 – C3 – C4 – C5 – C7 – C8.",
+        "correta": false,
+        "feedback": "Incorreto. Você omitiu a primeira execução com a Casa 1 (C6) e o retorno do ritornello."
+      },
+      {
+        "texto": "C1 – C2 – C3 – C4 – C5 – C6 (Casa 1) – C3 – C4 – C5 – C7 – C8 (Casa 2).",
+        "correta": true,
+        "feedback": "Correto! Toca-se do C1 ao C6 (Casa 1), retorna-se para a barra inicial de ritornello no C3, toca-se C3–C4–C5, pula-se a Casa 1 (C6) e conclui-se na Casa 2 (C7–C8)."
+      }
+    ]
+  },
+  {
+    "id": "f09_q009",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Quando uma barra de ritornello aparece no meio de um compasso (por exemplo, em hinos ou lições com ritmo inicial anacrúsico), como fica a contagem dos tempos na passagem de retorno?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 88
+    },
+    "opcoes": [
+      {
+        "texto": "Os tempos anteriores à barra final de ritornello somam-se aos tempos posteriores à barra inicial de ritornello, completando exatamente a fórmula do compasso sem interromper a pulsação.",
+        "correta": true,
+        "feedback": "Correto! Quando o ritornello divide um compasso, as duas metades incompletas se complementam para manter a regularidade métrica dos tempos."
+      },
+      {
+        "texto": "Deve-se fazer uma pausa de compasso inteiro antes de retomar a repetição.",
+        "correta": false,
+        "feedback": "Incorreto. A pulsação continua rigorosamente constante, completando os tempos do compasso no salto do ritornello."
+      },
+      {
+        "texto": "O compasso onde está a barra de ritornello passa a ter o dobro de tempos.",
+        "correta": false,
+        "feedback": "Incorreto. As duas partes somadas formam exatamente 1 compasso completo."
+      },
+      {
+        "texto": "Ignoram-se as figuras antes da barra de ritornello.",
+        "correta": false,
+        "feedback": "Incorreto. Todas as figuras escritas devem ser executadas em seus respectivos tempos."
+      }
+    ]
+  },
+  {
+    "id": "f09_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Observe a diferença entre as barras duplas: quando uma barra dupla possui dois pontos tanto à sua esquerda quanto à sua direita, o que ela indica na partitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "Indica que o trecho anterior deve ser repetido quatro vezes seguidas.",
+        "correta": false,
+        "feedback": "Incorreto. Os pontos à esquerda referem-se à repetição do primeiro trecho, e os pontos à direita marcam o ponto de retorno para o trecho seguinte."
+      },
+      {
+        "texto": "Indica simultaneamente o final de um trecho que deve ser repetido (pontos à esquerda) e o início de um novo trecho seguinte que também será repetido posteriormente (pontos à direita).",
+        "correta": true,
+        "feedback": "Correto! É a junção de uma barra final de ritornello do primeiro trecho com uma barra inicial de ritornello do segundo trecho."
+      },
+      {
+        "texto": "Indica o encerramento definitivo da música.",
+        "correta": false,
+        "feedback": "Incorreto. A barra final de conclusão não possui pontos."
+      },
+      {
+        "texto": "Indica que há erro de impressão na partitura.",
+        "correta": false,
+        "feedback": "Incorreto. É uma notação musical padrão quando dois trechos consecutivos possuem ritornello."
+      }
+    ]
+  }
+]

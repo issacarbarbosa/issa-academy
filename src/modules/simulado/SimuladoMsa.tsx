@@ -66,6 +66,22 @@ export function shuffleQuestions<T>(array: T[]): T[] {
 }
 
 /**
+ * Filtra questões ativas, sorteia até maxCount questões via Fisher-Yates
+ * e embaralha também a ordem das alternativas (opcoes) de cada questão.
+ */
+export function prepareQuizQuestions(
+  bank: SimuladoQuestion[],
+  maxCount = 20,
+): SimuladoQuestion[] {
+  const active = bank.filter((q) => q.ativo !== false);
+  const selected = shuffleQuestions(active).slice(0, maxCount);
+  return selected.map((question) => ({
+    ...question,
+    opcoes: shuffleQuestions(question.opcoes),
+  }));
+}
+
+/**
  * Formata fórmulas de compasso (ex: 4/4, 3/4) em frações verticais estilizadas
  * utilizando elementos JSX puros sem dangerouslySetInnerHTML (100% seguro contra XSS).
  */
@@ -96,6 +112,55 @@ export function formatText(text: string): React.ReactNode {
     return <span>{nodes}</span>;
   }
   return <span>{text}</span>;
+}
+
+export async function loadQuestionBankForPeriods(selectedPeriods: Set<number>): Promise<unknown[]> {
+  let bank: unknown[] = [];
+  if (selectedPeriods.has(1)) {
+    const [q1, q2, q3] = await Promise.all([
+      import('./questions/q_f01.json'),
+      import('./questions/q_f02.json'),
+      import('./questions/q_f03.json'),
+    ]);
+    bank = bank.concat(q1.default, q2.default, q3.default);
+  }
+  if (selectedPeriods.has(2)) {
+    const [q4, q5] = await Promise.all([
+      import('./questions/q_f04.json'),
+      import('./questions/q_f05.json'),
+    ]);
+    bank = bank.concat(q4.default, q5.default);
+  }
+  if (selectedPeriods.has(3)) {
+    const [q6, q7, q8, q9] = await Promise.all([
+      import('./questions/q_f06.json'),
+      import('./questions/q_f07.json'),
+      import('./questions/q_f08.json'),
+      import('./questions/q_f09.json'),
+    ]);
+    bank = bank.concat(q6.default, q7.default, q8.default, q9.default);
+  }
+  if (selectedPeriods.has(4)) {
+    const [q10, q11, q12, q13, q14, q15, q16] = await Promise.all([
+      import('./questions/q_f10.json'),
+      import('./questions/q_f11.json'),
+      import('./questions/q_f12.json'),
+      import('./questions/q_f13.json'),
+      import('./questions/q_f14.json'),
+      import('./questions/q_f15.json'),
+      import('./questions/q_f16.json'),
+    ]);
+    bank = bank.concat(
+      q10.default,
+      q11.default,
+      q12.default,
+      q13.default,
+      q14.default,
+      q15.default,
+      q16.default,
+    );
+  }
+  return bank;
 }
 
 export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
@@ -130,7 +195,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
     return () => clearInterval(interval);
   }, [quizState, quizStartTime]);
 
-  const availablePeriods = [1, 2];
+  const availablePeriods = [1, 2, 3, 4];
 
   const togglePeriod = (p: number) => {
     setSelectedPeriods((prev) => {
@@ -160,17 +225,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
 
     let bank: unknown[] = [];
     try {
-      if (selectedPeriods.has(1)) {
-        const q1 = await import('./questions/q_f01.json');
-        const q2 = await import('./questions/q_f02.json');
-        const q3 = await import('./questions/q_f03.json');
-        bank = bank.concat(q1.default, q2.default, q3.default);
-      }
-      if (selectedPeriods.has(2)) {
-        const q4 = await import('./questions/q_f04.json');
-        const q5 = await import('./questions/q_f05.json');
-        bank = bank.concat(q4.default, q5.default);
-      }
+      bank = await loadQuestionBankForPeriods(selectedPeriods);
     } catch (e) {
       console.error('Falha ao importar bancos de questões:', e);
       setErrorMessage('Não foi possível carregar os arquivos de questões.');
@@ -186,11 +241,8 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
       return;
     }
 
-    // Embaralha com Fisher-Yates e seleciona até 20 questões ativas
-    const activeQuestions = shuffleQuestions(validatedBank.filter((q) => q.ativo !== false)).slice(
-      0,
-      20,
-    );
+    // Embaralha questões e também as alternativas (opcoes) de cada questão sorteada
+    const activeQuestions = prepareQuizQuestions(validatedBank, 20);
 
     setQuestions(activeQuestions);
     setCurrentIndex(0);
@@ -346,23 +398,53 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
                 </div>
               </button>
 
-              {/* Locked Period 3 */}
-              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 opacity-60 text-left flex items-center justify-between">
+              {/* Period 3 */}
+              <button
+                onClick={() => togglePeriod(3)}
+                className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all cursor-pointer ${
+                  selectedPeriods.has(3)
+                    ? 'bg-indigo-50/50 border-indigo-500 shadow-sm'
+                    : 'bg-white border-slate-200 hover:border-slate-300'
+                }`}
+              >
                 <div>
-                  <h4 className="font-extrabold text-slate-500 text-sm">Período 3</h4>
-                  <p className="text-xs text-slate-400">Em breve (Fases 6 a 10)</p>
+                  <h4 className="font-extrabold text-slate-800 text-sm">Período 3</h4>
+                  <p className="text-xs text-slate-400 font-bold">Fases 6, 7, 8 e 9</p>
                 </div>
-                <span className="text-slate-400">🔒</span>
-              </div>
+                <div
+                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
+                    selectedPeriods.has(3)
+                      ? 'bg-indigo-600 border-indigo-600 text-white'
+                      : 'border-slate-300'
+                  }`}
+                >
+                  {selectedPeriods.has(3) && <Check size={12} />}
+                </div>
+              </button>
 
-              {/* Locked Period 4 */}
-              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 opacity-60 text-left flex items-center justify-between">
+              {/* Period 4 */}
+              <button
+                onClick={() => togglePeriod(4)}
+                className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all cursor-pointer ${
+                  selectedPeriods.has(4)
+                    ? 'bg-indigo-50/50 border-indigo-500 shadow-sm'
+                    : 'bg-white border-slate-200 hover:border-slate-300'
+                }`}
+              >
                 <div>
-                  <h4 className="font-extrabold text-slate-500 text-sm">Período 4</h4>
-                  <p className="text-xs text-slate-400">Em breve (Fases 11 a 16)</p>
+                  <h4 className="font-extrabold text-slate-800 text-sm">Período 4</h4>
+                  <p className="text-xs text-slate-400 font-bold">Fases 10 a 16</p>
                 </div>
-                <span className="text-slate-400">🔒</span>
-              </div>
+                <div
+                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
+                    selectedPeriods.has(4)
+                      ? 'bg-indigo-600 border-indigo-600 text-white'
+                      : 'border-slate-300'
+                  }`}
+                >
+                  {selectedPeriods.has(4) && <Check size={12} />}
+                </div>
+              </button>
             </div>
           </div>
 

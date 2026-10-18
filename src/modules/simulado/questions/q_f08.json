@@ -1,0 +1,782 @@
+[
+  {
+    "id": "f08_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que é Tonalidade?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.1 Tonalidade",
+      "pagina": 80
+    },
+    "opcoes": [
+      {
+        "texto": "É a organização da composição musical em relação à nota principal da escala (I grau — Tônica), podendo ser Maior ou Menor.",
+        "correta": true,
+        "feedback": "Correto! A tonalidade organiza os sons da composição em torno de um centro principal chamado Tônica (I grau)."
+      },
+      {
+        "texto": "É a variação gradual da velocidade da música indicada pelo metrônomo.",
+        "correta": false,
+        "feedback": "Incorreto. A velocidade da música refere-se ao Andamento, e não à Tonalidade."
+      },
+      {
+        "texto": "É a divisão do compasso em partes fortes e fracas.",
+        "correta": false,
+        "feedback": "Incorreto. A divisão dos tempos em fortes e fracos chama-se Acento Métrico."
+      },
+      {
+        "texto": "É a propriedade física do som que permite distinguir a voz do soprano da voz do baixo.",
+        "correta": false,
+        "feedback": "Incorreto. A propriedade que distingue a fonte sonora é o Timbre."
+      }
+    ]
+  },
+  {
+    "id": "f08_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Em quais tipos de tonalidades estão escritos todos os hinos do Hinário 5 da CCB?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.1 Tonalidade",
+      "pagina": 80
+    },
+    "opcoes": [
+      {
+        "texto": "Metade em tonalidades Maiores e metade em tonalidades Menores.",
+        "correta": false,
+        "feedback": "Incorreto. Não há hinos escritos em tonalidades menores como tonalidade principal no Hinário 5."
+      },
+      {
+        "texto": "Somente em tonalidades Maiores.",
+        "correta": true,
+        "feedback": "Correto! Todos os hinos do Hinário 5 foram escritos exclusivamente em tonalidades Maiores (embora possam ocorrer breves passagens menores por acidentes ocorrentes, como no Hino 385)."
+      },
+      {
+        "texto": "Somente em tonalidades Menores.",
+        "correta": false,
+        "feedback": "Incorreto. Os hinos do Hinário 5 estão escritos exclusivamente em tonalidades Maiores."
+      },
+      {
+        "texto": "Apenas na tonalidade de Dó Maior.",
+        "correta": false,
+        "feedback": "Incorreto. Embora o hinário para órgão/violino seja chamado 'Hinário em Dó' (afinação do instrumento), seus hinos estão em diversas tonalidades maiores (Sol Maior, Fá Maior, Mib Maior, etc.)."
+      }
+    ]
+  },
+  {
+    "id": "f08_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como devemos identificar com segurança a tonalidade de um hino no Hinário 5, e qual voz sempre termina na nota Tônica (I grau)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.1 Tonalidade",
+      "pagina": 81
+    },
+    "opcoes": [
+      {
+        "texto": "Identifica-se olhando exclusivamente para a primeira nota do Soprano no primeiro compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Muitos hinos começam no III ou no V grau da escala no soprano; a identificação correta é feita pela armadura de clave."
+      },
+      {
+        "texto": "Identifica-se exclusivamente pela última nota do Soprano, pois o soprano nunca termina fora da Tônica.",
+        "correta": false,
+        "feedback": "Incorreto! Existem exceções no Hinário 5 (como os Hinos 15 e 367) em que o soprano termina no III grau (Mediante), e não na Tônica."
+      },
+      {
+        "texto": "Identifica-se pela Armadura de Clave (confirmando-se pela última nota do Baixo, que nos hinos sempre termina na Tônica).",
+        "correta": true,
+        "feedback": "Correto! A tonalidade de qualquer hino do Hinário 5 é identificada diretamente pela armadura de clave, e a voz do baixo encerra sempre na Tônica."
+      },
+      {
+        "texto": "Identifica-se pela fórmula de compasso escrita no início do hino.",
+        "correta": false,
+        "feedback": "Incorreto. A fórmula de compasso indica a métrica (tempos/pulsos), e não a tonalidade."
+      }
+    ]
+  },
+  {
+    "id": "f08_q004",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Por que NÃO devemos identificar a tonalidade de um hino olhando apenas para a última nota do soprano (como ocorre nos Hinos 15 e 367)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.1 Tonalidade",
+      "pagina": 81
+    },
+    "opcoes": [
+      {
+        "texto": "Porque nos Hinos 15 e 367 o soprano está escrito na Clave de Fá.",
+        "correta": false,
+        "feedback": "Incorreto. O soprano está sempre na Clave de Sol; o motivo é que nesses hinos a melodia do soprano encerra no III grau da escala."
+      },
+      {
+        "texto": "Porque os Hinos 15 e 367 estão escritos em tonalidade menor.",
+        "correta": false,
+        "feedback": "Incorreto. Todos os hinos do Hinário 5 estão em tonalidades maiores."
+      },
+      {
+        "texto": "Porque nos Hinos 15 e 367 não existe armadura de clave.",
+        "correta": false,
+        "feedback": "Incorreto. Ambos possuem armadura de clave definida; a particularidade é que o soprano termina no III grau."
+      },
+      {
+        "texto": "Porque embora a última nota do baixo seja sempre a Tônica (I grau), o soprano pode terminar em outra nota do acorde perfeito (como o III grau nos Hinos 15 e 367).",
+        "correta": true,
+        "feedback": "Correto! Nos Hinos 15 e 367, o soprano termina na terça (III grau - Mediante) enquanto o baixo termina na Tônica (I grau). Por isso, a tonalidade deve ser verificada pela armadura de clave e pelo baixo."
+      }
+    ]
+  },
+  {
+    "id": "f08_q005",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O Hino 289 possui 4 sustenidos na armadura de clave (Fá#, Dó#, Sol#, Ré#). Qual é a sua tonalidade?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.1 Tonalidade",
+      "pagina": 81
+    },
+    "opcoes": [
+      {
+        "texto": "Mi Maior.",
+        "correta": true,
+        "feedback": "Correto! O último sustenido é Ré#, e uma nota acima de Ré# é Mi, indicando a tonalidade de Mi Maior."
+      },
+      {
+        "texto": "Lá Maior.",
+        "correta": false,
+        "feedback": "Incorreto. Lá Maior possui 3 sustenidos."
+      },
+      {
+        "texto": "Ré# Maior.",
+        "correta": false,
+        "feedback": "Incorreto. Ré# é o VII grau (Sensível); a Tônica fica 1 semitom acima (Mi Maior)."
+      },
+      {
+        "texto": "Láb Maior.",
+        "correta": false,
+        "feedback": "Incorreto. Láb Maior possui 4 bemóis, e não 4 sustenidos."
+      }
+    ]
+  },
+  {
+    "id": "f08_q006",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que são Acidentes Ocorrentes e qual é o alcance do seu efeito na partitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 82
+    },
+    "opcoes": [
+      {
+        "texto": "São os acidentes fixados junto à clave que valem para todas as oitavas até o final da música.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes colocados junto à clave são chamados de Acidentes Fixos (Armadura de Clave)."
+      },
+      {
+        "texto": "São acidentes colocados à esquerda da nota no decorrer do trecho musical, que alteram essa nota e todas as demais de mesmo nome e MESMA ALTURA (mesma oitava) dentro daquele mesmo compasso.",
+        "correta": true,
+        "feedback": "Correto! Ao contrário da armadura de clave (que vale em todas as oitavas e na música toda), o acidente ocorrente vale apenas dentro daquele compasso e exclusivamente naquela mesma linha ou espaço (mesma oitava)."
+      },
+      {
+        "texto": "São acidentes que alteram apenas a nota em que foram grafados, não afetando outra nota igual que venha logo em seguida no mesmo compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O acidente ocorrente continua alterando todas as notas de mesmo nome e mesma altura que aparecerem depois dele até a barra de compasso."
+      },
+      {
+        "texto": "São acidentes que alteram todas as notas de mesmo nome em qualquer oitava (tanto no soprano quanto no baixo) dentro do compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O acidente ocorrente altera apenas as notas de mesma altura (mesma oitava); se aparecer a mesma nota uma oitava abaixo ou acima, ela não é afetada."
+      }
+    ]
+  },
+  {
+    "id": "f08_q007",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "O que acontece com o efeito de um Acidente Ocorrente quando a música atravessa uma barra simples de compasso?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 82
+    },
+    "opcoes": [
+      {
+        "texto": "O acidente ocorrente continua valendo por mais três compassos.",
+        "correta": false,
+        "feedback": "Incorreto. A validade do acidente ocorrente termina exatamente ao final do compasso em que apareceu."
+      },
+      {
+        "texto": "O acidente ocorrente passa a fazer parte definitiva da armadura de clave.",
+        "correta": false,
+        "feedback": "Incorreto. O acidente ocorrente é passageiro e restrito ao compasso em que foi escrito."
+      },
+      {
+        "texto": "A barra de compasso anula o efeito do acidente ocorrente, fazendo a nota voltar ao estado determinado pela armadura de clave no compasso seguinte (exceto se estiver ligada por ligadura de valor).",
+        "correta": true,
+        "feedback": "Correto! O efeito do acidente ocorrente encerra-se na barra de compasso, salvo na nota imediatamente ligada por uma ligadura de valor que atravesse a barra."
+      },
+      {
+        "texto": "A barra de compasso só anula o acidente se houver um bequadro escrito no compasso seguinte.",
+        "correta": false,
+        "feedback": "Incorreto. A própria barra de compasso já tem força para anular o acidente ocorrente automaticamente (quando aparece um acidente no compasso seguinte apenas para lembrar, chama-se acidente de precaução)."
+      }
+    ]
+  },
+  {
+    "id": "f08_q008",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No Hino 208, há uma nota alterada por um acidente ocorrente no último tempo do compasso que está unida por uma Ligadura de Valor a outra nota de mesma altura no primeiro tempo do compasso seguinte. O que ocorre com o acidente nesse caso?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 83
+    },
+    "opcoes": [
+      {
+        "texto": "O músico deve mudar a afinação da nota no meio da ligadura assim que passar pela barra de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. A ligadura de valor soma os valores de notas de mesma altura; não há nova articulação nem mudança de altura na nota ligada."
+      },
+      {
+        "texto": "A ligadura faz com que o acidente ocorrente continue valendo para todas as notas daquele novo compasso inteiro.",
+        "correta": false,
+        "feedback": "Incorreto. O prolongamento do acidente vale exclusivamente para a nota que está presa à ligadura; as notas posteriores no novo compasso não são alteradas por ela."
+      },
+      {
+        "texto": "A ligadura de valor é anulada pelo acidente ocorrente, devendo-se articular as duas notas separadamente.",
+        "correta": false,
+        "feedback": "Incorreto. A ligadura de valor funciona normalmente, sustentando o som alterado pela soma das duas figuras."
+      },
+      {
+        "texto": "A ligadura de valor prolonga o efeito do acidente ocorrente na nota ligada do novo compasso, mas não afeta outras notas iguais que apareçam depois de encerrada a ligadura naquele novo compasso.",
+        "correta": true,
+        "feedback": "Correto! Como a ligadura de valor une as durações em um único som contínuo, a altura alterada é mantida na nota ligada; porém, encerrada a ligadura, qualquer nota seguinte naquele compasso volta ao estado da armadura."
+      }
+    ]
+  },
+  {
+    "id": "f08_q009",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No Hino 7, existe uma barra dupla separando a estrofe do coro exatamente no meio de um compasso (dividindo um compasso incompleto da estrofe e a anacruse do coro). Se houver um acidente ocorrente antes dessa barra dupla ainda dentro do mesmo compasso, o que acontece?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 83
+    },
+    "opcoes": [
+      {
+        "texto": "O acidente ocorrente continua valendo até que o compasso se complete na barra simples seguinte, pois a barra dupla de seção ali está no meio do compasso.",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado no MSA (Fase 8.2), mesmo havendo barra dupla divisória de seção no meio do compasso, o compasso ainda não terminou, portanto o acidente ocorrente permanece ativo até o final daquele compasso."
+      },
+      {
+        "texto": "A barra dupla no meio do compasso anula imediatamente todos os acidentes da armadura de clave.",
+        "correta": false,
+        "feedback": "Incorreto. Nem os acidentes da armadura nem o acidente ocorrente do compasso em curso são anulados antes do fechamento dos tempos do compasso."
+      },
+      {
+        "texto": "O acidente ocorrente passa a alterar apenas a voz do contralto.",
+        "correta": false,
+        "feedback": "Incorreto. O acidente ocorrente mantém sua regra normal de alterar notas de mesmo nome e mesma altura até o término do compasso."
+      },
+      {
+        "texto": "A barra dupla obriga a repetir a estrofe desde o início.",
+        "correta": false,
+        "feedback": "Incorreto. Uma barra dupla sem pontos de ritornello indica apenas o fim de uma seção (estrofe) e o início de outra (coro)."
+      }
+    ]
+  },
+  {
+    "id": "f08_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Além do Sustenido (#), do Bemol (b) e do Bequadro (♮), quais outros dois acidentes ocorrentes aparecem nos hinários da CCB e qual é o seu efeito sobre uma nota natural?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 84
+    },
+    "opcoes": [
+      {
+        "texto": "O Triplo Sustenido, que eleva 3 tons, e o Meio Bemol, que abaixa um quarto de tom.",
+        "correta": false,
+        "feedback": "Incorreto. Na escrita dos hinários utilizam-se apenas sustenido, bemol, bequadro, dobrado sustenido e dobrado bemol."
+      },
+      {
+        "texto": "O Dobrado Sustenido (x), que eleva a altura da nota natural em 2 semitons (1 tom), e o Dobrado Bemol (bb), que abaixa a altura da nota natural em 2 semitons (1 tom).",
+        "correta": true,
+        "feedback": "Correto! O dobrado sustenido eleva 2 semitons em relação à nota natural (ou +1 semitom sobre a nota que já era sustenida na armadura) e o dobrado bemol abaixa 2 semitons."
+      },
+      {
+        "texto": "O Dobrado Sustenido, que abaixa 2 semitons, e o Dobrado Bemol, que eleva 2 semitons.",
+        "correta": false,
+        "feedback": "Incorreto. Sustenidos sempre elevam a altura, e bemóis sempre abaixam."
+      },
+      {
+        "texto": "O Dobrado Bequadro, que duplica a velocidade da nota.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes alteram apenas a altura das notas."
+      }
+    ]
+  },
+  {
+    "id": "f08_q011",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Sobre a ocorrência do Dobrado Bemol (bb) e do Dobrado Sustenido (x) nos Hinários da CCB, assinale a afirmativa CORRETA:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 84
+    },
+    "opcoes": [
+      {
+        "texto": "Nem o Dobrado Sustenido nem o Dobrado Bemol existem em nenhum hinário da CCB.",
+        "correta": false,
+        "feedback": "Incorreto. O dobrado bemol está presente nos Hinos 204 e 217 do hinário em Dó, e o dobrado sustenido nos hinários em Sib, Mib e Fá."
+      },
+      {
+        "texto": "O Dobrado Sustenido e o Dobrado Bemol aparecem somente dentro da Armadura de Clave.",
+        "correta": false,
+        "feedback": "Incorreto. Nos hinários eles aparecem exclusivamente como Acidentes Ocorrentes no decorrer do compasso."
+      },
+      {
+        "texto": "No Hinário em Dó, o Dobrado Bemol (bb) aparece nos Hinos 204 e 217; já o Dobrado Sustenido (x) aparece nos hinários transpostos (em Sib, Mib e Fá).",
+        "correta": true,
+        "feedback": "Correto! No hinário em Dó encontramos o dobrado bemol nos hinos 204 e 217, enquanto o dobrado sustenido ocorre nos hinários em Sib, Mib e Fá (devido às transposições para tonalidades com mais sustenidos)."
+      },
+      {
+        "texto": "O Dobrado Bemol aparece em todos os hinos em Dó Maior.",
+        "correta": false,
+        "feedback": "Incorreto. No hinário em Dó ele aparece especificamente nos Hinos 204 e 217 (que estão em tonalidades com bemóis)."
+      }
+    ]
+  },
+  {
+    "id": "f08_q012",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que são Acidentes de Precaução e qual é a sua finalidade na partitura (como exemplificado no Hino 14)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 85
+    },
+    "opcoes": [
+      {
+        "texto": "São acidentes que obrigam o músico a tocar a nota com o dobro da intensidade (muito forte).",
+        "correta": false,
+        "feedback": "Incorreto. Acidentes tratam exclusivamente da afinação (altura) da nota, nunca da intensidade."
+      },
+      {
+        "texto": "São acidentes que indicam que a nota é opcional e não precisa ser tocada.",
+        "correta": false,
+        "feedback": "Incorreto. A nota deve ser tocada normalmente na altura indicada pelo acidente de precaução."
+      },
+      {
+        "texto": "São os acidentes escritos entre a clave e a fórmula de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Esses são os acidentes fixos da armadura de clave."
+      },
+      {
+        "texto": "São acidentes colocados à esquerda de uma nota que, pela regra, já se encontra naquele estado de alteração, com a única finalidade de evitar erro de leitura do intérprete.",
+        "correta": true,
+        "feedback": "Correto! O acidente de precaução não muda a regra, apenas lembra visualmente o músico de que aquela nota voltou ao estado da armadura (ou permanece alterada) para evitar erros de leitura."
+      }
+    ]
+  },
+  {
+    "id": "f08_q013",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em uma peça na tonalidade de Fá Maior (que possui Sib na armadura de clave), aparece um Si com Bequadro (♮) no 2º tempo de um compasso. Se no 4º tempo desse MESMO compasso e na mesma altura aparecer outro Si sem nenhum sinal escrito antes dele, como esse segundo Si deve ser executado?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 82
+    },
+    "opcoes": [
+      {
+        "texto": "Como Si natural (com efeito do bequadro), pois o bequadro atuou como acidente ocorrente e seu efeito vale até o final daquele compasso na mesma altura.",
+        "correta": true,
+        "feedback": "Correto! O bequadro colocado no 2º tempo é um acidente ocorrente e mantém a nota Si natural naquela oitava durante todo o restante daquele compasso."
+      },
+      {
+        "texto": "Como Si bemol, pois o bequadro só vale para a nota em que foi escrito.",
+        "correta": false,
+        "feedback": "Incorreto. Todo acidente ocorrente (inclusive o bequadro) vale para todas as notas de mesmo nome e mesma altura até o fim do compasso."
+      },
+      {
+        "texto": "Como Si sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. O bequadro torna a nota natural (Si natural), e não sustenida."
+      },
+      {
+        "texto": "Como Dó natural.",
+        "correta": false,
+        "feedback": "Incorreto. O Si bequadro soa como Si natural."
+      }
+    ]
+  },
+  {
+    "id": "f08_q014",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Considerando a mesma música em Fá Maior (1 bemol: Sib na armadura): após o compasso em que apareceu o Si bequadro (♮), inicia-se um NOVO compasso onde há uma nota Si sem nenhum acidente escrito. Como ela deve ser tocada?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 82
+    },
+    "opcoes": [
+      {
+        "texto": "Como Si natural, pois o bequadro anulou definitivamente o bemol da armadura até o fim da música.",
+        "correta": false,
+        "feedback": "Incorreto. O bequadro ocorrente só tem validade dentro do compasso em que foi escrito."
+      },
+      {
+        "texto": "Como Si bemol (Sib), pois a barra de compasso anulou o bequadro ocorrente do compasso anterior, voltando a vigorar o bemol fixo da armadura de clave.",
+        "correta": true,
+        "feedback": "Correto! Ao cruzar a barra de compasso, o acidente ocorrente perde seu efeito e volta a valer automaticamente a armadura de clave (Sib)."
+      },
+      {
+        "texto": "Como Si dobrado bemol.",
+        "correta": false,
+        "feedback": "Incorreto. A nota retorna simplesmente ao estado da armadura de clave (Si bemol)."
+      },
+      {
+        "texto": "Não deve ser tocada, transformando-se em pausa.",
+        "correta": false,
+        "feedback": "Incorreto. A nota é executada normalmente como Si bemol."
+      }
+    ]
+  },
+  {
+    "id": "f08_q015",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Na tonalidade de Lá Maior (Fá#, Dó#, Sol# na armadura), aparece na voz do soprano um Ré# (acidente ocorrente) no 1º tempo. No 2º tempo desse mesmo compasso, a voz do baixo tem um Ré escrito uma oitava abaixo, sem sinal de alteração. Como deve ser tocado o Ré do baixo?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 82
+    },
+    "opcoes": [
+      {
+        "texto": "Como Ré sustenido (Ré#), porque o acidente ocorrente altera todas as oitavas do compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Apenas os acidentes fixos (da armadura) alteram todas as oitavas; o acidente ocorrente vale somente na mesma altura em que foi escrito."
+      },
+      {
+        "texto": "Como Ré bemol, para compensar o sustenido do soprano.",
+        "correta": false,
+        "feedback": "Incorreto. Na ausência de acidente naquela oitava e não estando alterado na armadura, o Ré do baixo é natural."
+      },
+      {
+        "texto": "Como Ré natural, porque o acidente ocorrente altera apenas as notas de mesmo nome e MESMA ALTURA (mesma oitava) dentro do compasso.",
+        "correta": true,
+        "feedback": "Correto! Como o Ré do baixo está em outra oitava (outra altura), ele não é afetado pelo acidente ocorrente do soprano."
+      },
+      {
+        "texto": "Como Dó sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. A nota escrita é Ré natural."
+      }
+    ]
+  },
+  {
+    "id": "f08_q016",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Quando uma nota já está alterada por um sustenido (#) na armadura de clave (por exemplo, o Fá# em Sol Maior) e recebe um Dobrado Sustenido (x) ocorrente no compasso, quantos semitons ela sobe em relação ao Fá# da armadura e quantos em relação ao Fá natural?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 84
+    },
+    "opcoes": [
+      {
+        "texto": "Sobe 2 semitons além do Fá# da armadura, totalizando 3 semitons acima do Fá natural.",
+        "correta": false,
+        "feedback": "Incorreto. O dobrado sustenido não se soma ao sustenido da armadura para dar 3 semitons; ele estabelece a altura total de 2 semitons acima da nota natural."
+      },
+      {
+        "texto": "Anula o Fá# da armadura, fazendo a nota soar como Fá natural.",
+        "correta": false,
+        "feedback": "Incorreto. Quem anula o sustenido é o bequadro, e não o dobrado sustenido."
+      },
+      {
+        "texto": "Abaixa a nota em 2 semitons, fazendo-a soar como Mi bemol.",
+        "correta": false,
+        "feedback": "Incorreto. O dobrado sustenido eleva a altura."
+      },
+      {
+        "texto": "Sobe 1 semitom em relação ao Fá# (que já estava alterado na armadura), totalizando 2 semitons (1 tom) acima do Fá natural (soando enarmonicamente igual ao Sol natural).",
+        "correta": true,
+        "feedback": "Correto! O dobrado sustenido eleva a nota natural em 2 semitons (1 tom); como a nota já era Fá# (+1 semitom pela armadura), ela sobe mais 1 semitom, atingindo a altura enarmônica de Sol natural."
+      }
+    ]
+  },
+  {
+    "id": "f08_q017",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença fundamental entre Acidentes Fixos, Acidentes Ocorrentes e Acidentes de Precaução?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 85
+    },
+    "opcoes": [
+      {
+        "texto": "Fixos: escritos na armadura de clave (valem na peça toda e em qualquer oitava); Ocorrentes: aparecem no compasso (valem só naquele compasso e na mesma altura); Precaução: lembram uma alteração já vigente para evitar erro de leitura.",
+        "correta": true,
+        "feedback": "Correto! Essa síntese resume com perfeição as três categorias de acidentes estudadas na Fase 8 do MSA."
+      },
+      {
+        "texto": "Fixos: valem apenas no 1º compasso; Ocorrentes: valem na peça toda; Precaução: mudam a fórmula de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes fixos valem na peça toda e os ocorrentes apenas no compasso em que aparecem."
+      },
+      {
+        "texto": "Fixos são apenas os sustenidos; Ocorrentes são apenas os bemóis; Precaução são apenas os bequadros.",
+        "correta": false,
+        "feedback": "Incorreto. Sustenidos e bemóis podem ser tanto fixos quanto ocorrentes ou de precaução."
+      },
+      {
+        "texto": "Não há diferença de alcance entre eles; todos valem apenas para uma única nota.",
+        "correta": false,
+        "feedback": "Incorreto. Cada categoria possui regras próprias de alcance e vigência."
+      }
+    ]
+  },
+  {
+    "id": "f08_q018",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No Hino 385, embora a armadura de clave indique uma tonalidade Maior, há um trecho com diversos acidentes ocorrentes que dão momentaneamente uma sonoridade menor. Segundo o MSA, qual é a tonalidade oficial desse hino?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.1 Tonalidade",
+      "pagina": 81
+    },
+    "opcoes": [
+      {
+        "texto": "Sua tonalidade oficial é Menor Harmônica.",
+        "correta": false,
+        "feedback": "Incorreto. No Hinário 5 não há hinos cuja tonalidade principal seja menor."
+      },
+      {
+        "texto": "Sua tonalidade oficial é Maior (definida pela armadura de clave), pois todos os hinos do Hinário 5 estão em tonalidades Maiores, apesar da passagem momentânea menor.",
+        "correta": true,
+        "feedback": "Correto! Mesmo que ocorra uma inflexão momentânea menor por meio de acidentes ocorrentes, a tonalidade principal de todos os hinos do Hinário 5 é Maior."
+      },
+      {
+        "texto": "O hino não possui tonalidade (é atonal).",
+        "correta": false,
+        "feedback": "Incorreto. Todos os hinos são tonais e estão escritos em tonalidades Maiores."
+      },
+      {
+        "texto": "Sua tonalidade muda de armadura a cada compasso.",
+        "correta": false,
+        "feedback": "Incorreto. A armadura de clave permanece inalterada do início ao fim do hino."
+      }
+    ]
+  },
+  {
+    "id": "f08_q019",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Nos Hinos 204 e 217 do Hinário em Dó, aparece o sinal 'bb' antes da nota Si (quando o Si já é bemol na armadura de clave). Como se chama esse acidente e qual é o seu efeito?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 84
+    },
+    "opcoes": [
+      {
+        "texto": "Chama-se Bemol Duplo de Precaução; não altera o som do Si bemol.",
+        "correta": false,
+        "feedback": "Incorreto. O dobrado bemol altera efetivamente a altura, abaixando mais 1 semitom além do bemol simples."
+      },
+      {
+        "texto": "Chama-se Bequadro Duplo; faz o Si bemol voltar a ser Si natural.",
+        "correta": false,
+        "feedback": "Incorreto. O sinal 'bb' é o dobrado bemol, que abaixa 2 semitons a partir da nota natural."
+      },
+      {
+        "texto": "Chama-se Dobrado Bemol; abaixa 2 semitons em relação ao Si natural (ou seja, abaixa mais 1 semitom em relação ao Sib da armadura, soando enarmonicamente como Lá natural).",
+        "correta": true,
+        "feedback": "Correto! O Si dobrado bemol (Sibb) está 2 semitons abaixo do Si natural (e 1 semitom abaixo do Sib), tendo a mesma altura sonora da nota Lá natural."
+      },
+      {
+        "texto": "Chama-se Sustenido Duplo; eleva a nota para Dó natural.",
+        "correta": false,
+        "feedback": "Incorreto. O sinal 'bb' abaixa a altura."
+      }
+    ]
+  },
+  {
+    "id": "f08_q020",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como são apresentados graficamente os Acidentes de Precaução nos hinos do Hinário 5?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 8,
+      "item": "8.2 Acidentes ocorrentes e de precaução",
+      "pagina": 85
+    },
+    "opcoes": [
+      {
+        "texto": "São grafados sempre em cor vermelha acima do pentagrama.",
+        "correta": false,
+        "feedback": "Incorreto. A impressão do hinário é monocromática e o acidente fica na mesma linha ou espaço à esquerda da nota."
+      },
+      {
+        "texto": "São grafados à direita da nota musical.",
+        "correta": false,
+        "feedback": "Incorreto. Todo acidente no pentagrama é grafado à esquerda da cabeça da nota."
+      },
+      {
+        "texto": "São grafados abaixo da letra da poesia.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes ficam sempre dentro do pentagrama, imediatamente antes da cabeça da nota."
+      },
+      {
+        "texto": "São grafados normalmente à esquerda da nota (sem parênteses no Hinário 5), em compasso seguinte àquele em que a nota havia sido alterada por acidente ocorrente.",
+        "correta": true,
+        "feedback": "Correto! Embora em algumas edições musicais externas o acidente de precaução possa vir entre parênteses, no Hinário 5 ele é grafado diretamente antes da nota sem parênteses."
+      }
+    ]
+  }
+]

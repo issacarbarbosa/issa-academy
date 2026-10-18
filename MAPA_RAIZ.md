@@ -28,6 +28,12 @@ issa-academy/
 │   │   │   │   └── 📄 generate-map.js
 │   │   │   └── 📄 SKILL.md
 │   │   ├── 📁 music-theory-core/
+│   │   │   ├── 📁 references/
+│   │   │   │   ├── 📄 00-curriculo-gem-e-youtube.md
+│   │   │   │   ├── 📄 01-periodo-1-fases-1-a-3.md
+│   │   │   │   ├── 📄 02-periodo-2-fases-4-e-5.md
+│   │   │   │   ├── 📄 03-periodo-3-fases-6-a-9.md
+│   │   │   │   └── 📄 04-periodo-4-fases-10-a-16.md
 │   │   │   └── 📄 SKILL.md
 │   │   └── 📁 rhythm-audio-engine/
 │   │       └── 📄 SKILL.md
@@ -98,6 +104,17 @@ issa-academy/
 │   │       │   ├── 📄 q_f03.json
 │   │       │   ├── 📄 q_f04.json
 │   │       │   ├── 📄 q_f05.json
+│   │       │   ├── 📄 q_f06.json
+│   │       │   ├── 📄 q_f07.json
+│   │       │   ├── 📄 q_f08.json
+│   │       │   ├── 📄 q_f09.json
+│   │       │   ├── 📄 q_f10.json
+│   │       │   ├── 📄 q_f11.json
+│   │       │   ├── 📄 q_f12.json
+│   │       │   ├── 📄 q_f13.json
+│   │       │   ├── 📄 q_f14.json
+│   │       │   ├── 📄 q_f15.json
+│   │       │   ├── 📄 q_f16.json
 │   │       │   ├── 📄 schema.test.ts
 │   │       │   └── 📄 schema.ts
 │   │       ├── 📄 SimuladoMsa.test.ts
@@ -124,4 +141,4 @@ issa-academy/
 ```
 
 ---
-*Gerado automaticamente em: 17/10/2026, 21:50:05*
+*Gerado automaticamente em: 18/10/2026, 06:22:13*

@@ -1,7 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
-import { formatTimeSpent, computeQuizResult, shuffleQuestions } from './SimuladoMsa';
+import {
+  formatTimeSpent,
+  computeQuizResult,
+  shuffleQuestions,
+  prepareQuizQuestions,
+} from './SimuladoMsa';
 
 describe('SimuladoMsa Helper Logic', () => {
   describe('formatTimeSpent', () => {
@@ -72,7 +77,7 @@ describe('SimuladoMsa Helper Logic', () => {
     });
   });
 
-  describe('shuffleQuestions (Fisher-Yates)', () => {
+  describe('shuffleQuestions & prepareQuizQuestions (Fisher-Yates)', () => {
     it('should maintain the same elements and length without mutating the original array', () => {
       const original = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       const shuffled = shuffleQuestions(original);
@@ -80,6 +85,34 @@ describe('SimuladoMsa Helper Logic', () => {
       expect(shuffled.length).toBe(original.length);
       expect(shuffled).not.toBe(original);
       expect(shuffled.sort((a, b) => a - b)).toEqual(original);
+    });
+
+    it('should shuffle the options of each selected question across multiple runs', () => {
+      const mockBank = [
+        {
+          id: 'q1',
+          ativo: true,
+          pergunta: 'Pergunta 1',
+          opcoes: [
+            { texto: 'A', correta: true },
+            { texto: 'B', correta: false },
+            { texto: 'C', correta: false },
+            { texto: 'D', correta: false },
+          ],
+        },
+      ];
+
+      const positions = new Set<number>();
+      for (let i = 0; i < 40; i++) {
+        const prepared = prepareQuizQuestions(mockBank, 20);
+        expect(prepared.length).toBe(1);
+        expect(prepared[0].opcoes).not.toBe(mockBank[0].opcoes);
+        expect(prepared[0].opcoes.length).toBe(4);
+        const correctIdx = prepared[0].opcoes.findIndex((o) => o.correta);
+        positions.add(correctIdx);
+      }
+      // Over 40 independent runs, the correct answer should appear in multiple positions
+      expect(positions.size).toBeGreaterThan(1);
     });
   });
 });

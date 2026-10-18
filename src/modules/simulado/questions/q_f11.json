@@ -1,0 +1,470 @@
+[
+  {
+    "id": "f11_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA (Fase 11.1), o que são Acento Métrico e Prosódia Musical, e como o acento métrico deve ser executado?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.1 Acento métrico",
+      "pagina": 100
+    },
+    "opcoes": [
+      {
+        "texto": "Acento métrico é a acentuação forte ou fraca dos tempos do compasso (que deve ser sentida de modo natural, sem elevar ou diminuir artificialmente o volume do som); e Prosódia Musical é a concordância das sílabas tônicas das palavras com a acentuação forte de cada compasso na melodia.",
+        "correta": true,
+        "feedback": "Correto! O acento métrico é sentido naturalmente na pulsação (sem forçar o volume nos tempos fortes), e nos hinos as sílabas tônicas da poesia coincidem com os tempos fortes ou meio-fortes (prosódia musical)."
+      },
+      {
+        "texto": "É um sinal gráfico em forma de seta colocado sobre todas as notas fortes do hinário.",
+        "correta": false,
+        "feedback": "Incorreto. O acento métrico não usa sinal gráfico sobre as notas; ele é sentido naturalmente conforme a fórmula de compasso."
+      },
+      {
+        "texto": "É a obrigação de tocar o 1º tempo em fortíssimo (fff) e os demais tempos quase inaudíveis.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA ensina expressamente que não é necessário elevar ou diminuir o volume do som na execução dos tempos fortes ou fracos."
+      },
+      {
+        "texto": "Prosódia musical é a mudança de velocidade entre a estrofe e o coro.",
+        "correta": false,
+        "feedback": "Incorreto. Prosódia musical é a concordância das sílabas tônicas da poesia com a acentuação métrica forte do compasso."
+      }
+    ]
+  },
+  {
+    "id": "f11_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a distribuição do Acento Métrico nos compassos simples Binário (2 tempos), Ternário (3 tempos) e Quaternário (4 tempos), respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.1 Acento métrico",
+      "pagina": 100
+    },
+    "opcoes": [
+      {
+        "texto": "Binário: fraco, Forte | Ternário: fraco, Forte, fraco | Quaternário: fraco, Forte, fraco, meio Forte.",
+        "correta": false,
+        "feedback": "Incorreto. O 1º tempo de todo compasso é sempre Forte."
+      },
+      {
+        "texto": "Binário: 1º Forte, 2º fraco | Ternário: 1º Forte, 2º fraco, 3º fraco | Quaternário: 1º Forte, 2º fraco, 3º meio-forte, 4º fraco.",
+        "correta": true,
+        "feedback": "Correto! Em qualquer compasso o 1º tempo é Forte; no ternário o 2º e 3º são fracos; e no quaternário temos Forte, fraco, meio-forte, fraco."
+      },
+      {
+        "texto": "Binário: Forte, Forte | Ternário: Forte, meio-forte, fraco | Quaternário: Forte, Forte, fraco, fraco.",
+        "correta": false,
+        "feedback": "Incorreto. Não há dois tempos Fortes seguidos; no ternário é F–f–f e no quaternário é F–f–mF–f."
+      },
+      {
+        "texto": "Quaternário: 1º Forte, 2º meio-forte, 3º fraco, 4º Forte.",
+        "correta": false,
+        "feedback": "Incorreto. No compasso quaternário, o 3º tempo é meio-forte e o 2º e 4º tempos são fracos."
+      }
+    ]
+  },
+  {
+    "id": "f11_q003",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA (Fase 11.2), o que é um Compasso Simples e quais são os seus números superiores?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.2 Compasso simples",
+      "pagina": 101
+    },
+    "opcoes": [
+      {
+        "texto": "É aquele em que cada tempo é divisível em 3 partes iguais, tendo como números superiores 6, 9 ou 12.",
+        "correta": false,
+        "feedback": "Incorreto. Essa definição (subdivisão ternária e números superiores 6, 9 e 12) pertence ao Compasso Composto."
+      },
+      {
+        "texto": "É aquele que não possui fórmula de compasso nem barras divisórias.",
+        "correta": false,
+        "feedback": "Incorreto. Os compassos simples possuem fórmulas com número superior 2, 3 ou 4."
+      },
+      {
+        "texto": "É aquele em que a Unidade de Tempo (U.T.) é uma figura simples (não pontuada), subdividida em 2 partes iguais (subdivisão binária), tendo como números superiores 2, 3 ou 4.",
+        "correta": true,
+        "feedback": "Correto! Nos compassos simples (2, 3 e 4), cada tempo divide-se naturalmente em 2 partes iguais (subdivisão binária)."
+      },
+      {
+        "texto": "É aquele cuja Unidade de Tempo é sempre uma figura pontuada.",
+        "correta": false,
+        "feedback": "Incorreto. Figura pontuada como Unidade de Tempo é característica do Compasso Composto."
+      }
+    ]
+  },
+  {
+    "id": "f11_q004",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA (Fase 11.3), o que é um Compasso Composto, quais são os seus números superiores e com o que sua execução se assemelha?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 102
+    },
+    "opcoes": [
+      {
+        "texto": "É aquele cuja Unidade de Tempo é divisível em 2 partes iguais, com números superiores 2, 3 ou 4.",
+        "correta": false,
+        "feedback": "Incorreto. Essa é a definição de Compasso Simples."
+      },
+      {
+        "texto": "É a junção de duas fórmulas de compasso diferentes escritas na partitura.",
+        "correta": false,
+        "feedback": "Incorreto. A junção de duas fórmulas diferentes chama-se Compassos Alternados."
+      },
+      {
+        "texto": "É um compasso que possui 6, 9 ou 12 tempos inteiros de semibreve.",
+        "correta": false,
+        "feedback": "Incorreto. Os números 6, 9 e 12 indicam a quantidade de movimentos (pulsos de subdivisão ternária), equivalendo a 2, 3 e 4 tempos compostos."
+      },
+      {
+        "texto": "É aquele em que a Unidade de Tempo (U.T.) é uma figura pontuada subdividida em 3 partes iguais (subdivisão ternária), tendo como números superiores 6, 9 ou 12; sua forma de solfejo e execução é idêntica à do compasso simples com tercinas.",
+        "correta": true,
+        "feedback": "Correto! Nos compassos compostos (6, 9 e 12), cada tempo agrupa 3 movimentos iguais (subdivisão ternária), e como ensina o MSA na pág. 103, sua forma de solfejo e execução é idêntica à do compasso simples com tercinas."
+      }
+    ]
+  },
+  {
+    "id": "f11_q005",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quantos tempos compostos possuem, respectivamente, os compassos de número superior 6 (Binário Composto), 9 (Ternário Composto) e 12 (Quaternário Composto)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 102
+    },
+    "opcoes": [
+      {
+        "texto": "O compasso de nº 6 possui 2 tempos compostos (de 3 movimentos cada); o de nº 9 possui 3 tempos compostos; e o de nº 12 possui 4 tempos compostos.",
+        "correta": true,
+        "feedback": "Correto! Dividindo o número de movimentos (6, 9 e 12) por 3 (subdivisão ternária), obtemos respectivamente 2, 3 e 4 tempos compostos."
+      },
+      {
+        "texto": "Possuem 6 tempos, 9 tempos e 12 tempos compostos, respectivamente.",
+        "correta": false,
+        "feedback": "Incorreto. 6, 9 e 12 são as quantidades de movimentos (pulsos da subdivisão ternária); a quantidade de tempos compostos é 2, 3 e 4."
+      },
+      {
+        "texto": "Possuem 3 tempos, 4 tempos e 6 tempos compostos, respectivamente.",
+        "correta": false,
+        "feedback": "Incorreto. Como cada tempo composto agrupa 3 movimentos: 6÷3 = 2 tempos; 9÷3 = 3 tempos; 12÷3 = 4 tempos."
+      },
+      {
+        "texto": "Todos possuem apenas 3 tempos compostos.",
+        "correta": false,
+        "feedback": "Incorreto. O 6 é binário composto (2 tempos), o 9 é ternário composto (3 tempos) e o 12 é quaternário composto (4 tempos)."
+      }
+    ]
+  },
+  {
+    "id": "f11_q006",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "De acordo com a tabela oficial de Compassos Compostos da Fase 11.3 do MSA, como são compostos os compassos 6/8, 9/8 e 12/8 em termos de Unidades de Tempo (U.T.) e de figuras de Subdivisão Ternária (movimentos)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 103
+    },
+    "opcoes": [
+      {
+        "texto": "Em todos eles a U.T. é a colcheia simples e a subdivisão ternária é feita em semibreves.",
+        "correta": false,
+        "feedback": "Incorreto. A colcheia é a figura de movimento (subdivisão ternária), enquanto a Unidade de Tempo (U.T.) é a semínima pontuada."
+      },
+      {
+        "texto": "No 6/8: 2 semínimas pontuadas (U.T.) ou 6 colcheias (subdivisão ternária) | No 9/8: 3 semínimas pontuadas (U.T.) ou 9 colcheias (subdivisão ternária) | No 12/8: 4 semínimas pontuadas (U.T.) ou 12 colcheias (subdivisão ternária).",
+        "correta": true,
+        "feedback": "Correto! Conforme o quadro da Fase 11.3 (e o exercício da Aula 02 do 4º Período), cada tempo composto de denominador 8 vale 1 semínima pontuada (agrupando 3 colcheias da subdivisão ternária)."
+      },
+      {
+        "texto": "No 6/8: 6 semínimas pontuadas | No 9/8: 9 semínimas pontuadas | No 12/8: 12 semínimas pontuadas.",
+        "correta": false,
+        "feedback": "Incorreto. Os números 6, 9 e 12 indicam a quantidade de colcheias (movimentos), que formam 2, 3 e 4 semínimas pontuadas."
+      },
+      {
+        "texto": "No 6/8: 2 mínimas pontuadas | No 9/8: 3 mínimas pontuadas | No 12/8: 4 mínimas pontuadas.",
+        "correta": false,
+        "feedback": "Incorreto. Mínimas pontuadas são as Unidades de Tempo dos compassos de número inferior 4 (como 6/4 e 9/4)."
+      }
+    ]
+  },
+  {
+    "id": "f11_q007",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que são Compassos Alternados segundo a Fase 11.4 do MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.4 Compassos alternados",
+      "pagina": 105
+    },
+    "opcoes": [
+      {
+        "texto": "São compassos em que se alterna entre a Clave de Sol e a Clave de Dó a cada tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Compassos alternados referem-se à alternância de fórmulas de compasso, e não de claves."
+      },
+      {
+        "texto": "São compassos tocados ora apenas pelas cordas, ora apenas pelos metais.",
+        "correta": false,
+        "feedback": "Incorreto. Isso seria alternância de naipes, não compassos alternados."
+      },
+      {
+        "texto": "São compassos formados pela junção de duas ou mais fórmulas de compasso diferentes, tocadas alternadamente ao longo da música.",
+        "correta": true,
+        "feedback": "Correto! Nos compassos alternados, a peça alterna entre fórmulas de compasso diferentes (sejam simples ou compostas) no decorrer dos compassos."
+      },
+      {
+        "texto": "São compassos que misturam sustenidos e bemóis na mesma armadura.",
+        "correta": false,
+        "feedback": "Incorreto. A armadura de clave nunca mistura sustenidos e bemóis."
+      }
+    ]
+  },
+  {
+    "id": "f11_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA (Fase 11.4), em que lugar da partitura podem ser escritas as fórmulas de compasso para Compassos Alternados e como elas estão escritas nos hinos do Hinário 5 (como nos Hinos 342, 346 e 415)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.4 Compassos alternados",
+      "pagina": 105
+    },
+    "opcoes": [
+      {
+        "texto": "Elas são escritas somente na barra final do hino, no rodapé da página.",
+        "correta": false,
+        "feedback": "Incorreto. As fórmulas de compasso nunca são colocadas após a barra final."
+      },
+      {
+        "texto": "No Hinário 5 juntam-se até quatro fórmulas diferentes e elas aparecem escritas apenas uma única vez junto à armadura de clave.",
+        "correta": false,
+        "feedback": "Incorreto. No Hinário 5 há apenas a junção de duas fórmulas de compasso, e elas estão escritas alternadamente em cada compasso para facilitar a leitura."
+      },
+      {
+        "texto": "Não existem compassos alternados no Hinário 5.",
+        "correta": false,
+        "feedback": "Incorreto. Existem hinos com compassos alternados no Hinário 5, como os Hinos 342, 346 e 415."
+      },
+      {
+        "texto": "Na escrita musical em geral, podem ser colocadas juntas no início do pentagrama ou ao longo da partitura; já no Hinário 5 temos apenas a junção de duas fórmulas de compasso, que estão escritas alternadamente em cada compasso para facilitar a leitura e a condução.",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado na Fase 11.4 (pág. 105) e nas questões oficiais da Aula 03 do 4º Período, no Hinário 5 as duas fórmulas são escritas alternadamente em cada compasso em que mudam (como no Hino 415) para facilitar a leitura."
+      }
+    ]
+  },
+  {
+    "id": "f11_q009",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No Hinário 5, existem hinos que mudam de fórmula de compasso apenas no Coro ou Final (Hinos 94, 296, 348, 350, 352, 359 e 422). O que ocorre com a velocidade nesses hinos e qual é a única exceção?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.4 Compassos alternados",
+      "pagina": 106
+    },
+    "opcoes": [
+      {
+        "texto": "A velocidade permanece IGUAL para a estrofe e para o coro em todos eles, COM EXCEÇÃO do Hino 422, que possui indicações de velocidades distintas para as duas partes.",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado na Fase 11.4 do MSA, nos hinos 94, 296, 348, 350, 352 e 359 a velocidade mantém-se a mesma na mudança de compasso; apenas o Hino 422 traz nova marcação de velocidade."
+      },
+      {
+        "texto": "Em todos esses hinos a velocidade do coro deve ser o dobro da velocidade da estrofe.",
+        "correta": false,
+        "feedback": "Incorreto. A velocidade permanece a mesma entre estrofe e coro, exceto no Hino 422."
+      },
+      {
+        "texto": "O Hino 94 é o único que muda de velocidade, enquanto o Hino 422 mantém a mesma velocidade.",
+        "correta": false,
+        "feedback": "Incorreto. A única exceção com velocidades distintas indicadas na partitura é o Hino 422."
+      },
+      {
+        "texto": "Nenhum hino do Hinário 5 muda de fórmula de compasso no início do coro.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 94, 296, 348, 350, 352, 359 e 422 apresentam mudança de fórmula na segunda parte/coro."
+      }
+    ]
+  },
+  {
+    "id": "f11_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Nos compassos compostos 6/4 e 9/4 (de número inferior 4), quais são as Unidades de Tempo (U.T.) e as figuras de Subdivisão Ternária (movimentos), respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 102
+    },
+    "opcoes": [
+      {
+        "texto": "Em 6/4 e 9/4 a figura de pulso é a Colcheia e a U.T. é a Semínima Pontuada.",
+        "correta": false,
+        "feedback": "Incorreto. Colcheia e semínima pontuada referem-se aos compassos 6/8 e 9/8 (denominador 8)."
+      },
+      {
+        "texto": "Em ambos a Unidade de Tempo (U.T.) é a Mínima Pontuada (𝅗𝅥.) e a figura de movimento (subdivisão ternária) é a Semínima (𝅘𝅥): o 6/4 tem 2 mínimas pontuadas (6 semínimas) e o 9/4 tem 3 mínimas pontuadas (9 semínimas).",
+        "correta": true,
+        "feedback": "Correto! Como o número inferior é 4 (semínima), cada grupo de 3 semínimas forma 1 Mínima Pontuada (Unidade de Tempo composto)."
+      },
+      {
+        "texto": "O compasso 6/4 possui 3 tempos simples de mínima, exatamente igual ao compasso 3/2.",
+        "correta": false,
+        "feedback": "Incorreto! O 3/2 é ternário simples (3 tempos de 2 semínimas), enquanto o 6/4 é binário composto (2 tempos de 3 semínimas)."
+      },
+      {
+        "texto": "Em ambos a U.T. é a Semibreve Pontuada.",
+        "correta": false,
+        "feedback": "Incorreto. A Unidade de Tempo (1 tempo composto de 3 semínimas) é a mínima pontuada."
+      }
+    ]
+  },
+  {
+    "id": "f11_q011",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a distribuição do Acento Métrico nos pulsos (movimentos) dos Compassos Compostos de 6, 9 e 12 movimentos, e dentro das subdivisões de qualquer tempo?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 102
+    },
+    "opcoes": [
+      {
+        "texto": "A última parte da subdivisão de cada tempo é sempre a mais forte de todas.",
+        "correta": false,
+        "feedback": "Incorreto. A última parte da subdivisão é sempre parte fraca de tempo."
+      },
+      {
+        "texto": "Todos os 6, 9 ou 12 movimentos possuem acento forte igual.",
+        "correta": false,
+        "feedback": "Incorreto. Apenas a cabeça do 1º tempo é Forte; as cabeças dos demais tempos compostos são meio-fortes ou fracas, e os movimentos internos (2º e 3º de cada grupo) são fracos."
+      },
+      {
+        "texto": "A primeira parte de cada tempo é sempre a parte forte daquele grupo (e as demais são fracas); assim, no Binário Composto (6) os tempos são Forte–fraco (pulsos F-f-f, mF-f-f), no Ternário Composto (9) são Forte–fraco–fraco, e no Quaternário Composto (12) são Forte–fraco–meio-forte–fraco.",
+        "correta": true,
+        "feedback": "Correto! Dentro de cada tempo a 1ª parte (cabeça do tempo) tem apoio maior e as subdivisões seguintes são fracas."
+      },
+      {
+        "texto": "As partes de tempo não possuem nenhuma diferença de apoio métrico.",
+        "correta": false,
+        "feedback": "Incorreto. O conceito de parte forte e parte fraca de tempo é essencial inclusive para compreender a síncopa e o contratempo na Fase 12."
+      }
+    ]
+  },
+  {
+    "id": "f11_q012",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Como se classificam as seguintes fórmulas de compasso quanto à sua espécie (Simples ou Composto): 4/4, 6/8, 3/4, 9/8, 2/2 e 12/8?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 103
+    },
+    "opcoes": [
+      {
+        "texto": "Simples: 4/4, 2/2 e 6/8 | Compostos: 3/4, 9/8 e 12/8.",
+        "correta": false,
+        "feedback": "Incorreto. 6/8 é compasso composto (binário composto) e 3/4 é compasso simples (ternário simples)."
+      },
+      {
+        "texto": "Simples: apenas os que têm denominador 4 | Compostos: todos os que têm denominador 2 ou 8.",
+        "correta": false,
+        "feedback": "Incorreto. Quem define se o compasso é simples ou composto é o número SUPERIOR (2, 3, 4 = simples; 6, 9, 12 = composto), pois 2/2 é simples e 6/4 é composto."
+      },
+      {
+        "texto": "Todos são compassos compostos.",
+        "correta": false,
+        "feedback": "Incorreto. 4/4, 3/4 e 2/2 são compassos simples."
+      },
+      {
+        "texto": "Simples: 4/4, 3/4 e 2/2 (números superiores 4, 3 e 2) | Compostos: 6/8, 9/8 e 12/8 (números superiores 6, 9 e 12).",
+        "correta": true,
+        "feedback": "Correto! Basta observar o número superior: 2, 3 e 4 indicam compassos simples; 6, 9 e 12 indicam compassos compostos."
+      }
+    ]
+  }
+]

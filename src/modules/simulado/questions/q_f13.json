@@ -1,0 +1,314 @@
+[
+  {
+    "id": "f13_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que são Ritmos Iniciais, onde eles se localizam na partitura e como se classificam?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 118
+    },
+    "opcoes": [
+      {
+        "texto": "São as diferentes formas pelas quais uma composição musical se inicia em relação ao 1º compasso; localizam-se APENAS no início da música e classificam-se em Tético, Anacrúsico e Acéfalo.",
+        "correta": true,
+        "feedback": "Correto! Conforme a Fase 13.1 e os gabaritos oficiais da Aula 06 do 4º Período, os ritmos iniciais são avaliados apenas no início da partitura e dividem-se em Tético, Anacrúsico e Acéfalo."
+      },
+      {
+        "texto": "São os ritmos que ocorrem após qualquer vírgula de respiração no meio do hino, classificando-se em Forte, Meio Forte e Fraco.",
+        "correta": false,
+        "feedback": "Incorreto. Conforme o gabarito oficial do MSA, os ritmos iniciais localizam-se apenas no início da partitura."
+      },
+      {
+        "texto": "São as indicações metronômicas colocadas no início do hino, classificadas em Lento, Moderado e Rápido.",
+        "correta": false,
+        "feedback": "Incorreto. Lento, moderado e rápido referem-se ao Andamento."
+      },
+      {
+        "texto": "São os tipos de fermatas colocadas no último compasso do hino.",
+        "correta": false,
+        "feedback": "Incorreto. Ritmos iniciais dizem respeito ao início da peça musical (Tético, Anacrúsico e Acéfalo)."
+      }
+    ]
+  },
+  {
+    "id": "f13_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Quando um Ritmo Inicial é classificado como TÉTICO?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 118
+    },
+    "opcoes": [
+      {
+        "texto": "Quando a música se inicia com notas que precedem o primeiro compasso completo, formando um compasso incompleto.",
+        "correta": false,
+        "feedback": "Incorreto. Notas que precedem o primeiro compasso completo formando compasso incompleto caracterizam o ritmo Anacrúsico."
+      },
+      {
+        "texto": "Quando a música inicia no tempo forte, no primeiro tempo de um compasso completo (ex.: Hinos 281, 311 e 431).",
+        "correta": true,
+        "feedback": "Correto! O ritmo tético começa diretamente no 1º tempo (tempo forte) de um primeiro compasso completo."
+      },
+      {
+        "texto": "Quando a música se inicia por um contratempo (após pausa no início do 1º compasso).",
+        "correta": false,
+        "feedback": "Incorreto. O início em contratempo preenchendo mais da metade do compasso caracteriza o ritmo Acéfalo."
+      },
+      {
+        "texto": "Quando a música termina no 3º tempo do último compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O ritmo tético refere-se ao início no 1º tempo forte do 1º compasso completo."
+      }
+    ]
+  },
+  {
+    "id": "f13_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "De acordo com a Fase 13.1 do MSA, quando um Ritmo Inicial é classificado como ANACRÚSICO (ou Protético) e qual é o limite de preenchimento do seu compasso inicial?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 119
+    },
+    "opcoes": [
+      {
+        "texto": "Quando a música começa exatamente no 1º tempo do primeiro compasso completo.",
+        "correta": false,
+        "feedback": "Incorreto. Esse é o ritmo Tético."
+      },
+      {
+        "texto": "Quando o primeiro compasso está totalmente preenchido apenas por uma pausa de semibreve.",
+        "correta": false,
+        "feedback": "Incorreto. Na anacruse há notas musicais precedendo o primeiro compasso completo."
+      },
+      {
+        "texto": "Quando as notas iniciais precedem o início do primeiro compasso, preenchendo, no máximo, até a metade de um compasso binário ou quaternário, ou até dois terços (2/3) de um compasso ternário.",
+        "correta": true,
+        "feedback": "Correto! Conforme a definição exata do MSA (pág. 119 e Aula 06), o ritmo anacrúsico preenche no máximo até 1/2 do compasso binário ou quaternário (ex.: Hinos 433, 375, 467, 47, 25, 67, 41) ou até 2/3 do compasso ternário (ex.: Hinos 233, 236, 42)."
+      },
+      {
+        "texto": "Quando o primeiro compasso possui mais da metade de um compasso quaternário ou mais de dois terços de um compasso ternário preenchidos.",
+        "correta": false,
+        "feedback": "Incorreto. Quando o 1º compasso começa em contratempo e possui mais da metade (binário/quaternário) ou mais de 2/3 (ternário) preenchidos, classifica-se como Acéfalo."
+      }
+    ]
+  },
+  {
+    "id": "f13_q004",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA (Fase 13.1), o que caracteriza o Ritmo Inicial ACÉFALO?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 121
+    },
+    "opcoes": [
+      {
+        "texto": "É o ritmo que começa no 1º tempo forte do compasso completo.",
+        "correta": false,
+        "feedback": "Incorreto. Começar na cabeça do 1º tempo é ritmo Tético."
+      },
+      {
+        "texto": "É o ritmo que possui apenas uma colcheia no final de um compasso 4/4.",
+        "correta": false,
+        "feedback": "Incorreto. Uma única colcheia no final do compasso inicial (menos da metade do compasso) é uma Anacruse (ritmo Anacrúsico)."
+      },
+      {
+        "texto": "É o ritmo em que não há fórmula de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O ritmo acéfalo possui fórmula de compasso normal, iniciando por contratempo."
+      },
+      {
+        "texto": "É o ritmo iniciado por um contratempo (o início do 1º compasso é ocupado por uma pausa, escrita ou não), em que as notas iniciais preenchem mais da metade de um compasso binário ou quaternário, ou mais de dois terços (2/3) de um compasso ternário.",
+        "correta": true,
+        "feedback": "Correto! 'Acéfalo' significa 'sem cabeça': o 1º compasso inicia em contratempo (após pausa escrita ou subentendida) e preenche mais de 1/2 do compasso binário/quaternário ou mais de 2/3 do ternário."
+      }
+    ]
+  },
+  {
+    "id": "f13_q005",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Segundo o MSA (Fase 13.1 e Aula 06 do 4º Período), quantos hinos com Ritmo Inicial ACÉFALO existem no Hinário 5 da CCB, quais são eles e como estão grafados?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 121
+    },
+    "opcoes": [
+      {
+        "texto": "No Hinário 5 temos apenas 2 hinos acéfalos, ambos sem pausa inicial escrita na partitura: o Hino 208 ('Conserva a paz, ó minha alma') e o Hino 377 ('No céu, Senhor, no céu').",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado expressamente no MSA (pág. 121 e questão 4 da Aula 06), no Hinário 5 existem apenas 2 hinos acéfalos (Hinos 208 e 377), ambos sem a pausa inicial escrita."
+      },
+      {
+        "texto": "Existem 20 hinos acéfalos no Hinário 5, todos com a pausa inicial impressa no 1º tempo.",
+        "correta": false,
+        "feedback": "Incorreto. No Hinário 5 há apenas 2 hinos acéfalos (Hinos 208 e 377) e ambos não trazem a pausa inicial escrita."
+      },
+      {
+        "texto": "Não existe nenhum hino com ritmo inicial acéfalo no Hinário 5.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA apresenta os Hinos 208 e 377 como os dois hinos acéfalos do Hinário 5."
+      },
+      {
+        "texto": "Os Hinos 433 e 375 são os dois únicos hinos acéfalos do Hinário 5.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 433 e 375 possuem ritmo inicial Anacrúsico; os dois hinos acéfalos são os Hinos 208 e 377."
+      }
+    ]
+  },
+  {
+    "id": "f13_q006",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Sobre a compensação (ajuste) dos tempos entre o primeiro compasso incompleto e o último compasso nos hinos com ritmo inicial Anacrúsico no Hinário 5, o que ensina o MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 120
+    },
+    "opcoes": [
+      {
+        "texto": "O último compasso possui sempre o dobro de tempos da fórmula de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O último compasso costuma trazer apenas os tempos restantes para completar o primeiro compasso."
+      },
+      {
+        "texto": "Na maioria dos hinos anacrúsicos (como no Hino 433), o 1º e o último compassos completam-se somando um compasso inteiro; porém, esse ajuste NÃO é obrigatório (por exemplo, no Hino 362 não foi aplicado e não há erro nisso).",
+        "correta": true,
+        "feedback": "Correto! O MSA destaca na Fase 13.1 que, embora na maioria dos hinos o último compasso compense os tempos da anacruse inicial, esse ajuste não é obrigatório (citando o Hino 362 como exemplo em que o último compasso é completo)."
+      },
+      {
+        "texto": "O último compasso nunca possui barra final nos hinos anacrúsicos.",
+        "correta": false,
+        "feedback": "Incorreto. Todo hino encerra com a barra final."
+      },
+      {
+        "texto": "Se o último compasso não descontar a anacruse, trata-se de um erro grave de impressão.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA explica que esse ajuste de compensação não é obrigatório na teoria musical."
+      }
+    ]
+  },
+  {
+    "id": "f13_q007",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Compare dois hinos em compasso 4/4 estudados na Fase 13.1 do MSA: o Hino 433 inicia com 1 semínima (1 tempo) antes da 1ª barra de compasso, e o Hino 41 inicia com 2 semínimas (2 tempos, isto é, metade do compasso) antes da 1ª barra; já o Hino 208 (em 6/4) inicia após meio tempo de pausa subentendida, preenchendo 5 movimentos e meio de 6. Quais são os ritmos iniciais dos Hinos 433, 41 e 208, respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 121
+    },
+    "opcoes": [
+      {
+        "texto": "Hino 433: Acéfalo | Hino 41: Acéfalo | Hino 208: Anacrúsico.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 433 (1/4 do compasso) e 41 (1/2 do compasso) preenchem até a metade do compasso, sendo Anacrúsicos; já o Hino 208 preenche mais da metade, sendo Acéfalo."
+      },
+      {
+        "texto": "Todos os três são Téticos.",
+        "correta": false,
+        "feedback": "Incorreto. Nenhum deles começa no 1º tempo forte de um compasso completo."
+      },
+      {
+        "texto": "Hino 433: Anacrúsico (1/4 do compasso) | Hino 41: Anacrúsico (1/2 do compasso, dentro do limite de até a metade) | Hino 208: Acéfalo (mais da metade do compasso preenchida, iniciando em contratempo sem pausa escrita).",
+        "correta": true,
+        "feedback": "Correto! Conforme os quadros da Fase 13.1 (Aula 06), até a metade do compasso binário/quaternário (como no Hino 433 com 1 tempo e no Hino 41 com 2 tempos em 4/4) o ritmo é Anacrúsico; já no Hino 208 (e no Hino 377) preenche-se mais da metade do compasso, sendo Acéfalo!"
+      },
+      {
+        "texto": "Hino 433: Anacrúsico | Hino 41: Acéfalo | Hino 208: Tético.",
+        "correta": false,
+        "feedback": "Incorreto. Em compasso 4/4, 2 tempos (metade exata) ainda é classificado pelo MSA como Anacrúsico (Hinos 25, 67 e 41)."
+      }
+    ]
+  },
+  {
+    "id": "f13_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em um compasso ternário simples (3/4), uma música se inicia antes do primeiro compasso completo preenchendo exatamente 2 tempos (2/3 do compasso, como nos Hinos 236 e 42). Como se classifica esse ritmo inicial segundo o MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 13,
+      "item": "13.1 Ritmos iniciais",
+      "pagina": 120
+    },
+    "opcoes": [
+      {
+        "texto": "Ritmo Acéfalo, pois preencheu mais da metade do compasso 3/4.",
+        "correta": false,
+        "feedback": "Incorreto! Cuidado: para compassos TERNÁRIOS, a regra do MSA estabelece o limite de 'até dois terços (2/3)' para o ritmo Anacrúsico; apenas o que ultrapassar 2/3 no compasso ternário (como no Hino 377) é Acéfalo."
+      },
+      {
+        "texto": "Ritmo Tético, pois possui duas semínimas.",
+        "correta": false,
+        "feedback": "Incorreto. O compasso 3/4 completo tem 3 tempos; iniciar com 2 tempos antes da barra é um compasso incompleto."
+      },
+      {
+        "texto": "Contratempo Irregular Final.",
+        "correta": false,
+        "feedback": "Incorreto. Trata-se da classificação dos ritmos iniciais."
+      },
+      {
+        "texto": "Ritmo Anacrúsico, pois nos compassos ternários o ritmo anacrúsico pode preencher até dois terços (2/3) do compasso.",
+        "correta": true,
+        "feedback": "Correto! No MSA (Fase 13.1), para compassos ternários o ritmo é Anacrúsico quando preenche até 2/3 do compasso (como nos Hinos 236 e 42), e Acéfalo somente quando preenche mais de 2/3 (como no Hino 377)."
+      }
+    ]
+  }
+]

@@ -1,0 +1,782 @@
+[
+  {
+    "id": "f07_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que é Armadura de Clave e onde ela é posicionada na partitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 65
+    },
+    "opcoes": [
+      {
+        "texto": "É o conjunto de acidentes (sustenidos ou bemóis) fixados no início do pentagrama, posicionados entre a clave e a fórmula de compasso.",
+        "correta": true,
+        "feedback": "Correto! A armadura de clave fica sempre após a clave e antes da fórmula de compasso no início do pentagrama."
+      },
+      {
+        "texto": "É o conjunto de números fracionários colocados depois da barra final da partitura.",
+        "correta": false,
+        "feedback": "Incorreto. Os números fracionários no início formam a fórmula de compasso; a armadura de clave é o conjunto de acidentes entre a clave e a fórmula de compasso."
+      },
+      {
+        "texto": "É um sinal colocado apenas sobre a última nota do soprano para indicar o fim do hino.",
+        "correta": false,
+        "feedback": "Incorreto. A armadura de clave é colocada no início de cada sistema (pentagrama), logo após a clave."
+      },
+      {
+        "texto": "É a chave que une as claves de Sol e de Fá no início do sistema.",
+        "correta": false,
+        "feedback": "Incorreto. A chave une os pentagramas do sistema; a armadura de clave é o conjunto de sustenidos ou bemóis fixos."
+      }
+    ]
+  },
+  {
+    "id": "f07_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a finalidade da Armadura de Clave na execução musical?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 65
+    },
+    "opcoes": [
+      {
+        "texto": "Alterar somente as notas que estiverem escritas exatamente na mesma linha do acidente e apenas no primeiro compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Esse alcance restrito ao compasso e à mesma altura pertence ao acidente ocorrente; a armadura vale para toda a peça e em todas as oitavas."
+      },
+      {
+        "texto": "Indicar que todas as notas de mesmo nome daqueles acidentes, em qualquer oitava e durante toda a música, serão sempre alteradas por eles (salvo acidente ocorrente).",
+        "correta": true,
+        "feedback": "Correto! Os acidentes da armadura são fixos e alteram todas as notas daquele nome em qualquer altura (oitava) ao longo de toda a peça."
+      },
+      {
+        "texto": "Indicar a velocidade mínima e máxima em que o hino deve ser tocado.",
+        "correta": false,
+        "feedback": "Incorreto. A velocidade é indicada pela marcação de andamento (metrônomo), e não pela armadura de clave."
+      },
+      {
+        "texto": "Determinar quantos tempos ou pulsos cabem dentro de cada compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Quem determina a quantidade de tempos ou pulsos é a fórmula de compasso."
+      }
+    ]
+  },
+  {
+    "id": "f07_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em uma Armadura de Clave composta por Sustenidos (#), qual é a regra prática para identificar rapidamente o nome da Escala Maior (Tonalidade)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "A Tônica corresponde sempre ao penúltimo sustenido da armadura.",
+        "correta": false,
+        "feedback": "Incorreto. A regra do penúltimo acidente aplica-se às armaduras com bemóis, e não com sustenidos."
+      },
+      {
+        "texto": "A Tônica corresponde sempre ao primeiro sustenido da armadura (Fá#).",
+        "correta": false,
+        "feedback": "Incorreto. O primeiro sustenido é sempre Fá#, mas a tonalidade muda conforme a quantidade de sustenidos."
+      },
+      {
+        "texto": "A Tônica está uma nota (1 semitom diatônico) acima do último sustenido da armadura (verificando se essa nota também está alterada na armadura).",
+        "correta": true,
+        "feedback": "Correto! Como o último sustenido altera o VII grau (Sensível), basta subir uma nota para encontrar o VIII/I grau (Tônica)."
+      },
+      {
+        "texto": "A Tônica está duas notas abaixo do último sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. A tônica da escala maior fica uma nota acima do último sustenido."
+      }
+    ]
+  },
+  {
+    "id": "f07_q004",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em uma Armadura de Clave composta por Bemóis (b), qual é a regra prática para identificar rapidamente a Escala Maior (Tonalidade)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "A Tônica está sempre uma nota acima do último bemol da armadura.",
+        "correta": false,
+        "feedback": "Incorreto. Subir uma nota acima do último acidente é a regra dos sustenidos, não dos bemóis."
+      },
+      {
+        "texto": "A Tônica corresponde sempre ao último bemol da armadura.",
+        "correta": false,
+        "feedback": "Incorreto. O último bemol da armadura é o IV grau (Subdominante) da escala, e não a Tônica."
+      },
+      {
+        "texto": "A Tônica é sempre a nota Dó, independentemente do número de bemóis.",
+        "correta": false,
+        "feedback": "Incorreto. Dó Maior não possui acidentes; cada bemol altera a tonalidade seguindo o ciclo de quartas."
+      },
+      {
+        "texto": "A Tônica corresponde ao penúltimo bemol da armadura (com exceção da armadura de 1 bemol, cuja tonalidade é Fá Maior).",
+        "correta": true,
+        "feedback": "Correto! Como cada novo bemol altera o IV grau da nova escala, o bemol anterior (penúltimo) coincide exatamente com a Tônica (I grau)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q005",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No Hinário 5, o Hino 22 possui 3 sustenidos (Fá#, Dó#, Sol#) na armadura de clave, e o Hino 177 possui 3 bemóis (Sib, Mib, Láb). Quais são as tonalidades desses dois hinos, respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "Lá Maior (3#) e Mib Maior (3b).",
+        "correta": true,
+        "feedback": "Correto! No Hino 22, uma nota acima do último sustenido (Sol#) é Lá (Lá Maior); no Hino 177, o penúltimo bemol de Sib–Mib–Láb é Mib (Mib Maior)."
+      },
+      {
+        "texto": "Sol# Maior (3#) e Láb Maior (3b).",
+        "correta": false,
+        "feedback": "Incorreto. Sol# e Láb são os últimos acidentes dessas armaduras, não as tônicas."
+      },
+      {
+        "texto": "Mi Maior (3#) e Sib Maior (3b).",
+        "correta": false,
+        "feedback": "Incorreto. Mi Maior possui 4 sustenidos e Sib Maior possui 2 bemóis."
+      },
+      {
+        "texto": "Ré Maior (3#) e Fá Maior (3b).",
+        "correta": false,
+        "feedback": "Incorreto. Ré Maior tem 2 sustenidos e Fá Maior tem apenas 1 bemol."
+      }
+    ]
+  },
+  {
+    "id": "f07_q006",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Uma armadura de clave possui 6 sustenidos (Fá#, Dó#, Sol#, Ré#, Lá#, Mi#). Aplicando a regra de identificação da tônica (uma nota acima do último sustenido), qual é o nome exato dessa tonalidade e por quê?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "Fá Maior, porque uma nota acima de Mi é Fá natural.",
+        "correta": false,
+        "feedback": "Incorreto. Fá Maior possui 1 bemol (Sib). Com 6 sustenidos, a nota Fá já está sustenizada na armadura, formando Fá# Maior."
+      },
+      {
+        "texto": "Fá# Maior, porque uma nota acima de Mi# é Fá, e a nota Fá já se encontra alterada com sustenido no início da própria armadura.",
+        "correta": true,
+        "feedback": "Correto! Ao subir 1 semitom diatônico a partir de Mi#, chegamos a Fá#, que já consta como o 1º sustenido da armadura."
+      },
+      {
+        "texto": "Mi# Maior, porque o último sustenido dá o nome à escala.",
+        "correta": false,
+        "feedback": "Incorreto. O último sustenido (Mi#) é o VII grau (Sensível), não a Tônica."
+      },
+      {
+        "texto": "Si Maior, porque possui 6 sustenidos.",
+        "correta": false,
+        "feedback": "Incorreto. Si Maior possui 5 sustenidos."
+      }
+    ]
+  },
+  {
+    "id": "f07_q007",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Sobre a estrutura da Armadura de Clave nos hinos do Hinário 5, assinale a afirmativa CORRETA:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "A armadura de clave pode misturar sustenidos e bemóis quando o hino possui coro.",
+        "correta": false,
+        "feedback": "Incorreto. Nenhuma armadura de clave tradicional mistura sustenidos e bemóis."
+      },
+      {
+        "texto": "Nos hinos do Hinário 5, a armadura de clave é escrita apenas na Clave de Sol e omitida na Clave de Fá.",
+        "correta": false,
+        "feedback": "Incorreto. A armadura de clave é grafada obrigatoriamente em ambos os pentagramas (Clave de Sol e Clave de Fá)."
+      },
+      {
+        "texto": "Uma armadura de clave nunca mistura sustenidos e bemóis, e nos hinos do Hinário 5 não há mudança de armadura de clave no meio do hino.",
+        "correta": true,
+        "feedback": "Correto! As armaduras são formadas exclusivamente por sustenidos ou por bemóis, e no Hinário 5 a mesma armadura permanece do início ao fim do hino."
+      },
+      {
+        "texto": "Os acidentes da armadura podem ser escritos em qualquer ordem aleatória.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes na armadura seguem rigorosamente a ordem oficial (Fá–Dó–Sol–Ré–Lá–Mi–Si ou Si–Mi–Lá–Ré–Sol–Dó–Fá)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q008",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Na fórmula de Compasso em 9 (como 9/8 ou 9/4), o que indicam o número superior (9) e o número inferior, respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.2 Fórmula de compasso em 9",
+      "pagina": 68
+    },
+    "opcoes": [
+      {
+        "texto": "O número superior indica 9 compassos por linha, e o inferior indica a velocidade do metrônomo.",
+        "correta": false,
+        "feedback": "Incorreto. A fórmula de compasso define a quantidade de pulsos dentro de cada compasso e a figura equivalente a cada pulso."
+      },
+      {
+        "texto": "O número superior indica a figura musical e o número inferior indica a quantidade de pausas.",
+        "correta": false,
+        "feedback": "Incorreto. O número superior sempre indica quantidade (9 pulsos) e o inferior indica a qualidade/espécie da figura."
+      },
+      {
+        "texto": "O número superior indica que há 9 sustenidos na armadura de clave.",
+        "correta": false,
+        "feedback": "Incorreto. A fórmula de compasso não tem relação com a quantidade de acidentes da armadura."
+      },
+      {
+        "texto": "O número superior (9) indica a quantidade de pulsos (movimentos) do compasso, e o número inferior indica a figura musical que equivale a 1 pulso (movimento).",
+        "correta": true,
+        "feedback": "Correto! No compasso em 9, temos 9 pulsos por compasso, e o denominador representa a figura de cada pulso (8 = colcheia; 4 = semínima)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q009",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são as únicas fórmulas de Compasso em 9 existentes no Hinário 5 e qual figura vale 1 pulso em cada uma delas?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.2 Fórmula de compasso em 9",
+      "pagina": 68
+    },
+    "opcoes": [
+      {
+        "texto": "9/8 (onde a colcheia vale 1 pulso) e 9/4 (onde a semínima vale 1 pulso).",
+        "correta": true,
+        "feedback": "Correto! No Hinário 5 encontramos apenas as fórmulas 9/8 (pulso de colcheia) e 9/4 (pulso de semínima) para os compassos em 9."
+      },
+      {
+        "texto": "9/2 (onde a mínima vale 1 pulso) e 9/16 (onde a semicolcheia vale 1 pulso).",
+        "correta": false,
+        "feedback": "Incorreto. As fórmulas 9/2 e 9/16 não são utilizadas no Hinário 5; existem apenas 9/8 e 9/4."
+      },
+      {
+        "texto": "Apenas a fórmula 9/8.",
+        "correta": false,
+        "feedback": "Incorreto. Além do 9/8, o Hinário 5 também possui hinos em 9/4."
+      },
+      {
+        "texto": "9/4 (onde a colcheia vale 1 pulso) e 9/8 (onde a semínima vale 1 pulso).",
+        "correta": false,
+        "feedback": "Incorreto. O número 4 representa a semínima (1/4 da semibreve) e o número 8 representa a colcheia (1/8 da semibreve)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como funciona o Movimento Alternativo de condução para o solfejo nos Compassos em 9 (9/8 ou 9/4) e quando ele deve ser utilizado?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.4 Movimento alternativo para solfejo em 9",
+      "pagina": 70
+    },
+    "opcoes": [
+      {
+        "texto": "É conduzido em 2 tempos (agrupando 4,5 pulsos em cada movimento).",
+        "correta": false,
+        "feedback": "Incorreto. A condução em 2 tempos agrupa 3+3 pulsos no compasso em 6 (6/8); no compasso em 9, o movimento alternativo é em 3 tempos (3+3+3)."
+      },
+      {
+        "texto": "É conduzido em 3 tempos (agrupando 3 pulsos em cada movimento), sendo utilizado quando o andamento torna o batimento em 9 movimentos muito rápido.",
+        "correta": true,
+        "feedback": "Correto! No movimento alternativo do compasso em 9, batemos 3 tempos compostos (1 embaixo, 2 à direita, 3 em cima), onde cada tempo agrupa 3 pulsos."
+      },
+      {
+        "texto": "É conduzido em 4 tempos (agrupando 3 pulsos em cada movimento).",
+        "correta": false,
+        "feedback": "Incorreto. O movimento alternativo em 4 tempos (4x3=12) pertence ao compasso em 12 (12/8)."
+      },
+      {
+        "texto": "É conduzido em 1 único movimento circular por compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O movimento alternativo para o compasso em 9 possui 3 movimentos bem definidos (ternário composto)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q011",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No compasso 9/8 conduzido pelo Movimento Alternativo em 3 tempos, qual figura musical preenche exatamente 1 tempo (isto é, 1 movimento agrupando 3 pulsos de colcheia)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.4 Movimento alternativo para solfejo em 9",
+      "pagina": 70
+    },
+    "opcoes": [
+      {
+        "texto": "A Mínima Simples (𝅗𝅥), pois equivale a 2 semínimas.",
+        "correta": false,
+        "feedback": "Incorreto. Uma mínima simples vale 4 colcheias; para agrupar exatamente 3 colcheias usa-se a semínima pontuada."
+      },
+      {
+        "texto": "A Mínima Pontuada (𝅗𝅥.), pois equivale a 3 semínimas.",
+        "correta": false,
+        "feedback": "Incorreto. A mínima pontuada vale 1 tempo composto no compasso 9/4 (3 semínimas), mas no 9/8 vale 6 colcheias (2 tempos compostos)."
+      },
+      {
+        "texto": "A Semínima Pontuada (𝅘𝅥.), pois equivale à soma de 3 colcheias.",
+        "correta": true,
+        "feedback": "Correto! Três pulsos de colcheia somados formam uma semínima pontuada, que corresponde a 1 tempo composto no 9/8."
+      },
+      {
+        "texto": "A Colcheia Pontuada (𝅘𝅥𝅮.).",
+        "correta": false,
+        "feedback": "Incorreto. A colcheia pontuada equivale a apenas 1 colcheia e meia (3 semicolcheias)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q012",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Na fórmula de Compasso em 12, qual é a única fórmula existente no Hinário 5 e o que indicam seus números?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.5 Fórmula de compasso em 12",
+      "pagina": 72
+    },
+    "opcoes": [
+      {
+        "texto": "Existe apenas a fórmula 12/4, indicando 12 pulsos de semínima por compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Não há hinos em 12/4 no Hinário 5; existe apenas a fórmula 12/8."
+      },
+      {
+        "texto": "Existem as fórmulas 12/8 e 12/2, onde a mínima vale 1 pulso.",
+        "correta": false,
+        "feedback": "Incorreto. No Hinário 5 só existe a fórmula 12/8 para os compassos em 12."
+      },
+      {
+        "texto": "A fórmula 12/8 indica 8 pulsos por compasso, onde a figura de número 12 vale 1 tempo.",
+        "correta": false,
+        "feedback": "Incorreto. O número superior (12) indica a quantidade de pulsos e o inferior (8 = colcheia) indica a figura de cada pulso."
+      },
+      {
+        "texto": "Existe apenas a fórmula 12/8, indicando 12 pulsos (movimentos) por compasso, sendo a colcheia (8) a figura que vale 1 pulso.",
+        "correta": true,
+        "feedback": "Correto! No Hinário 5, todos os hinos de compasso em 12 utilizam a fórmula 12/8 (12 pulsos de colcheia)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q013",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como é realizado o Movimento Alternativo de condução para o solfejo no Compasso 12/8?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.7 Movimento alternativo para solfejo em 12",
+      "pagina": 73
+    },
+    "opcoes": [
+      {
+        "texto": "É conduzido em 4 tempos (1 embaixo, 2 à esquerda, 3 à direita, 4 em cima), agrupando 3 pulsos de colcheia (1 semínima pontuada) em cada tempo.",
+        "correta": true,
+        "feedback": "Correto! Os 12 pulsos são divididos em 4 grupos de 3 pulsos (4 tempos compostos), utilizando o gesto quaternário."
+      },
+      {
+        "texto": "É conduzido em 3 tempos, agrupando 4 pulsos de colcheia em cada tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Como o compasso 12/8 é composto (subdivisão ternária), agrupa-se sempre de 3 em 3 pulsos, resultando em 4 tempos (e não 3 tempos de 4)."
+      },
+      {
+        "texto": "É conduzido em 2 tempos, agrupando 6 pulsos de colcheia em cada tempo.",
+        "correta": false,
+        "feedback": "Incorreto. O agrupamento padrão do movimento alternativo em 12/8 no MSA é em 4 tempos de 3 pulsos cada."
+      },
+      {
+        "texto": "É conduzido em 6 tempos, agrupando 2 colcheias por tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Agrupar de 2 em 2 descaracterizaria a acentuação ternária do compasso composto 12/8."
+      }
+    ]
+  },
+  {
+    "id": "f07_q014",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No compasso 12/8, quantos pulsos de colcheia valem, respectivamente, uma Semínima Pontuada (𝅘𝅥.), uma Mínima Pontuada (𝅗𝅥.) e uma Semibreve Pontuada (𝅝.)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.5 Fórmula de compasso em 12",
+      "pagina": 72
+    },
+    "opcoes": [
+      {
+        "texto": "Semínima pontuada = 1,5 pulso; Mínima pontuada = 3 pulsos; Semibreve pontuada = 6 pulsos.",
+        "correta": false,
+        "feedback": "Incorreto. Esses seriam os valores se a unidade fosse a semínima (denominador 4); no 12/8 o pulso é a colcheia (denominador 8)."
+      },
+      {
+        "texto": "Semínima pontuada = 3 pulsos; Mínima pontuada = 6 pulsos; Semibreve pontuada = 12 pulsos (preenche o compasso inteiro).",
+        "correta": true,
+        "feedback": "Correto! Em 12/8, cada colcheia vale 1 pulso: a semínima pontuada soma 3 colcheias (3 pulsos), a mínima pontuada soma 6 colcheias (6 pulsos) e a semibreve pontuada soma 12 colcheias (12 pulsos)."
+      },
+      {
+        "texto": "Semínima pontuada = 2 pulsos; Mínima pontuada = 4 pulsos; Semibreve pontuada = 8 pulsos.",
+        "correta": false,
+        "feedback": "Incorreto. Você desconsiderou o ponto de aumento, que acrescenta metade do valor de cada figura."
+      },
+      {
+        "texto": "Semínima pontuada = 4 pulsos; Mínima pontuada = 8 pulsos; Semibreve pontuada = 12 pulsos.",
+        "correta": false,
+        "feedback": "Incorreto. A semínima pontuada vale 3 colcheias (3 pulsos), e a mínima pontuada vale 6 colcheias (6 pulsos)."
+      }
+    ]
+  },
+  {
+    "id": "f07_q015",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Observe dois exemplos do Hinário 5 em compasso 12/8: o Hino 459 tem marcação metronômica em colcheia (𝅘𝅥𝅮 = 112–144), enquanto o Hino 105 já traz a marcação diretamente em semínima pontuada (𝅘𝅥. = 44–60). O que isso indica sobre a condução do solfejo no Hino 105?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.7 Movimento alternativo para solfejo em 12",
+      "pagina": 74
+    },
+    "opcoes": [
+      {
+        "texto": "Indica que o Hino 105 deve ser conduzido em 12 movimentos muito lentos de semínima pontuada.",
+        "correta": false,
+        "feedback": "Incorreto. Um compasso 12/8 possui apenas 4 semínimas pontuadas (e não 12), conduzindo-se em 4 tempos."
+      },
+      {
+        "texto": "Indica que o Hino 105 é um compasso ternário simples de 3 tempos.",
+        "correta": false,
+        "feedback": "Incorreto. O compasso 12/8 possui 4 tempos compostos (quaternário composto), e não 3."
+      },
+      {
+        "texto": "Indica que no Hino 105 aplica-se diretamente o Movimento Alternativo em 4 tempos (onde cada tempo equivale a uma semínima pontuada).",
+        "correta": true,
+        "feedback": "Correto! Como a velocidade do Hino 105 já é referenciada pela semínima pontuada (Unidade de Tempo composto), conduz-se diretamente no movimento alternativo em 4 tempos."
+      },
+      {
+        "texto": "Indica que não se deve fazer solfejo nem contagem de tempo no Hino 105.",
+        "correta": false,
+        "feedback": "Incorreto. Todo hino possui pulsação regular e pode ser solfejado."
+      }
+    ]
+  },
+  {
+    "id": "f07_q016",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a armadura de clave das escalas de Ré Maior, Fá Maior, Sib Maior e Mi Maior, respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "Ré Maior: 1# | Fá Maior: 2b | Sib Maior: 1b | Mi Maior: 3#.",
+        "correta": false,
+        "feedback": "Incorreto. 1# é Sol Maior, 2b é Sib Maior, 1b é Fá Maior e 3# é Lá Maior."
+      },
+      {
+        "texto": "Ré Maior: 2b | Fá Maior: 1# | Sib Maior: 2# | Mi Maior: 4b.",
+        "correta": false,
+        "feedback": "Incorreto. Ré Maior e Mi Maior usam sustenidos, enquanto Fá Maior e Sib Maior usam bemóis."
+      },
+      {
+        "texto": "Ré Maior: 3# | Fá Maior: 1b | Sib Maior: 3b | Mi Maior: 2#.",
+        "correta": false,
+        "feedback": "Incorreto. Ré Maior tem 2#, Sib Maior tem 2b e Mi Maior tem 4#."
+      },
+      {
+        "texto": "Ré Maior: 2# (Fá#, Dó#) | Fá Maior: 1b (Sib) | Sib Maior: 2b (Sib, Mib) | Mi Maior: 4# (Fá#, Dó#, Sol#, Ré#).",
+        "correta": true,
+        "feedback": "Correto! Todas as quantidades e ordens de acidentes correspondem exatamente às respectivas tonalidades maiores."
+      }
+    ]
+  },
+  {
+    "id": "f07_q017",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Na condução padrão em 9 movimentos (sem ser o movimento alternativo), como são distribuídos espacialmente os 9 pulsos da mão?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.3 Movimento de solfejo em 9",
+      "pagina": 68
+    },
+    "opcoes": [
+      {
+        "texto": "Pulsos 1, 2 e 3 embaixo; pulsos 4, 5 e 6 à direita (fora); pulsos 7, 8 e 9 em cima.",
+        "correta": true,
+        "feedback": "Correto! Os 9 movimentos subdividem os 3 pontos cardeais do compasso ternário (3 embaixo, 3 à direita e 3 em cima)."
+      },
+      {
+        "texto": "Pulsos 1 a 4 embaixo; pulsos 5 a 8 à esquerda; pulso 9 em cima.",
+        "correta": false,
+        "feedback": "Incorreto. Os pulsos são agrupados igualmente de 3 em 3 (1-2-3 embaixo, 4-5-6 à direita, 7-8-9 em cima)."
+      },
+      {
+        "texto": "Todos os 9 pulsos são batidos verticalmente para baixo no mesmo ponto.",
+        "correta": false,
+        "feedback": "Incorreto. O diagrama de solfejo distribui os pulsos em três regiões (embaixo, à direita e em cima)."
+      },
+      {
+        "texto": "Pulsos 1, 2 e 3 em cima; pulsos 4, 5 e 6 à esquerda; pulsos 7, 8 e 9 embaixo.",
+        "correta": false,
+        "feedback": "Incorreto. Todo compasso inicia o 1º pulso com movimento descendente (embaixo) e encerra os últimos pulsos em cima."
+      }
+    ]
+  },
+  {
+    "id": "f07_q018",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Na condução padrão em 12 movimentos do compasso 12/8, como são distribuídos os 12 pulsos nos 4 pontos do movimento?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.6 Movimento de solfejo em 12",
+      "pagina": 72
+    },
+    "opcoes": [
+      {
+        "texto": "Pulsos 1–2–3–4 embaixo; pulsos 5–6–7–8 à direita; pulsos 9–10–11–12 em cima.",
+        "correta": false,
+        "feedback": "Incorreto. No compasso 12/8 há 4 grupos de 3 pulsos (embaixo, esquerda, direita e cima), e não 3 grupos de 4."
+      },
+      {
+        "texto": "Pulsos 1–2–3 embaixo; pulsos 4–5–6 à esquerda (dentro); pulsos 7–8–9 à direita (fora); pulsos 10–11–12 em cima.",
+        "correta": true,
+        "feedback": "Correto! O movimento em 12 subdivide cada um dos 4 pontos do gesto quaternário em 3 pulsos iguais."
+      },
+      {
+        "texto": "Pulsos 1 a 6 embaixo e pulsos 7 a 12 em cima.",
+        "correta": false,
+        "feedback": "Incorreto. Esse seria um movimento binário; o 12/8 distribui-se em 4 regiões (baixo, esquerda, direita, cima)."
+      },
+      {
+        "texto": "Pulsos 1–2–3 em cima; pulsos 4–5–6 à direita; pulsos 7–8–9 à esquerda; pulsos 10–11–12 embaixo.",
+        "correta": false,
+        "feedback": "Incorreto. O 1º tempo é sempre batido embaixo, o 2º à esquerda (dentro), o 3º à direita (fora) e o 4º em cima."
+      }
+    ]
+  },
+  {
+    "id": "f07_q019",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No compasso 9/4, qual figura musical vale 1 pulso (movimento) e qual figura pontuada agrupa 3 pulsos (1 tempo no movimento alternativo)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.2 Fórmula de compasso em 9",
+      "pagina": 68
+    },
+    "opcoes": [
+      {
+        "texto": "A Colcheia (𝅘𝅥𝅮) vale 1 pulso, e a Semínima Pontuada (𝅘𝅥.) agrupa 3 pulsos.",
+        "correta": false,
+        "feedback": "Incorreto. Colcheia e semínima pontuada correspondem ao compasso 9/8, e não ao 9/4."
+      },
+      {
+        "texto": "A Mínima (𝅗𝅥) vale 1 pulso, e a Semibreve Pontuada (𝅝.) agrupa 3 pulsos.",
+        "correta": false,
+        "feedback": "Incorreto. O número inferior 4 representa a semínima, e não a mínima."
+      },
+      {
+        "texto": "A Semínima (𝅘𝅥) vale 1 pulso, e a Mínima Pontuada (𝅗𝅥.) agrupa 3 pulsos (1 tempo composto).",
+        "correta": true,
+        "feedback": "Correto! Como o número inferior é 4, cada pulso equivale a 1 semínima; somando 3 semínimas temos 1 mínima pontuada por tempo."
+      },
+      {
+        "texto": "A Semínima Pontuada vale 1 pulso, e a Semibreve vale 3 pulsos.",
+        "correta": false,
+        "feedback": "Incorreto. No 9/4, 1 pulso é representado pela semínima simples (4), e 3 semínimas formam uma mínima pontuada."
+      }
+    ]
+  },
+  {
+    "id": "f07_q020",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Identifique as tonalidades maiores correspondentes às seguintes armaduras de clave: 5 sustenidos, 4 bemóis e 5 bemóis, respectivamente:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 7,
+      "item": "7.1 Armadura de clave",
+      "pagina": 66
+    },
+    "opcoes": [
+      {
+        "texto": "Mi Maior (5#), Mib Maior (4b) e Láb Maior (5b).",
+        "correta": false,
+        "feedback": "Incorreto. Mi Maior tem 4#, Mib Maior tem 3b e Láb Maior tem 4b."
+      },
+      {
+        "texto": "Fá# Maior (5#), Réb Maior (4b) e Solb Maior (5b).",
+        "correta": false,
+        "feedback": "Incorreto. Fá# Maior tem 6#, Réb Maior tem 5b e Solb Maior tem 6b."
+      },
+      {
+        "texto": "Lá# Maior (5#), Réb Maior (4b) e Solb Maior (5b).",
+        "correta": false,
+        "feedback": "Incorreto. O 5º sustenido é Lá#, mas a tônica fica uma nota acima (Si Maior)."
+      },
+      {
+        "texto": "Si Maior (5#), Láb Maior (4b) e Réb Maior (5b).",
+        "correta": true,
+        "feedback": "Correto! Com 5# (Fá–Dó–Sol–Ré–Lá) uma nota acima de Lá# é Si (Si Maior); com 4b (Si–Mi–Lá–Ré) o penúltimo é Láb (Láb Maior); com 5b (Si–Mi–Lá–Ré–Sol) o penúltimo é Réb (Réb Maior)."
+      }
+    ]
+  }
+]

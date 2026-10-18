@@ -48,8 +48,10 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] Lista de revisão de erros no fluxo natural da página (remoção de container claustrofóbico `max-h-40` com scroll duplo)
 - [x] Banco de Questões do Período 1 (Fases 1, 2 e 3)
 - [x] Banco de Questões do Período 2 (Fases 4 e 5)
-- [ ] Bancos de Questões dos Períodos 3 e 4 (Fases 6 a 16)
+- [x] Bancos de Questões dos Períodos 3 e 4 (Fases 6 a 16)
 - [ ] Reformular a home do Simulado para o aluno ter a opção de escolher fazer o Simulado por Período ou por Fase (20 vs 10 questões).
+- [ ] Revisar as questões para garantir que as referências ao MSA, materiais complementares e hinos estejam corretas.
+- [ ] Criar uma forma para que o aluno possa dar feedback sobre cada questão, podendo assim reportar erros.
 
 ---
 
@@ -98,4 +100,12 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
   2. Execução e aprovação completa do Quality Gate: `npm run typecheck` (0 erros), `npm run lint` (0 erros/avisos), `npm test` (22/22 testes unitários aprovados) e `npm run build` (geração de bundles e service worker PWA).
   3. Sincronização do mapa arquitetural `MAPA_RAIZ.md` via `npm run map`.
   4. Publicação da versão homologada na branch `main` com disparo do pipeline CI/CD no GitHub Actions para `https://issacarbarbosa.github.io/issa-academy/`.
-
+- **2026-10-17 (IV)**: Base de Conhecimento MSA em Divulgação Progressiva (Workspace + Global Config) e Conclusão dos Bancos de Questões (Fases 6 a 16):
+  1. **Absorção Integral da Documentação Oficial CCB & Canal YouTube**: Extração e consolidação do PDF Oficial do MSA, Caderno de Exercícios v2.4, Planos de Aulas, Slides de Aulas (Períodos 1 a 4), Avaliações Finais Oficiais (Modelos 1 a 6) e catálogo de videoaulas do canal `@issacarbarbosa`.
+  2. **Arquitetura de Divulgação Progressiva (Progressive Disclosure)**: Estruturação da skill `music-theory-core` (`SKILL.md` + 5 arquivos modulares em `references/00-curriculo-gem-e-youtube.md` a `04-periodo-4-fases-10-a-16.md`) tanto no workspace (`.agents/skills/music-theory-core/`) quanto no Global Config da máquina (`~/.gemini/config/skills/music-theory-core/`), disponibilizando todo o conhecimento para qualquer projeto futuro.
+  3. **Criação dos 11 Bancos de Questões Restantes (`q_f06.json` a `q_f16.json`)**: Elaboração dos bancos de questões do 3º Período (Fases 6 a 9) e 4º Período (Fases 10 a 16) com validação estrita pelo schema Zod (`SimuladoQuestionSchema`), referências exatas de página/item do MSA e feedbacks pedagógicos detalhados.
+  4. **Desbloqueio dos Períodos 3 e 4 no Simulado MSA**: Atualização de `SimuladoMsa.tsx` com carregamento assíncrono em paralelo (`loadQuestionBankForPeriods`) e habilitação completa dos 4 períodos na interface.
+- **2026-10-18**: Embaralhamento Dinâmico de Alternativas e Auditoria Pedagógica Fina (Fases 6 a 16):
+  1. **Embaralhamento em Tempo de Execução (`prepareQuizQuestions`)**: Implementação do embaralhamento Fisher-Yates também sobre o array `opcoes` de cada questão sorteada em `SimuladoMsa.tsx` (com cobertura de teste unitário em `SimuladoMsa.test.ts`), garantindo que a posição da alternativa correta mude a cada tentativa do simulado.
+  2. **Balanceamento Estático nos JSONs (`q_f06.json` a `q_f16.json`)**: Redistribuição uniforme do índice `correta: true` (25% em cada posição A, B, C e D) diretamente nos arquivos JSON.
+  3. **Auditoria Fina contra o MSA Oficial e Slides do GEM (Períodos 3 e 4)**: Revisão visual slide a slide (`GEM_MSA_3PER_AULA_001..014.pdf` e `GEM_MSA_4PER_AULA_001..014.pdf`) e correção rigorosa de gabaritos, exemplos de hinos e numerações de tópicos/páginas do sumário oficial do MSA (incluindo composição dos compassos compostos e escrita dos compassos alternados na Fase 11, proporções e os 2 hinos acéfalos 208 e 377 na Fase 13, *poco rall.* e modificações indevidas na Fase 15, e definições literais das 6 indicações interpretativas e vírgulas/semifrases na Fase 16), sincronizando as referências no Workspace e no Global Config.

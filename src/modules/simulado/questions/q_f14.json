@@ -1,0 +1,236 @@
+[
+  {
+    "id": "f14_q001",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "De acordo com a Fase 14.1 do MSA, o grupo rítmico formado por 'colcheia pontuada + semicolcheia' (𝅘𝅥𝅮. 𝅘𝅥𝅯) é executado exatamente da mesma maneira no compasso simples 4/4 e no compasso composto 6/8?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Não, porque a velocidade e a proporção da subdivisão em semicolcheias são diferentes nos dois compassos (em 4/4 há 4 semicolcheias por tempo, e em 6/8 há 6 semicolcheias por tempo composto).",
+        "correta": true,
+        "feedback": "Correto! Embora o desenho gráfico (𝅘𝅥𝅮. 𝅘𝅥𝅯) seja idêntico, a proporção matemática dentro do tempo muda completamente entre o compasso simples (subdivisão binária) e o composto (subdivisão ternária)."
+      },
+      {
+        "texto": "Sim, são executadas exatamente com a mesma duração e proporção de tempo em qualquer fórmula de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Em 4/4 elas preenchem 1 tempo inteiro (4/4 de tempo), enquanto em 6/8 elas preenchem apenas 2 movimentos (2/3 do tempo composto)."
+      },
+      {
+        "texto": "Não, porque no compasso 6/8 o ponto de aumento perde o seu valor.",
+        "correta": false,
+        "feedback": "Incorreto. O ponto de aumento continua valendo metade da figura em ambos (a colcheia pontuada vale 3 semicolcheias nos dois casos), mas o tamanho do tempo total é diferente (4 semicolcheias no 4/4 contra 6 semicolcheias no 6/8)."
+      },
+      {
+        "texto": "Não existem notas pontuadas em compassos compostos como o 6/8.",
+        "correta": false,
+        "feedback": "Incorreto. Existem diversos hinos em compassos compostos com colcheia pontuada + semicolcheia (ex.: Hino 339)."
+      }
+    ]
+  },
+  {
+    "id": "f14_q002",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No compasso simples 4/4 (onde a Unidade de Tempo é a semínima = 4 semicolcheias), qual fração do tempo valem, respectivamente, a Colcheia Pontuada (𝅘𝅥𝅮.) e a Semicolcheia (𝅘𝅥𝅯), e quanto elas preenchem juntas?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "A colcheia pontuada vale 1/2 tempo e a semicolcheia vale 1/2 tempo; juntas preenchem 1 tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Duas figuras de 1/2 tempo são duas colcheias iguais; com o ponto de aumento, a proporção passa a ser 3/4 + 1/4 de tempo."
+      },
+      {
+        "texto": "A colcheia pontuada vale 3/4 de tempo (3 semicolcheias) e a semicolcheia vale 1/4 de tempo; juntas elas preenchem exatamente 1 tempo completo (4/4 = 1 tempo).",
+        "correta": true,
+        "feedback": "Correto! No 4/4, o tempo é bi-subdividido em 4 semicolcheias: 3 semicolcheias ficam na colcheia pontuada (3/4 do tempo) e a 4ª semicolcheia fecha o tempo (1/4 do tempo)."
+      },
+      {
+        "texto": "A colcheia pontuada vale 3/6 de tempo e a semicolcheia vale 1/6 de tempo; juntas preenchem 2/3 de tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Essa proporção (3/6 + 1/6) ocorre no compasso composto 6/8, e não no simples 4/4."
+      },
+      {
+        "texto": "Juntas elas preenchem 2 tempos completos do compasso 4/4.",
+        "correta": false,
+        "feedback": "Incorreto. Quem preenche 2 tempos no 4/4 é o grupo 'semínima pontuada + colcheia'; o grupo 'colcheia pontuada + semicolcheia' preenche 1 único tempo."
+      }
+    ]
+  },
+  {
+    "id": "f14_q003",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No compasso composto 6/8 (onde cada tempo composto equivale a uma semínima pontuada = 3 movimentos de colcheia = 6 semicolcheias), quanto valem a Colcheia Pontuada (𝅘𝅥𝅮.) e a Semicolcheia (𝅘𝅥𝅯), e quantos movimentos elas preenchem juntas?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 127
+    },
+    "opcoes": [
+      {
+        "texto": "Juntas elas preenchem 1 tempo composto inteiro (os 3 movimentos de colcheia).",
+        "correta": false,
+        "feedback": "Incorreto! Colcheia pontuada (3 semicolcheias) + semicolcheia (1 semicolcheia) somam apenas 4 semicolcheias (2 colcheias = 2 movimentos), faltando ainda 1 colcheia para completar os 3 movimentos do tempo composto."
+      },
+      {
+        "texto": "A colcheia pontuada vale 3 movimentos inteiros e a semicolcheia vale 1 movimento.",
+        "correta": false,
+        "feedback": "Incorreto. Quem vale 3 movimentos de colcheia no 6/8 é a semínima pontuada (𝅘𝅥.), e não a colcheia pontuada (𝅘𝅥𝅮.)."
+      },
+      {
+        "texto": "A colcheia pontuada vale 1 movimento e meio (3/6 ou 1/2 do tempo composto) e a semicolcheia vale meio movimento (1/6 do tempo composto); juntas preenchem exatamente 2 movimentos (ou 2/3 do tempo composto).",
+        "correta": true,
+        "feedback": "Correto! Em 6/8 cada movimento é 1 colcheia (2 semicolcheias): a colcheia pontuada (3 semicolcheias) dura 1 movimento e meio, e a semicolcheia (1 semicolcheia) completa o 2º movimento, restando ainda o 3º movimento (1 colcheia) para fechar o tempo composto!"
+      },
+      {
+        "texto": "Juntas elas preenchem apenas 1 movimento de colcheia.",
+        "correta": false,
+        "feedback": "Incorreto. 1 movimento de colcheia comporta apenas 2 semicolcheias; colcheia pontuada + semicolcheia somam 4 semicolcheias (2 movimentos)."
+      }
+    ]
+  },
+  {
+    "id": "f14_q004",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quantas semicolcheias equivalem a uma única Colcheia Pontuada (𝅘𝅥𝅮.), tanto no compasso 4/4 quanto no compasso 6/8?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 127
+    },
+    "opcoes": [
+      {
+        "texto": "4 semicolcheias no 4/4 e 6 semicolcheias no 6/8.",
+        "correta": false,
+        "feedback": "Incorreto. 4 semicolcheias formam uma semínima simples, e 6 semicolcheias formam uma semínima pontuada; a colcheia pontuada vale sempre 3 semicolcheias."
+      },
+      {
+        "texto": "2 semicolcheias e meia.",
+        "correta": false,
+        "feedback": "Incorreto. A colcheia pontuada equivale exatamente a 3 semicolcheias inteiras."
+      },
+      {
+        "texto": "6 semicolcheias.",
+        "correta": false,
+        "feedback": "Incorreto. 6 semicolcheias equivalem a uma semínima pontuada."
+      },
+      {
+        "texto": "3 semicolcheias (pois 1 colcheia vale 2 semicolcheias, e o ponto acrescenta metade desse valor, ou seja, mais 1 semicolcheia).",
+        "correta": true,
+        "feedback": "Correto! A equivalência proporcional entre figuras é universal: 1 colcheia pontuada sempre equivale à soma de 3 semicolcheias."
+      }
+    ]
+  },
+  {
+    "id": "f14_q005",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Ao solfejar em 6 movimentos um compasso 6/8 que contém no primeiro grupo ternário: [Colcheia Pontuada + Semicolcheia + Colcheia] (como no Hino 339), em qual movimento exatamente deve ser articulada a Semicolcheia?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 127
+    },
+    "opcoes": [
+      {
+        "texto": "Na segunda metade do 2º movimento (após a mão bater o 2º movimento embaixo, pois a colcheia pontuada ocupa todo o 1º movimento e a primeira metade do 2º movimento), caindo a Colcheia seguinte exatamente na cabeça do 3º movimento.",
+        "correta": true,
+        "feedback": "Correto! Esse é o ponto crucial da Fase 14.1: no 6/8, a colcheia pontuada dura 1 movimento e meio (1º movimento inteiro + metade do 2º movimento), a semicolcheia entra na 2ª metade do 2º movimento, e a colcheia final cai cravada no 3º movimento!"
+      },
+      {
+        "texto": "Exatamente na cabeça do 2º movimento.",
+        "correta": false,
+        "feedback": "Incorreto. Se a semicolcheia entrasse na cabeça do 2º movimento, a primeira figura teria durado apenas 1 colcheia simples (1 movimento), e não 1 colcheia pontuada (1,5 movimento)."
+      },
+      {
+        "texto": "Exatamente na cabeça do 3º movimento.",
+        "correta": false,
+        "feedback": "Incorreto. Quem cai na cabeça do 3º movimento é a terceira figura (a colcheia final do grupo ternário)."
+      },
+      {
+        "texto": "Na quarta parte do 1º movimento, antes do 2º movimento.",
+        "correta": false,
+        "feedback": "Incorreto. No 6/8 cada movimento vale apenas 1 colcheia (2 semicolcheias), portanto a colcheia pontuada (3 semicolcheias) ultrapassa o 1º movimento e invade metade do 2º movimento."
+      }
+    ]
+  },
+  {
+    "id": "f14_q006",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No compasso simples 4/4, como se denominam a divisão de 1 tempo (semínima) em 2 colcheias e a sua divisão em 4 semicolcheias, respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Ambas chamam-se Tercinas.",
+        "correta": false,
+        "feedback": "Incorreto. São divisões binárias naturais do compasso simples (subdivisão em 2 e bi-subdivisão em 4)."
+      },
+      {
+        "texto": "As 2 colcheias formam a Subdivisão do tempo (metades), e as 4 semicolcheias formam a Bi-subdivisão do tempo (quartos de tempo).",
+        "correta": true,
+        "feedback": "Correto! Conforme os slides e atividades da Aula 08 do 4º Período, dividir a U.T. em 2 colcheias é a subdivisão, e dividir em 4 semicolcheias é a bi-subdivisão."
+      },
+      {
+        "texto": "As 2 colcheias formam a Unidade de Compasso e as 4 semicolcheias formam a Unidade de Tempo.",
+        "correta": false,
+        "feedback": "Incorreto. A Unidade de Tempo é a figura que vale 1 tempo inteiro (a semínima)."
+      },
+      {
+        "texto": "Chamam-se Síncopa e Contratempo.",
+        "correta": false,
+        "feedback": "Incorreto. Trata-se da subdivisão e bi-subdivisão métrica do tempo simples."
+      }
+    ]
+  }
+]

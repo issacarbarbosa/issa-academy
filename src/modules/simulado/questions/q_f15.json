@@ -1,0 +1,314 @@
+[
+  {
+    "id": "f15_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que é Andamento e onde ele é indicado?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "É a indicação da velocidade empregada na música, colocada geralmente no início da peça musical.",
+        "correta": true,
+        "feedback": "Correto! O andamento determina a velocidade da pulsação da música e vem grafado no início da partitura."
+      },
+      {
+        "texto": "É a indicação do volume sonoro (forte ou suave) colocado abaixo das notas.",
+        "correta": false,
+        "feedback": "Incorreto. A indicação de forte ou suave refere-se à Dinâmica (intensidade), e não ao Andamento."
+      },
+      {
+        "texto": "É a quantidade de sustenidos ou bemóis da escala.",
+        "correta": false,
+        "feedback": "Incorreto. Isso refere-se à Armadura de Clave / Tonalidade."
+      },
+      {
+        "texto": "É a distância de altura entre duas notas sucessivas.",
+        "correta": false,
+        "feedback": "Incorreto. A distância entre dois sons chama-se Intervalo."
+      }
+    ]
+  },
+  {
+    "id": "f15_q002",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Nos hinos do Hinário 5, há uma indicação metronômica com dois números no início de cada hino (por exemplo: 𝅘𝅥 = 60 - 80). O que determinam esses limites mínimo e máximo, e qual é a recomendação do MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "Indicam que a primeira estrofe deve ser tocada na velocidade 60 e a última estrofe na velocidade 80.",
+        "correta": false,
+        "feedback": "Incorreto. O andamento do hino deve ser mantido estável do início ao fim, preferencialmente na média entre os limites."
+      },
+      {
+        "texto": "Determinam os limites de velocidade mínima e máxima (batidas por minuto) dentro dos quais os hinos devem ser executados, recomendando-se tocar próximo à média; na meia-hora, a organista pode tocar um pouco abaixo, porém próxima à velocidade mínima.",
+        "correta": true,
+        "feedback": "Correto! Durante o culto busca-se a média entre a mínima e a máxima, e na meia-hora permite-se um andamento mais calmo, próximo ao limite mínimo."
+      },
+      {
+        "texto": "Indicam que 60 instrumentos devem tocar na estrofe e 80 no coro.",
+        "correta": false,
+        "feedback": "Incorreto. Os números referem-se a batimentos por minuto (BPM) da figura indicada no metrônomo."
+      },
+      {
+        "texto": "Indicam os compassos em que se deve fazer silêncio.",
+        "correta": false,
+        "feedback": "Incorreto. Trata-se da marcação metronômica de velocidade."
+      }
+    ]
+  },
+  {
+    "id": "f15_q003",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Comparando os termos italianos tradicionais de andamento (Adagio, Andante, Moderato, Allegro, Vivace, Presto), assinale a afirmativa CORRETA:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "O andamento 'Adagio' é o mais rápido de todos, e o 'Presto' é o mais lento.",
+        "correta": false,
+        "feedback": "Incorreto. 'Adagio' é um andamento lento, enquanto 'Presto' é muito rápido."
+      },
+      {
+        "texto": "O andamento 'Andante' é mais rápido do que o 'Allegro'.",
+        "correta": false,
+        "feedback": "Incorreto. 'Allegro' (rápido) é mais rápido do que 'Andante' (ao passo / moderado)."
+      },
+      {
+        "texto": "O andamento 'Adagio' (devagar / lento) é mais lento do que o andamento 'Andante' (ao passo), e o 'Allegro' é um andamento rápido.",
+        "correta": true,
+        "feedback": "Correto! Conforme a tabela da Fase 15.1 do MSA: Adagio (devagar, 56–66 bpm) é mais lento que Andante (ao passo, 72–80 bpm), seguidos de Moderato, Allegro, Vivace e Presto."
+      },
+      {
+        "texto": "Esses termos indicam apenas a altura da clave e não têm relação com a velocidade.",
+        "correta": false,
+        "feedback": "Incorreto. São termos clássicos de indicação de Andamento (velocidade)."
+      }
+    ]
+  },
+  {
+    "id": "f15_q004",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a expressão de modificação de andamento utilizada no Hinário 5, o que ela significa e em quais hinos ela aparece?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.2 Modificação de andamento - poco rallentando",
+      "pagina": 131
+    },
+    "opcoes": [
+      {
+        "texto": "A expressão 'molto accelerando', que significa acelerar bruscamente o final de todos os hinos.",
+        "correta": false,
+        "feedback": "Incorreto. Nos hinos não há 'accelerando'; utiliza-se apenas 'poco rall.'."
+      },
+      {
+        "texto": "A expressão 'poco rall.' significa tocar cada vez mais forte até o fim.",
+        "correta": false,
+        "feedback": "Incorreto. 'Rallentando' refere-se à velocidade (andamento), e não à intensidade (volume)."
+      },
+      {
+        "texto": "A expressão 'poco rall.' significa parar imediatamente no primeiro tempo do compasso.",
+        "correta": false,
+        "feedback": "Incorreto. A redução de velocidade do 'poco rall.' é gradativa (progressiva)."
+      },
+      {
+        "texto": "A expressão 'poco rall.' (abreviatura de 'poco rallentando'), que significa uma redução pouca e GRADATIVA do andamento (diminuindo pouco a pouco a velocidade), sendo utilizada apenas nos Hinos 15, 157 e 378.",
+        "correta": true,
+        "feedback": "Correto! Conforme a Fase 15.2 do MSA, 'poco rallentando' (poco rall.) indica uma redução pouca e gradativa da velocidade e aparece exclusivamente nos Hinos 15, 157 e 378."
+      }
+    ]
+  },
+  {
+    "id": "f15_q005",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em qual ponto exato da partitura deve ser iniciada a redução gradativa de velocidade quando aparece a inscrição 'poco rall.' (por exemplo, no Hino 15)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.2 Modificação de andamento - poco rallentando",
+      "pagina": 131
+    },
+    "opcoes": [
+      {
+        "texto": "Deve-se iniciar exatamente onde se inicia a palavra 'poco' (no Hino 15, no acorde 'fá–si–ré–fá' sobre a sílaba 'da' da palavra 'vida'), e nunca antes.",
+        "correta": true,
+        "feedback": "Correto! Conforme enfatizado no MSA e nas avaliações oficiais, não se deve antecipar o 'poco rall.': ele começa exatamente sobre a nota onde se inicia a palavra 'poco'."
+      },
+      {
+        "texto": "Deve-se iniciar sempre dois compassos antes de aparecer a palavra 'poco rall.'.",
+        "correta": false,
+        "feedback": "Incorreto. Antecipar o rallentando antes do local grafado é um erro de execução apontado pelo MSA."
+      },
+      {
+        "texto": "Deve-se iniciar apenas na última nota do último compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O 'poco rall.' começa exatamente onde a expressão está posicionada para desacelerar gradualmente até o final."
+      },
+      {
+        "texto": "Deve-se iniciar desde o começo do Coro.",
+        "correta": false,
+        "feedback": "Incorreto. O início do coro mantém o andamento normal até chegar exatamente na inscrição 'poco rall.'."
+      }
+    ]
+  },
+  {
+    "id": "f15_q006",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "De acordo com a Fase 15.3 do MSA ('Modificação indevida de andamento'), o que o músico deve evitar ao executar o final dos hinos (como na última semifrase do coro do Hino 240) ou ao retomar o hino após uma Fermata no decorrer da peça (como no Hino 447)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.3 Modificação indevida de andamento",
+      "pagina": 132
+    },
+    "opcoes": [
+      {
+        "texto": "Deve tocar o restante do hino na metade da velocidade após qualquer fermata e fazer rallentando em todos os hinos.",
+        "correta": false,
+        "feedback": "Incorreto. Isso seria justamente uma modificação indevida de andamento."
+      },
+      {
+        "texto": "Deve manter a MESMA velocidade (sem executar 'poco rall.' nos hinos em que essa indicação não existe, como no Hino 240, e retomando exatamente a mesma velocidade anterior após a fermata no Hino 447).",
+        "correta": true,
+        "feedback": "Correto! O tópico 15.3 do MSA alerta contra modificações indevidas de andamento: não se deve fazer 'poco rall.' onde não está escrito, e após fermatas suspensivas (como no Hino 447) retoma-se o hino exatamente na mesma velocidade anterior."
+      },
+      {
+        "texto": "Deve acelerar continuamente até o final do hino.",
+        "correta": false,
+        "feedback": "Incorreto. Deve-se manter a mesma velocidade inicial do hino."
+      },
+      {
+        "texto": "Deve parar de contar os tempos na última semifrase do coro.",
+        "correta": false,
+        "feedback": "Incorreto. A pulsação regular permanece constante até o fim."
+      }
+    ]
+  },
+  {
+    "id": "f15_q007",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que significam as expressões de andamento 'accelerando' (accel.), 'ritenuto' (rit.) e 'a tempo', respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.2 Modificação de andamento - poco rallentando",
+      "pagina": 131
+    },
+    "opcoes": [
+      {
+        "texto": "Accelerando = ficando mais forte; ritenuto = ficando mais suave; a tempo = sem respirar.",
+        "correta": false,
+        "feedback": "Incorreto. Esses termos referem-se à velocidade (andamento), e não à intensidade ou respiração."
+      },
+      {
+        "texto": "Accelerando = diminuindo a velocidade; ritenuto = dobrando o tempo; a tempo = muito lento.",
+        "correta": false,
+        "feedback": "Incorreto. Accelerando significa apressando gradualmente a velocidade, e ritenuto significa retendo a velocidade."
+      },
+      {
+        "texto": "Accelerando = apressando gradualmente a velocidade; ritenuto = retendo (diminuindo) a velocidade; a tempo = retornar ao andamento original.",
+        "correta": true,
+        "feedback": "Correto! Esses termos indicam respectivamente o aumento de velocidade, a retenção de velocidade e o retorno à velocidade inicial."
+      },
+      {
+        "texto": "Todos significam repetir o compasso anterior.",
+        "correta": false,
+        "feedback": "Incorreto. São termos de modificação de andamento."
+      }
+    ]
+  },
+  {
+    "id": "f15_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença entre os termos 'Rallentando' (rall.) e 'Diminuendo' (dim.)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.2 Modificação de andamento - poco rallentando",
+      "pagina": 131
+    },
+    "opcoes": [
+      {
+        "texto": "Rallentando significa diminuir o volume do som, e Diminuendo significa diminuir a velocidade.",
+        "correta": false,
+        "feedback": "Incorreto! Você inverteu os conceitos: Rallentando trata de velocidade (andamento) e Diminuendo trata de intensidade (dinâmica)."
+      },
+      {
+        "texto": "Ambos significam diminuir a velocidade da música.",
+        "correta": false,
+        "feedback": "Incorreto. Apenas 'rallentando' (ou 'ritenuto') refere-se à velocidade; 'diminuendo' (ou 'decrescendo') refere-se à intensidade do som."
+      },
+      {
+        "texto": "Ambos significam diminuir o volume do som.",
+        "correta": false,
+        "feedback": "Incorreto. 'Rallentando' refere-se à redução gradativa do andamento (velocidade)."
+      },
+      {
+        "texto": "Rallentando (rall.) pertence ao Andamento e indica diminuir gradativamente a velocidade; já Diminuendo (dim.) pertence à Dinâmica e indica diminuir gradativamente a intensidade (volume) do som.",
+        "correta": true,
+        "feedback": "Correto! Essa distinção é essencial: Rallentando = desacelerar o andamento; Diminuendo/Decrescendo = suavizar a intensidade sonora."
+      }
+    ]
+  }
+]

@@ -1,0 +1,392 @@
+[
+  {
+    "id": "f16_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que é Frase Musical e como ela é estruturada normalmente nos hinos do Hinário 5?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.1 Frases e semifrases",
+      "pagina": 136
+    },
+    "opcoes": [
+      {
+        "texto": "É uma unidade musical com sentido de conclusão (indicada nos hinos pela vírgula maior de respiração), sendo composta normalmente por 4 compassos e dividida geralmente em 2 semifrases.",
+        "correta": true,
+        "feedback": "Correto! A frase musical encerra um pensamento musical completo (marcado pela vírgula maior nos hinos), abrangendo normalmente 4 compassos subdivididos em 2 semifrases."
+      },
+      {
+        "texto": "É uma única nota isolada escrita no final da partitura.",
+        "correta": false,
+        "feedback": "Incorreto. Uma frase musical é um conjunto de notas que forma uma unidade com sentido de conclusão."
+      },
+      {
+        "texto": "É o conjunto de todos os 480 hinos do hinário.",
+        "correta": false,
+        "feedback": "Incorreto. Cada hino é composto por várias frases musicais (geralmente de 4 compassos cada)."
+      },
+      {
+        "texto": "É o espaço em branco entre dois sistemas na página.",
+        "correta": false,
+        "feedback": "Incorreto. Frase é uma unidade melódica/musical com sentido de conclusão."
+      }
+    ]
+  },
+  {
+    "id": "f16_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que é uma Semifrase segundo o MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.1 Frases e semifrases",
+      "pagina": 136
+    },
+    "opcoes": [
+      {
+        "texto": "É a metade de uma figura musical, como uma colcheia.",
+        "correta": false,
+        "feedback": "Incorreto. Semifrase é a subdivisão estrutural de uma frase musical (geralmente 2 compassos)."
+      },
+      {
+        "texto": "É a subdivisão da frase musical: cada parte da unidade que compõe a frase e que pede mais um trecho para concluir a ideia musical.",
+        "correta": true,
+        "feedback": "Correto! Enquanto a frase tem sentido de conclusão, a semifrase é a parte da unidade que compõe a frase e pede mais um trecho para concluir."
+      },
+      {
+        "texto": "É um trecho que já possui sentido de conclusão final absoluta.",
+        "correta": false,
+        "feedback": "Incorreto. Quem possui sentido de conclusão é a Frase; a Semifrase pede mais um trecho para concluir."
+      },
+      {
+        "texto": "É a pausa colocada no início dos hinos acéfalos.",
+        "correta": false,
+        "feedback": "Incorreto. Semifrase é a subdivisão de uma frase musical."
+      }
+    ]
+  },
+  {
+    "id": "f16_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Sobre a relação entre as Vírgulas de Respiração (maiores e menores) e as Semifrases no Hinário 5, o que afirma expressamente a Fase 16.1 do MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.1 Frases e semifrases",
+      "pagina": 136
+    },
+    "opcoes": [
+      {
+        "texto": "As vírgulas menores definem sempre as frases e as vírgulas maiores definem exclusivamente as semifrases.",
+        "correta": false,
+        "feedback": "Incorreto. As vírgulas de respiração informam a necessidade de respiração normal ou curta, e não definem obrigatoriamente a existência da semifrase."
+      },
+      {
+        "texto": "Toda vírgula menor encerra uma frase completa de 4 compassos.",
+        "correta": false,
+        "feedback": "Incorreto. A vírgula menor indica apenas uma respiração curta."
+      },
+      {
+        "texto": "As vírgulas de respiração maiores e menores informam para o músico apenas a necessidade de uma respiração normal ou curta, e NÃO definem obrigatoriamente a existência da semifrase (por exemplo, o Hino 19 só tem vírgulas maiores em todas as semifrases, e o Hino 26 tem variação de vírgulas maiores e menores dividindo as semifrases).",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado literalmente na Fase 16.1 (Aula 13 do 4º Período), as vírgulas maiores e menores informam a necessidade de respiração normal ou curta, não definindo por si sós a existência da semifrase."
+      },
+      {
+        "texto": "As vírgulas de respiração indicam que o músico deve mudar de tonalidade.",
+        "correta": false,
+        "feedback": "Incorreto. As vírgulas indicam os pontos de respiração."
+      }
+    ]
+  },
+  {
+    "id": "f16_q004",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a definição literal de Interpretação Musical apresentada na Fase 16.2 do MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.2 Interpretação musical",
+      "pagina": 137
+    },
+    "opcoes": [
+      {
+        "texto": "É a habilidade de improvisar notas diferentes daquelas que estão escritas na partitura.",
+        "correta": false,
+        "feedback": "Incorreto. Nos hinos deve-se respeitar fielmente as notas e valores escritos, transmitindo o sentimento sacro da poesia e do compositor."
+      },
+      {
+        "texto": "É a leitura mecânica apenas do nome das notas sem entoar a altura e sem ritmo.",
+        "correta": false,
+        "feedback": "Incorreto. Ler apenas o nome das notas no ritmo chama-se Leitura Métrica."
+      },
+      {
+        "texto": "É tocar todos os hinos exatamente com a mesma força e velocidade.",
+        "correta": false,
+        "feedback": "Incorreto. Cada hino possui sua poesia e sua indicação interpretativa específica."
+      },
+      {
+        "texto": "É a arte de compreender as intenções e sentimentos do compositor, transmitindo-os por meio do som do instrumento.",
+        "correta": true,
+        "feedback": "Correto! Essa é exatamente a definição textual da Fase 16.2 do MSA para Interpretação Musical."
+      }
+    ]
+  },
+  {
+    "id": "f16_q005",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Dois hinos do Hinário 5 que possuem a mesma fórmula de compasso (por exemplo, 4/4) devem ser interpretados exatamente da mesma forma? E como interpretar um hino que NÃO traz indicação interpretativa escrita no cabeçalho?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.2 Interpretação musical",
+      "pagina": 137
+    },
+    "opcoes": [
+      {
+        "texto": "Não devem ser interpretados da mesma forma, pois cada hino deve seguir sua inspiração poética e indicação interpretativa; e nos hinos que não possuem indicação interpretativa escrita, o músico deve buscar inspiração na POESIA do hino (como nos Hinos 169 e 142).",
+        "correta": true,
+        "feedback": "Correto! Conforme a Fase 16.2 e 16.3 do MSA, a poesia sacra é a referência fundamental: mesmo quando um hino não traz indicação escrita no cabeçalho, o músico inspira-se no sentimento da poesia."
+      },
+      {
+        "texto": "Sim, todos os hinos em 4/4 devem ser tocados com a mesma intensidade e caráter.",
+        "correta": false,
+        "feedback": "Incorreto. Um hino em 4/4 pode ser 'Majestoso' e outro em 4/4 pode ser 'Com humildade' ou 'Com veneração', exigindo interpretações distintas conforme a poesia."
+      },
+      {
+        "texto": "Sim, porque a fórmula de compasso é o único elemento que define o sentimento do hino.",
+        "correta": false,
+        "feedback": "Incorreto. A fórmula de compasso define apenas a organização métrica dos tempos."
+      },
+      {
+        "texto": "Nos hinos sem indicação interpretativa escrita, não se deve colocar nenhum sentimento ou expressão.",
+        "correta": false,
+        "feedback": "Incorreto. Nos hinos sem indicação escrita, busca-se a inspiração diretamente na poesia sacra do hino."
+      }
+    ]
+  },
+  {
+    "id": "f16_q006",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Quais são as 6 Indicações Interpretativas existentes no Hinário 5 da CCB?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Largo, Adagio, Andante, Moderato, Allegro e Presto.",
+        "correta": false,
+        "feedback": "Incorreto. Esses são termos tradicionais de Andamento (velocidade), e não as indicações interpretativas do Hinário 5."
+      },
+      {
+        "texto": "Solene, Majestoso, Com júbilo, Com veneração, Com submissão e Com humildade.",
+        "correta": true,
+        "feedback": "Correto! Estas são exatamente as 6 indicações interpretativas adotadas no Hinário 5 e ensinadas na Fase 16.3 do MSA."
+      },
+      {
+        "texto": "Piano, Mezzo Piano, Mezzo Forte, Forte, Fortíssimo e Crescendo.",
+        "correta": false,
+        "feedback": "Incorreto. Esses são termos de Dinâmica Artificial, que não vêm escritos no Hinário 5."
+      },
+      {
+        "texto": "Alegre, Triste, Calmo, Agitado, Forte e Suave.",
+        "correta": false,
+        "feedback": "Incorreto. As 6 indicações oficiais do Hinário 5 são: Solene, Majestoso, Com júbilo, Com veneração, Com submissão e Com humildade."
+      }
+    ]
+  },
+  {
+    "id": "f16_q007",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Segundo o quadro oficial da Fase 16.3 do MSA, como deve soar o som do instrumento nas indicações interpretativas 'Solene', 'Majestoso' e 'Com júbilo', respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Solene: soando com leveza | Majestoso: soando com suavidade | Com júbilo: soando mais suave do que o som solene.",
+        "correta": false,
+        "feedback": "Incorreto. 'Mais suave do que o som solene', 'suavidade e cuidado' e 'leveza' referem-se a Com veneração, Com submissão e Com humildade."
+      },
+      {
+        "texto": "Solene: soando muito rápido | Majestoso: soando muito lento | Com júbilo: soando em silêncio.",
+        "correta": false,
+        "feedback": "Incorreto. As indicações interpretativas definem o caráter expressivo (grandiosidade, imponência, contentamento), e a velocidade já é dada pelo metrônomo."
+      },
+      {
+        "texto": "Solene: soando com grandiosidade | Majestoso: soando de modo imponente | Com júbilo: soando com contentamento.",
+        "correta": true,
+        "feedback": "Correto! Essas são as definições exatas da Fase 16.3 do MSA: Solene = soando com grandiosidade (ex.: Hinos 96, 299); Majestoso = soando de modo imponente (ex.: Hinos 135, 367); Com júbilo = soando com contentamento (ex.: Hino 147)."
+      },
+      {
+        "texto": "Solene: soando com tristeza | Majestoso: soando com força excessiva | Com júbilo: soando acelerado.",
+        "correta": false,
+        "feedback": "Incorreto. Na música sacra evita-se força agressiva; Solene pede grandiosidade, Majestoso pede modo imponente e Com júbilo pede contentamento."
+      }
+    ]
+  },
+  {
+    "id": "f16_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Segundo o quadro oficial da Fase 16.3 do MSA (pág. 138 e Aula 14 do 4º Período), como deve soar o som do instrumento nas indicações interpretativas 'Com veneração', 'Com submissão' e 'Com humildade', respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Com veneração: soando com grandiosidade | Com submissão: soando de modo imponente | Com humildade: soando com contentamento.",
+        "correta": false,
+        "feedback": "Incorreto. Grandiosidade, modo imponente e contentamento correspondem a Solene, Majestoso e Com júbilo."
+      },
+      {
+        "texto": "Com veneração: soando com leveza | Com submissão: soando mais suave do que o som solene | Com humildade: soando de modo imponente.",
+        "correta": false,
+        "feedback": "Incorreto. As definições foram trocadas: 'Com veneração' é mais suave do que o som solene; 'Com submissão' é com suavidade e cuidado; e 'Com humildade' é com leveza."
+      },
+      {
+        "texto": "Todas as três significam tocar no limite mínimo de velocidade do metrônomo.",
+        "correta": false,
+        "feedback": "Incorreto. Elas orientam a qualidade expressiva e a emissão do som, e não a redução do metrônomo."
+      },
+      {
+        "texto": "Com veneração: soando mais suave do que o som solene | Com submissão: soando com suavidade e cuidado | Com humildade: soando com leveza.",
+        "correta": true,
+        "feedback": "Correto! Essa é a correspondência literal da Fase 16.3 do MSA: Com veneração = soando mais suave do que o som solene (ex.: Hinos 38, 176); Com submissão = soando com suavidade e cuidado (ex.: Hino 61); Com humildade = soando com leveza (ex.: Hinos 260, 351)."
+      }
+    ]
+  },
+  {
+    "id": "f16_q009",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual das 6 indicações interpretativas do Hinário 5 é definida na Fase 16.3 do MSA como devendo soar 'com suavidade e cuidado' (exemplificada pelos Hinos 61 e 169)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Com submissão.",
+        "correta": true,
+        "feedback": "Correto! No MSA (pág. 138 e Aula 14), a indicação 'Com submissão' orienta que a execução seja feita 'soando com suavidade e cuidado', reconhecendo nossa inteira dependência de Deus."
+      },
+      {
+        "texto": "Majestoso.",
+        "correta": false,
+        "feedback": "Incorreto. 'Majestoso' significa soando de modo imponente."
+      },
+      {
+        "texto": "Solene.",
+        "correta": false,
+        "feedback": "Incorreto. 'Solene' significa soando com grandiosidade."
+      },
+      {
+        "texto": "Com júbilo.",
+        "correta": false,
+        "feedback": "Incorreto. 'Com júbilo' significa soando com contentamento."
+      }
+    ]
+  },
+  {
+    "id": "f16_q010",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Quais das 6 indicações interpretativas do Hinário 5 são definidas na Fase 16.3 do MSA, respectivamente, como 'soando mais suave do que o som solene' e 'soando com leveza'?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Solene e Majestoso.",
+        "correta": false,
+        "feedback": "Incorreto. 'Solene' é soando com grandiosidade e 'Majestoso' é soando de modo imponente."
+      },
+      {
+        "texto": "Com veneração ('soando mais suave do que o som solene') e Com humildade ('soando com leveza').",
+        "correta": true,
+        "feedback": "Correto! No MSA, 'Com veneração' é definida como 'soando mais suave do que o som solene' (ex.: Hinos 38, 176, 271, 414) e 'Com humildade' é definida como 'soando com leveza' (ex.: Hinos 260, 351, 142)."
+      },
+      {
+        "texto": "Com júbilo e Com submissão.",
+        "correta": false,
+        "feedback": "Incorreto. 'Com júbilo' significa 'soando com contentamento' e 'Com submissão' significa 'soando com suavidade e cuidado'."
+      },
+      {
+        "texto": "Majestoso e Com veneração.",
+        "correta": false,
+        "feedback": "Incorreto. 'Majestoso' significa 'soando de modo imponente'."
+      }
+    ]
+  }
+]

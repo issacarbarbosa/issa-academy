@@ -1,0 +1,314 @@
+[
+  {
+    "id": "f12_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que é Síncopa?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "É o som articulado (iniciado) em um tempo fraco ou na parte fraca de um tempo que se prolonga para o tempo forte ou parte forte seguinte.",
+        "correta": true,
+        "feedback": "Correto! A característica essencial da síncopa é iniciar no momento fraco e prolongar o som sobre o momento forte seguinte."
+      },
+      {
+        "texto": "É o som executado no tempo forte enquanto os tempos fracos ficam preenchidos por pausas.",
+        "correta": false,
+        "feedback": "Incorreto. Som no tempo forte seguido de pausa no tempo fraco é um ritmo normal, não síncopa."
+      },
+      {
+        "texto": "É quando os tempos fortes são preenchidos por pausas e as notas soam apenas nos tempos fracos sem se prolongar.",
+        "correta": false,
+        "feedback": "Incorreto. Quando o tempo forte tem pausa e a nota soa apenas no tempo fraco, temos o Contratempo, e não a Síncopa."
+      },
+      {
+        "texto": "É a repetição de um trecho musical por meio de barras duplas com dois pontos.",
+        "correta": false,
+        "feedback": "Incorreto. Barras de repetição são chamadas de ritornello."
+      }
+    ]
+  },
+  {
+    "id": "f12_q002",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença entre Síncopa Regular e Síncopa Irregular?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "A Síncopa Regular ocorre apenas em compassos simples e a Irregular apenas em compassos compostos.",
+        "correta": false,
+        "feedback": "Incorreto. Ambas podem ocorrer em qualquer compasso; a diferença está na igualdade ou diferença de duração das figuras que a compõem."
+      },
+      {
+        "texto": "A Síncopa Regular é formada por notas (parcelas ligadas) que têm a mesma duração, enquanto a Síncopa Irregular é formada por notas de durações diferentes.",
+        "correta": true,
+        "feedback": "Correto! Quando as figuras unidas que formam a síncopa possuem valores iguais (ex.: semínima ligada a semínima, ou colcheia + semínima + colcheia), ela é Regular; quando têm valores diferentes (ex.: colcheia ligada a semínima), é Irregular."
+      },
+      {
+        "texto": "A Síncopa Regular usa pausas e a Síncopa Irregular usa ligaduras.",
+        "correta": false,
+        "feedback": "Incorreto. Quem se caracteriza pelo uso de pausas no tempo forte é o Contratempo."
+      },
+      {
+        "texto": "A Síncopa Regular ocorre na Clave de Sol e a Irregular na Clave de Fá.",
+        "correta": false,
+        "feedback": "Incorreto. A classificação independe da clave."
+      }
+    ]
+  },
+  {
+    "id": "f12_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Segundo a orientação expressa do MSA (Fase 12.1), como devem ser executadas as síncopas encontradas nos hinos do Hinário 5 (como nos Hinos 7 e 43)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Deve-se tocar a nota sincopada em fortíssimo (ff) para destacar o deslocamento do tempo.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA adverte expressamente que nos hinos não se deve dar acentuação forte na síncopa."
+      },
+      {
+        "texto": "Deve-se interromper o som no meio da síncopa fazendo uma respiração.",
+        "correta": false,
+        "feedback": "Incorreto. O som da síncopa deve ser sustentado normalmente pelo seu valor completo, sem acentuação brusca."
+      },
+      {
+        "texto": "Nos hinos NÃO se deve dar acentuação forte (destaque brusco) sobre a síncopa, mantendo-se a execução equilibrada e sacra.",
+        "correta": true,
+        "feedback": "Correto! Embora em outros gêneros musicais a síncopa costume receber forte acentuação, nos hinos sacros da CCB não se deve acentuar fortemente a nota sincopada."
+      },
+      {
+        "texto": "Deve-se acelerar o andamento sempre que aparecer uma síncopa.",
+        "correta": false,
+        "feedback": "Incorreto. A pulsação permanece constante."
+      }
+    ]
+  },
+  {
+    "id": "f12_q004",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que é Contratempo?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.2 Contratempo",
+      "pagina": 112
+    },
+    "opcoes": [
+      {
+        "texto": "Ocorre quando uma nota iniciada no tempo fraco se prolonga sobre o tempo forte seguinte sem nenhuma pausa.",
+        "correta": false,
+        "feedback": "Incorreto. Essa definição refere-se à Síncopa, e não ao Contratempo."
+      },
+      {
+        "texto": "Ocorre quando o músico toca fora do ritmo da orquestra por erro de leitura.",
+        "correta": false,
+        "feedback": "Incorreto. O contratempo é um recurso rítmico escrito intencionalmente na partitura com pausas nas partes fortes."
+      },
+      {
+        "texto": "Ocorre quando todas as notas são executadas exclusivamente no 1º tempo de cada compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O 1º tempo do compasso é tempo forte; o contratempo ocorre no tempo ou parte fraca após pausa na parte forte."
+      },
+      {
+        "texto": "Ocorre quando as notas são executadas em um tempo fraco ou na parte fraca de um tempo, ficando os tempos fortes ou partes fortes preenchidos por pausas.",
+        "correta": true,
+        "feedback": "Correto! No contratempo, o tempo forte (ou parte forte do tempo) está em silêncio (pausa) e o som entra no tempo fraco (ou parte fraca)."
+      }
+    ]
+  },
+  {
+    "id": "f12_q005",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença entre Contratempo Regular e Contratempo Irregular?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.2 Contratempo",
+      "pagina": 112
+    },
+    "opcoes": [
+      {
+        "texto": "No Contratempo Regular, a pausa (no tempo/parte forte) e a nota (no tempo/parte fraca) têm a mesma duração; no Contratempo Irregular, a pausa e a nota têm durações diferentes.",
+        "correta": true,
+        "feedback": "Correto! Se a pausa e a nota possuem valores iguais (ex.: pausa de colcheia + nota colcheia), o contratempo é Regular; se possuem valores diferentes (ex.: pausa de semínima + nota colcheia), é Irregular."
+      },
+      {
+        "texto": "No Contratempo Regular não existem pausas, e no Irregular existem duas pausas.",
+        "correta": false,
+        "feedback": "Incorreto. Todo contratempo possui pausa no tempo forte ou parte forte; a diferença está na igualdade ou diferença de valor entre a pausa e a nota."
+      },
+      {
+        "texto": "O Contratempo Regular ocorre no início do hino e o Irregular apenas no final.",
+        "correta": false,
+        "feedback": "Incorreto. A classificação depende exclusivamente da comparação entre a duração da pausa e a duração da nota."
+      },
+      {
+        "texto": "O Contratempo Regular usa notas naturais e o Irregular usa notas com sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. O contratempo é um fenômeno puramente rítmico, independente de acidentes."
+      }
+    ]
+  },
+  {
+    "id": "f12_q006",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em um compasso 2/4, aparece a seguinte configuração rítmica ocupando os dois tempos do compasso: [1ª metade do 1º tempo: Colcheia] + [2ª metade do 1º tempo ligada à 1ª metade do 2º tempo: uma Semínima] + [2ª metade do 2º tempo: Colcheia]. Que fenômeno rítmico ocorre nessa Semínima central?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Um Contratempo Regular, pois não há pausas no compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Sem pausa no tempo/parte forte e com prolongamento de som da parte fraca para a forte, temos Síncopa, e não Contratempo."
+      },
+      {
+        "texto": "Uma Síncopa Regular, pois a semínima iniciou na 2ª metade (parte fraca) do 1º tempo e prolongou-se sobre a 1ª metade (parte forte) do 2º tempo, equivalendo a duas colcheias ligadas (mesma duração).",
+        "correta": true,
+        "feedback": "Correto! O grupo 'colcheia – semínima – colcheia' em 2/4 é o exemplo clássico de Síncopa Regular, pois a semínima une a colcheia da parte fraca do 1º tempo à colcheia da parte forte do 2º tempo."
+      },
+      {
+        "texto": "Uma Síncopa Irregular, pois há três figuras no compasso.",
+        "correta": false,
+        "feedback": "Incorreto. A semínima sincopada equivale a duas colcheias ligadas (1/2 tempo na parte fraca + 1/2 tempo na parte forte), tendo parcelas iguais (Regular)."
+      },
+      {
+        "texto": "Uma Tercina de semínimas.",
+        "correta": false,
+        "feedback": "Incorreto. A soma de 1 colcheia + 1 semínima + 1 colcheia preenche naturalmente os 2 tempos do 2/4, formando uma síncopa."
+      }
+    ]
+  },
+  {
+    "id": "f12_q007",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Em um compasso 4/4, o 1º tempo é preenchido por uma Pausa de Semínima e o 2º tempo é preenchido por uma Nota Colcheia (seguida de outra pausa de colcheia). Como se classifica esse evento entre o 1º e o 2º tempo?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.2 Contratempo",
+      "pagina": 112
+    },
+    "opcoes": [
+      {
+        "texto": "Contratempo Regular, pois ambos ocorrem dentro do mesmo compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Para ser Contratempo Regular, a pausa e a nota deveriam ter exatamente a mesma duração."
+      },
+      {
+        "texto": "Síncopa Irregular, pois começou com pausa.",
+        "correta": false,
+        "feedback": "Incorreto. A presença de pausa no tempo forte seguida de articulação no tempo fraco caracteriza o Contratempo, não a Síncopa."
+      },
+      {
+        "texto": "Contratempo Irregular, pois o tempo forte (1º tempo) foi preenchido por uma pausa de semínima e o tempo fraco (2º tempo) teve uma nota colcheia (durações diferentes entre a pausa e a nota).",
+        "correta": true,
+        "feedback": "Correto! Como a pausa no tempo forte (semínima = 1 tempo) e a nota no tempo fraco (colcheia = 1/2 tempo) possuem durações diferentes, trata-se de um Contratempo Irregular."
+      },
+      {
+        "texto": "Ritmo Tético, pois o 1º tempo tem uma figura de silêncio.",
+        "correta": false,
+        "feedback": "Incorreto. O ritmo tético exige som articulado no 1º tempo forte; pausa no tempo forte seguida de som no tempo fraco é contratempo."
+      }
+    ]
+  },
+  {
+    "id": "f12_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença fundamental entre a Síncopa e o Contratempo quanto ao que ocorre no tempo forte (ou parte forte de tempo)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.2 Contratempo",
+      "pagina": 112
+    },
+    "opcoes": [
+      {
+        "texto": "Na Síncopa o tempo forte tem pausa, e no Contratempo o tempo forte tem ligadura de valor.",
+        "correta": false,
+        "feedback": "Incorreto. Você inverteu os dois conceitos."
+      },
+      {
+        "texto": "Ambos são exatamente iguais, mudando apenas o nome conforme o período do MSA.",
+        "correta": false,
+        "feedback": "Incorreto. São fenômenos rítmicos distintos estudados lado a lado na Fase 12."
+      },
+      {
+        "texto": "A Síncopa só ocorre no baixo e o Contratempo só ocorre no soprano.",
+        "correta": false,
+        "feedback": "Incorreto. Ambos podem ocorrer em qualquer voz."
+      },
+      {
+        "texto": "Na Síncopa, o tempo/parte forte está ocupado pelo PROLONGAMENTO do som que começou no tempo/parte fraca anterior; no Contratempo, o tempo/parte forte está ocupado por PAUSA (silêncio).",
+        "correta": true,
+        "feedback": "Correto! Em ambos a nota é articulada na parte fraca, mas na síncopa ela se prolonga sobre a parte forte seguinte, enquanto no contratempo a parte forte é preenchida por pausa."
+      }
+    ]
+  }
+]

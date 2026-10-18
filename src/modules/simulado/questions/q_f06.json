@@ -1,0 +1,977 @@
+[
+  {
+    "id": "f06_q001",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "De acordo com o MSA, o que é Semitom?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.1 Tom e semitom",
+      "pagina": 52
+    },
+    "opcoes": [
+      {
+        "texto": "É o menor intervalo adotado entre dois sons na música ocidental (no sistema temperado).",
+        "correta": true,
+        "feedback": "Correto! No sistema musical ocidental estudado no MSA, o semitom é o menor intervalo existente entre dois sons."
+      },
+      {
+        "texto": "É o intervalo formado pela soma de dois tons inteiros consecutivos.",
+        "correta": false,
+        "feedback": "Incorreto. O semitom equivale à metade de um tom, sendo o menor intervalo entre dois sons na música ocidental."
+      },
+      {
+        "texto": "É a distância exclusiva entre duas notas de mesmo nome situadas em oitavas diferentes.",
+        "correta": false,
+        "feedback": "Incorreto. A distância entre duas notas de mesmo nome em alturas consecutivas chama-se oitava, não semitom."
+      },
+      {
+        "texto": "É um sinal de alteração colocado à direita da clave para indicar a pulsação.",
+        "correta": false,
+        "feedback": "Incorreto. O semitom é uma medida de intervalo (distância entre dois sons), e não um sinal de pulsação."
+      }
+    ]
+  },
+  {
+    "id": "f06_q002",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Na sequência das sete notas naturais (sem acidentes), entre quais pares de notas ocorrem os Semitons Naturais?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.1 Tom e semitom",
+      "pagina": 52
+    },
+    "opcoes": [
+      {
+        "texto": "Entre Dó–Ré e entre Sol–Lá.",
+        "correta": false,
+        "feedback": "Incorreto. Entre Dó–Ré e entre Sol–Lá existe a distância de 1 Tom inteiro."
+      },
+      {
+        "texto": "Entre Mi–Fá e entre Si–Dó.",
+        "correta": true,
+        "feedback": "Correto! Na escala natural, os únicos semitons naturais ocorrem entre as notas Mi–Fá e Si–Dó."
+      },
+      {
+        "texto": "Entre Ré–Mi e entre Fá–Sol.",
+        "correta": false,
+        "feedback": "Incorreto. Tanto entre Ré–Mi quanto entre Fá–Sol há intervalo de 1 Tom."
+      },
+      {
+        "texto": "Entre Fá–Sol e entre Lá–Si.",
+        "correta": false,
+        "feedback": "Incorreto. Os pares Fá–Sol e Lá–Si possuem 1 Tom de distância."
+      }
+    ]
+  },
+  {
+    "id": "f06_q003",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença entre Semitom Cromático e Semitom Diatônico?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 53
+    },
+    "opcoes": [
+      {
+        "texto": "O semitom cromático ocorre entre notas de nomes diferentes, e o diatônico entre notas de nomes iguais.",
+        "correta": false,
+        "feedback": "Incorreto. Os conceitos foram invertidos: o cromático tem nomes iguais e o diatônico tem nomes diferentes."
+      },
+      {
+        "texto": "O semitom cromático vale meio tom e o semitom diatônico vale um tom inteiro.",
+        "correta": false,
+        "feedback": "Incorreto. Ambos valem exatamente 1 semitom (meio tom); a diferença está nos nomes das notas que os formam."
+      },
+      {
+        "texto": "O semitom cromático é formado por notas de nomes iguais e sons diferentes (ex.: Fá – Fá#), enquanto o semitom diatônico é formado por notas de nomes diferentes e sons diferentes (ex.: Fá – Solb ou Mi – Fá).",
+        "correta": true,
+        "feedback": "Correto! No semitom cromático o nome da nota permanece o mesmo (alterado por acidente), e no diatônico os nomes das notas são vizinhos (diferentes)."
+      },
+      {
+        "texto": "O semitom cromático só existe na Clave de Sol e o diatônico apenas na Clave de Fá.",
+        "correta": false,
+        "feedback": "Incorreto. A classificação em cromático ou diatônico independe da clave utilizada."
+      }
+    ]
+  },
+  {
+    "id": "f06_q004",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que é um intervalo de Tom e como ele é constituído?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.1 Tom e semitom",
+      "pagina": 52
+    },
+    "opcoes": [
+      {
+        "texto": "É o intervalo formado por quatro semitons consecutivos.",
+        "correta": false,
+        "feedback": "Incorreto. Quatro semitons formam dois tons (uma terça maior), e não um tom."
+      },
+      {
+        "texto": "É o menor intervalo possível entre duas notas no sistema temperado ocidental.",
+        "correta": false,
+        "feedback": "Incorreto. O menor intervalo na música ocidental é o semitom, e não o tom."
+      },
+      {
+        "texto": "É o intervalo que ocorre naturalmente entre as notas Mi–Fá e Si–Dó.",
+        "correta": false,
+        "feedback": "Incorreto. Entre Mi–Fá e Si–Dó ocorre semitom natural, e não tom."
+      },
+      {
+        "texto": "É o intervalo formado pela união de dois semitons (um cromático e um diatônico).",
+        "correta": true,
+        "feedback": "Correto! Um Tom inteiro corresponde à soma de dois semitons consecutivos."
+      }
+    ]
+  },
+  {
+    "id": "f06_q005",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Na sequência de notas naturais (Dó, Ré, Mi, Fá, Sol, Lá, Si), entre quais notas vizinhas existe a distância de 1 Tom?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.1 Tom e semitom",
+      "pagina": 52
+    },
+    "opcoes": [
+      {
+        "texto": "Dó–Ré, Ré–Mi, Fá–Sol, Sol–Lá e Lá–Si.",
+        "correta": true,
+        "feedback": "Correto! Entre todos esses cinco pares de notas naturais há 1 Tom de distância (restando Mi–Fá e Si–Dó com 1 semitom)."
+      },
+      {
+        "texto": "Dó–Ré, Mi–Fá, Fá–Sol, Sol–Lá e Si–Dó.",
+        "correta": false,
+        "feedback": "Incorreto. Mi–Fá e Si–Dó possuem apenas 1 semitom de distância."
+      },
+      {
+        "texto": "Apenas entre Dó–Ré, Fá–Sol e Lá–Si.",
+        "correta": false,
+        "feedback": "Incorreto. Entre Ré–Mi e entre Sol–Lá também existe a distância de 1 Tom."
+      },
+      {
+        "texto": "Entre todas as notas naturais consecutivas sem exceção.",
+        "correta": false,
+        "feedback": "Incorreto. Entre Mi–Fá e entre Si–Dó a distância natural é de apenas 1 semitom."
+      }
+    ]
+  },
+  {
+    "id": "f06_q006",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Classifique os intervalos Fá–Fá# e Fá–Solb, respectivamente:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 53
+    },
+    "opcoes": [
+      {
+        "texto": "Semitom Diatônico e Semitom Cromático.",
+        "correta": false,
+        "feedback": "Incorreto. Notas de mesmo nome (Fá–Fá#) formam semitom cromático, e de nomes diferentes (Fá–Solb) formam semitom diatônico."
+      },
+      {
+        "texto": "Semitom Cromático e Semitom Diatônico.",
+        "correta": true,
+        "feedback": "Correto! Fá–Fá# possui notas de mesmo nome (semitom cromático) e Fá–Solb possui notas de nomes diferentes (semitom diatônico)."
+      },
+      {
+        "texto": "Ambos são Semitons Cromáticos.",
+        "correta": false,
+        "feedback": "Incorreto. Fá–Solb envolve duas notas de nomes diferentes (Fá e Sol), sendo portanto um semitom diatônico."
+      },
+      {
+        "texto": "Tom Cromático e Tom Diatônico.",
+        "correta": false,
+        "feedback": "Incorreto. A distância em ambos os casos é de apenas 1 semitom (meio tom)."
+      }
+    ]
+  },
+  {
+    "id": "f06_q007",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a função dos sinais de alteração (acidentes): Sustenido (#), Bemol (b) e Bequadro (♮)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 52
+    },
+    "opcoes": [
+      {
+        "texto": "O Sustenido eleva a nota em 1 tom; o Bemol abaixa em 1 tom; e o Bequadro duplica a duração da figura.",
+        "correta": false,
+        "feedback": "Incorreto. Sustenido e bemol alteram a altura em 1 semitom (meio tom), e o bequadro anula alterações de altura."
+      },
+      {
+        "texto": "O Sustenido abaixa a nota em 1 semitom; o Bemol eleva em 1 semitom; e o Bequadro indica pausa.",
+        "correta": false,
+        "feedback": "Incorreto. O sustenido eleva (+1 semitom) e o bemol abaixa (-1 semitom)."
+      },
+      {
+        "texto": "O Sustenido eleva a altura da nota em 1 semitom; o Bemol abaixa em 1 semitom; e o Bequadro anula o efeito de qualquer acidente, retornando a nota ao seu estado natural.",
+        "correta": true,
+        "feedback": "Correto! Essa é a definição exata das funções do sustenido, do bemol e do bequadro no MSA."
+      },
+      {
+        "texto": "O Sustenido aumenta a velocidade do hino; o Bemol diminui a velocidade; e o Bequadro mantém o andamento.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes modificam a altura (afinação) das notas, e não o andamento."
+      }
+    ]
+  },
+  {
+    "id": "f06_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como os acidentes (sinais de alteração) devem ser grafados na partitura (pentagrama) e como devem ser pronunciados na leitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 53
+    },
+    "opcoes": [
+      {
+        "texto": "Na escrita no pentagrama são colocados à direita (depois) da nota, e na leitura fala-se primeiro o acidente e depois a nota.",
+        "correta": false,
+        "feedback": "Incorreto. Na partitura o acidente vem sempre à esquerda da nota, e na fala dizemos a nota antes do acidente."
+      },
+      {
+        "texto": "São colocados acima da cabeça da nota, como o sinal de fermata.",
+        "correta": false,
+        "feedback": "Incorreto. O acidente deve ser grafado na mesma linha ou espaço da nota, imediatamente à sua esquerda."
+      },
+      {
+        "texto": "São colocados abaixo do pentagrama, junto à letra da poesia.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes pertencem à notação melódica/harmônica dentro do pentagrama, à esquerda da nota."
+      },
+      {
+        "texto": "Na escrita no pentagrama são colocados à esquerda (antes) da nota, mas na leitura fala-se primeiro o nome da nota e depois o acidente (ex.: Fá sustenido).",
+        "correta": true,
+        "feedback": "Correto! Grafamos o acidente antes (à esquerda) da cabeça da nota para que o músico o veja com antecedência, mas lemos o nome da nota seguido do acidente."
+      }
+    ]
+  },
+  {
+    "id": "f06_q009",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que é Uníssono segundo o MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 54
+    },
+    "opcoes": [
+      {
+        "texto": "São dois sons produzidos simultaneamente na mesma altura, podendo ter o mesmo nome ou nomes diferentes.",
+        "correta": true,
+        "feedback": "Correto! O uníssono ocorre quando dois sons soam exatamente na mesma altura (mesma frequência), tenham eles grafias iguais ou enarmônicas."
+      },
+      {
+        "texto": "São dois sons separados pela distância de duas oitavas.",
+        "correta": false,
+        "feedback": "Incorreto. No uníssono estrito, os dois sons possuem exatamente a mesma altura."
+      },
+      {
+        "texto": "É a execução de um acorde de quatro sons diferentes tocados em arpejo.",
+        "correta": false,
+        "feedback": "Incorreto. Sons de alturas diferentes tocados sucessivamente formam um arpejo ou melodia, não um uníssono."
+      },
+      {
+        "texto": "É o intervalo de 1 tom inteiro entre duas notas naturais.",
+        "correta": false,
+        "feedback": "Incorreto. No uníssono não há diferença de altura entre os dois sons."
+      }
+    ]
+  },
+  {
+    "id": "f06_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quando duas notas possuem escrita (nomes) diferente na partitura, mas resultam exatamente no mesmo som (mesma altura), como elas são chamadas?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 54
+    },
+    "opcoes": [
+      {
+        "texto": "Notas Diatônicas Opostas.",
+        "correta": false,
+        "feedback": "Incorreto. O termo musical correto para notas de grafia diferente e mesmo som é Notas Enarmônicas."
+      },
+      {
+        "texto": "Notas Enarmônicas (ou uníssono enarmônico, como Dó# e Réb).",
+        "correta": true,
+        "feedback": "Correto! Notas enarmônicas são aquelas que possuem nomes e grafias diferentes, mas produzem exatamente a mesma altura sonora no instrumento temperado."
+      },
+      {
+        "texto": "Notas Sincopadas.",
+        "correta": false,
+        "feedback": "Incorreto. Síncopa refere-se ao prolongamento rítmico de tempo fraco para forte, não à equivalência de altura."
+      },
+      {
+        "texto": "Notas Suplementares.",
+        "correta": false,
+        "feedback": "Incorreto. Notas suplementares são aquelas escritas nas linhas e espaços suplementares acima ou abaixo do pentagrama."
+      }
+    ]
+  },
+  {
+    "id": "f06_q011",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Assinale a alternativa em que TODOS os pares apresentados correspondem a Notas Enarmônicas (mesmo som com nomes diferentes):",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.2 Acidentes - sustenido e bemol",
+      "pagina": 54
+    },
+    "opcoes": [
+      {
+        "texto": "Dó# e Ré#; Fá# e Sol#; Mi e Fá; Si e Dó.",
+        "correta": false,
+        "feedback": "Incorreto. Entre Mi e Fá há 1 semitom de distância (sons diferentes), e entre Dó# e Ré# há 1 tom."
+      },
+      {
+        "texto": "Dó e Réb; Fá e Solb; Lá e Sib.",
+        "correta": false,
+        "feedback": "Incorreto. Dó e Réb têm alturas diferentes (distância de 1 semitom diatônico)."
+      },
+      {
+        "texto": "Dó# e Réb; Fá# e Solb; Mi# e Fá; Si e Dób.",
+        "correta": true,
+        "feedback": "Correto! Como entre Mi–Fá e Si–Dó há apenas 1 semitom natural, Mi# tem o mesmo som de Fá, e Si tem o mesmo som de Dób, assim como Dó#/Réb e Fá#/Solb."
+      },
+      {
+        "texto": "Mi# e Fá#; Si# e Dó#.",
+        "correta": false,
+        "feedback": "Incorreto. Mi# equivale a Fá natural (portanto está a 1 semitom de Fá#), e Si# equivale a Dó natural."
+      }
+    ]
+  },
+  {
+    "id": "f06_q012",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que é uma Escala Musical e como é formada a Escala Cromática?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.3 Escalas",
+      "pagina": 55
+    },
+    "opcoes": [
+      {
+        "texto": "Escala é um conjunto de pausas; a Escala Cromática é formada apenas por 7 tons inteiros.",
+        "correta": false,
+        "feedback": "Incorreto. A escala cromática é formada por 12 semitons consecutivos, e não por 7 tons."
+      },
+      {
+        "texto": "A Escala Cromática é aquela que não utiliza nenhum sustenido ou bemol.",
+        "correta": false,
+        "feedback": "Incorreto. Para formar os 12 semitons consecutivos, a escala cromática utiliza acidentes (sustenidos na subida e bemóis na descida)."
+      },
+      {
+        "texto": "A Escala Cromática possui apenas 5 notas chamadas pentatônicas.",
+        "correta": false,
+        "feedback": "Incorreto. A escala cromática contém 12 semitons dentro da oitava."
+      },
+      {
+        "texto": "Escala é uma sequência de notas consecutivas (ascendente ou descendente); a Escala Cromática é formada exclusivamente por 12 semitons (cromáticos e diatônicos).",
+        "correta": true,
+        "feedback": "Correto! A escala cromática percorre todos os 12 semitons existentes dentro de uma oitava."
+      }
+    ]
+  },
+  {
+    "id": "f06_q013",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Na grafia tradicional da Escala Cromática ensinada no MSA, quais acidentes são utilizados no sentido ascendente (subindo) e no sentido descendente (descendo)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.3 Escalas",
+      "pagina": 55
+    },
+    "opcoes": [
+      {
+        "texto": "No sentido ascendente utilizam-se sustenidos (#) e no sentido descendente utilizam-se bemóis (b).",
+        "correta": true,
+        "feedback": "Correto! Ao subir a escala cromática elevamos as notas naturais com sustenidos (#), e ao descer abaixamos com bemóis (b)."
+      },
+      {
+        "texto": "No sentido ascendente utilizam-se bemóis (b) e no sentido descendente utilizam-se sustenidos (#).",
+        "correta": false,
+        "feedback": "Incorreto. Os sustenidos elevam a altura (sentido ascendente) e os bemóis abaixam (sentido descendente)."
+      },
+      {
+        "texto": "Utilizam-se apenas dobrados sustenidos tanto na subida quanto na descida.",
+        "correta": false,
+        "feedback": "Incorreto. Usam-se sustenidos simples na subida e bemóis simples na descida."
+      },
+      {
+        "texto": "Não se utiliza nenhum acidente na escala cromática.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes são indispensáveis para preencher os semitons entre as notas que distam 1 tom."
+      }
+    ]
+  },
+  {
+    "id": "f06_q014",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que é uma Escala Diatônica e como ela se divide?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.4 Escalas diatônicas",
+      "pagina": 56
+    },
+    "opcoes": [
+      {
+        "texto": "É uma escala formada por 12 notas de nomes repetidos, composta apenas por semitons.",
+        "correta": false,
+        "feedback": "Incorreto. Essa descrição refere-se à escala cromática; a escala diatônica tem 8 notas de nomes diferentes misturando tons e semitons."
+      },
+      {
+        "texto": "É uma sucessão de 8 notas consecutivas de nomes diferentes, composta por tons e semitons (sendo a 8ª nota a repetição da 1ª), dividindo-se em Escalas Maiores e Escalas Menores.",
+        "correta": true,
+        "feedback": "Correto! A escala diatônica possui 8 graus conjuntos com nomes diferentes (repetindo a tônica no VIII grau) e classifica-se em Maior ou Menor."
+      },
+      {
+        "texto": "É uma escala de 4 notas usada exclusivamente para afinar o órgão.",
+        "correta": false,
+        "feedback": "Incorreto. A escala diatônica possui 8 notas consecutivas (I ao VIII grau)."
+      },
+      {
+        "texto": "É uma sequência de notas alternadas em saltos de terça e quinta.",
+        "correta": false,
+        "feedback": "Incorreto. Notas em saltos de terça e quinta formam um arpejo; a escala diatônica é formada por graus conjuntos (notas consecutivas)."
+      }
+    ]
+  },
+  {
+    "id": "f06_q015",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são os nomes oficiais dos 7 graus da Escala Diatônica (do I ao VII grau), respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.4 Escalas diatônicas",
+      "pagina": 56
+    },
+    "opcoes": [
+      {
+        "texto": "I - Tônica; II - Dominante; III - Subdominante; IV - Mediante; V - Supertônica; VI - Sensível; VII - Superdominante.",
+        "correta": false,
+        "feedback": "Incorreto. A ordem dos graus intermediários está trocada: II é Supertônica, III é Mediante, IV é Subdominante, V é Dominante, VI é Superdominante e VII é Sensível."
+      },
+      {
+        "texto": "I - Principal; II - Secundária; III - Terciária; IV - Quaternária; V - Quinta; VI - Sexta; VII - Sétima.",
+        "correta": false,
+        "feedback": "Incorreto. Os graus da escala recebem nomes funcionais (Tônica, Supertônica, Mediante, Subdominante, Dominante, Superdominante e Sensível)."
+      },
+      {
+        "texto": "I - Tônica; II - Supertônica; III - Mediante; IV - Subdominante; V - Dominante; VI - Superdominante; VII - Sensível.",
+        "correta": true,
+        "feedback": "Correto! Esta é a nomenclatura exata dos graus da escala diatônica segundo o MSA (sendo o VIII grau a repetição da Tônica)."
+      },
+      {
+        "texto": "I - Sensível; II - Supertônica; III - Mediante; IV - Dominante; V - Subdominante; VI - Superdominante; VII - Tônica.",
+        "correta": false,
+        "feedback": "Incorreto. O I grau é a Tônica e o VII grau é a Sensível."
+      }
+    ]
+  },
+  {
+    "id": "f06_q016",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é o grau mais importante da escala diatônica, responsável por dar o seu nome à própria escala?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.4 Escalas diatônicas",
+      "pagina": 56
+    },
+    "opcoes": [
+      {
+        "texto": "V Grau — Dominante.",
+        "correta": false,
+        "feedback": "Incorreto. Embora a Dominante (V grau) seja muito importante, quem dá nome à escala é o I grau (Tônica)."
+      },
+      {
+        "texto": "III Grau — Mediante.",
+        "correta": false,
+        "feedback": "Incorreto. A Mediante é o III grau; o I grau (Tônica) é que nomeia a escala."
+      },
+      {
+        "texto": "VII Grau — Sensível.",
+        "correta": false,
+        "feedback": "Incorreto. O VII grau (Sensível) fica 1 semitom abaixo da Tônica, mas quem dá nome à escala é o I grau (Tônica)."
+      },
+      {
+        "texto": "I Grau — Tônica.",
+        "correta": true,
+        "feedback": "Correto! O I grau chama-se Tônica, é a nota principal e dá nome à escala (ex.: na escala de Sol Maior, a Tônica é a nota Sol)."
+      }
+    ]
+  },
+  {
+    "id": "f06_q017",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Na escala de Sol Maior (Sol, Lá, Si, Dó, Ré, Mi, Fá#, Sol), quais notas correspondem respectivamente ao III grau (Mediante), IV grau (Subdominante) e VII grau (Sensível)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.4 Escalas diatônicas",
+      "pagina": 56
+    },
+    "opcoes": [
+      {
+        "texto": "Si (III), Dó (IV) e Fá# (VII).",
+        "correta": true,
+        "feedback": "Correto! Partindo de Sol (I): Lá é II, Si é III (Mediante), Dó é IV (Subdominante), Ré é V, Mi é VI e Fá# é VII (Sensível)."
+      },
+      {
+        "texto": "Lá (III), Si (IV) e Fá natural (VII).",
+        "correta": false,
+        "feedback": "Incorreto. Lá é o II grau, Si é o III, e o VII grau de Sol Maior precisa ser Fá# para manter 1 semitom até Sol."
+      },
+      {
+        "texto": "Si (III), Ré (IV) e Mi (VII).",
+        "correta": false,
+        "feedback": "Incorreto. Ré é o V grau (Dominante) e Mi é o VI grau (Superdominante)."
+      },
+      {
+        "texto": "Dó (III), Ré (IV) e Sol (VII).",
+        "correta": false,
+        "feedback": "Incorreto. Esses seriam os graus III, IV e VII de Lá menor/Lá maior, não de Sol Maior."
+      }
+    ]
+  },
+  {
+    "id": "f06_q018",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a distribuição padrão de Tons (T) e Semitons (st) de toda Escala Diatônica Maior no sentido ascendente, e entre quais graus ficam os semitons?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.5 Escalas maiores",
+      "pagina": 56
+    },
+    "opcoes": [
+      {
+        "texto": "T – st – T – T – st – T – T (semitons entre os graus II–III e V–VI).",
+        "correta": false,
+        "feedback": "Incorreto. Essa estrutura pertence à escala menor natural; na escala maior os semitons ficam entre III–IV e VII–VIII."
+      },
+      {
+        "texto": "T – T – st – T – T – T – st (semitons entre os graus III–IV e VII–VIII).",
+        "correta": true,
+        "feedback": "Correto! Toda escala maior possui 5 tons e 2 semitons, estando os semitons localizados entre o III e o IV grau e entre o VII e o VIII (I) grau."
+      },
+      {
+        "texto": "st – T – T – T – st – T – T (semitons entre os graus I–II e IV–V).",
+        "correta": false,
+        "feedback": "Incorreto. Na escala maior, entre I–II e entre IV–V há 1 Tom inteiro."
+      },
+      {
+        "texto": "T – T – T – st – T – T – st (semitons entre os graus IV–V e VII–VIII).",
+        "correta": false,
+        "feedback": "Incorreto. O primeiro semitom da escala maior ocorre entre o III e o IV grau."
+      }
+    ]
+  },
+  {
+    "id": "f06_q019",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual escala é considerada a 'Escala Modelo' das escalas maiores e por quê?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.5 Escalas maiores",
+      "pagina": 56
+    },
+    "opcoes": [
+      {
+        "texto": "A escala de Sol Maior, porque possui apenas um sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. A escala modelo é Dó Maior, que não possui nenhum acidente."
+      },
+      {
+        "texto": "A escala de Lá Maior, porque o Lá é a nota padrão de afinação (440 Hz).",
+        "correta": false,
+        "feedback": "Incorreto. Embora o Lá4 seja a referência de afinação, a escala modelo das escalas maiores é Dó Maior (3 sustenidos são necessários para Lá Maior)."
+      },
+      {
+        "texto": "A escala de Dó Maior, porque suas notas naturais já formam o padrão T–T–st–T–T–T–st sem necessidade de nenhum acidente.",
+        "correta": true,
+        "feedback": "Correto! Dó Maior é a escala modelo porque os semitons naturais Mi–Fá e Si–Dó já caem exatamente nos graus III–IV e VII–VIII."
+      },
+      {
+        "texto": "A escala de Fá Maior, porque é a primeira escala com bemol.",
+        "correta": false,
+        "feedback": "Incorreto. A escala modelo não possui acidentes, sendo portanto Dó Maior."
+      }
+    ]
+  },
+  {
+    "id": "f06_q020",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Para construir as Escalas Maiores com Sustenidos (#) a partir da escala modelo de Dó Maior, qual grau devemos tomar como nova Tônica e qual grau dessa nova escala recebe o sustenido?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.6 Escalas maiores com sustenidos",
+      "pagina": 57
+    },
+    "opcoes": [
+      {
+        "texto": "Toma-se a 4ª nota (IV grau) da escala anterior como nova Tônica, e acrescenta-se um sustenido no IV grau.",
+        "correta": false,
+        "feedback": "Incorreto. A contagem de 4ª nota alterando o IV grau é usada para as escalas com bemóis, e não com sustenidos."
+      },
+      {
+        "texto": "Toma-se a 2ª nota (II grau) da escala anterior e altera-se o I grau com sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. As escalas com sustenidos seguem o ciclo das quintas ascendentes (5ª nota), alterando o VII grau."
+      },
+      {
+        "texto": "Toma-se a 3ª nota (III grau) da escala anterior e altera-se o III grau com sustenido.",
+        "correta": false,
+        "feedback": "Incorreto. Parte-se sempre da 5ª nota (V grau) e altera-se o VII grau da nova escala."
+      },
+      {
+        "texto": "Toma-se a 5ª nota (V grau) da escala anterior como nova Tônica, e acrescenta-se um sustenido (#) no VII grau (Sensível) da nova escala.",
+        "correta": true,
+        "feedback": "Correto! Contando uma 5ª ascendente a partir de Dó chegamos a Sol (e assim sucessivamente), alterando sempre o VII grau da nova escala com sustenido para manter o semitom entre VII–VIII."
+      }
+    ]
+  },
+  {
+    "id": "f06_q021",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Para construir as Escalas Maiores com Bemóis (b) a partir da escala modelo de Dó Maior, qual nota devemos tomar como nova Tônica e qual grau dessa nova escala recebe o bemol?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.7 Escalas maiores com bemóis",
+      "pagina": 61
+    },
+    "opcoes": [
+      {
+        "texto": "Toma-se a 4ª nota (IV grau) da escala anterior como nova Tônica, e acrescenta-se um bemol (b) no IV grau (Subdominante) da nova escala.",
+        "correta": true,
+        "feedback": "Correto! Partindo de Dó Maior, a 4ª nota é Fá; na escala de Fá Maior, altera-se o IV grau (Si -> Sib) para garantir o semitom entre o III (Lá) e o IV (Sib) grau."
+      },
+      {
+        "texto": "Toma-se a 5ª nota (V grau) da escala anterior como nova Tônica, e acrescenta-se um bemol no VII grau.",
+        "correta": false,
+        "feedback": "Incorreto. A 5ª nota e o VII grau referem-se à construção das escalas com sustenidos."
+      },
+      {
+        "texto": "Toma-se a 6ª nota (VI grau) da escala anterior e acrescenta-se um bemol no II grau.",
+        "correta": false,
+        "feedback": "Incorreto. As escalas com bemóis seguem quartas ascendentes (4ª nota), alterando o IV grau."
+      },
+      {
+        "texto": "Toma-se a 7ª nota (VII grau) da escala anterior e acrescenta-se um bemol no I grau.",
+        "correta": false,
+        "feedback": "Incorreto. Toma-se sempre a 4ª nota da escala anterior e abaixa-se o IV grau da nova escala."
+      }
+    ]
+  },
+  {
+    "id": "f06_q022",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a ordem oficial de surgimento dos Sustenidos (#) e dos Bemóis (b) na construção das escalas maiores?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.6 Escalas maiores com sustenidos",
+      "pagina": 59
+    },
+    "opcoes": [
+      {
+        "texto": "Sustenidos: Dó – Ré – Mi – Fá – Sol – Lá – Si | Bemóis: Si – Lá – Sol – Fá – Mi – Ré – Dó.",
+        "correta": false,
+        "feedback": "Incorreto. Os acidentes não surgem em graus conjuntos, mas sim por intervalos de 5ª (sustenidos) e 4ª (bemóis)."
+      },
+      {
+        "texto": "Sustenidos: Fá – Dó – Sol – Ré – Lá – Mi – Si | Bemóis: Si – Mi – Lá – Ré – Sol – Dó – Fá.",
+        "correta": true,
+        "feedback": "Correto! Os sustenidos surgem em quintas ascendentes (Fá–Dó–Sol–Ré–Lá–Mi–Si) e os bemóis na ordem exatamente inversa (Si–Mi–Lá–Ré–Sol–Dó–Fá)."
+      },
+      {
+        "texto": "Sustenidos: Si – Mi – Lá – Ré – Sol – Dó – Fá | Bemóis: Fá – Dó – Sol – Ré – Lá – Mi – Si.",
+        "correta": false,
+        "feedback": "Incorreto. Você inverteu as sequências: Fá–Dó–Sol–Ré–Lá–Mi–Si é a ordem dos sustenidos, e Si–Mi–Lá–Ré–Sol–Dó–Fá é a ordem dos bemóis."
+      },
+      {
+        "texto": "Sustenidos: Sol – Ré – Lá – Mi – Si – Fá – Dó | Bemóis: Fá – Sib – Mib – Láb – Réb – Solb – Dób.",
+        "correta": false,
+        "feedback": "Incorreto. Essa é a ordem das tônicas das escalas, e não a ordem dos acidentes."
+      }
+    ]
+  },
+  {
+    "id": "f06_q023",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são as escalas maiores que possuem, respectivamente, 1 sustenido, 2 sustenidos, 3 sustenidos e 4 sustenidos?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.6 Escalas maiores com sustenidos",
+      "pagina": 58
+    },
+    "opcoes": [
+      {
+        "texto": "Fá Maior (1#), Sib Maior (2#), Mib Maior (3#) e Láb Maior (4#).",
+        "correta": false,
+        "feedback": "Incorreto. Fá, Sib, Mib e Láb Maior são escalas com bemóis, e não com sustenidos."
+      },
+      {
+        "texto": "Fá Maior (1#), Dó Maior (2#), Sol Maior (3#) e Ré Maior (4#).",
+        "correta": false,
+        "feedback": "Incorreto. Fá–Dó–Sol–Ré é a ordem dos acidentes (sustenidos), e não os nomes das escalas."
+      },
+      {
+        "texto": "Sol Maior (1#), Ré Maior (2#), Lá Maior (3#) e Mi Maior (4#).",
+        "correta": true,
+        "feedback": "Correto! Seguindo o ciclo de quintas a partir de Dó: Sol Maior tem 1# (Fá#), Ré Maior tem 2# (Fá#, Dó#), Lá Maior tem 3# (Fá#, Dó#, Sol#) e Mi Maior tem 4# (Fá#, Dó#, Sol#, Ré#)."
+      },
+      {
+        "texto": "Sol Maior (1#), Lá Maior (2#), Si Maior (3#) e Dó# Maior (4#).",
+        "correta": false,
+        "feedback": "Incorreto. Lá Maior tem 3#, Si Maior tem 5# e Dó# Maior tem 7#."
+      }
+    ]
+  },
+  {
+    "id": "f06_q024",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são as escalas maiores que possuem, respectivamente, 1 bemol, 2 bemóis, 3 bemóis e 4 bemóis?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.7 Escalas maiores com bemóis",
+      "pagina": 62
+    },
+    "opcoes": [
+      {
+        "texto": "Sib Maior (1b), Mib Maior (2b), Láb Maior (3b) e Réb Maior (4b).",
+        "correta": false,
+        "feedback": "Incorreto. A escala com apenas 1 bemol (Sib) é Fá Maior; Sib Maior possui 2 bemóis."
+      },
+      {
+        "texto": "Sol Maior (1b), Ré Maior (2b), Lá Maior (3b) e Mi Maior (4b).",
+        "correta": false,
+        "feedback": "Incorreto. Sol, Ré, Lá e Mi Maior são escalas com sustenidos."
+      },
+      {
+        "texto": "Si Maior (1b), Mi Maior (2b), Lá Maior (3b) e Ré Maior (4b).",
+        "correta": false,
+        "feedback": "Incorreto. Si–Mi–Lá–Ré é a ordem dos bemóis na armadura, não o nome das escalas."
+      },
+      {
+        "texto": "Fá Maior (1b), Sib Maior (2b), Mib Maior (3b) e Láb Maior (4b).",
+        "correta": true,
+        "feedback": "Correto! Seguindo o ciclo de quartas a partir de Dó: Fá Maior tem 1b (Sib), Sib Maior tem 2b (Sib, Mib), Mib Maior tem 3b (Sib, Mib, Láb) e Láb Maior tem 4b (Sib, Mib, Láb, Réb)."
+      }
+    ]
+  },
+  {
+    "id": "f06_q025",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Quais são as escalas maiores que possuem todos os 7 graus alterados (7 sustenidos e 7 bemóis, respectivamente)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 6,
+      "item": "6.7 Escalas maiores com bemóis",
+      "pagina": 63
+    },
+    "opcoes": [
+      {
+        "texto": "Dó# Maior (7 sustenidos) e Dób Maior (7 bemóis).",
+        "correta": true,
+        "feedback": "Correto! Como Dó Maior tem 0 acidentes, ao alterar todas as 7 notas com sustenidos temos Dó# Maior (7#), e ao alterar todas as 7 notas com bemóis temos Dób Maior (7b)."
+      },
+      {
+        "texto": "Fá# Maior (7 sustenidos) e Solb Maior (7 bemóis).",
+        "correta": false,
+        "feedback": "Incorreto. Fá# Maior possui 6 sustenidos e Solb Maior possui 6 bemóis."
+      },
+      {
+        "texto": "Si Maior (7 sustenidos) e Réb Maior (7 bemóis).",
+        "correta": false,
+        "feedback": "Incorreto. Si Maior possui 5 sustenidos e Réb Maior possui 5 bemóis."
+      },
+      {
+        "texto": "Si# Maior (7 sustenidos) e Fáb Maior (7 bemóis).",
+        "correta": false,
+        "feedback": "Incorreto. As escalas com 7 acidentes são Dó# Maior e Dób Maior."
+      }
+    ]
+  }
+]
