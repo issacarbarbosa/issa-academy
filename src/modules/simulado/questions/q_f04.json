@@ -2016,7 +2016,7 @@
         "feedback": "O símbolo para 4/4 é C, e para 2/2 é 𝄵 (C Cortado)."
       },
       {
-        "texto": "2/2 (Composto Binário).",
+        "texto": "2/2 (Binário Simples).",
         "correta": true,
         "feedback": "Os compassos 2/2 são também representados por 𝄵 (C Cortado)."
       },

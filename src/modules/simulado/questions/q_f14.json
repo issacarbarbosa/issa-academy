@@ -34,7 +34,7 @@
       {
         "texto": "Não existem notas pontuadas em compassos compostos como o 6/8.",
         "correta": false,
-        "feedback": "Incorreto. Existem diversos hinos em compassos compostos com colcheia pontuada + semicolcheia (ex.: Hino 339)."
+        "feedback": "Incorreto. Existem diversos hinos em compassos compostos com colcheia pontuada + semicolcheia (ex.: Hino 118)."
       }
     ]
   },
@@ -161,7 +161,7 @@
     "dificuldade": "dificil",
     "pontos": 25,
     "tipo": "texto",
-    "pergunta": "Ao solfejar em 6 movimentos um compasso 6/8 que contém no primeiro grupo ternário: [Colcheia Pontuada + Semicolcheia + Colcheia] (como no Hino 339), em qual movimento exatamente deve ser articulada a Semicolcheia?",
+    "pergunta": "Ao solfejar em 6 movimentos um compasso 6/8 que contém no primeiro grupo ternário: [Colcheia Pontuada + Semicolcheia + Colcheia] (como no Hino 118), em qual movimento exatamente deve ser articulada a Semicolcheia?",
     "imagemUrl": null,
     "audioUrl": null,
     "referencia": {

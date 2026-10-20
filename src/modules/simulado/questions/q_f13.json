@@ -61,7 +61,7 @@
         "feedback": "Incorreto. Notas que precedem o primeiro compasso completo formando compasso incompleto caracterizam o ritmo Anacrúsico."
       },
       {
-        "texto": "Quando a música inicia no tempo forte, no primeiro tempo de um compasso completo (ex.: Hinos 281, 311 e 431).",
+        "texto": "Quando a música inicia no tempo forte, no primeiro tempo de um compasso completo (ex.: Hinos 1, 3 e 282).",
         "correta": true,
         "feedback": "Correto! O ritmo tético começa diretamente no 1º tempo (tempo forte) de um primeiro compasso completo."
       },

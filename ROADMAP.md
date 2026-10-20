@@ -50,7 +50,7 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
 - [x] Banco de Questões do Período 2 (Fases 4 e 5)
 - [x] Bancos de Questões dos Períodos 3 e 4 (Fases 6 a 16)
 - [ ] Reformular a home do Simulado para o aluno ter a opção de escolher fazer o Simulado por Período ou por Fase (20 vs 10 questões).
-- [ ] Revisar as questões para garantir que as referências ao MSA, materiais complementares e hinos estejam corretas.
+- [/] Revisar as questões para garantir que as referências ao MSA, materiais complementares e hinos estejam corretas. (Auditadas 100% das menções a hinos e corrigidas as inconsistências nas Fases 4, 13 e 14)
 - [ ] Criar uma forma para que o aluno possa dar feedback sobre cada questão, podendo assim reportar erros.
 
 ---
@@ -109,3 +109,9 @@ Este documento detalha o progresso atual da plataforma e serve como controle de 
   1. **Embaralhamento em Tempo de Execução (`prepareQuizQuestions`)**: Implementação do embaralhamento Fisher-Yates também sobre o array `opcoes` de cada questão sorteada em `SimuladoMsa.tsx` (com cobertura de teste unitário em `SimuladoMsa.test.ts`), garantindo que a posição da alternativa correta mude a cada tentativa do simulado.
   2. **Balanceamento Estático nos JSONs (`q_f06.json` a `q_f16.json`)**: Redistribuição uniforme do índice `correta: true` (25% em cada posição A, B, C e D) diretamente nos arquivos JSON.
   3. **Auditoria Fina contra o MSA Oficial e Slides do GEM (Períodos 3 e 4)**: Revisão visual slide a slide (`GEM_MSA_3PER_AULA_001..014.pdf` e `GEM_MSA_4PER_AULA_001..014.pdf`) e correção rigorosa de gabaritos, exemplos de hinos e numerações de tópicos/páginas do sumário oficial do MSA (incluindo composição dos compassos compostos e escrita dos compassos alternados na Fase 11, proporções e os 2 hinos acéfalos 208 e 377 na Fase 13, *poco rall.* e modificações indevidas na Fase 15, e definições literais das 6 indicações interpretativas e vírgulas/semifrases na Fase 16), sincronizando as referências no Workspace e no Global Config.
+- **2026-10-20**: Auditoria Integral de Hinos no Banco de Questões e Correção de Inconsistências Fatuais (Fases 4, 13 e 14):
+  1. **Varredura Completa do Banco (495 questões)**: Identificação e catalogação de 122 questões com menções a hinos/hinário (38 com hinos específicos e 84 conceituais).
+  2. **Correção em `f13_q002` (`q_f13.json`)**: Substituição dos Hinos 311 e 431 (que são anacrúsicos) por hinos genuinamente téticos (`ex.: Hinos 1, 3 e 282`) na alternativa correta sobre Ritmo Tético.
+  3. **Correção em `f14_q001` e `f14_q005` (`q_f14.json`)**: Retificação da referência ao Hino 339 (que é 6/4 no Hinário 5) para o Hino 118 (fórmula 6/8 real com colcheia pontuada e semicolcheia).
+  4. **Correção Terminológica em `f04_q052` (`q_f04.json`)**: Correção do texto da alternativa de `2/2 (Composto Binário)` para `2/2 (Binário Simples)`.
+  5. **Validação Estrutural e Zod**: Execução de `npm test` com 23/23 testes aprovados em 5 arquivos de teste.
