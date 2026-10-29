@@ -144,7 +144,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const { error } = await supabase.auth.signInWithOtp({
           email,
           options: {
-            emailRedirectTo: window.location.origin + window.location.pathname,
+            emailRedirectTo: `${window.location.origin}${window.location.pathname}#/admin`,
           },
         });
         if (error) return { success: false, error: error.message };
@@ -162,7 +162,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: window.location.origin + window.location.pathname,
+            redirectTo: `${window.location.origin}${window.location.pathname}#/admin`,
           },
         });
         if (error) return { success: false, error: error.message };

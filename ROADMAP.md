@@ -40,6 +40,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Sincronizador 1-clique para popular o banco Supabase na nuvem e exportador de backup JSON.
 - [x] Script de migração PostgreSQL com RLS (`supabase/schema.sql`) e keepalive (`supabase-keepalive.yml`).
 - [x] Infraestrutura Supabase Cloud (`pcwmafuykwqxoivedpbn`), migração SQL executada, seed completo de 553 questões e secrets integrados no GitHub Actions.
+- [x] Otimização de fluxo e redirecionamento de autenticação OAuth Google e Magic Link no `AdminContext.tsx` apontando diretamente para `#/admin`.
 
 ---
 
