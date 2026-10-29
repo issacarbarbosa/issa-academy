@@ -42,32 +42,83 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [mode, setMode] = useState<AdminViewMode>('aluno');
   const [activeEditTarget, setActiveEditTarget] = useState<AdminEditTarget | null>(null);
 
-  // Restaura sessão existente
+  const handleAuthenticatedUser = async (authUser: {
+    id: string;
+    email?: string;
+    user_metadata?: { full_name?: string };
+  }) => {
+    const userEmail = authUser.email || '';
+
+    // Valida se o usuário autenticado realmente consta na whitelist de admins
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('admin_whitelist')
+          .select('email')
+          .eq('email', userEmail.toLowerCase())
+          .maybeSingle();
+
+        if (error || !data) {
+          console.warn(`Acesso negado: o e-mail ${userEmail} não consta na admin_whitelist.`);
+          await supabase.auth.signOut();
+          setUser(null);
+          setIsAdmin(false);
+          setMode('aluno');
+          return;
+        }
+      } catch {
+        await supabase.auth.signOut();
+        setUser(null);
+        setIsAdmin(false);
+        setMode('aluno');
+        return;
+      }
+    }
+
+    setUser({
+      id: authUser.id,
+      email: userEmail,
+      name: authUser.user_metadata?.full_name || userEmail,
+    });
+    setIsAdmin(true);
+  };
+
+  // Restaura sessão existente e trata tokens na URL
   useEffect(() => {
-    // 1. Tenta restaurar sessão Supabase
+    // 1. Trata e recupera tokens residuais no fragmento/hash (conflito do HashRouter)
+    if (typeof window !== 'undefined' && window.location.hash.includes('access_token=')) {
+      const hash = window.location.hash;
+      const tokenIdx = hash.indexOf('access_token=');
+      if (tokenIdx !== -1) {
+        const params = new URLSearchParams(hash.substring(tokenIdx));
+        const access_token = params.get('access_token');
+        const refresh_token = params.get('refresh_token');
+        if (access_token && refresh_token && isSupabaseConfigured && supabase) {
+          void supabase.auth.setSession({ access_token, refresh_token }).then(({ data, error }) => {
+            if (!error && data.session?.user) {
+              void handleAuthenticatedUser(data.session.user);
+            }
+          });
+          // Limpa tokens da URL imediatamente para proteger histórico e telemetria
+          window.history.replaceState(null, '', `${window.location.origin}${window.location.pathname}#/admin`);
+        }
+      }
+    }
+
+    // 2. Tenta restaurar sessão Supabase
     if (isSupabaseConfigured && supabase) {
       supabase.auth.getSession().then(({ data }) => {
         if (data.session?.user) {
-          const authUser = data.session.user;
-          setUser({
-            id: authUser.id,
-            email: authUser.email || '',
-            name: authUser.user_metadata?.full_name || authUser.email,
-          });
-          setIsAdmin(true);
+          void handleAuthenticatedUser(data.session.user);
+        } else {
+          checkLocalSession();
         }
       });
 
       const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
         if (session?.user) {
-          setUser({
-            id: session.user.id,
-            email: session.user.email || '',
-            name: session.user.user_metadata?.full_name || session.user.email,
-          });
-          setIsAdmin(true);
+          void handleAuthenticatedUser(session.user);
         } else {
-          // Se não houver sessão Supabase, checa se há sessão local
           checkLocalSession();
         }
       });
@@ -81,6 +132,15 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }, []);
 
   const checkLocalSession = () => {
+    // Em produção, nunca permite sessão local sem credenciais reais
+    if (import.meta.env.PROD) {
+      localStorage.removeItem(LOCAL_ADMIN_STORAGE_KEY);
+      setUser(null);
+      setIsAdmin(false);
+      setMode('aluno');
+      return;
+    }
+
     try {
       const stored = localStorage.getItem(LOCAL_ADMIN_STORAGE_KEY);
       if (stored) {
@@ -105,12 +165,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) return { success: false, error: error.message };
         if (data.user) {
-          setUser({
-            id: data.user.id,
-            email: data.user.email || '',
-            name: data.user.user_metadata?.full_name || data.user.email,
-          });
-          setIsAdmin(true);
+          await handleAuthenticatedUser(data.user);
           return { success: true };
         }
       } catch (err) {
@@ -118,8 +173,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       }
     }
 
-    // Se Supabase não estiver configurado, aceita senha local de preview
-    if (password === LOCAL_PREVIEW_SECRET) {
+    // Se Supabase não estiver configurado (apenas desenvolvimento local)
+    if (!import.meta.env.PROD && password === LOCAL_PREVIEW_SECRET) {
       const localUser: AdminUser = {
         id: 'local_preview_admin',
         email,
@@ -134,7 +189,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     return {
       success: false,
-      error: 'Credenciais inválidas. Para modo preview local use a senha do projeto.',
+      error: 'Credenciais inválidas.',
     };
   };
 
@@ -144,7 +199,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const { error } = await supabase.auth.signInWithOtp({
           email,
           options: {
-            emailRedirectTo: `${window.location.origin}${window.location.pathname}#/admin`,
+            emailRedirectTo: `${window.location.origin}${window.location.pathname}`,
           },
         });
         if (error) return { success: false, error: error.message };
@@ -162,7 +217,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: `${window.location.origin}${window.location.pathname}#/admin`,
+            redirectTo: `${window.location.origin}${window.location.pathname}`,
           },
         });
         if (error) return { success: false, error: error.message };
@@ -175,6 +230,11 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const loginLocalPreview = (password: string) => {
+    if (import.meta.env.PROD) {
+      console.warn('Modo preview local bloqueado em produção.');
+      return false;
+    }
+
     if (password === LOCAL_PREVIEW_SECRET) {
       const localUser: AdminUser = {
         id: 'local_preview_admin',

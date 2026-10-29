@@ -80,7 +80,7 @@ function MainLayout() {
                 if (!url) return;
                 if (url.startsWith('/')) {
                   navigate(url.replace('/#', ''));
-                } else {
+                } else if (/^https?:\/\//i.test(url)) {
                   window.open(url, '_blank', 'noopener,noreferrer');
                 }
               }}

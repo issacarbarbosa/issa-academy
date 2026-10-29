@@ -317,7 +317,7 @@ export const AulasMsa: React.FC = () => {
               )}
 
               {/* Player do YouTube Embutido (Se houver) */}
-              {activeLesson.youtubeVideoId && (
+              {activeLesson.youtubeVideoId && /^[a-zA-Z0-9_-]{11}$/.test(activeLesson.youtubeVideoId) && (
                 <div className="mb-8">
                   <div className="flex items-center gap-2 mb-2">
                     <Video size={16} className="text-red-600" />

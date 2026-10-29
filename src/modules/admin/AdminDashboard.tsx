@@ -226,24 +226,35 @@ export const AdminDashboard: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => loginWithGoogle()}
-                className="w-full py-2.5 bg-white hover:bg-slate-50 text-slate-700 border-2 border-slate-200 font-bold text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all"
+                disabled={isLoggingIn}
+                onClick={async () => {
+                  setIsLoggingIn(true);
+                  setLoginError(null);
+                  const res = await loginWithGoogle();
+                  if (!res.success) {
+                    setLoginError(res.error || 'Erro ao conectar com Google');
+                    setIsLoggingIn(false);
+                  }
+                }}
+                className="w-full py-2.5 bg-white hover:bg-slate-50 text-slate-700 border-2 border-slate-200 font-bold text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
               >
                 <span>Entrar com Conta Google</span>
               </button>
             </div>
           )}
 
-          {/* Atalho para Modo Preview Local */}
-          <div className="mt-6 pt-4 border-t border-slate-200/80 text-center">
-            <button
-              type="button"
-              onClick={handleLocalPreviewLogin}
-              className="text-xs text-indigo-600 hover:text-indigo-800 font-black cursor-pointer underline"
-            >
-              Entrar em Modo Preview Local (Sem login Supabase)
-            </button>
-          </div>
+          {/* Atalho para Modo Preview Local (Apenas ambiente de desenvolvimento/testes) */}
+          {!import.meta.env.PROD && (
+            <div className="mt-6 pt-4 border-t border-slate-200/80 text-center">
+              <button
+                type="button"
+                onClick={handleLocalPreviewLogin}
+                className="text-xs text-indigo-600 hover:text-indigo-800 font-black cursor-pointer underline"
+              >
+                Entrar em Modo Preview Local (Sem login Supabase)
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -281,16 +292,27 @@ export const AdminDashboard: React.FC = () => {
       alert('Nenhum feedback registrado para exportar.');
       return;
     }
+
+    const sanitizeCsvCell = (val: unknown): string => {
+      const str = String(val ?? '');
+      const escaped = str.replace(/"/g, '""');
+      // Previne CSV Injection / Formula Injection no Excel e Google Sheets
+      if (/^[=+\-@\t\r]/.test(escaped)) {
+        return `"'${escaped}"`;
+      }
+      return `"${escaped}"`;
+    };
+
     const headers = ['ID', 'Questao_ID', 'Fase', 'Periodo', 'Motivo', 'Comentario', 'Status', 'Data'];
     const rows = feedbacks.map((f) => [
-      f.id,
-      f.question_id,
-      f.fase,
-      f.periodo,
-      `"${(f.reason || '').replace(/"/g, '""')}"`,
-      `"${(f.comment || '').replace(/"/g, '""')}"`,
-      f.status,
-      f.created_at,
+      sanitizeCsvCell(f.id),
+      sanitizeCsvCell(f.question_id),
+      sanitizeCsvCell(f.fase),
+      sanitizeCsvCell(f.periodo),
+      sanitizeCsvCell(f.reason),
+      sanitizeCsvCell(f.comment),
+      sanitizeCsvCell(f.status),
+      sanitizeCsvCell(f.created_at),
     ]);
     const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

@@ -42,6 +42,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Infraestrutura Supabase Cloud (`pcwmafuykwqxoivedpbn`), migração SQL executada, seed completo de 553 questões e secrets integrados no GitHub Actions.
 - [x] Otimização de fluxo e redirecionamento de autenticação OAuth Google e Magic Link no `AdminContext.tsx` apontando diretamente para `#/admin`.
 - [x] Autenticação Social Google OAuth 2.0 configurada no Google Cloud Platform (`Issa Academy Web`) e ativada no Supabase Auth (`ENABLED`).
+- [x] Blindagem Completa de Segurança e Hardening: PKCE ativo com limpeza de tokens na URL, verificação estrita de whitelist no frontend, bloqueio de preview local em produção, constraints anti-flood no RLS (`schema.sql`), sanitização contra CSV Injection / URL injection e 0 CVEs em pacotes de produção.
 
 ---
 
