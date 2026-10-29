@@ -21,12 +21,20 @@ async function main() {
 
   try {
     const input = await readStdin();
+    let touchedFile = null;
     if (input) {
       try {
         const payload = JSON.parse(input);
-        const candidate = payload.toolCall?.args?.TargetFile || payload.arguments?.TargetFile;
-        if (candidate && fs.existsSync(candidate) && (candidate.endsWith('.ts') || candidate.endsWith('.tsx'))) {
-          filesToLint.add(path.resolve(candidate));
+        const candidate =
+          payload.toolCall?.args?.Path ||
+          payload.toolCall?.args?.TargetFile ||
+          payload.arguments?.Path ||
+          payload.arguments?.TargetFile;
+        if (candidate) {
+          touchedFile = path.resolve(rootDir, candidate);
+          if (fs.existsSync(touchedFile) && (touchedFile.endsWith('.ts') || touchedFile.endsWith('.tsx'))) {
+            filesToLint.add(touchedFile);
+          }
         }
       } catch {
         // Ignora erro de parse de JSON
@@ -69,6 +77,15 @@ async function main() {
       execSync(`npx eslint ${quotedFiles} --fix`, { cwd: rootDir, stdio: 'ignore' });
     } catch {
       // Erros do ESLint são capturados para não quebrar o ciclo
+    }
+  }
+
+  // Se o arquivo editado for um banco de questões JSON, dispara auditoria em background
+  if (touchedFile && touchedFile.endsWith('.json') && touchedFile.includes('questions')) {
+    try {
+      execSync('node .agents/skills/question-bank-auditor/scripts/audit-banks.cjs', { cwd: rootDir, stdio: 'ignore' });
+    } catch {
+      // Falha na auditoria não bloqueia o fluxo da ferramenta
     }
   }
 

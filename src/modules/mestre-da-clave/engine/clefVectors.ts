@@ -3,7 +3,7 @@
  * Padrão oficial de notação musical (W3C Music Notation Community Group / Steinberg).
  * 
  * Cada coordenada é ancorada matematicamente no sistema de pauta diatônica:
- * - 1 lineGap = 250 unidades SMuFL
+ * - 1 lineGap = 362 unidades SMuFL (BRAVURA_STAFF_SPACE = 362)
  * - Clave de Sol (G-clef): Origem (0, 0) ancorada na 2ª Linha (y2 = staffCenterY + lineGap)
  * - Clave de Fá (F-clef): Origem (0, 0) ancorada na 4ª Linha (y4 = staffCenterY - lineGap)
  * - Clave de Dó (C-clef): Origem (0, 0) ancorada na 3ª Linha (y3 = staffCenterY)

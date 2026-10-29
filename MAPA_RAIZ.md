@@ -1,12 +1,14 @@
 # Mapa da Raiz do Projeto: Issa Academy
 
-Este arquivo foi gerado automaticamente e apresenta a estrutura de diretórios e a finalidade de cada bloco arquitetural do projeto.
+Este arquivo apresenta a estrutura de diretórios e a finalidade de cada bloco arquitetural do projeto.
+Sincronizado automaticamente via script de varredura (.agents/skills/map-builder/scripts/generate-map.js).
 
 ```text
 issa-academy/
 ├── 📁 .agents/ # Configurações de agentes IA, skills especializadas e regras de projeto
-│   ├── 📁 hooks/ # Hooks de ciclo de vida do agente (ESLint automático)
-│   │   └── 📄 run-linter.cjs
+│   ├── 📁 hooks/ # Hooks de ciclo de vida do agente (ESLint e guardiões de documentação)
+│   │   ├── 📄 run-linter.cjs
+│   │   └── 📄 stop-guardian.cjs
 │   ├── 📁 rules/ # Regras de comportamento, qualidade e diretrizes de projeto
 │   │   ├── 📄 atualizacao-roadmap.md
 │   │   ├── 📄 code-quality.md
@@ -44,7 +46,8 @@ issa-academy/
 │   └── 📄 hooks.json
 ├── 📁 .github/
 │   └── 📁 workflows/
-│       └── 📄 deploy.yml
+│       ├── 📄 deploy.yml
+│       └── 📄 supabase-keepalive.yml
 ├── 📁 public/ # Assets estáticos musicais, imagens e ícones do PWA
 │   └── 📁 assets/
 │       ├── 📄 Issa_Academy-Fufu.png
@@ -78,17 +81,26 @@ issa-academy/
 │       ├── 📄 fufu-violino.png
 │       ├── 📄 social-home.png
 │       └── 📄 social-whatsapp.png
-├── 📁 scripts/
+├── 📁 scripts/ # Scripts de integração e automação (ex: Google Apps Script Webhook)
 │   └── 📄 google-sheets-feedback-webhook.gs
 ├── 📁 src/ # Código-fonte da aplicação React/TypeScript
 │   ├── 📁 core/ # Componentes centrais, hooks, utilitários e motor de áudio
 │   │   ├── 📁 components/ # Componentes UI globais reutilizáveis (OrientationGuard)
+│   │   │   ├── 📄 AdminFloatingBar.tsx
 │   │   │   ├── 📄 OrientationGuard.tsx
+│   │   │   ├── 📄 QuickEditModal.tsx
 │   │   │   └── 📄 index.ts
+│   │   ├── 📁 contexts/
+│   │   │   └── 📄 AdminContext.tsx
 │   │   ├── 📁 hooks/ # Hooks utilitários reutilizáveis (useMobileOrientation, useLocalStorage)
 │   │   │   ├── 📄 useLocalStorage.ts
 │   │   │   └── 📄 useMobileOrientation.ts
+│   │   ├── 📁 services/
+│   │   │   ├── 📄 contentStore.test.ts
+│   │   │   ├── 📄 contentStore.ts
+│   │   │   └── 📄 supabaseClient.ts
 │   │   ├── 📁 utils/ # Motores lógicos e utilitários (ex: audio.ts, notesData.ts, paths.ts)
+│   │   │   ├── 📄 audio.test.ts
 │   │   │   ├── 📄 audio.ts
 │   │   │   ├── 📄 notesData.test.ts
 │   │   │   ├── 📄 notesData.ts
@@ -96,24 +108,35 @@ issa-academy/
 │   │   │   └── 📄 paths.ts
 │   │   └── 📄 types.ts
 │   ├── 📁 modules/ # Módulos de funcionalidades do projeto
+│   │   ├── 📁 admin/
+│   │   │   ├── 📄 AdminDashboard.test.tsx
+│   │   │   └── 📄 AdminDashboard.tsx
+│   │   ├── 📁 aulas/
+│   │   │   ├── 📁 data/
+│   │   │   │   └── 📄 initialLessons.ts
+│   │   │   ├── 📄 AulasMsa.test.tsx
+│   │   │   ├── 📄 AulasMsa.tsx
+│   │   │   └── 📄 types.ts
 │   │   ├── 📁 home/ # Tela inicial de boas-vindas e seleção de modos (WelcomeHome)
 │   │   │   └── 📄 WelcomeHome.tsx
 │   │   ├── 📁 mestre-da-clave/ # Jogo interativo de leitura musical em pauta Canvas 60fps
-│   │   │   ├── 📁 components/
+│   │   │   ├── 📁 components/ # Componentes modulares de interface (MestreOverlays)
 │   │   │   │   ├── 📄 MestreOverlays.test.tsx
 │   │   │   │   └── 📄 MestreOverlays.tsx
-│   │   │   ├── 📁 engine/ # Motor de física, partículas e geração de notas (gameEntities)
+│   │   │   ├── 📁 engine/ # Motor de física, partículas e geração de notas (gameEntities, clefVectors)
+│   │   │   │   ├── 📄 clefVectors.test.ts
 │   │   │   │   ├── 📄 clefVectors.ts
 │   │   │   │   ├── 📄 gameEntities.test.ts
 │   │   │   │   └── 📄 gameEntities.ts
+│   │   │   ├── 📄 AGENTS.md
 │   │   │   └── 📄 MestreDaClave.tsx
 │   │   └── 📁 simulado/ # Simulado oficial do método MSA com validação Zod e feedbacks sonoros
-│   │       ├── 📁 components/
+│   │       ├── 📁 components/ # Componentes de interface do simulado (menu dual-mode e modais)
 │   │       │   ├── 📄 QuestionFeedbackModal.test.tsx
 │   │       │   ├── 📄 QuestionFeedbackModal.tsx
 │   │       │   ├── 📄 SimuladoMenu.test.tsx
 │   │       │   └── 📄 SimuladoMenu.tsx
-│   │       ├── 📁 questions/ # Bancos de questões Zod em JSON (q_f01 a q_f05)
+│   │       ├── 📁 questions/ # Bancos de questões Zod em JSON (q_f01 a q_f16)
 │   │       │   ├── 📄 q_f01.json
 │   │       │   ├── 📄 q_f02.json
 │   │       │   ├── 📄 q_f03.json
@@ -132,9 +155,10 @@ issa-academy/
 │   │       │   ├── 📄 q_f16.json
 │   │       │   ├── 📄 schema.test.ts
 │   │       │   └── 📄 schema.ts
-│   │       ├── 📁 utils/
+│   │       ├── 📁 utils/ # Utilitários de telemetria, webhook e fila offline de feedbacks
 │   │       │   ├── 📄 feedbackReporter.test.ts
 │   │       │   └── 📄 feedbackReporter.ts
+│   │       ├── 📄 AGENTS.md
 │   │       ├── 📄 SimuladoMsa.test.ts
 │   │       └── 📄 SimuladoMsa.tsx
 │   ├── 📁 test/
@@ -142,13 +166,16 @@ issa-academy/
 │   ├── 📄 App.tsx
 │   ├── 📄 index.css
 │   └── 📄 main.tsx
+├── 📁 supabase/
+│   └── 📄 schema.sql
 ├── 📄 .env
 ├── 📄 .env.example
 ├── 📄 .gitignore
+├── 📄 CHANGELOG.md # Histórico detalhado de alterações e entregas do projeto
 ├── 📄 FLUXO_USUARIO.md # Mapa de fluxo UX e navegação
 ├── 📄 MAPA_RAIZ.md # Mapa arquitetural físico do projeto
 ├── 📄 README.md
-├── 📄 ROADMAP.md # Controle de pendências e histórico do projeto
+├── 📄 ROADMAP.md # Controle de pendências ativas e próximos passos
 ├── 📄 eslint.config.js
 ├── 📄 index.html
 ├── 📄 metadata.json
@@ -158,6 +185,3 @@ issa-academy/
 ├── 📄 vite.config.ts
 └── 📄 vitest.config.ts
 ```
-
----
-*Gerado automaticamente em: 29/10/2026, 04:07:36*

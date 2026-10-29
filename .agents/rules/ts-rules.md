@@ -1,6 +1,6 @@
 ---
 trigger: glob
-globs: *.ts, *.tsx
+globs: **/*.ts, **/*.tsx
 ---
 
 # Regras de TypeScript & React

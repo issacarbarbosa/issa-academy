@@ -1,22 +1,31 @@
-import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, BookOpen, Edit3 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../core/utils/paths';
+import { useAdmin } from '../../core/contexts/AdminContext';
+import { contentStore, SiteConfig } from '../../core/services/contentStore';
 
 interface WelcomeHomeProps {
-  onNavigate?: (view: 'home' | 'mestre_da_clave' | 'simulado_msa') => void;
+  onNavigate?: (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa') => void;
 }
 
 export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
   const navigate = useNavigate();
+  const { isAdmin, mode, openEditTarget } = useAdmin();
+  const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
 
-  const handleNav = (view: 'home' | 'mestre_da_clave' | 'simulado_msa') => {
+  useEffect(() => {
+    contentStore.getSiteConfig().then((cfg) => setSiteConfig(cfg));
+  }, []);
+
+  const handleNav = (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa') => {
     if (onNavigate) {
       onNavigate(view);
       return;
     }
     const routes: Record<string, string> = {
       home: '/',
+      aulas: '/aulas',
       mestre_da_clave: '/mestre-da-clave',
       simulado_msa: '/simulado',
     };
@@ -26,91 +35,141 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
   return (
     <div className="flex-1 flex flex-col w-full bg-white animate-fade" id="primary-site-home">
       {/* Mascot welcoming banner */}
-      <div className="max-w-xl mx-auto w-full px-6 py-8 flex items-center gap-5 border-b border-slate-100 welcome-section">
+      <div className="max-w-2xl mx-auto w-full px-6 py-8 flex items-center gap-5 border-b border-slate-100 welcome-section relative">
         <img
           src={getAssetUrl('assets/fufu-capa-home-pagge.png')}
           alt="Mascote Fufu da Issa Academy"
           className="w-[120px] md:w-[130px] h-auto object-contain animate-float drop-shadow-md saturate-[1.1]"
         />
-        <div className="welcome-text">
-          <h2 className="text-xl md:text-2xl font-black text-slate-800 leading-tight">
-            Olá! Eu sou o Fufu!
-          </h2>
+        <div className="welcome-text flex-1">
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl md:text-2xl font-black text-slate-800 leading-tight">
+              Olá! Eu sou o Fufu!
+            </h2>
+            {isAdmin && mode === 'edicao' && (
+              <button
+                onClick={() =>
+                  openEditTarget({
+                    type: 'site_text',
+                    key: 'fufuWelcomeText',
+                  })
+                }
+                className="px-2 py-0.5 bg-amber-400 text-slate-900 rounded text-[10px] font-black hover:bg-amber-300 cursor-pointer"
+                title="Editar fala do Fufu"
+              >
+                <Edit3 size={12} className="inline mr-1" /> Editar
+              </button>
+            )}
+          </div>
           <p className="text-sm md:text-base text-slate-500 font-extrabold mt-1 leading-relaxed">
-            O que vamos praticar hoje?
+            {siteConfig?.fufuWelcomeText || 'O que vamos praticar hoje? Escolha uma atividade abaixo:'}
           </p>
         </div>
       </div>
 
-      {/* Main grid containing the cards: Mestre da Clave e Simulado MSA */}
-      <main className="flex-1 max-w-xl md:max-w-3xl mx-auto w-full px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* CARD 1: MESTRE DA CLAVE */}
+      {/* Main grid containing the 3 cards: Aulas MSA, Mestre da Clave e Simulado MSA */}
+      <main className="flex-1 max-w-xl md:max-w-4xl mx-auto w-full px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* CARD 1: AULAS & LIÇÕES TEÓRICAS MSA */}
+        <button
+          id="card-nav-aulas"
+          onClick={() => handleNav('aulas')}
+          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-3xl p-5 flex flex-col justify-between hover:border-indigo-500 hover:bg-indigo-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm min-h-[170px]"
+        >
+          <div className="flex items-start justify-between w-full">
+            <div className="w-[60px] h-[60px] rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/20 shrink-0">
+              <BookOpen size={30} />
+            </div>
+            <span className="bg-indigo-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              Aulas
+            </span>
+          </div>
+
+          <div className="mt-3 flex-1">
+            <div className="text-base font-black text-slate-800 flex items-center justify-between">
+              <span>Aulas do MSA</span>
+              <ChevronRight
+                size={18}
+                className="text-slate-300 group-hover:text-indigo-600 transition-colors shrink-0"
+              />
+            </div>
+            <div className="text-xs text-slate-500 font-bold mt-1 line-clamp-2">
+              Teoria do MSA passo a passo com videoaulas do canal @issacarbarbosa
+            </div>
+          </div>
+        </button>
+
+        {/* CARD 2: MESTRE DA CLAVE */}
         <button
           id="card-nav-mestre"
           onClick={() => handleNav('mestre_da_clave')}
-          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-2xl p-5 flex items-center gap-4 hover:border-sky-400 hover:bg-sky-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm"
+          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-3xl p-5 flex flex-col justify-between hover:border-sky-400 hover:bg-sky-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm min-h-[170px]"
         >
-          <div className="w-[80px] h-[80px] rounded-xl bg-[#1cb0f6] flex items-center justify-center shadow-md shadow-sky-500/10 overflow-visible shrink-0">
-            <img
-              src={getAssetUrl('assets/fufu-capa-mestre-da-clave.png')}
-              alt="Fufu Mestre da Clave"
-              className="w-full h-full object-contain transform scale-[1.45] -translate-y-2 drop-shadow-md"
-            />
+          <div className="flex items-start justify-between w-full">
+            <div className="w-[60px] h-[60px] rounded-2xl bg-[#1cb0f6] flex items-center justify-center shadow-md shadow-sky-500/20 overflow-visible shrink-0">
+              <img
+                src={getAssetUrl('assets/fufu-capa-mestre-da-clave.png')}
+                alt="Fufu Mestre da Clave"
+                className="w-full h-full object-contain transform scale-[1.4] -translate-y-1 drop-shadow-md"
+              />
+            </div>
+            <span className="bg-[#1cb0f6] text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              Jogo
+            </span>
           </div>
-          <div className="flex-1">
-            <div className="text-base font-black text-slate-800 flex flex-wrap items-center gap-1.5">
+
+          <div className="mt-3 flex-1">
+            <div className="text-base font-black text-slate-800 flex items-center justify-between">
               <span>Mestre da Clave</span>
-              <span className="bg-[#1cb0f6] text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                Jogo
-              </span>
+              <ChevronRight
+                size={18}
+                className="text-slate-300 group-hover:text-sky-500 transition-colors shrink-0"
+              />
             </div>
-            <div className="text-xs text-slate-400 font-extrabold mt-0.5">
-              Leitura rápida na pauta e reflexo musical
+            <div className="text-xs text-slate-500 font-bold mt-1 line-clamp-2">
+              Leitura rápida na pauta e reflexo musical nas 3 Claves
             </div>
           </div>
-          <ChevronRight
-            size={18}
-            className="text-slate-300 group-hover:text-slate-500 transition-colors shrink-0"
-          />
         </button>
 
-        {/* CARD 2: SIMULADO MSA */}
+        {/* CARD 3: SIMULADO MSA */}
         <button
           id="card-nav-simulado"
           onClick={() => handleNav('simulado_msa')}
-          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-2xl p-5 flex items-center gap-4 hover:border-emerald-400 hover:bg-emerald-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm"
+          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-3xl p-5 flex flex-col justify-between hover:border-emerald-400 hover:bg-emerald-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm min-h-[170px]"
         >
-          <div className="w-[80px] h-[80px] rounded-xl bg-[#58cc02] flex items-center justify-center shadow-md shadow-emerald-500/10 overflow-visible shrink-0">
-            <img
-              src={getAssetUrl('assets/fufu-capa-simulado.png')}
-              alt="Fufu Simulado MSA"
-              className="w-full h-full object-contain transform scale-[1.45] -translate-y-2 drop-shadow-md"
-            />
+          <div className="flex items-start justify-between w-full">
+            <div className="w-[60px] h-[60px] rounded-2xl bg-[#58cc02] flex items-center justify-center shadow-md shadow-emerald-500/20 overflow-visible shrink-0">
+              <img
+                src={getAssetUrl('assets/fufu-capa-simulado.png')}
+                alt="Fufu Simulado MSA"
+                className="w-full h-full object-contain transform scale-[1.4] -translate-y-1 drop-shadow-md"
+              />
+            </div>
+            <span className="bg-[#58cc02] text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              Oficial
+            </span>
           </div>
-          <div className="flex-1">
-            <div className="text-base font-black text-slate-800 flex flex-wrap items-center gap-1.5">
+
+          <div className="mt-3 flex-1">
+            <div className="text-base font-black text-slate-800 flex items-center justify-between">
               <span>Simulado MSA</span>
-              <span className="bg-[#58cc02] text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                Oficial
-              </span>
+              <ChevronRight
+                size={18}
+                className="text-slate-300 group-hover:text-emerald-500 transition-colors shrink-0"
+              />
             </div>
-            <div className="text-xs text-slate-400 font-extrabold mt-0.5">
-              Questões reais do método com gabarito e cronômetro
+            <div className="text-xs text-slate-500 font-bold mt-1 line-clamp-2">
+              552 questões reais com gabarito, cronômetro e dual-mode
             </div>
           </div>
-          <ChevronRight
-            size={18}
-            className="text-slate-300 group-hover:text-slate-500 transition-colors shrink-0"
-          />
         </button>
       </main>
 
       {/* SEO Paragraph */}
-      <section className="text-center px-6 py-6 max-w-xl mx-auto w-full">
+      <section className="text-center px-6 py-6 max-w-2xl mx-auto w-full">
         <p className="text-xs text-slate-400 font-bold leading-relaxed">
-          Plataforma de ensino musical 100% gratuita, desenvolvida para auxiliar candidatos a músicos
-          e organistas da CCB. Prepare-se para o Teste de Oficialização com o Simulado MSA e treine a
-          leitura rápida de notas com o jogo Mestre da Clave. Feito com muito carinho para a orquestra!
+          {siteConfig?.heroSubtitle ||
+            'Plataforma de ensino musical 100% gratuita, desenvolvida para auxiliar candidatos a músicos e organistas da CCB. Prepare-se para o Teste de Oficialização com o Simulado MSA e treine a leitura rápida de notas com o jogo Mestre da Clave. Feito com muito carinho para a orquestra!'}
         </p>
       </section>
 
@@ -143,7 +202,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
             </svg>
           </a>
           <a
-            href="https://www.youtube.com/@issacarbarbosa"
+            href={siteConfig?.youtubeUrl || 'https://www.youtube.com/@issacarbarbosa'}
             target="_blank"
             rel="noopener noreferrer"
             className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-red-600 transition-colors shadow-xs"
@@ -156,11 +215,6 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </a>
         </div>
       </footer>
-
-      {/* Scroll indicator para mobile landscape */}
-      <div className="hidden mobile-landscape-only justify-center items-center gap-1.5 py-2 bg-indigo-50 border-t border-indigo-100 text-[10px] font-black text-indigo-600 uppercase tracking-widest animate-bounce shrink-0">
-        <span>Role para ver mais</span> <span>👇</span>
-      </div>
     </div>
   );
 };

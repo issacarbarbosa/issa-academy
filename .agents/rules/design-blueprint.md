@@ -1,6 +1,6 @@
 ---
 trigger: glob
-globs: *.tsx, *.css
+globs: **/*.tsx, **/*.css
 ---
 
 # Regra de Design e Interface: Blueprint Visual do Issa Academy

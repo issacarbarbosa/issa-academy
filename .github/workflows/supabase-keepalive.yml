@@ -1,0 +1,25 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    # Executa a cada 3 dias às 06:00 UTC para evitar que o projeto gratuito do Supabase pause
+    - cron: '0 6 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        env:
+          TARGET_URL: ${{ secrets.VITE_SUPABASE_URL || secrets.SUPABASE_URL }}
+          TARGET_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -n "$TARGET_URL" ] && [ -n "$TARGET_KEY" ]; then
+            echo "Enviando ping de keep-alive para o Supabase..."
+            curl -s -f -X GET "$TARGET_URL/rest/v1/site_config?select=id&limit=1" \
+              -H "apikey: $TARGET_KEY" \
+              -H "Authorization: Bearer $TARGET_KEY" > /dev/null && echo "✔ Supabase ativo!" || echo "Aviso: Ping falhou ou Supabase ainda não inicializado."
+          else
+            echo "Secrets do Supabase ainda não configuradas. Pulando ping."
+          fi

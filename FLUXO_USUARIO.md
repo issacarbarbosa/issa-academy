@@ -19,9 +19,20 @@ graph TD
     class B route;
 
     %% Navegação por Cards na Home
+    B -- "Card: Aulas do MSA" --> C[/"📚 Aulas & Lições MSA ( /aulas )"/]
     B -- "Card: Mestre da Clave" --> D[/"🎮 Jogo Mestre da Clave ( /mestre-da-clave )"/]
     B -- "Card: Simulado" --> E[/"📝 Simulado Oficial ( /simulado )"/]
-    class D,E route;
+    B -- "Atalho Ctrl+Shift+A / Rodapé" --> F[/"🛡️ Painel Admin ( /admin )"/]
+    class C,D,E,F route;
+
+    %% SUB-FLUXO: NOVO MÓDULO AULAS MSA
+    subgraph S0 ["Aulas & Lições do MSA (Fases 1 a 16)"]
+        C --> C1["📖 Seletor de Períodos e Fases (1 a 16)"]
+        C1 --> C2["📺 Player YouTube (@issacarbarbosa) + Blocos Didáticos"]
+        C2 --> C3["✅ Marcar Concluída & 'Treinar no Simulado'"]
+        C3 -.-> E
+    end
+    class C1,C2,C3 state;
 
     %% SUB-FLUXO: JOGO MESTRE DA CLAVE (Com Guarda de Orientação e Multi-Clave)
     subgraph S1 ["Mestre da Clave (Multi-Clave & Orientação)"]
@@ -40,7 +51,7 @@ graph TD
         E --> H1["📋 Menu de Seleção Dual Mode:<br>• Por Período (20 questões)<br>• Por Fase (10 questões, Fases 1 a 16)"]
         H1 -- "Iniciar Simulado" --> H2["⏳ Loading & Validação Zod<br>(q_f01 a q_f16 blindados offline)"]
         H2 --> H3["❓ Quiz Ativo (10 ou 20 Questões)<br>Cronômetro, Reações de Áudio & Reportar Questão"]
-        H3 -- "Reportar Questão" --> H_MODAL["🚩 Modal de Reporte / Feedback<br>GA4, Clarity, LocalStorage & GitHub Issue"]
+        H3 -- "Reportar Questão" --> H_MODAL["🚩 Modal de Reporte / Feedback<br>Webhook Google Sheets, Fila Offline PWA & GA4/Clarity"]
         H_MODAL --> H3
         H3 -- "Concluir" --> H4["🏆 Tela de Resultados<br>Troféu Fufu, % Precisão, Revisão de Erros & Reporte"]
         H4 -- "Reportar Erro" --> H_MODAL
@@ -48,8 +59,10 @@ graph TD
     class H1,H2,H3,H4,H_MODAL state;
 
     %% Botões de Retorno
+    C -- "Sair das Aulas" --> B
     D -- "Sair do Jogo" --> B
     E -- "Sair do Simulado" --> B
+    F -- "Voltar ao Site" --> B
 ```
 
 ---

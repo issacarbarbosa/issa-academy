@@ -243,6 +243,21 @@ export async function submitQuestionFeedback(
     }
   }
 
+  // 3.1 Espelhamento na Camada Supabase / ContentStore
+  try {
+    const { contentStore } = await import('../../../core/services/contentStore');
+    void contentStore.submitFeedback({
+      questionId: fullPayload.questionId,
+      fase: fullPayload.fase || 0,
+      periodo: fullPayload.periodo || 0,
+      reason: FEEDBACK_REASONS_MAP[fullPayload.reason] || fullPayload.reason,
+      comment: fullPayload.comment,
+      questionSnapshot: fullPayload.pergunta,
+    });
+  } catch {
+    // Falha silenciosa para não interromper fluxo do aluno
+  }
+
   // 4. Envio ao Webhook Remoto / Fila Offline
   const isOnline = typeof navigator === 'undefined' || navigator.onLine !== false;
 

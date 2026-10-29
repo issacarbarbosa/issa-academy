@@ -1,6 +1,6 @@
 ---
 trigger: glob
-globs: *.ts, *.tsx, *.js, *.jsx
+globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
 ---
 
 # Regras de Qualidade de Código & Revisão

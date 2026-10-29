@@ -98,6 +98,18 @@ Ao testar cada clave no navegador, valide na tela inicial (`START`) e nos avisos
 
 ---
 
+## 📐 Calibração Vetorial SMuFL (Bravura) para Renderização de Claves
+As três claves do pentagrama utilizam curvas vetoriais cúbicas puras extraídas da fonte oficial Bravura (`src/modules/mestre-da-clave/engine/clefVectors.ts`).
+
+| Parâmetro / Clave | Valor Métrica SMuFL | Posicionamento Vertical no Canvas | Inspeção Visual Esperada |
+| :--- | :--- | :--- | :--- |
+| **Escala Global** | `lineGap / 362` | `BRAVURA_STAFF_SPACE = 362` | 1 espaço da pauta equivale exatamente a 362 unidades SMuFL. |
+| **Clave de Sol (`𝄞`)** | Origem: G-clef base | `staffCenterY + lineGap` (2ª Linha) | Espiral centrada sobre a 2ª linha; laço superior acima da 5ª linha. |
+| **Clave de Fá (`𝄢`)** | Origem: F-clef eye | `staffCenterY - lineGap` (4ª Linha) | Bulbo na 4ª linha; arco toca 5ª linha; 2 pontos redondos nos espaços 4 e 3. |
+| **Clave de Dó (`𝄡`)** | Origem: C-clef center | `staffCenterY` (3ª Linha) | Vértice em seta convergindo exatamente na 3ª linha; altura de 4 linhas. |
+
+---
+
 ## 📸 Validação e Captura de Eventos de Transição
 - **Seleção de Clave**: Na tela `START`, clique em cada um dos seletores (`#clef-select-sol`, `#clef-select-fa`, `#clef-select-do`) e verifique a mudança imediata das notas iniciais e do recorde exibido.
 - **Texto de Level Up**: Inspecione o texto de `#mestre-da-clave-screen` ao atingir 10 acertos para certificar-se de que a `Nova Nota` anunciada confere exatamente com a nota desbloqueada na clave selecionada.

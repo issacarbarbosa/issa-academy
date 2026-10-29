@@ -137,6 +137,18 @@ const PHASE_LOADERS: Record<number, () => Promise<{ default: unknown[] }>> = {
 };
 
 export async function loadQuestionBankForPhases(selectedPhases: Set<number>): Promise<unknown[]> {
+  try {
+    const { contentStore } = await import('../../core/services/contentStore');
+    const allQuestions = await contentStore.getAllQuestions();
+    if (allQuestions && allQuestions.length > 0) {
+      return allQuestions.filter(
+        (q) => q.referencia?.fase !== undefined && selectedPhases.has(q.referencia.fase),
+      );
+    }
+  } catch {
+    // fallback em caso de erro
+  }
+
   const promises: Promise<{ default: unknown[] }>[] = [];
   selectedPhases.forEach((f) => {
     if (PHASE_LOADERS[f]) {
@@ -152,6 +164,18 @@ export async function loadQuestionBankForPhases(selectedPhases: Set<number>): Pr
 }
 
 export async function loadQuestionBankForPeriods(selectedPeriods: Set<number>): Promise<unknown[]> {
+  try {
+    const { contentStore } = await import('../../core/services/contentStore');
+    const allQuestions = await contentStore.getAllQuestions();
+    if (allQuestions && allQuestions.length > 0) {
+      return allQuestions.filter(
+        (q) => q.referencia?.periodo !== undefined && selectedPeriods.has(q.referencia.periodo),
+      );
+    }
+  } catch {
+    // fallback em caso de erro
+  }
+
   const phases = new Set<number>();
   if (selectedPeriods.has(1)) [1, 2, 3].forEach((f) => phases.add(f));
   if (selectedPeriods.has(2)) [4, 5].forEach((f) => phases.add(f));

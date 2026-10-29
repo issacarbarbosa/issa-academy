@@ -1,8 +1,12 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { stopAllNotes } from './core/utils/audio';
 import { OrientationGuard } from './core/components/OrientationGuard';
-import { GraduationCap, ArrowLeft, Youtube } from 'lucide-react';
+import { AdminProvider, useAdmin } from './core/contexts/AdminContext';
+import { AdminFloatingBar } from './core/components/AdminFloatingBar';
+import { QuickEditModal } from './core/components/QuickEditModal';
+import { contentStore, SiteConfig } from './core/services/contentStore';
+import { GraduationCap, ArrowLeft, Youtube, Bell, Lock } from 'lucide-react';
 
 // Code Splitting via React.lazy e Suspense
 const WelcomeHome = React.lazy(() =>
@@ -14,18 +18,48 @@ const MestreDaClave = React.lazy(() =>
 const SimuladoMsa = React.lazy(() =>
   import('./modules/simulado/SimuladoMsa').then((m) => ({ default: m.SimuladoMsa })),
 );
+const AulasMsa = React.lazy(() =>
+  import('./modules/aulas/AulasMsa').then((m) => ({ default: m.AulasMsa })),
+);
+const AdminDashboard = React.lazy(() =>
+  import('./modules/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard })),
+);
 
 function MainLayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAdmin, mode, openEditTarget } = useAdmin();
+
+  const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
+
+  const loadConfig = () => {
+    contentStore.getSiteConfig().then((cfg) => setSiteConfig(cfg));
+  };
+
+  useEffect(() => {
+    loadConfig();
+  }, []);
 
   // Para todo áudio ativo na troca de rotas
   useEffect(() => {
     stopAllNotes();
   }, [location.pathname]);
 
+  // Atalho global de teclado: Ctrl + Shift + A (ou Cmd + Shift + A) para abrir o Painel Admin
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        navigate('/admin');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
+
   const isMestreDaClave = location.pathname === '/mestre-da-clave';
   const isHome = location.pathname === '/';
+  const isAdminRoute = location.pathname === '/admin';
 
   return (
     <div
@@ -34,9 +68,42 @@ function MainLayout() {
       }`}
       id="app-root"
     >
+      {/* ==================== BANNER DE ANÚNCIO GLOBAL ==================== */}
+      {!isMestreDaClave && siteConfig?.announcementBanner?.enabled && (
+        <div className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-600 text-white px-4 py-2 text-xs font-black flex items-center justify-center gap-2 text-center shadow-inner relative z-50">
+          <Bell size={14} className="text-amber-300 shrink-0" />
+          <span>{siteConfig.announcementBanner.text}</span>
+          {siteConfig.announcementBanner.linkUrl && (
+            <button
+              onClick={() => {
+                const url = siteConfig.announcementBanner?.linkUrl;
+                if (!url) return;
+                if (url.startsWith('/')) {
+                  navigate(url.replace('/#', ''));
+                } else {
+                  window.open(url, '_blank', 'noopener,noreferrer');
+                }
+              }}
+              className="ml-1 underline font-black hover:text-amber-300 cursor-pointer text-xs"
+            >
+              {siteConfig.announcementBanner.linkText || 'Ver mais →'}
+            </button>
+          )}
+
+          {isAdmin && mode === 'edicao' && (
+            <button
+              onClick={() => openEditTarget({ type: 'announcement' })}
+              className="ml-3 px-2 py-0.5 bg-amber-400 text-slate-900 rounded text-[10px] font-black hover:bg-amber-300 cursor-pointer"
+            >
+              ✏️ Editar Banner
+            </button>
+          )}
+        </div>
+      )}
+
       {/* ==================== GLOBAL APP HEADER ==================== */}
       {!isMestreDaClave && (
-        <header className="h-[70px] border-b-2 border-slate-200 bg-white flex mobile-landscape-hidden items-center justify-between px-6 md:px-8 sticky top-0 z-50 shadow-sm">
+        <header className="h-[70px] border-b-2 border-slate-200 bg-white flex mobile-landscape-hidden items-center justify-between px-6 md:px-8 sticky top-0 z-40 shadow-sm">
           <button
             onClick={() => navigate('/')}
             className="flex items-center gap-2.5 text-left text-decoration-none bg-transparent border-0 cursor-pointer p-0"
@@ -55,18 +122,18 @@ function MainLayout() {
           </button>
 
           {/* Header Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {!isHome && (
               <button
                 onClick={() => navigate(-1)}
-                className="flex items-center gap-1.5 min-h-[44px] px-4 py-2 bg-[#f7f9fa] hover:bg-slate-100 text-slate-600 border-2 border-slate-200 rounded-xl text-xs font-black transition-all cursor-pointer shadow-sm active:translate-y-0.5"
+                className="flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 bg-[#f7f9fa] hover:bg-slate-100 text-slate-600 border-2 border-slate-200 rounded-xl text-xs font-black transition-all cursor-pointer shadow-sm active:translate-y-0.5"
               >
                 <ArrowLeft size={16} /> Voltar
               </button>
             )}
 
             <a
-              href="https://www.youtube.com/@issacarbarbosa"
+              href={siteConfig?.youtubeUrl || 'https://www.youtube.com/@issacarbarbosa'}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center gap-1.5 min-h-[44px] px-4 py-2 bg-red-600 hover:bg-red-700 text-white border-b-4 border-red-800 active:border-b-0 active:translate-y-0.5 rounded-xl text-xs font-black transition-all shadow-md cursor-pointer"
@@ -89,6 +156,7 @@ function MainLayout() {
         >
           <Routes>
             <Route path="/" element={<WelcomeHome />} />
+            <Route path="/aulas" element={<AulasMsa />} />
             <Route
               path="/mestre-da-clave"
               element={
@@ -98,6 +166,7 @@ function MainLayout() {
               }
             />
             <Route path="/simulado" element={<SimuladoMsa />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<WelcomeHome />} />
           </Routes>
         </Suspense>
@@ -105,13 +174,29 @@ function MainLayout() {
 
       {/* ==================== BOTTOM STATUS BAR ==================== */}
       <footer className="h-10 bg-[#1a3c5a] mobile-landscape-hidden flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
-        <span>Issa Academy • Mestre da Clave & Simulado MSA</span>
+        <div className="flex items-center gap-2">
+          <span>{siteConfig?.footerText || 'Issa Academy • Mestre da Clave, Aulas & Simulado MSA'}</span>
+          {/* Acesso discreto ao Admin via cadeado no rodapé */}
+          {!isAdminRoute && (
+            <button
+              onClick={() => navigate('/admin')}
+              className="opacity-40 hover:opacity-100 transition-opacity p-0.5 text-slate-300 cursor-pointer"
+              title="Acesso de Administrador (Ctrl+Shift+A)"
+            >
+              <Lock size={11} />
+            </button>
+          )}
+        </div>
         <div className="flex gap-4">
           <span className="hidden md:inline">CCB • Método de Teoria e Solfejo</span>
           <span className="hidden md:inline opacity-50">|</span>
           <span>Nível: Digital</span>
         </div>
       </footer>
+
+      {/* Barra Flutuante de Administração e Modal de Edição Rápida */}
+      <AdminFloatingBar />
+      <QuickEditModal onUpdated={loadConfig} />
     </div>
   );
 }
@@ -119,7 +204,9 @@ function MainLayout() {
 export default function App() {
   return (
     <HashRouter>
-      <MainLayout />
+      <AdminProvider>
+        <MainLayout />
+      </AdminProvider>
     </HashRouter>
   );
 }
