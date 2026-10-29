@@ -310,5 +310,317 @@
         "feedback": "Correto! Essa distinção é essencial: Rallentando = desacelerar o andamento; Diminuendo/Decrescendo = suavizar a intensidade sonora."
       }
     ]
+  },
+  {
+    "id": "f15_q009",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Durante a 'Meia-Hora' que antecede os cultos da CCB, em qual faixa de velocidade a organista deve preferencialmente executar os hinos?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "Um pouco abaixo da média, preferencialmente próxima ao limite mínimo de velocidade indicado no cabeçalho do hino, promovendo um ambiente de reverência e oração.",
+        "correta": true,
+        "feedback": "Correto! O MSA orienta que na meia-hora a execução deve ser suave e calma, próxima ao limite mínimo de velocidade, preparando a congregação para o início do culto."
+      },
+      {
+        "texto": "Acima do limite máximo para aquecer os dedos das organistas.",
+        "correta": false,
+        "feedback": "Incorreto. A meia-hora tem caráter estritamente devocional e contemplativo."
+      },
+      {
+        "texto": "Sempre no andamento Presto a 140 BPM.",
+        "correta": false,
+        "feedback": "Incorreto. A velocidade excessiva destrói o clima de recolhimento espiritual da meia-hora."
+      },
+      {
+        "texto": "Na mesma velocidade exata do hino de encerramento do culto.",
+        "correta": false,
+        "feedback": "Incorreto. Durante os cultos com o canto da irmandade toca-se próximo à média; na meia-hora, próximo à mínima."
+      }
+    ]
+  },
+  {
+    "id": "f15_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Além do Hino 15, quais são os outros dois hinos do Hinário 5 que possuem a inscrição expressa de 'poco rall.' em sua partitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.2 Modificação de andamento - poco rallentando",
+      "pagina": 131
+    },
+    "opcoes": [
+      {
+        "texto": "Hinos 1 e 2.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 1 e 2 não possuem marcação de poco rallentando."
+      },
+      {
+        "texto": "Hinos 157 ('O Teu poder supremo') e 378 ('Grandioso és Tu').",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 15, 157 e 378 são os três únicos hinos de todo o Hinário 5 que trazem a indicação de poco rall. grafada na partitura."
+      },
+      {
+        "texto": "Hinos 208 e 377.",
+        "correta": false,
+        "feedback": "Incorreto. 208 e 377 são hinos acéfalos, sem indicação de poco rall."
+      },
+      {
+        "texto": "Hinos 240 e 447.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 240 é o exemplo clássico do MSA de hino onde NÃO se deve fazer rallentando indevido, e o 447 possui fermata no meio."
+      }
+    ]
+  },
+  {
+    "id": "f15_q011",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "O que significa a sigla BPM na indicação do andamento metronômico?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "Barras Por Movimento.",
+        "correta": false,
+        "feedback": "Incorreto. A sigla refere-se à quantidade de batimentos no tempo de um minuto."
+      },
+      {
+        "texto": "Baixos Por Minuto no órgão.",
+        "correta": false,
+        "feedback": "Incorreto. BPM é o padrão universal de medida de velocidade do metrônomo."
+      },
+      {
+        "texto": "Batidas Por Minuto (ou batimentos por minuto).",
+        "correta": true,
+        "feedback": "Correto! BPM indica quantas pulsações metronômicas regulares ocorrem dentro do intervalo de 60 segundos (1 minuto)."
+      },
+      {
+        "texto": "Bemóis Por Melodia.",
+        "correta": false,
+        "feedback": "Incorreto. Bemol é acidente de armadura, nada tendo a ver com BPM."
+      }
+    ]
+  },
+  {
+    "id": "f15_q012",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Segundo a recomendação didática do MSA, qual é o método mais eficaz para o candidato dominar passagens rápidas ou lições difíceis no metrônomo?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "Tocar imediatamente acima da velocidade máxima para testar a agilidade.",
+        "correta": false,
+        "feedback": "Incorreto. Iniciar em andamento excessivo cria vícios de digitação e insegurança rítmica."
+      },
+      {
+        "texto": "Desligar o metrônomo e tocar livremente sem pulso.",
+        "correta": false,
+        "feedback": "Incorreto. O metrônomo é o instrumento indispensável de medição e regularidade rítmica."
+      },
+      {
+        "texto": "Tocar apenas as notas do primeiro tempo e ignorar as semicolcheias.",
+        "correta": false,
+        "feedback": "Incorreto. Todas as notas devem ser aprendidas com rigor de duração."
+      },
+      {
+        "texto": "Iniciar os estudos em um andamento lento e confortável (onde a execução seja perfeita e sem erros) e aumentar gradativamente a velocidade de 4 em 4 BPM até atingir a meta proposta.",
+        "correta": true,
+        "feedback": "Correto! O estudo progressivo partindo de velocidades lentas desenvolve a memória muscular e a precisão rítmica de forma sólida e segura."
+      }
+    ]
+  },
+  {
+    "id": "f15_q013",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Por que o andamento excessivamente lento nos hinos cantados pela irmandade deve ser evitado pelos encarregados e organistas nos cultos?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "Porque a lentidão excessiva esgota a capacidade respiratória dos cantores, prejudica a afinação da congregação e descaracteriza a fluidez e a poesia das frases musicais.",
+        "correta": true,
+        "feedback": "Correto! O andamento abaixo do limite mínimo causa cansaço vocal na irmandade, perda de fôlego nas semifrases e queda generalizada da afinação coletiva."
+      },
+      {
+        "texto": "Porque o órgão eletrônico não consegue produzir som abaixo de 60 BPM.",
+        "correta": false,
+        "feedback": "Incorreto. O órgão funciona perfeitamente em qualquer velocidade."
+      },
+      {
+        "texto": "Porque o Hinário 5 proíbe qualquer hino que dure mais de 1 minuto.",
+        "correta": false,
+        "feedback": "Incorreto. A duração de cada hino varia conforme o número de estrofes e o andamento metronômico."
+      },
+      {
+        "texto": "Porque os instrumentos de cordas desafinam automaticamente quando tocam devagar.",
+        "correta": false,
+        "feedback": "Incorreto. A afinação das cordas depende da tensão mecânica e do posicionamento dos dedos, não da velocidade da música."
+      }
+    ]
+  },
+  {
+    "id": "f15_q014",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No Hino 447 do Hinário 5 ('Brilha mais e mais'), há uma Fermata colocada no meio do hino sobre uma pausa de semínima. De acordo com a Fase 15.3 do MSA, qual é a orientação para a retomada do andamento após essa suspensão?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.3 Modificação indevida de andamento",
+      "pagina": 132
+    },
+    "opcoes": [
+      {
+        "texto": "Deve-se dobrar a velocidade do hino para recuperar o tempo da fermata.",
+        "correta": false,
+        "feedback": "Incorreto. Não se deve acelerar o hino após suspensões."
+      },
+      {
+        "texto": "Deve-se retomar o andamento rigorosamente na mesma velocidade anterior à fermata, sem arrastar e sem executar rallentando indevido.",
+        "correta": true,
+        "feedback": "Correto! O MSA destaca o Hino 447 como exemplo onde a retomada pós-fermata deve retornar com precisão ao andamento original sem nenhuma desaceleração."
+      },
+      {
+        "texto": "Deve-se tocar o restante do hino em ritmo de marcha militar.",
+        "correta": false,
+        "feedback": "Incorreto. A interpretação sacra e reverente deve ser preservada."
+      },
+      {
+        "texto": "A congregação deve parar de cantar e a orquestra segue sozinha até o fim.",
+        "correta": false,
+        "feedback": "Incorreto. Todos retomam juntos com firmeza no tempo exato."
+      }
+    ]
+  },
+  {
+    "id": "f15_q015",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual das seguintes alternativas apresenta a sequência correta de andamentos ordenados do MAIS LENTO para o MAIS RÁPIDO?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.1 Andamento",
+      "pagina": 130
+    },
+    "opcoes": [
+      {
+        "texto": "Allegro – Andante – Adagio – Presto.",
+        "correta": false,
+        "feedback": "Incorreto. Allegro é rápido e Adagio é lento."
+      },
+      {
+        "texto": "Presto – Vivace – Allegro – Moderato.",
+        "correta": false,
+        "feedback": "Incorreto. Essa sequência está ordenada do mais rápido para o mais lento (ordem decrescente)."
+      },
+      {
+        "texto": "Largo / Adagio (lento) – Andante (ao passo) – Moderato (moderado) – Allegro (rápido) – Presto (muito rápido).",
+        "correta": true,
+        "feedback": "Correto! Essa é a progressão clássica crescente de velocidade adotada na teoria musical e no MSA."
+      },
+      {
+        "texto": "Andante – Presto – Adagio – Allegro.",
+        "correta": false,
+        "feedback": "Incorreto. A ordem de velocidades está misturada."
+      }
+    ]
+  },
+  {
+    "id": "f15_q016",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a postura correta da orquestra e dos candidatos ao concluir a execução de um hino que NÃO possui indicação de 'poco rall.' escrita na partitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 15,
+      "item": "15.3 Modificação indevida de andamento",
+      "pagina": 132
+    },
+    "opcoes": [
+      {
+        "texto": "Fazer um grande rallentando de 4 compassos para demonstrar sentimento.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA proíbe expressamente criar rallentandos onde não há essa marcação na partitura."
+      },
+      {
+        "texto": "Acelerar as últimas duas notas para acabar antes do órgão.",
+        "correta": false,
+        "feedback": "Incorreto. A união de tempo entre toda a orquestra e o órgão deve ser perfeita."
+      },
+      {
+        "texto": "Mudar a nota final para a terça maior sem aviso.",
+        "correta": false,
+        "feedback": "Incorreto. Deve-se tocar fielmente o arranjo a 4 vozes do hinário."
+      },
+      {
+        "texto": "Manter a regularidade do andamento até a última nota sem diminuir a velocidade, respeitando estritamente o valor métrico das figuras finais e a pureza do arranjo original.",
+        "correta": true,
+        "feedback": "Correto! Nos hinos onde não há indicação escrita de rallentando, a velocidade métrica deve ser mantida uniforme até o encerramento do hino."
+      }
+    ]
   }
 ]

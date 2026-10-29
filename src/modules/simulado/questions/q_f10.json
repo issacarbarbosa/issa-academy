@@ -310,5 +310,317 @@
         "feedback": "Correto! Na dinâmica natural, o contorno melódico e a expressão poética guiam um sutil aumento nas subidas melódicas e uma suave diminuição nas descidas e conclusões de frase."
       }
     ]
+  },
+  {
+    "id": "f10_q009",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Como são chamados graficamente os sinais em formato de ângulo aberto ('<' e '>') que indicam o aumento ou a diminuição gradual do som na partitura?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 94
+    },
+    "opcoes": [
+      {
+        "texto": "Reguladores de Dinâmica (ou Garfos de Dinâmica).",
+        "correta": true,
+        "feedback": "Correto! Os sinais gráficos em ângulo que representam o crescendo (<) e o decrescendo (>) são denominados reguladores de dinâmica."
+      },
+      {
+        "texto": "Barras de Compasso Oblíquas.",
+        "correta": false,
+        "feedback": "Incorreto. Barras de compasso são linhas verticais retas."
+      },
+      {
+        "texto": "Fórmulas de Compasso Angulares.",
+        "correta": false,
+        "feedback": "Incorreto. Fórmulas de compasso são expressas por números no início da pauta."
+      },
+      {
+        "texto": "Chaves de Ritornello Duplas.",
+        "correta": false,
+        "feedback": "Incorreto. Chaves de ritornello são suportes horizontais numerados colocados acima dos compassos."
+      }
+    ]
+  },
+  {
+    "id": "f10_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No contexto da orquestra da CCB, qual é a principal recomendação prática para manter o equilíbrio dinâmico e evitar que os instrumentos de som mais forte abafem os outros?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 93
+    },
+    "opcoes": [
+      {
+        "texto": "Os instrumentos de cordas devem tocar sempre em fortíssimo para competir com os metais.",
+        "correta": false,
+        "feedback": "Incorreto. A busca por volume excessivo desgasta o timbre e prejudica a afinação."
+      },
+      {
+        "texto": "Todos os músicos devem ouvir os demais naipes e o canto da irmandade, tocando com moderação para que os metais e a percussão não encubram as madeiras, cordas e vozes.",
+        "correta": true,
+        "feedback": "Correto! O equilíbrio na orquestra depende de escuta mútua e respeito à hierarquia sonora, auxiliando no louvor sem sobrepujar a congregação."
+      },
+      {
+        "texto": "Cada naipe deve tocar na sua dinâmica máxima independente da sala ou da quantidade de irmãos.",
+        "correta": false,
+        "feedback": "Incorreto. A intensidade deve ser equilibrada em função da acústica da nave e da irmandade."
+      },
+      {
+        "texto": "O órgão eletrônico deve ser desligado para não interferir na dinâmica dos instrumentos acústicos.",
+        "correta": false,
+        "feedback": "Incorreto. O órgão tem papel fundamental de sustentação harmônica e deve ser dosado no pedal de expressão."
+      }
+    ]
+  },
+  {
+    "id": "f10_q011",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Ao tocar o órgão eletrônico durante os hinos, qual mecanismo permite à organista dosar a dinâmica com sensibilidade e precisão contínua?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 94
+    },
+    "opcoes": [
+      {
+        "texto": "O botão de transposição eletrônica de semitons.",
+        "correta": false,
+        "feedback": "Incorreto. A transposição altera a altura das notas e é proibida nos cultos."
+      },
+      {
+        "texto": "A chave geral de liga/desliga no painel superior.",
+        "correta": false,
+        "feedback": "Incorreto. A chave geral corta toda a alimentação do instrumento."
+      },
+      {
+        "texto": "O pedal de expressão (acionado pelo pé direito), que controla continuamente o volume e a gradação da dinâmica do instrumento.",
+        "correta": true,
+        "feedback": "Correto! O pedal de expressão permite à organista acompanhar a dinâmica natural da poesia e dos hinos sem degraus bruscos de volume."
+      },
+      {
+        "texto": "A pedaleira de baixos de 13 ou 20 notas.",
+        "correta": false,
+        "feedback": "Incorreto. A pedaleira produz as notas graves do baixo, não o controle de volume geral."
+      }
+    ]
+  },
+  {
+    "id": "f10_q012",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual propriedade física do som é modificada diretamente quando o músico executa uma variação de dinâmica (tocando mais suave ou mais forte)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 93
+    },
+    "opcoes": [
+      {
+        "texto": "A Altura (frequência em Hertz das ondas sonoras).",
+        "correta": false,
+        "feedback": "Incorreto. A altura define se o som é grave ou agudo, não o volume."
+      },
+      {
+        "texto": "A Duração (extensão temporal da figura musical).",
+        "correta": false,
+        "feedback": "Incorreto. A duração define se o som é curto ou longo."
+      },
+      {
+        "texto": "O Timbre (a qualidade específica que diferencia os instrumentos).",
+        "correta": false,
+        "feedback": "Incorreto. O timbre é a 'cor' do instrumento gerada por seus harmônicos."
+      },
+      {
+        "texto": "A Intensidade (amplitude da onda sonora, definindo se o som é forte ou suave).",
+        "correta": true,
+        "feedback": "Correto! Conforme a Fase 1 e a Fase 10 do MSA, a dinâmica é a aplicação artística da propriedade da Intensidade do som."
+      }
+    ]
+  },
+  {
+    "id": "f10_q013",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Se uma peça musical apresentar a indicação 'f' (forte) seguida por um sinal de 'decrescendo' (>) sem intensidade final indicada, de acordo com o padrão de progressão ensinado no MSA, para qual intensidade o músico deve reduzir o som?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 94
+    },
+    "opcoes": [
+      {
+        "texto": "Para 'mf' (mezzo forte), reduzindo exatamente 1 nível imediato na escala de dinâmica.",
+        "correta": true,
+        "feedback": "Correto! Na ausência de marcação do patamar final, reduz-se exatamente um nível na escala: de 'f' (forte) passa-se para 'mf' (meio forte)."
+      },
+      {
+        "texto": "Para 'ppp' (extremamente suave), silenciando quase totalmente o instrumento.",
+        "correta": false,
+        "feedback": "Incorreto. Um decrescendo sem especificação final reduz apenas 1 nível na tabela, não salta 5 níveis até ppp."
+      },
+      {
+        "texto": "Para 'fff' (molto fortissimo), invertendo o sentido do sinal.",
+        "correta": false,
+        "feedback": "Incorreto. Decrescendo significa diminuir o som, nunca aumentar."
+      },
+      {
+        "texto": "Mantém-se em 'f' inalterado até a barra final.",
+        "correta": false,
+        "feedback": "Incorreto. O sinal de decrescendo exige alteração gradual de intensidade."
+      }
+    ]
+  },
+  {
+    "id": "f10_q014",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como a poesia e o caráter espiritual de cada hino orientam a Dinâmica Natural na congregação?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 93
+    },
+    "opcoes": [
+      {
+        "texto": "Todos os hinos devem ser executados na mesma intensidade fixa de 80 decibéis.",
+        "correta": false,
+        "feedback": "Incorreto. A dinâmica deve refletir o sentimento de cada hino."
+      },
+      {
+        "texto": "Hinos de júbilo e exaltação requerem maior nobreza e brilho de intensidade, enquanto hinos de oração, súplica e comunhão demandam maior suavidade e serenidade sonora.",
+        "correta": true,
+        "feedback": "Correto! A dinâmica natural é serva da mensagem sagrada, amoldando a força do som à reverência e ao conteúdo doutrinário das estrofes."
+      },
+      {
+        "texto": "A estrofe deve ser sempre tocada pianíssimo e o coro sempre com volume máximo fortíssimo.",
+        "correta": false,
+        "feedback": "Incorreto. Não existe fórmula mecânica fixa: a dinâmica acompanha a poesia e o contorno melódico."
+      },
+      {
+        "texto": "A poesia do hino não deve ter nenhuma influência na sonoridade do músico.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA e o MOO orientam expressamente que a música e a letra se completam no louvor a Deus."
+      }
+    ]
+  },
+  {
+    "id": "f10_q015",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual das seguintes abreviaturas italianas expressa exatamente o termo 'mezzo forte' (meio forte)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 94
+    },
+    "opcoes": [
+      {
+        "texto": "mp",
+        "correta": false,
+        "feedback": "Incorreto. 'mp' é a abreviatura de mezzo piano (meio suave)."
+      },
+      {
+        "texto": "ff",
+        "correta": false,
+        "feedback": "Incorreto. 'ff' é a abreviatura de fortissimo (muito forte)."
+      },
+      {
+        "texto": "mf",
+        "correta": true,
+        "feedback": "Correto! 'mf' é a abreviatura padrão de mezzo forte (intensidade intermediária entre o mezzo piano e o forte)."
+      },
+      {
+        "texto": "fff",
+        "correta": false,
+        "feedback": "Incorreto. 'fff' é a abreviatura de molto fortissimo (extremamente forte)."
+      }
+    ]
+  },
+  {
+    "id": "f10_q016",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual das seguintes afirmativas sobre a dinâmica na execução musical é VERDADEIRA de acordo com os princípios do MSA?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 10,
+      "item": "10.1 Dinâmica",
+      "pagina": 93
+    },
+    "opcoes": [
+      {
+        "texto": "Tocar mais forte significa acelerar o andamento do metrônomo.",
+        "correta": false,
+        "feedback": "Incorreto. Dinâmica (intensidade) e Andamento (velocidade) são elementos totalmente independentes."
+      },
+      {
+        "texto": "Tocar mais suave significa desafinar as notas para baixo.",
+        "correta": false,
+        "feedback": "Incorreto. A afinação deve permanecer rigorosamente pura em qualquer nível de dinâmica."
+      },
+      {
+        "texto": "A dinâmica artificial é a única que tem valor artístico reconhecido na teoria musical.",
+        "correta": false,
+        "feedback": "Incorreto. A dinâmica natural é a base da expressividade musical orgânica e indispensável nos hinos sacros."
+      },
+      {
+        "texto": "A dinâmica refere-se à gradação da intensidade do som, não devendo nunca comprometer a pureza da afinação nem a precisão do andamento métrico.",
+        "correta": true,
+        "feedback": "Correto! O controle de intensidade deve ser executado mantendo a afinação exata e o pulso rítmico perfeitamente estável."
+      }
+    ]
   }
 ]

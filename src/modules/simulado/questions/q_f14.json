@@ -232,5 +232,395 @@
         "feedback": "Incorreto. Trata-se da subdivisão e bi-subdivisão métrica do tempo simples."
       }
     ]
+  },
+  {
+    "id": "f14_q007",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença visual e de função entre o Ponto de Aumento e o Ponto de Diminuição (Staccato) na escrita musical?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Ambos aumentam a nota em metade do seu valor original.",
+        "correta": false,
+        "feedback": "Incorreto. Apenas o ponto de aumento acrescenta duração."
+      },
+      {
+        "texto": "O ponto de aumento fica em cima da nota e o staccato fica à esquerda da haste.",
+        "correta": false,
+        "feedback": "Incorreto. O ponto de aumento fica à direita da cabeça da nota."
+      },
+      {
+        "texto": "O Ponto de Aumento é grafado À DIREITA da cabeça da nota e aumenta sua duração na metade; o Staccato é grafado ACIMA OU ABAIXO da cabeça da nota e reduz sua duração sonora, tornando a execução destacada.",
+        "correta": true,
+        "feedback": "Correto! O posicionamento físico define a função: à direita = aumento de duração (+1/2); acima/abaixo = staccato (som curto e destacado)."
+      },
+      {
+        "texto": "O staccato é usado apenas no metrônomo analógico.",
+        "correta": false,
+        "feedback": "Incorreto. O staccato é uma indicação articulatória de execução instrumental e vocal."
+      }
+    ]
+  },
+  {
+    "id": "f14_q008",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual erro rítmico gravíssimo o candidato deve vigiar para NÃO cometer ao executar o grupo 'colcheia pontuada + semicolcheia' (𝅘𝅥𝅮. 𝅘𝅥𝅯) em compasso simples 4/4?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Tocar a nota com afinação perfeita.",
+        "correta": false,
+        "feedback": "Incorreto. Tocar afinado é o objetivo correto de todo músico."
+      },
+      {
+        "texto": "Sustentar a colcheia pontuada por 3 tempos inteiros.",
+        "correta": false,
+        "feedback": "Incorreto. Ela vale 3/4 de 1 tempo, não 3 tempos."
+      },
+      {
+        "texto": "Fazer decrescendo na semicolcheia.",
+        "correta": false,
+        "feedback": "Incorreto. O erro principal reside na desproporção métrica temporal."
+      },
+      {
+        "texto": "Antecipar a semicolcheia fazendo com que o grupo soe como uma Tercina (proporção 2:1 em vez de 3:1), descaracterizando a exatidão métrica da nota pontuada.",
+        "correta": true,
+        "feedback": "Correto! O MSA alerta que a colcheia pontuada + semicolcheia possui relação 3:1 (3 quartos para 1 quarto). Se o músico antecipar a semicolcheia para 1/3 do tempo, transforma erradamente a subdivisão em tercina!"
+      }
+    ]
+  },
+  {
+    "id": "f14_q009",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Como deve ser pronunciada a sílaba na Leitura Rítmica ao executar uma figura pontuada (como uma semínima pontuada ou colcheia pontuada)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Pronuncia-se a sílaba 'TÁ' no ataque da nota e sustenta-se a emissão do som sem interrupção durante todo o prolongamento do ponto de aumento.",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado desde a Fase 2 do MSA, o ponto de aumento prolonga o som da sílaba 'TÁ' de forma contínua, sem repetir nova consoante na entrada do ponto."
+      },
+      {
+        "texto": "Pronuncia-se 'TÁ' na nota e 'TÉ' no ponto de aumento.",
+        "correta": false,
+        "feedback": "Incorreto. A sílaba oficial nos exercícios rítmicos do MSA é sempre 'TÁ' contínua."
+      },
+      {
+        "texto": "O ponto de aumento deve ser falado com a palavra 'PONTO' em voz alta.",
+        "correta": false,
+        "feedback": "Incorreto. A leitura rítmica reproduz apenas a duração musical por meio do prolongamento vocal da sílaba."
+      },
+      {
+        "texto": "Faz-se silêncio no ponto de aumento.",
+        "correta": false,
+        "feedback": "Incorreto. O ponto de aumento é figura de som (prolongamento), e não figura de pausa."
+      }
+    ]
+  },
+  {
+    "id": "f14_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Em um compasso 4/4, quanto vale a soma de uma Semínima Pontuada (𝅘𝅥.) com uma Colcheia (𝅘𝅥𝅮)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "1 tempo exato do compasso.",
+        "correta": false,
+        "feedback": "Incorreto. A semínima simples já vale 1 tempo; com ponto de aumento ela vale 1 tempo e meio."
+      },
+      {
+        "texto": "2 tempos completos (a semínima pontuada vale 1 tempo e meio, e a colcheia vale meio tempo, somando exatamente 2 tempos).",
+        "correta": true,
+        "feedback": "Correto! 1,5 tempo (semínima pontuada) + 0,5 tempo (colcheia) = 2 tempos exatos em compassos com denominador 4."
+      },
+      {
+        "texto": "4 tempos completos (um compasso inteiro).",
+        "correta": false,
+        "feedback": "Incorreto. A semibreve simples é que preenche os 4 tempos no 4/4."
+      },
+      {
+        "texto": "3 tempos completos.",
+        "correta": false,
+        "feedback": "Incorreto. Quem vale 3 tempos no 4/4 é a mínima pontuada (𝅗𝅥.)."
+      }
+    ]
+  },
+  {
+    "id": "f14_q011",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Considere o Ponto de Aumento Duplo aplicado a uma Semínima (𝅘𝅥..). Qual é a duração total dessa figura em frações de tempo em um compasso 4/4?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "1 tempo e 1/2 (3 colcheias).",
+        "correta": false,
+        "feedback": "Incorreto. Essa é a duração com apenas um ponto de aumento simples."
+      },
+      {
+        "texto": "2 tempos completos.",
+        "correta": false,
+        "feedback": "Incorreto. 2 tempos é o valor de uma mínima simples."
+      },
+      {
+        "texto": "1 tempo e 3/4 (ou 7 semicolcheias, pois o 1º ponto soma 1/2 tempo e o 2º ponto soma 1/4 de tempo).",
+        "correta": true,
+        "feedback": "Correto! O 1º ponto soma metade da figura (+ 1 colcheia = 2 semicolcheias) e o 2º ponto soma metade do 1º ponto (+ 1 semicolcheia). Total: 4 + 2 + 1 = 7 semicolcheias (1 tempo e 3/4)!"
+      },
+      {
+        "texto": "3 tempos inteiros.",
+        "correta": false,
+        "feedback": "Incorreto. O segundo ponto nunca dobra o valor anterior; ele vale metade do primeiro ponto."
+      }
+    ]
+  },
+  {
+    "id": "f14_q012",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Ao executar uma Pausa de Colcheia Pontuada (𝄾.) em compasso 4/4, qual fração do tempo deve ser mantida em rigoroso silêncio?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Metade do tempo (1/2 de tempo).",
+        "correta": false,
+        "feedback": "Incorreto. 1/2 de tempo é o valor da pausa de colcheia simples sem ponto."
+      },
+      {
+        "texto": "O tempo inteiro (4/4 de tempo).",
+        "correta": false,
+        "feedback": "Incorreto. 1 tempo inteiro em 4/4 é o valor da pausa de semínima."
+      },
+      {
+        "texto": "Dois tempos completos.",
+        "correta": false,
+        "feedback": "Incorreto. 2 tempos é o valor da pausa de mínima."
+      },
+      {
+        "texto": "Três quartos do tempo (3/4 de tempo, equivalente a 3 semicolcheias de silêncio).",
+        "correta": true,
+        "feedback": "Correto! O ponto de aumento aplica-se da mesma forma às figuras de silêncio: uma pausa de colcheia (2 semicolcheias) com ponto vale 3 semicolcheias de pausa (3/4 do tempo simples)."
+      }
+    ]
+  },
+  {
+    "id": "f14_q013",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Em um compasso 6/8, qual figura musical simples equivale exatamente à soma de 1 Colcheia Pontuada com 1 Semicolcheia (𝅘𝅥𝅮. 𝅘𝅥𝅯)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 127
+    },
+    "opcoes": [
+      {
+        "texto": "Uma Semínima simples (𝅘𝅥, que equivale a 2 colcheias ou 4 semicolcheias).",
+        "correta": true,
+        "feedback": "Correto! Colcheia pontuada (3 semicolcheias) + semicolcheia (1 semicolcheia) = 4 semicolcheias = 2 colcheias = 1 Semínima simples (2 movimentos em 6/8)."
+      },
+      {
+        "texto": "Uma Semibreve (𝅝).",
+        "correta": false,
+        "feedback": "Incorreto. A semibreve vale 16 semicolcheias."
+      },
+      {
+        "texto": "Uma Fusa (𝅘𝅥𝅰).",
+        "correta": false,
+        "feedback": "Incorreto. A fusa é uma figura de fração muito menor."
+      },
+      {
+        "texto": "Uma Semínima Pontuada (𝅘𝅥.).",
+        "correta": false,
+        "feedback": "Incorreto. A semínima pontuada vale 6 semicolcheias (3 colcheias); colcheia pontuada + semicolcheia somam apenas 4 semicolcheias."
+      }
+    ]
+  },
+  {
+    "id": "f14_q014",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No Hino 118 do Hinário 5 ('Fiel Salvador é Jesus'), o primeiro compasso apresenta em seu primeiro tempo composto a célula [Colcheia Pontuada + Semicolcheia + Colcheia]. Quantas semicolcheias possui cada uma dessas 3 notas em sua duração real, respectivamente?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 127
+    },
+    "opcoes": [
+      {
+        "texto": "2 semicolcheias, 2 semicolcheias e 2 semicolcheias.",
+        "correta": false,
+        "feedback": "Incorreto. Três colcheias simples iguais somariam 2 + 2 + 2 = 6; na célula pontuada, a 1ª nota tem ponto de aumento."
+      },
+      {
+        "texto": "3 semicolcheias (colcheia pontuada), 1 semicolcheia (semicolcheia) e 2 semicolcheias (colcheia), totalizando exatamente as 6 semicolcheias do tempo composto.",
+        "correta": true,
+        "feedback": "Correto! 3 + 1 + 2 = 6 semicolcheias, completando com exatidão matemática o tempo composto de 6/8!"
+      },
+      {
+        "texto": "4 semicolcheias, 1 semicolcheia e 1 semicolcheia.",
+        "correta": false,
+        "feedback": "Incorreto. A colcheia pontuada vale 3 semicolcheias, e a colcheia final vale 2 semicolcheias."
+      },
+      {
+        "texto": "1 semicolcheia, 3 semicolcheias e 2 semicolcheias.",
+        "correta": false,
+        "feedback": "Incorreto. A nota pontuada é a primeira do grupo, com 3 semicolcheias de valor."
+      }
+    ]
+  },
+  {
+    "id": "f14_q015",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a relação de proporcionalidade temporal entre a Colcheia Pontuada e a Semicolcheia no compasso 4/4?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 126
+    },
+    "opcoes": [
+      {
+        "texto": "Proporção de 1 para 1 (valores rigorosamente iguais).",
+        "correta": false,
+        "feedback": "Incorreto. Figuras iguais seriam duas colcheias simples."
+      },
+      {
+        "texto": "Proporção de 2 para 1 (o dobro do valor).",
+        "correta": false,
+        "feedback": "Incorreto. 2 para 1 seria colcheia simples para semicolcheia; com o ponto de aumento na colcheia, a proporção passa a ser de 3 para 1."
+      },
+      {
+        "texto": "Proporção de 3 para 1 (a colcheia pontuada dura exatamente o triplo do valor da semicolcheia).",
+        "correta": true,
+        "feedback": "Correto! A colcheia pontuada equivale a 3 semicolcheias e a semicolcheia equivale a 1 semicolcheia, estabelecendo a clássica proporção rítmica de 3:1."
+      },
+      {
+        "texto": "Proporção de 4 para 1.",
+        "correta": false,
+        "feedback": "Incorreto. 4 para 1 seria uma semínima para uma semicolcheia."
+      }
+    ]
+  },
+  {
+    "id": "f14_q016",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "O que acontece com a contagem dos movimentos no solfejo em 6 quando surge uma Semínima Pontuada (𝅘𝅥.) em um compasso 6/8?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 14,
+      "item": "14.1 Notas pontuadas - diferenças na subdivisão",
+      "pagina": 127
+    },
+    "opcoes": [
+      {
+        "texto": "A semínima pontuada ocupa apenas meio movimento da mão.",
+        "correta": false,
+        "feedback": "Incorreto. Meio movimento de colcheia em 6/8 é o valor de uma semicolcheia."
+      },
+      {
+        "texto": "A semínima pontuada preenche os 6 movimentos inteiros do compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Quem preenche os 6 movimentos inteiros é a pontuada da espécie maior (a mínima pontuada)."
+      },
+      {
+        "texto": "O candidato deve parar o movimento de condução e esperar o próximo compasso.",
+        "correta": false,
+        "feedback": "Incorreto. O movimento da mão continua fluindo rigorosamente."
+      },
+      {
+        "texto": "A semínima pontuada preenche exatamente 3 movimentos de colcheia (1 tempo composto inteiro, abrangendo por exemplo os movimentos 1, 2 e 3 ou os movimentos 4, 5 e 6).",
+        "correta": true,
+        "feedback": "Correto! No 6/8, cada movimento de colcheia vale 1 pulso, portanto a Semínima Pontuada (que vale 3 colcheias) abrange 3 movimentos contínuos de solfejo."
+      }
+    ]
   }
 ]

@@ -34,6 +34,7 @@ export type SimuladoQuestionReference = z.infer<typeof QuestionReferenceSchema>;
 export type SimuladoQuestion = z.infer<typeof SimuladoQuestionSchema>;
 
 export interface WrongAnswerRecord {
+  questionId?: string;
   question: string;
   correctAnswer: string;
   reference?: SimuladoQuestionReference;

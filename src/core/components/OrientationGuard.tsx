@@ -15,7 +15,10 @@ export const OrientationGuard: React.FC<OrientationGuardProps> = ({ children }) 
 
   if (isMobile && isPortrait) {
     return (
-      <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/95 backdrop-blur-md px-6 text-center font-sans">
+      <div
+        id="orientation-guard-card"
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/95 backdrop-blur-md px-6 text-center font-sans"
+      >
         {/* Mascote Fufu com animação suave de flutuação */}
         <motion.img
           src={getAssetUrl('assets/fufu-pensativo.png')}

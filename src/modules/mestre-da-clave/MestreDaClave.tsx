@@ -10,14 +10,16 @@ import {
   GameParticle,
   GameNote,
   drawStar,
+  drawClefOnStaff,
   NOTE_COLORS,
   NOTE_BORDER_COLORS,
   NOTE_DARK_COLORS,
-  POS_TO_FREQ,
-  PROGRESSION_LIST,
   MUSICAL_KEYS,
+  ClefType,
+  CLEF_CONFIGS,
   getNewlyUnlockedNote,
 } from './engine/gameEntities';
+import { MestreOverlays } from './components/MestreOverlays';
 
 interface MestreDaClaveProps {
   onBack?: () => void;
@@ -29,6 +31,18 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  // Estados de Clave e Recordes
+  const [selectedClef, setSelectedClef] = useState<ClefType>('sol');
+  const selectedClefRef = useRef<ClefType>(selectedClef);
+  selectedClefRef.current = selectedClef;
+
+  const [recordSol, setRecordSol] = useLocalStorage<number>('mestreClave_record', 0);
+  const [recordFa, setRecordFa] = useLocalStorage<number>('mestreClave_record_fa', 0);
+  const [recordDo, setRecordDo] = useLocalStorage<number>('mestreClave_record_do', 0);
+
+  const currentHighScore =
+    selectedClef === 'fa' ? recordFa : selectedClef === 'do' ? recordDo : recordSol;
+
   // Estados do Jogo
   const [gameState, setGameState] = useState<'START' | 'PLAYING' | 'PAUSED' | 'GAMEOVER'>('START');
   const [score, setScore] = useState<number>(0);
@@ -36,7 +50,6 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
   const [lives, setLives] = useState<number>(3);
   const [pausesLeft, setPausesLeft] = useState<number>(3);
   const [hitsInLevel, setHitsInLevel] = useState<number>(0);
-  const [highScore, setHighScore] = useLocalStorage<number>('mestreClave_record', 0);
   const [showRedFlash, setShowRedFlash] = useState<boolean>(false);
   const [levelUpMessage, setLevelUpMessage] = useState<string | null>(null);
 
@@ -64,7 +77,9 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
   const shakeIntensityRef = useRef<number>(0);
 
   const handleRewardChord = useCallback((pos: number) => {
-    const rootFreq = POS_TO_FREQ[pos];
+    const clef = selectedClefRef.current;
+    const posToFreq = CLEF_CONFIGS[clef]?.posToFreq || CLEF_CONFIGS.sol.posToFreq;
+    const rootFreq = posToFreq[pos];
     if (rootFreq) {
       playRewardChord(rootFreq);
     }
@@ -124,8 +139,13 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         if (target.baseName === base) {
           setScore((prev) => {
             const next = prev + 10;
-            if (next > highScore) {
-              setHighScore(next);
+            const currentClef = selectedClefRef.current;
+            if (currentClef === 'fa') {
+              if (next > recordFa) setRecordFa(next);
+            } else if (currentClef === 'do') {
+              if (next > recordDo) setRecordDo(next);
+            } else {
+              if (next > recordSol) setRecordSol(next);
             }
             return next;
           });
@@ -149,7 +169,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
             setTimeout(() => playLevelUpFanfare(), 220);
             spawnConfetti();
 
-            const newlyUnlocked = getNewlyUnlockedNote(nextLvl);
+            const newlyUnlocked = getNewlyUnlockedNote(nextLvl, selectedClefRef.current);
             let msg = `Nível ${nextLvl}! `;
             if (newlyUnlocked) {
               msg += `Nova Nota: ${newlyUnlocked.label} 🎶`;
@@ -192,7 +212,19 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         }
       }
     },
-    [gameState, highScore, setHighScore, handleRewardChord, spawnParticles, showFloatText, spawnConfetti],
+    [
+      gameState,
+      recordSol,
+      recordFa,
+      recordDo,
+      setRecordSol,
+      setRecordFa,
+      setRecordDo,
+      handleRewardChord,
+      spawnParticles,
+      showFloatText,
+      spawnConfetti,
+    ],
   );
 
   const handleStartGame = () => {
@@ -244,7 +276,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
     };
   }, [gameState]);
 
-  // Game loop otimizado (dependente apenas de gameState para 60fps sem interrupção de níveis)
+  // Game loop otimizado a 60fps
   useEffect(() => {
     if (gameState !== 'PLAYING') {
       if (animationIdRef.current) {
@@ -304,12 +336,8 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         ctx.stroke();
       }
 
-      // Clave de Sol
-      ctx.fillStyle = '#1e293b';
-      ctx.font = `${lineGap * 5.5}px Nunito, serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('𝄞', 50, staffCenterY + lineGap * 0.8);
+      // Desenha a Clave selecionada
+      drawClefOnStaff(ctx, selectedClefRef.current, staffCenterY, lineGap);
 
       // Zona de acerto
       ctx.fillStyle = 'rgba(34, 197, 94, 0.08)';
@@ -318,10 +346,10 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
       ctx.lineWidth = 2;
       ctx.strokeRect(hitZoneStart, 0, hitZoneEnd - hitZoneStart, logicalHeight);
 
-      // Spawn de notas
+      // Spawn de notas na Clave ativa
       spawnTimerRef.current += dt * 1000;
       if (spawnTimerRef.current > spawnIntervalRef.current) {
-        notesRef.current.push(new GameNote(logicalWidth, levelRef.current));
+        notesRef.current.push(new GameNote(logicalWidth, levelRef.current, selectedClefRef.current));
         spawnTimerRef.current = 0;
       }
 
@@ -399,7 +427,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
 
         const y = staffCenterY + (4 - n.pos) * (lineGap / 2);
 
-        // Linhas suplementares desenhadas ANTES da cabeça da nota (não riscam o brilho specular)
+        // Linhas suplementares desenhadas ANTES da cabeça da nota
         ctx.save();
         ctx.lineWidth = 3;
         ctx.strokeStyle = '#475569';
@@ -525,9 +553,11 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
   // Barra de progresso para próximo nível (10 acertos por nível)
   const progressPercent = Math.min(100, (hitsInLevel / 10) * 100);
 
-  // Notas ativas do nível corrente
-  const unlockedCount = Math.min(level + 1, PROGRESSION_LIST.length);
-  const activeNoteNames = new Set(PROGRESSION_LIST.slice(0, unlockedCount).map((n) => n.base));
+  // Notas ativas do nível corrente na clave selecionada
+  const activeProgression = CLEF_CONFIGS[selectedClef]?.progression || CLEF_CONFIGS.sol.progression;
+  const unlockedCount = Math.min(level + 1, activeProgression.length);
+  const activeNoteNames = new Set(activeProgression.slice(0, unlockedCount).map((n) => n.base));
+  const currentClefConfig = CLEF_CONFIGS[selectedClef] || CLEF_CONFIGS.sol;
 
   return (
     <div
@@ -544,7 +574,13 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
 
       {/* Header Bar */}
       <div className="flex justify-between items-center px-3 py-1.5 sm:px-4 sm:py-2.5 bg-white border-b border-slate-200 shadow-sm relative z-10">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 invisible" />
+        <div className="flex items-center gap-2">
+          {/* Badge da Clave Ativa */}
+          <div className="bg-slate-100 text-slate-700 font-black text-[10px] sm:text-xs px-2.5 py-1 rounded-xl border border-slate-200 flex items-center gap-1 shadow-xs">
+            <span className="font-serif text-sm">{currentClefConfig.symbol}</span>
+            <span className="hidden sm:inline">{currentClefConfig.name}</span>
+          </div>
+        </div>
 
         <div className="flex items-center gap-1.5 sm:gap-3">
           <div className="bg-amber-100 text-amber-800 font-extrabold text-[10px] sm:text-sm px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-amber-200 shadow-sm flex items-center gap-1 sm:gap-1.5">
@@ -606,139 +642,20 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
           )}
         </AnimatePresence>
 
-        {/* OVERLAYS */}
-
-        {/* START SCREEN */}
-        {gameState === 'START' && (
-          <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-md z-50 overflow-y-auto flex flex-col items-center justify-center p-4 py-6">
-            <div className="bg-white p-5 sm:p-6 rounded-3xl text-center max-w-sm sm:max-w-2xl w-full border-2 border-slate-200 shadow-2xl animate-pop flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
-              <div className="w-full sm:w-1/2 flex flex-col items-center sm:border-r sm:border-slate-100 sm:pr-6">
-                <img
-                  src={getAssetUrl('assets/fufu-capa-mestre-da-clave.png')}
-                  className="w-20 sm:w-28 h-auto object-contain mx-auto mb-2 drop-shadow-lg"
-                  alt="Fufu Mestre da Clave"
-                />
-                <h2 className="text-lg sm:text-xl font-black text-slate-900 leading-tight">
-                  Mestre da Clave
-                </h2>
-                <p className="text-[11px] sm:text-xs text-slate-500 font-bold leading-normal mt-1">
-                  Comece com <strong className="text-indigo-600 font-black">Dó e Ré</strong>.<br />
-                  Acerte as notas na pauta e suba de nível! 🚀
-                </p>
-                <div className="mt-3 text-[10px] sm:text-xs text-amber-500 font-black uppercase tracking-wider">
-                  🏆 SEU RECORDE: {highScore}
-                </div>
-              </div>
-
-              <div className="w-full sm:w-1/2 flex flex-col gap-2">
-                <button
-                  onClick={handleStartGame}
-                  className="w-full py-3.5 bg-[#4ade80] hover:bg-[#22c55e] text-white font-extrabold rounded-2xl border-b-4 border-emerald-700 active:border-b-0 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider shadow-md"
-                >
-                  COMEÇAR
-                </button>
-
-                <button
-                  onClick={handleBack}
-                  className="w-full py-2.5 bg-[#e2e8f0] hover:bg-[#cbd5e1] text-slate-700 font-extrabold rounded-2xl border-b-4 border-slate-400 active:border-b-0 active:translate-y-1 transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider"
-                >
-                  VOLTAR AO INÍCIO
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* PAUSE SCREEN */}
-        {gameState === 'PAUSED' && (
-          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm z-50 overflow-y-auto flex flex-col items-center justify-center p-4 py-6">
-            <div className="bg-white p-5 sm:p-6 rounded-3xl text-center max-w-sm sm:max-w-2xl w-full border-2 border-slate-200 shadow-2xl my-auto animate-pop flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
-              <div className="w-full sm:w-1/2 flex flex-col items-center sm:border-r sm:border-slate-100 sm:pr-6">
-                <img
-                  src={getAssetUrl('assets/fufu-pensativo.png')}
-                  className="w-16 sm:w-24 h-auto object-contain mx-auto mb-2"
-                  alt="Fufu Pausado"
-                />
-                <h2 className="text-lg sm:text-xl font-black text-slate-900 leading-tight">
-                  Jogo Pausado
-                </h2>
-                <p className="text-[11px] sm:text-xs text-slate-500 font-bold mt-1">
-                  Pausas restantes: <strong className="text-amber-500 font-black">{pausesLeft}</strong>
-                </p>
-              </div>
-
-              <div className="w-full sm:w-1/2 flex flex-col gap-2">
-                <button
-                  onClick={handlePauseToggle}
-                  className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-2xl border-b-4 border-emerald-700 active:border-b-0 transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider shadow-md"
-                >
-                  Continuar
-                </button>
-
-                <button
-                  onClick={() => setGameState('START')}
-                  className="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold rounded-2xl border-b-4 border-amber-700 active:border-b-0 transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider"
-                >
-                  Reiniciar
-                </button>
-
-                <button
-                  onClick={handleBack}
-                  className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-2xl border-b-4 border-red-800 active:border-b-0 transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider"
-                >
-                  Sair do Jogo
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* GAME OVER SCREEN */}
-        {gameState === 'GAMEOVER' && (
-          <div className="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-50 overflow-y-auto flex flex-col items-center justify-center p-4 py-6">
-            <div className="bg-white p-5 sm:p-6 rounded-3xl text-center max-w-sm sm:max-w-2xl w-full border-2 border-slate-200 shadow-2xl my-auto animate-pop flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
-              <div className="w-full sm:w-1/2 flex flex-col items-center sm:border-r sm:border-slate-100 sm:pr-6">
-                <img
-                  src={getAssetUrl('assets/fufu-erro-acontece.png')}
-                  className="w-20 sm:w-28 h-auto object-contain mx-auto mb-2"
-                  alt="Fufu Game Over"
-                />
-                <h2 className="text-lg sm:text-xl font-black text-red-500 leading-tight">
-                  Fim de Jogo!
-                </h2>
-                <div className="text-[10px] text-indigo-500 font-black uppercase tracking-wider mt-2">
-                  🏆 Recorde: {highScore} pts
-                </div>
-              </div>
-
-              <div className="w-full sm:w-1/2 flex flex-col gap-2">
-                <div className="bg-slate-50 rounded-2xl p-3 border border-slate-200 shadow-inner">
-                  <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-none mb-1">
-                    Sua Pontuação
-                  </p>
-                  <div className="text-2xl font-black text-indigo-600">{score}</div>
-                  <div className="text-[9px] font-black text-amber-500 mt-1 uppercase">
-                    NÍVEL ALCANÇADO: {level}
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleStartGame}
-                  className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-2xl border-b-4 border-emerald-700 active:border-b-0 transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider shadow-md"
-                >
-                  Jogar Novamente
-                </button>
-
-                <button
-                  onClick={handleBack}
-                  className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold rounded-2xl border-b-4 border-slate-300 active:border-b-0 transition-all cursor-pointer text-xs sm:text-sm uppercase tracking-wider"
-                >
-                  Voltar ao Início
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* OVERLAYS (START, PAUSED, GAMEOVER) */}
+        <MestreOverlays
+          gameState={gameState}
+          selectedClef={selectedClef}
+          onSelectClef={(c) => setSelectedClef(c)}
+          score={score}
+          level={level}
+          highScore={currentHighScore}
+          pausesLeft={pausesLeft}
+          onStartGame={handleStartGame}
+          onPauseToggle={handlePauseToggle}
+          onResetToStart={() => setGameState('START')}
+          onBack={handleBack}
+        />
       </div>
 
       {/* Piano/Musical buttons footer */}

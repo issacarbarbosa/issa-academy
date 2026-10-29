@@ -6,7 +6,11 @@ import {
   computeQuizResult,
   shuffleQuestions,
   prepareQuizQuestions,
+  loadQuestionBankForPhases,
+  loadQuestionBankForPeriods,
+  formatText,
 } from './SimuladoMsa';
+import type { SimuladoQuestion } from './questions/schema';
 
 describe('SimuladoMsa Helper Logic', () => {
   describe('formatTimeSpent', () => {
@@ -113,6 +117,64 @@ describe('SimuladoMsa Helper Logic', () => {
       }
       // Over 40 independent runs, the correct answer should appear in multiple positions
       expect(positions.size).toBeGreaterThan(1);
+    });
+
+    it('should respect maxCount parameter for dual-mode quizzes (10 vs 20)', () => {
+      const mockBank: SimuladoQuestion[] = Array.from({ length: 30 }, (_, i) => ({
+        id: `q_${i}`,
+        ativo: true,
+        pergunta: `Questão ${i}`,
+        opcoes: [
+          { texto: 'A', correta: true },
+          { texto: 'B', correta: false },
+        ],
+      }));
+
+      const phaseModeQuiz = prepareQuizQuestions(mockBank, 10);
+      expect(phaseModeQuiz.length).toBe(10);
+
+      const periodModeQuiz = prepareQuizQuestions(mockBank, 20);
+      expect(periodModeQuiz.length).toBe(20);
+    });
+  });
+
+  describe('Dynamic Question Loaders', () => {
+    it('should load question bank for specific phases correctly', async () => {
+      const loadedF14 = await loadQuestionBankForPhases(new Set([14]));
+      expect(Array.isArray(loadedF14)).toBe(true);
+      expect(loadedF14.length).toBeGreaterThanOrEqual(15);
+
+      const loadedMulti = await loadQuestionBankForPhases(new Set([1, 2]));
+      expect(Array.isArray(loadedMulti)).toBe(true);
+      expect(loadedMulti.length).toBeGreaterThan(20);
+    });
+
+    it('should load question bank for periods correctly with appropriate phase mapping', async () => {
+      // Period 1 maps to phases 1, 2, 3
+      const loadedP1 = await loadQuestionBankForPeriods(new Set([1]));
+      expect(Array.isArray(loadedP1)).toBe(true);
+      expect(loadedP1.length).toBeGreaterThan(30);
+
+      // Period 4 maps to phases 10-16
+      const loadedP4 = await loadQuestionBankForPeriods(new Set([4]));
+      expect(Array.isArray(loadedP4)).toBe(true);
+      expect(loadedP4.length).toBeGreaterThanOrEqual(7 * 15);
+    });
+  });
+
+  describe('formatText (musical signature rendering)', () => {
+    it('should return plain text wrapped in span if no signatures present', () => {
+      const result = formatText('Teoria Musical CCB');
+      expect(result).toBeDefined();
+    });
+
+    it('should render fractional elements for time signatures like 4/4 and 3/4', () => {
+      const result = formatText('O hino está em 4/4 e depois modula para 3/4.');
+      expect(result).toBeDefined();
+    });
+
+    it('should handle empty strings gracefully', () => {
+      expect(formatText('')).toBe('');
     });
   });
 });

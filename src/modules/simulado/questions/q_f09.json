@@ -388,5 +388,239 @@
         "feedback": "Incorreto. É uma notação musical padrão quando dois trechos consecutivos possuem ritornello."
       }
     ]
+  },
+  {
+    "id": "f09_q011",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a principal vantagem didática e prática do uso das Barras de Repetição (Ritornello) na escrita musical dos métodos e hinários?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "Aumentar artificialmente a velocidade da peça sem alterar o metrônomo.",
+        "correta": false,
+        "feedback": "Incorreto. O ritornello não altera o andamento da música."
+      },
+      {
+        "texto": "Permitir que apenas os solistas toquem o trecho repetido.",
+        "correta": false,
+        "feedback": "Incorreto. O ritornello é executado por toda a orquestra/conjunto."
+      },
+      {
+        "texto": "Economizar espaço na partitura evitando a reescrita desnecessária de compassos idênticos e facilitando a leitura do músico.",
+        "correta": true,
+        "feedback": "Correto! O ritornello sintetiza a escrita musical, evitando que o mesmo trecho tenha de ser copiado duas ou mais vezes na partitura."
+      },
+      {
+        "texto": "Substituir a armadura de clave nos trechos repetidos.",
+        "correta": false,
+        "feedback": "Incorreto. A armadura de clave continua em vigor normalmente."
+      }
+    ]
+  },
+  {
+    "id": "f09_q012",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No Hinário 5, qual destes grupos de hinos apresenta exatamente 2 Casas de Ritornello em sua estrutura musical?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 87
+    },
+    "opcoes": [
+      {
+        "texto": "Hinos 6, 41 e 42.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 6, 41 e 42 possuem 3 Casas de Ritornello."
+      },
+      {
+        "texto": "Hinos 272, 457 e 465.",
+        "correta": false,
+        "feedback": "Incorreto. Estes hinos possuem 3 Casas de Ritornello."
+      },
+      {
+        "texto": "Hino 475 exclusivamente.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 475 possui 3 Casas de Ritornello."
+      },
+      {
+        "texto": "Hinos 21, 63, 298 e 459.",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 21, 63, 298 e 459 são exemplos oficiais citados no MSA de hinos com 2 Casas de Ritornello."
+      }
+    ]
+  },
+  {
+    "id": "f09_q013",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Ao executar o solfejo com ritornello, qual cuidado o aluno deve ter em relação à pulsação métrica e ao metrônomo no momento do salto de repetição?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "Manter a pulsação perfeitamente constante e sem hesitações, conectando o último pulso antes do ritornello ao primeiro pulso do trecho repetido no tempo exato.",
+        "correta": true,
+        "feedback": "Correto! A barra de ritornello não introduz pausa extra nem atraso: a pulsação métrica deve fluir com rigorosa precisão temporal."
+      },
+      {
+        "texto": "Fazer uma respiração longa de 2 tempos a cada barra de repetição.",
+        "correta": false,
+        "feedback": "Incorreto. O ritornello não introduz tempo extra nem parada na pulsação."
+      },
+      {
+        "texto": "Reduzir a velocidade pela metade na segunda vez para destacar a repetição.",
+        "correta": false,
+        "feedback": "Incorreto. A velocidade e o andamento permanecem rigorosamente os mesmos."
+      },
+      {
+        "texto": "Interromper o movimento da mão de solfejo até o metrônomo reiniciar o ciclo.",
+        "correta": false,
+        "feedback": "Incorreto. O movimento de solfejo continua contínuo e sem interrupções."
+      }
+    ]
+  },
+  {
+    "id": "f09_q014",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Dentre os hinos abaixo citados no MSA, qual deles possui 3 Casas de Ritornello?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 88
+    },
+    "opcoes": [
+      {
+        "texto": "Hino 21.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 21 possui apenas 2 Casas de Ritornello."
+      },
+      {
+        "texto": "Hino 6 ('Glória ao Salvador').",
+        "correta": true,
+        "feedback": "Correto! O Hino 6 é um dos hinos com 3 Casas de Ritornello no Hinário 5, destacados no estudo da Fase 9 do MSA."
+      },
+      {
+        "texto": "Hino 63.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 63 possui 2 Casas de Ritornello."
+      },
+      {
+        "texto": "Hino 298.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 298 possui 2 Casas de Ritornello."
+      }
+    ]
+  },
+  {
+    "id": "f09_q015",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Se um hino possui 4 compassos antes da Casa 1 (C1 a C4), a Casa 1 ocupa 1 compasso (C5) e a Casa 2 ocupa 1 compasso (C6), totalizando 6 compassos escritos, quantos compassos são efetivamente tocados na execução completa desse trecho?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 87
+    },
+    "opcoes": [
+      {
+        "texto": "6 compassos no total.",
+        "correta": false,
+        "feedback": "Incorreto. Com a repetição do ritornello, os compassos C1 a C4 são tocados duas vezes."
+      },
+      {
+        "texto": "12 compassos no total.",
+        "correta": false,
+        "feedback": "Incorreto. A Casa 1 só é tocada na 1ª vez e a Casa 2 só na 2ª vez."
+      },
+      {
+        "texto": "10 compassos no total (5 na 1ª vez + 5 na 2ª vez).",
+        "correta": true,
+        "feedback": "Correto! 1ª vez: C1-C2-C3-C4 + C5 (5 compassos). 2ª vez: C1-C2-C3-C4 + C6 (5 compassos). Total = 10 compassos executados."
+      },
+      {
+        "texto": "8 compassos no total.",
+        "correta": false,
+        "feedback": "Incorreto. Os compassos C1 a C4 somam 4 compassos em cada passagem, mais 1 compasso de cada casa."
+      }
+    ]
+  },
+  {
+    "id": "f09_q016",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença entre uma Barra Dupla comum (sem pontos) e uma Barra de Ritornello (com dois pontos) no pentagrama?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 3,
+      "fase": 9,
+      "item": "9.1 Barra de repetição (ritornello)",
+      "pagina": 86
+    },
+    "opcoes": [
+      {
+        "texto": "A Barra Dupla comum repete o compasso anterior, enquanto a Barra de Ritornello repete o hino inteiro.",
+        "correta": false,
+        "feedback": "Incorreto. A Barra Dupla comum não indica repetição de compasso."
+      },
+      {
+        "texto": "Nenhuma, ambas possuem exatamente a mesma função de repetição.",
+        "correta": false,
+        "feedback": "Incorreto. Apenas as barras com pontos (ritornello) indicam repetição de trecho."
+      },
+      {
+        "texto": "A Barra de Ritornello encerra o hino, enquanto a Barra Dupla divide tempos.",
+        "correta": false,
+        "feedback": "Incorreto. O encerramento definitivo é feito pela Barra Final."
+      },
+      {
+        "texto": "A Barra Dupla comum apenas separa seções ou estrofe e coro (sem repetição), enquanto a Barra de Ritornello determina obrigatoriamente a repetição do trecho delimitado pelos dois pontos.",
+        "correta": true,
+        "feedback": "Correto! A presença dos dois pontos é o elemento que transforma a barra em sinal de repetição (ritornello)."
+      }
+    ]
   }
 ]

@@ -46,6 +46,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       <main className="flex-1 max-w-xl md:max-w-3xl mx-auto w-full px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* CARD 1: MESTRE DA CLAVE */}
         <button
+          id="card-nav-mestre"
           onClick={() => handleNav('mestre_da_clave')}
           className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-2xl p-5 flex items-center gap-4 hover:border-sky-400 hover:bg-sky-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm"
         >
@@ -75,6 +76,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
 
         {/* CARD 2: SIMULADO MSA */}
         <button
+          id="card-nav-simulado"
           onClick={() => handleNav('simulado_msa')}
           className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-2xl p-5 flex items-center gap-4 hover:border-emerald-400 hover:bg-emerald-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm"
         >

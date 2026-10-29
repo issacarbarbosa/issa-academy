@@ -1,6 +1,6 @@
 # Mapa de Experiência e Fluxo do Usuário: Issa Academy
 
-Este documento mapeia a arquitetura de navegação, transições de estado e guardas de UX (User Experience) da plataforma **Issa Academy**, com foco no jogo **Mestre da Clave** e no **Simulado MSA**.
+Este documento mapeia a arquitetura de navegação, transições de estado e guardas de UX (User Experience) da plataforma **Issa Academy**, com foco no jogo **Mestre da Clave** (Multi-Clave: Sol, Fá e Dó) e no **Simulado MSA** (Dual-mode: Por Período vs. Por Fase, com 16 fases e sistema de feedback).
 
 ---
 
@@ -23,23 +23,29 @@ graph TD
     B -- "Card: Simulado" --> E[/"📝 Simulado Oficial ( /simulado )"/]
     class D,E route;
 
-    %% SUB-FLUXO: JOGO MESTRE DA CLAVE (Com Guarda de Orientação)
-    subgraph S1 ["Proteção Mobile-First (Orientação)"]
+    %% SUB-FLUXO: JOGO MESTRE DA CLAVE (Com Guarda de Orientação e Multi-Clave)
+    subgraph S1 ["Mestre da Clave (Multi-Clave & Orientação)"]
         D --> G{Celular na Vertical?}
         G -- "Sim (Portrait)" --> G1["⚠️ Tela de Bloqueio:<br>'Gire seu celular para jogar'"]
         class G1 guard;
-        G -- "Não / Desktop / Paisagem" --> G2["✨ Gameplay Ativo<br>(Leitura rápida na Pauta Canvas)"]
-        class G2 modal;
+        G -- "Não / Desktop / Paisagem" --> G2["🎼 Seletor de Claves:<br>Sol 𝄞 (2ª L) | Fá 𝄢 (4ª L) | Dó 𝄡 (3ª L)<br>Recordes Independentes por Clave"]
+        G2 -- "Começar" --> G3["✨ Gameplay Ativo<br>(Pauta Canvas 60fps, Síntese Acústica & Partículas)"]
+        G3 -- "Pausa" --> G4["⏸️ Menu de Pausa / Trocar Clave"]
+        G3 -- "Game Over" --> G5["💀 Fim de Jogo & Novo Recorde"]
+        class G2,G3,G4,G5 modal;
     end
 
-    %% SUB-FLUXO: SIMULADO MSA (Máquina de Estados)
-    subgraph S2 ["Simulado MSA"]
-        E --> H1["📋 Menu de Seleção<br>(Períodos 1 e 2 de 5 Bancos JSON Zod)"]
-        H1 -- "Iniciar Simulado" --> H2["⏳ Loading & Validação<br>(Zod blindando q_f01 a q_f05 offline)"]
-        H2 --> H3["❓ Quiz Ativo (20 Questões)<br>(Cronômetro & Reações de Áudio)"]
-        H3 -- "Concluir" --> H4["🏆 Tela de Resultados<br>(Troféu Fufu, % Precisão & Revisão de Erros)"]
+    %% SUB-FLUXO: SIMULADO MSA (Dual Mode & Feedback)
+    subgraph S2 ["Simulado MSA (16 Fases & Dual Mode)"]
+        E --> H1["📋 Menu de Seleção Dual Mode:<br>• Por Período (20 questões)<br>• Por Fase (10 questões, Fases 1 a 16)"]
+        H1 -- "Iniciar Simulado" --> H2["⏳ Loading & Validação Zod<br>(q_f01 a q_f16 blindados offline)"]
+        H2 --> H3["❓ Quiz Ativo (10 ou 20 Questões)<br>Cronômetro, Reações de Áudio & Reportar Questão"]
+        H3 -- "Reportar Questão" --> H_MODAL["🚩 Modal de Reporte / Feedback<br>GA4, Clarity, LocalStorage & GitHub Issue"]
+        H_MODAL --> H3
+        H3 -- "Concluir" --> H4["🏆 Tela de Resultados<br>Troféu Fufu, % Precisão, Revisão de Erros & Reporte"]
+        H4 -- "Reportar Erro" --> H_MODAL
     end
-    class H1,H2,H3,H4 state;
+    class H1,H2,H3,H4,H_MODAL state;
 
     %% Botões de Retorno
     D -- "Sair do Jogo" --> B
@@ -53,10 +59,10 @@ graph TD
 | Elemento / Cor | Significado Arquitetural | Exemplo no Projeto |
 | :--- | :--- | :--- |
 | **🟦 Rotas da SPA (Azul)** | Telas de nível superior configuradas em `App.tsx` com `React.lazy` e Code Splitting. | `/`, `/simulado`, `/mestre-da-clave` |
-| **🟩 Ambientes Interativos (Verde)** | Telas de alta interatividade com síntese acústica em tempo real via Web Audio API. | Gameplay do Mestre da Clave |
+| **🟩 Ambientes Interativos (Verde)** | Telas de alta interatividade com síntese acústica em tempo real via Web Audio API e seleção multi-clave. | Mestre da Clave (Claves de Sol, Fá e Dó) |
 | **🟥 Guardas de UX (Vermelho Tracejado)** | Bloqueios condicionais de interface que previnem experiências ruins no celular. | Componente `<OrientationGuard />` bloqueando orientação retrato no jogo |
-| **⬛ Estados e Telas Internas (Cinza)** | Sub-telas controladas por máquina de estados interna sem transição de URL. | Menu, Loading, Quiz e Resultados do Simulado |
+| **⬛ Estados e Telas Internas (Cinza)** | Sub-telas controladas por máquina de estados interna sem transição de URL. | Menu Dual-Mode, Quiz, Modal de Feedback e Resultados do Simulado |
 
 ---
 
-*Mapa de fluxo atualizado em: 16/10/2026.*
+*Mapa de fluxo atualizado em: 26/10/2026.*

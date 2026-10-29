@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Check, CheckCircle2, X, XCircle, AlertCircle, Clock } from 'lucide-react';
+import { Check, CheckCircle2, X, XCircle, Clock, Flag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {
   SimuladoQuestion,
   SimuladoQuestionOption,
+  SimuladoQuestionReference,
   WrongAnswerRecord,
   validateQuestionBank,
 } from './questions/schema';
 import { playSuccessSound, playErrorSound } from '../../core/utils/audio';
 import { getAssetUrl } from '../../core/utils/paths';
+import { SimuladoMenu, MSA_PHASES_CATALOG } from './components/SimuladoMenu';
+import { QuestionFeedbackModal } from './components/QuestionFeedbackModal';
 
 interface SimuladoMsaProps {
   onBack?: () => void;
@@ -114,64 +117,80 @@ export function formatText(text: string): React.ReactNode {
   return <span>{text}</span>;
 }
 
-export async function loadQuestionBankForPeriods(selectedPeriods: Set<number>): Promise<unknown[]> {
+const PHASE_LOADERS: Record<number, () => Promise<{ default: unknown[] }>> = {
+  1: () => import('./questions/q_f01.json'),
+  2: () => import('./questions/q_f02.json'),
+  3: () => import('./questions/q_f03.json'),
+  4: () => import('./questions/q_f04.json'),
+  5: () => import('./questions/q_f05.json'),
+  6: () => import('./questions/q_f06.json'),
+  7: () => import('./questions/q_f07.json'),
+  8: () => import('./questions/q_f08.json'),
+  9: () => import('./questions/q_f09.json'),
+  10: () => import('./questions/q_f10.json'),
+  11: () => import('./questions/q_f11.json'),
+  12: () => import('./questions/q_f12.json'),
+  13: () => import('./questions/q_f13.json'),
+  14: () => import('./questions/q_f14.json'),
+  15: () => import('./questions/q_f15.json'),
+  16: () => import('./questions/q_f16.json'),
+};
+
+export async function loadQuestionBankForPhases(selectedPhases: Set<number>): Promise<unknown[]> {
+  const promises: Promise<{ default: unknown[] }>[] = [];
+  selectedPhases.forEach((f) => {
+    if (PHASE_LOADERS[f]) {
+      promises.push(PHASE_LOADERS[f]());
+    }
+  });
+  const modules = await Promise.all(promises);
   let bank: unknown[] = [];
-  if (selectedPeriods.has(1)) {
-    const [q1, q2, q3] = await Promise.all([
-      import('./questions/q_f01.json'),
-      import('./questions/q_f02.json'),
-      import('./questions/q_f03.json'),
-    ]);
-    bank = bank.concat(q1.default, q2.default, q3.default);
-  }
-  if (selectedPeriods.has(2)) {
-    const [q4, q5] = await Promise.all([
-      import('./questions/q_f04.json'),
-      import('./questions/q_f05.json'),
-    ]);
-    bank = bank.concat(q4.default, q5.default);
-  }
-  if (selectedPeriods.has(3)) {
-    const [q6, q7, q8, q9] = await Promise.all([
-      import('./questions/q_f06.json'),
-      import('./questions/q_f07.json'),
-      import('./questions/q_f08.json'),
-      import('./questions/q_f09.json'),
-    ]);
-    bank = bank.concat(q6.default, q7.default, q8.default, q9.default);
-  }
-  if (selectedPeriods.has(4)) {
-    const [q10, q11, q12, q13, q14, q15, q16] = await Promise.all([
-      import('./questions/q_f10.json'),
-      import('./questions/q_f11.json'),
-      import('./questions/q_f12.json'),
-      import('./questions/q_f13.json'),
-      import('./questions/q_f14.json'),
-      import('./questions/q_f15.json'),
-      import('./questions/q_f16.json'),
-    ]);
-    bank = bank.concat(
-      q10.default,
-      q11.default,
-      q12.default,
-      q13.default,
-      q14.default,
-      q15.default,
-      q16.default,
-    );
+  for (const m of modules) {
+    bank = bank.concat(m.default);
   }
   return bank;
+}
+
+export async function loadQuestionBankForPeriods(selectedPeriods: Set<number>): Promise<unknown[]> {
+  const phases = new Set<number>();
+  if (selectedPeriods.has(1)) [1, 2, 3].forEach((f) => phases.add(f));
+  if (selectedPeriods.has(2)) [4, 5].forEach((f) => phases.add(f));
+  if (selectedPeriods.has(3)) [6, 7, 8, 9].forEach((f) => phases.add(f));
+  if (selectedPeriods.has(4)) [10, 11, 12, 13, 14, 15, 16].forEach((f) => phases.add(f));
+  return loadQuestionBankForPhases(phases);
 }
 
 export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
   const navigate = useNavigate();
   const handleBack = onBack || (() => navigate('/'));
+
+  // Estados de Configuração e Modalidade
+  const [quizMode, setQuizMode] = useState<'period' | 'phase'>('period');
   const [selectedPeriods, setSelectedPeriods] = useState<Set<number>>(new Set([1]));
+  const [selectedPhases, setSelectedPhases] = useState<Set<number>>(new Set([1]));
+
   const [quizState, setQuizState] = useState<'MENU' | 'LOADING' | 'QUIZ' | 'RESULTS'>('MENU');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showExitConfirm, setShowExitConfirm] = useState<boolean>(false);
 
-  // Quiz variables
+  // Modal de Feedback
+  const [feedbackQuestion, setFeedbackQuestion] = useState<{
+    id: string;
+    pergunta: string;
+    referencia?: SimuladoQuestionReference;
+  } | null>(null);
+
+  const [reportedIds, setReportedIds] = useState<Set<string>>(() => {
+    if (typeof window === 'undefined') return new Set();
+    try {
+      const raw = localStorage.getItem('simulado_reported_questions');
+      return new Set(raw ? JSON.parse(raw) : []);
+    } catch {
+      return new Set();
+    }
+  });
+
+  // Variáveis do Quiz
   const [questions, setQuestions] = useState<SimuladoQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
@@ -179,7 +198,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
   const [isAnswerChecked, setIsAnswerChecked] = useState<boolean>(false);
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswerRecord[]>([]);
 
-  // Timer & Results
+  // Timer & Resultados
   const [quizStartTime, setQuizStartTime] = useState<number>(0);
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [timeSpentString, setTimeSpentString] = useState<string>('00:00');
@@ -195,37 +214,50 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
     return () => clearInterval(interval);
   }, [quizState, quizStartTime]);
 
-  const availablePeriods = [1, 2, 3, 4];
-
   const togglePeriod = (p: number) => {
     setSelectedPeriods((prev) => {
       const next = new Set(prev);
-      if (next.has(p)) {
-        next.delete(p);
-      } else {
-        next.add(p);
-      }
+      if (next.has(p)) next.delete(p);
+      else next.add(p);
       return next;
     });
   };
 
-  const toggleSelectAll = () => {
-    const allSelected = availablePeriods.every((p) => selectedPeriods.has(p));
-    if (allSelected) {
-      setSelectedPeriods(new Set());
-    } else {
-      setSelectedPeriods(new Set(availablePeriods));
-    }
+  const toggleSelectAllPeriods = () => {
+    const available = [1, 2, 3, 4];
+    const allSelected = available.every((p) => selectedPeriods.has(p));
+    setSelectedPeriods(allSelected ? new Set() : new Set(available));
+  };
+
+  const togglePhase = (f: number) => {
+    setSelectedPhases((prev) => {
+      const next = new Set(prev);
+      if (next.has(f)) next.delete(f);
+      else next.add(f);
+      return next;
+    });
+  };
+
+  const toggleSelectAllPhases = () => {
+    const allPhases = MSA_PHASES_CATALOG.map((p) => p.fase);
+    const allSelected = allPhases.every((f) => selectedPhases.has(f));
+    setSelectedPhases(allSelected ? new Set() : new Set(allPhases));
   };
 
   const handleStartQuiz = async () => {
-    if (selectedPeriods.size === 0) return;
+    if (quizMode === 'period' && selectedPeriods.size === 0) return;
+    if (quizMode === 'phase' && selectedPhases.size === 0) return;
+
     setErrorMessage(null);
     setQuizState('LOADING');
 
     let bank: unknown[] = [];
     try {
-      bank = await loadQuestionBankForPeriods(selectedPeriods);
+      if (quizMode === 'period') {
+        bank = await loadQuestionBankForPeriods(selectedPeriods);
+      } else {
+        bank = await loadQuestionBankForPhases(selectedPhases);
+      }
     } catch (e) {
       console.error('Falha ao importar bancos de questões:', e);
       setErrorMessage('Não foi possível carregar os arquivos de questões.');
@@ -234,15 +266,14 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
     }
 
     const validatedBank = validateQuestionBank(bank);
-
     if (validatedBank.length === 0) {
-      setErrorMessage('Nenhuma questão válida encontrada para os períodos selecionados.');
+      setErrorMessage('Nenhuma questão válida encontrada para os filtros selecionados.');
       setQuizState('MENU');
       return;
     }
 
-    // Embaralha questões e também as alternativas (opcoes) de cada questão sorteada
-    const activeQuestions = prepareQuizQuestions(validatedBank, 20);
+    const questionLimit = quizMode === 'period' ? 20 : 10;
+    const activeQuestions = prepareQuizQuestions(validatedBank, questionLimit);
 
     setQuestions(activeQuestions);
     setCurrentIndex(0);
@@ -264,7 +295,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
     if (!selectedOption || isAnswerChecked) return;
     setIsAnswerChecked(true);
 
-    const currentQuestion = questions[currentIndex];
+    const currentQ = questions[currentIndex];
     const isCorrect = selectedOption.correta === true;
 
     if (isCorrect) {
@@ -272,14 +303,15 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
       playSuccessSound();
     } else {
       playErrorSound();
-      const correctOpt = currentQuestion.opcoes.find((o) => o.correta);
+      const correctOpt = currentQ.opcoes.find((o) => o.correta);
       if (correctOpt) {
         setWrongAnswers((prev) => [
           ...prev,
           {
-            question: currentQuestion.pergunta,
+            questionId: currentQ.id,
+            question: currentQ.pergunta,
             correctAnswer: correctOpt.texto,
-            reference: currentQuestion.referencia,
+            reference: currentQ.referencia,
           },
         ]);
       }
@@ -293,10 +325,8 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
       setSelectedOption(null);
       setIsAnswerChecked(false);
     } else {
-      // Quiz concluído
       const totalTime = Math.floor((Date.now() - quizStartTime) / 1000);
       setTimeSpentString(formatTimeSpent(totalTime));
-
       const { img, msg } = computeQuizResult(score, questions.length);
       setResultImg(img);
       setResultMsg(msg);
@@ -304,7 +334,6 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
     }
   };
 
-  const allPeriodsChecked = availablePeriods.every((p) => selectedPeriods.has(p));
   const currentQuestion = questions[currentIndex];
   const progressPercent = questions.length > 0 ? (currentIndex / questions.length) * 100 : 0;
 
@@ -313,179 +342,44 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
       className="flex-1 flex flex-col bg-slate-50 font-sans h-full overflow-y-auto"
       id="simulado-msa-root"
     >
-      {/* MENU SCREEN */}
+      {/* TELA DE MENU INICIAL */}
       {quizState === 'MENU' && (
-        <div
-          className="max-w-xl mx-auto w-full px-6 py-6 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade"
-          id="simulado-menu"
-        >
-          <img
-            src={getAssetUrl('assets/fufu-capa-simulado.png')}
-            className="w-24 sm:w-28 h-auto mx-auto mb-3 drop-shadow-lg animate-float"
-            alt="Fufu Simulado"
-          />
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-1">Simulado MSA</h2>
-          <p className="text-xs sm:text-sm text-slate-500 font-bold mb-5">
-            Prepare-se para o teste de oficialização CCB respondendo questões reais do método.
-          </p>
-
-          {errorMessage && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs font-bold flex items-center gap-2 text-left">
-              <AlertCircle size={16} className="shrink-0 text-red-500" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
-
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-200 mb-6 text-left">
-            <div className="flex justify-between items-center mb-3">
-              <span className="text-xs font-black text-slate-500 uppercase tracking-wider">
-                Selecione os Períodos:
-              </span>
-              <button
-                onClick={toggleSelectAll}
-                className="text-xs font-extrabold text-indigo-600 hover:text-indigo-800 cursor-pointer min-h-[44px] px-2 -my-2 flex items-center"
-              >
-                {allPeriodsChecked ? 'Limpar Todos' : 'Selecionar Todos'}
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {/* Period 1 */}
-              <button
-                onClick={() => togglePeriod(1)}
-                className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all cursor-pointer ${
-                  selectedPeriods.has(1)
-                    ? 'bg-indigo-50/50 border-indigo-500 shadow-sm'
-                    : 'bg-white border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <div>
-                  <h4 className="font-extrabold text-slate-800 text-sm">Período 1</h4>
-                  <p className="text-xs text-slate-400 font-bold">Fases 1, 2 e 3</p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                    selectedPeriods.has(1)
-                      ? 'bg-indigo-600 border-indigo-600 text-white'
-                      : 'border-slate-300'
-                  }`}
-                >
-                  {selectedPeriods.has(1) && <Check size={12} />}
-                </div>
-              </button>
-
-              {/* Period 2 */}
-              <button
-                onClick={() => togglePeriod(2)}
-                className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all cursor-pointer ${
-                  selectedPeriods.has(2)
-                    ? 'bg-indigo-50/50 border-indigo-500 shadow-sm'
-                    : 'bg-white border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <div>
-                  <h4 className="font-extrabold text-slate-800 text-sm">Período 2</h4>
-                  <p className="text-xs text-slate-400 font-bold">Fases 4 e 5</p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                    selectedPeriods.has(2)
-                      ? 'bg-indigo-600 border-indigo-600 text-white'
-                      : 'border-slate-300'
-                  }`}
-                >
-                  {selectedPeriods.has(2) && <Check size={12} />}
-                </div>
-              </button>
-
-              {/* Period 3 */}
-              <button
-                onClick={() => togglePeriod(3)}
-                className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all cursor-pointer ${
-                  selectedPeriods.has(3)
-                    ? 'bg-indigo-50/50 border-indigo-500 shadow-sm'
-                    : 'bg-white border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <div>
-                  <h4 className="font-extrabold text-slate-800 text-sm">Período 3</h4>
-                  <p className="text-xs text-slate-400 font-bold">Fases 6, 7, 8 e 9</p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                    selectedPeriods.has(3)
-                      ? 'bg-indigo-600 border-indigo-600 text-white'
-                      : 'border-slate-300'
-                  }`}
-                >
-                  {selectedPeriods.has(3) && <Check size={12} />}
-                </div>
-              </button>
-
-              {/* Period 4 */}
-              <button
-                onClick={() => togglePeriod(4)}
-                className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all cursor-pointer ${
-                  selectedPeriods.has(4)
-                    ? 'bg-indigo-50/50 border-indigo-500 shadow-sm'
-                    : 'bg-white border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <div>
-                  <h4 className="font-extrabold text-slate-800 text-sm">Período 4</h4>
-                  <p className="text-xs text-slate-400 font-bold">Fases 10 a 16</p>
-                </div>
-                <div
-                  className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                    selectedPeriods.has(4)
-                      ? 'bg-indigo-600 border-indigo-600 text-white'
-                      : 'border-slate-300'
-                  }`}
-                >
-                  {selectedPeriods.has(4) && <Check size={12} />}
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <button
-            onClick={handleStartQuiz}
-            disabled={selectedPeriods.size === 0}
-            className={`w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white text-base font-extrabold rounded-2xl border-b-4 border-emerald-700 active:border-b-0 hover:scale-[1.01] active:translate-y-1 transition-all cursor-pointer shadow-md mb-3 uppercase tracking-wider ${
-              selectedPeriods.size === 0 ? 'opacity-50 pointer-events-none' : ''
-            }`}
-          >
-            Começar Simulado
-          </button>
-
-          <button
-            onClick={handleBack}
-            className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold rounded-2xl border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 transition-all cursor-pointer text-sm uppercase tracking-wider"
-          >
-            Voltar ao Início
-          </button>
-        </div>
+        <SimuladoMenu
+          quizMode={quizMode}
+          onSelectMode={(m) => setQuizMode(m)}
+          selectedPeriods={selectedPeriods}
+          onTogglePeriod={togglePeriod}
+          onToggleSelectAllPeriods={toggleSelectAllPeriods}
+          selectedPhases={selectedPhases}
+          onTogglePhase={togglePhase}
+          onToggleSelectAllPhases={toggleSelectAllPhases}
+          errorMessage={errorMessage}
+          onStartQuiz={handleStartQuiz}
+          onBack={handleBack}
+        />
       )}
 
-      {/* LOADING SCREEN */}
+      {/* TELA DE CARREGAMENTO */}
       {quizState === 'LOADING' && (
         <div className="flex-1 flex flex-col items-center justify-center p-6 bg-white animate-fade">
-          <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4" />
-          <h3 className="text-lg font-black text-slate-800">Carregando Banco de Questões...</h3>
-          <p className="text-sm text-slate-400 font-semibold mt-1">
-            Sorteando perguntas de teoria musical
+          <div className="w-14 h-14 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4" />
+          <h3 className="text-lg font-black text-slate-800">Carregando Questões...</h3>
+          <p className="text-xs text-slate-400 font-semibold mt-1">
+            {quizMode === 'period'
+              ? 'Sorteando 20 perguntas do método MSA'
+              : 'Sorteando 10 perguntas das fases selecionadas'}
           </p>
         </div>
       )}
 
-      {/* QUIZ WORKSPACE */}
+      {/* WORKSPACE DO QUIZ */}
       {quizState === 'QUIZ' && currentQuestion && (
         <div
-          className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-6 py-6 relative animate-fade min-h-full"
+          className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-4 sm:px-6 py-4 sm:py-6 relative animate-fade min-h-full"
           id="simulado-quiz"
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between gap-3 sm:gap-4 mb-6">
+          <div className="flex items-center justify-between gap-3 mb-5">
             <button
               onClick={() => setShowExitConfirm(true)}
               className="w-11 h-11 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 transition-all cursor-pointer border border-slate-200 shrink-0"
@@ -494,7 +388,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
               <X size={20} />
             </button>
 
-            {/* Progress bar */}
+            {/* Barra de Progresso */}
             <div className="flex-1 bg-slate-200 rounded-full h-3 border border-slate-300/40 overflow-hidden relative">
               <div
                 className="bg-amber-400 h-full rounded-full transition-all duration-300"
@@ -502,7 +396,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
               />
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-2 shrink-0">
               <div className="flex items-center gap-1.5 text-slate-600 font-extrabold text-xs font-mono bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200">
                 <Clock size={13} className="text-amber-500 shrink-0" />
                 <span>{formatTimeSpent(elapsedSeconds)}</span>
@@ -516,7 +410,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
             </div>
           </div>
 
-          {/* Modal de confirmação de saída */}
+          {/* Modal de Confirmação de Saída */}
           {showExitConfirm && (
             <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
               <div className="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-xl border border-slate-200">
@@ -545,18 +439,18 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
             </div>
           )}
 
-          {/* Question card */}
-          <div className="bg-sky-50 border-2 border-sky-200 rounded-2xl p-6 relative shadow-sm mb-6 animate-slide">
-            <span className="absolute -top-4 -left-3 w-10 h-10 bg-indigo-600 text-white font-black text-sm flex items-center justify-center rounded-xl border-2 border-white shadow shadow-indigo-600/20 rotate-[-5deg]">
+          {/* Card do Enunciado */}
+          <div className="bg-sky-50 border-2 border-sky-200 rounded-2xl p-5 sm:p-6 relative shadow-sm mb-5 animate-slide text-left">
+            <span className="absolute -top-3.5 -left-2.5 w-9 h-9 bg-indigo-600 text-white font-black text-xs flex items-center justify-center rounded-xl border-2 border-white shadow shadow-indigo-600/20 rotate-[-5deg]">
               {currentIndex + 1}
             </span>
-            <p className="text-slate-700 font-bold leading-relaxed">
+            <p className="text-slate-700 font-bold leading-relaxed text-sm sm:text-base">
               {formatText(currentQuestion.pergunta)}
             </p>
           </div>
 
-          {/* Multiple choice options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          {/* Múltipla Escolha */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 mb-5">
             {currentQuestion.opcoes.map((opt, index) => {
               const isSelected = selectedOption === opt;
               const isCorrectOpt = opt.correta === true;
@@ -580,68 +474,70 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
                 badgeStyle = 'bg-sky-500 text-white border-sky-500';
               }
 
-              const letters = ['A', 'B', 'C', 'D', 'E'];
+              const letters = ['A', 'B', 'C', 'D'];
 
               return (
                 <button
                   key={`opt-${index}`}
+                  id={`option-btn-${index}`}
                   disabled={isAnswerChecked}
                   onClick={() => handleSelectOption(opt)}
-                  className={`p-4 rounded-2xl border-2 border-b-4 text-left flex items-center gap-4 transition-all ${
+                  className={`p-3.5 rounded-2xl border-2 border-b-4 text-left flex items-center gap-3.5 transition-all ${
                     !isAnswerChecked ? 'cursor-pointer active:translate-y-1' : ''
                   } ${cardStyle}`}
                 >
                   <span
-                    className={`w-8 h-8 rounded-full flex items-center justify-center border font-black text-xs shrink-0 ${badgeStyle}`}
+                    className={`w-7 h-7 rounded-full flex items-center justify-center border font-black text-xs shrink-0 ${badgeStyle}`}
                   >
                     {letters[index] || '?'}
                   </span>
-                  <span className="font-extrabold text-sm">{formatText(opt.texto)}</span>
+                  <span className="font-extrabold text-xs sm:text-sm leading-snug">
+                    {formatText(opt.texto)}
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* Dynamic feedback panel */}
+          {/* Painel de Feedback da Resposta */}
           {isAnswerChecked && selectedOption && (
             <div
-              className={`p-4 sm:p-5 rounded-2xl border-2 mb-6 animate-pop flex items-start gap-3 sm:gap-4 ${
+              className={`p-4 sm:p-5 rounded-2xl border-2 mb-6 animate-pop flex items-start gap-3 text-left ${
                 selectedOption.correta
                   ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
                   : 'bg-red-50 border-red-200 text-red-800'
               }`}
             >
-              {/* Mini Fufu sticker */}
               <img
                 src={
                   selectedOption.correta
                     ? getAssetUrl('assets/fufu-acerto-joinha.png')
                     : getAssetUrl('assets/fufu-erro-nao-desista.png')
                 }
-                className="w-14 sm:w-16 h-auto shrink-0 drop-shadow-sm"
+                className="w-12 sm:w-14 h-auto shrink-0 drop-shadow-xs"
                 alt="Fufu Reação"
               />
 
               <div className="flex-1 min-w-0">
-                <h4 className="text-base font-black flex items-center gap-1.5 mb-1.5">
+                <h4 className="text-sm sm:text-base font-black flex items-center gap-1.5 mb-1">
                   {selectedOption.correta ? (
                     <>
-                      <CheckCircle2 className="text-emerald-600" size={18} /> Correto!
+                      <CheckCircle2 className="text-emerald-600" size={17} /> Correto!
                     </>
                   ) : (
                     <>
-                      <XCircle className="text-red-600" size={18} /> Incorreto...
+                      <XCircle className="text-red-600" size={17} /> Incorreto...
                     </>
                   )}
                 </h4>
 
                 <div className="text-xs font-semibold leading-relaxed">
                   {selectedOption.feedback && (
-                    <p className="italic mb-2">"{formatText(selectedOption.feedback)}"</p>
+                    <p className="italic mb-1.5">"{formatText(selectedOption.feedback)}"</p>
                   )}
 
                   {!selectedOption.correta && (
-                    <p className="border-t border-red-200/50 pt-2 mt-2 font-black text-slate-800">
+                    <p className="border-t border-red-200/50 pt-1.5 mt-1.5 font-black text-slate-800">
                       Solução Correta:{' '}
                       <span className="text-emerald-700">
                         {formatText(currentQuestion.opcoes.find((o) => o.correta)?.texto || '')}
@@ -649,23 +545,46 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
                     </p>
                   )}
 
-                  {/* Question reference */}
-                  {currentQuestion.referencia && (
-                    <div className="inline-block mt-3 bg-white/80 px-2.5 py-1 rounded-lg border border-slate-200 text-[10px] text-slate-600 font-extrabold uppercase tracking-wide">
-                      📖 {currentQuestion.referencia.livro} • Fase {currentQuestion.referencia.fase} •
-                      Pág. {currentQuestion.referencia.pagina}
-                      {currentQuestion.referencia.item && ` (${currentQuestion.referencia.item})`}
-                    </div>
-                  )}
+                  {/* Barra de Metadados e Botão de Reportar Questão */}
+                  <div className="mt-2.5 pt-2 border-t border-slate-200/50 flex items-center justify-between flex-wrap gap-2">
+                    {currentQuestion.referencia && (
+                      <div className="inline-block bg-white/80 px-2 py-0.5 rounded-lg border border-slate-200 text-[9px] sm:text-[10px] text-slate-600 font-extrabold uppercase tracking-wide">
+                        📖 {currentQuestion.referencia.livro} • Fase {currentQuestion.referencia.fase} • Pág. {currentQuestion.referencia.pagina}
+                        {currentQuestion.referencia.item && ` (${currentQuestion.referencia.item})`}
+                      </div>
+                    )}
+
+                    <button
+                      type="button"
+                      id="btn-report-question"
+                      onClick={() =>
+                        setFeedbackQuestion({
+                          id: currentQuestion.id,
+                          pergunta: currentQuestion.pergunta,
+                          referencia: currentQuestion.referencia,
+                        })
+                      }
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/90 hover:bg-slate-100 text-slate-600 font-extrabold text-[10px] sm:text-[11px] transition-colors cursor-pointer border border-slate-200 min-h-[36px]"
+                      title="Reportar problema nesta questão"
+                    >
+                      <Flag size={12} className="text-amber-500" />
+                      <span>
+                        {reportedIds.has(currentQuestion.id)
+                          ? 'Feedback enviado ✓'
+                          : 'Reportar questão'}
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Action Footer */}
-          <div className="sticky bottom-0 z-20 bg-white/95 backdrop-blur-xs border-t border-slate-200 p-4 -mx-6 -mb-6 mt-auto flex justify-end shadow-lg">
+          {/* Rodapé de Ação Sticky */}
+          <div className="sticky bottom-0 z-20 bg-white/95 backdrop-blur-xs border-t border-slate-200 p-3.5 -mx-4 sm:-mx-6 -mb-4 sm:-mb-6 mt-auto flex justify-end shadow-lg">
             {!isAnswerChecked ? (
               <button
+                id="btn-verify-answer"
                 disabled={!selectedOption}
                 onClick={handleCheckAnswer}
                 className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-extrabold text-sm tracking-wider uppercase border-b-4 min-h-[48px] ${
@@ -678,6 +597,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
               </button>
             ) : (
               <button
+                id="btn-continue-quiz"
                 onClick={handleNextQuestion}
                 className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 border-indigo-800 text-white font-extrabold text-sm tracking-wider uppercase border-b-4 rounded-2xl min-h-[48px] active:border-b-0 active:translate-y-1 cursor-pointer"
               >
@@ -688,51 +608,51 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
         </div>
       )}
 
-      {/* RESULTS SCREEN */}
+      {/* TELA DE RESULTADOS */}
       {quizState === 'RESULTS' && (
         <div
-          className="max-w-md mx-auto w-full px-6 py-8 flex-1 flex flex-col justify-center text-center animate-fade"
+          className="max-w-md mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade"
           id="simulado-resultados"
         >
           <img
             src={resultImg}
-            className="w-32 h-auto mx-auto mb-4 drop-shadow-lg animate-float"
+            className="w-28 sm:w-32 h-auto mx-auto mb-3 drop-shadow-lg animate-float"
             alt="Mascote Resultado"
           />
-          <h2 className="text-2xl font-black text-slate-800 mb-1">Simulado Concluído!</h2>
-          <p className="text-sm text-slate-400 font-semibold mb-6">{resultMsg}</p>
+          <h2 className="text-2xl font-black text-slate-800 mb-0.5">Simulado Concluído!</h2>
+          <p className="text-xs sm:text-sm text-slate-400 font-semibold mb-5">{resultMsg}</p>
 
-          <div className="bg-white p-6 rounded-3xl border-2 border-slate-200 mb-6 shadow-sm">
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+          <div className="bg-white p-5 rounded-3xl border-2 border-slate-200 mb-5 shadow-sm text-left">
+            <div className="grid grid-cols-2 gap-3 mb-4 text-center">
+              <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
                 <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">
                   Precisão
                 </span>
-                <span className="text-2xl font-black text-emerald-500 mt-1 block">
+                <span className="text-2xl font-black text-emerald-500 mt-0.5 block">
                   {Math.round((score / questions.length) * 100)}%
                 </span>
                 <span className="text-[10px] text-slate-400 font-semibold">
                   {score} de {questions.length} certas
                 </span>
               </div>
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+              <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
                 <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">
                   Tempo Gasto
                 </span>
-                <span className="text-2xl font-black text-amber-500 mt-1 block">
+                <span className="text-2xl font-black text-amber-500 mt-0.5 block">
                   {timeSpentString}
                 </span>
                 <span className="text-[10px] text-slate-400 font-semibold">Minutos : Segundos</span>
               </div>
             </div>
 
-            {/* Wrong Answers Review */}
+            {/* Revisão de Questões Incorretas */}
             {wrongAnswers.length > 0 && (
-              <div className="text-left border-t border-slate-200 pt-4">
-                <h4 className="text-xs font-black text-red-500 flex items-center gap-1.5 mb-2.5 uppercase tracking-wide">
+              <div className="border-t border-slate-200 pt-3.5">
+                <h4 className="text-xs font-black text-red-500 flex items-center gap-1.5 mb-2 uppercase tracking-wide">
                   ⚠️ O que precisa revisar:
                 </h4>
-                <div className="space-y-2.5">
+                <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
                   {wrongAnswers.map((item, idx) => (
                     <div
                       key={`wrong-${idx}`}
@@ -744,12 +664,31 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
                       <p className="text-emerald-700 font-black flex items-center gap-1">
                         <Check size={12} /> {formatText(item.correctAnswer)}
                       </p>
-                      {item.reference && (
-                        <p className="text-[9px] text-slate-400 font-bold mt-1 uppercase tracking-wider">
-                          📖 {item.reference.livro} • Fase {item.reference.fase} • Pág.{' '}
-                          {item.reference.pagina}
-                        </p>
-                      )}
+                      <div className="flex items-center justify-between flex-wrap gap-2 mt-2 pt-1 border-t border-red-100/80">
+                        {item.reference && (
+                          <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">
+                            📖 {item.reference.livro} • Fase {item.reference.fase} • Pág. {item.reference.pagina}
+                          </p>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setFeedbackQuestion({
+                              id: item.questionId || `q-review-${idx}`,
+                              pergunta: item.question,
+                              referencia: item.reference,
+                            })
+                          }
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white hover:bg-red-50 text-slate-600 font-bold text-[10px] transition-colors cursor-pointer border border-slate-200 min-h-[30px]"
+                        >
+                          <Flag size={10} className="text-amber-500" />
+                          <span>
+                            {item.questionId && reportedIds.has(item.questionId)
+                              ? 'Enviado ✓'
+                              : 'Reportar'}
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -759,19 +698,27 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
 
           <button
             onClick={handleStartQuiz}
-            className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 text-white text-sm font-extrabold rounded-2xl cursor-pointer shadow-md mb-3 uppercase tracking-wider transition-all"
+            className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 text-white text-xs sm:text-sm font-extrabold rounded-2xl cursor-pointer shadow-md mb-2.5 uppercase tracking-wider transition-all min-h-[44px]"
           >
             Novo Simulado
           </button>
 
           <button
             onClick={() => setQuizState('MENU')}
-            className="w-full py-3 bg-slate-100 hover:bg-slate-200 border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 text-slate-600 font-extrabold rounded-2xl cursor-pointer text-sm uppercase tracking-wider transition-all"
+            className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 border-b-4 border-slate-300 active:border-b-0 active:translate-y-1 text-slate-600 font-extrabold rounded-2xl cursor-pointer text-xs uppercase tracking-wider transition-all min-h-[44px]"
           >
             Sair do Simulado
           </button>
         </div>
       )}
+
+      {/* Modal de Feedback de Questões */}
+      <QuestionFeedbackModal
+        isOpen={Boolean(feedbackQuestion)}
+        question={feedbackQuestion}
+        onClose={() => setFeedbackQuestion(null)}
+        onFeedbackSubmitted={(id) => setReportedIds((prev) => new Set([...prev, id]))}
+      />
     </div>
   );
 }

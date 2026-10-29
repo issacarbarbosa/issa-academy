@@ -35,6 +35,10 @@ issa-academy/
 │   │   │   │   ├── 📄 03-periodo-3-fases-6-a-9.md
 │   │   │   │   └── 📄 04-periodo-4-fases-10-a-16.md
 │   │   │   └── 📄 SKILL.md
+│   │   ├── 📁 question-bank-auditor/
+│   │   │   ├── 📁 scripts/
+│   │   │   │   └── 📄 audit-banks.cjs
+│   │   │   └── 📄 SKILL.md
 │   │   └── 📁 rhythm-audio-engine/
 │   │       └── 📄 SKILL.md
 │   └── 📄 hooks.json
@@ -74,6 +78,8 @@ issa-academy/
 │       ├── 📄 fufu-violino.png
 │       ├── 📄 social-home.png
 │       └── 📄 social-whatsapp.png
+├── 📁 scripts/
+│   └── 📄 google-sheets-feedback-webhook.gs
 ├── 📁 src/ # Código-fonte da aplicação React/TypeScript
 │   ├── 📁 core/ # Componentes centrais, hooks, utilitários e motor de áudio
 │   │   ├── 📁 components/ # Componentes UI globais reutilizáveis (OrientationGuard)
@@ -93,11 +99,20 @@ issa-academy/
 │   │   ├── 📁 home/ # Tela inicial de boas-vindas e seleção de modos (WelcomeHome)
 │   │   │   └── 📄 WelcomeHome.tsx
 │   │   ├── 📁 mestre-da-clave/ # Jogo interativo de leitura musical em pauta Canvas 60fps
+│   │   │   ├── 📁 components/
+│   │   │   │   ├── 📄 MestreOverlays.test.tsx
+│   │   │   │   └── 📄 MestreOverlays.tsx
 │   │   │   ├── 📁 engine/ # Motor de física, partículas e geração de notas (gameEntities)
+│   │   │   │   ├── 📄 clefVectors.ts
 │   │   │   │   ├── 📄 gameEntities.test.ts
 │   │   │   │   └── 📄 gameEntities.ts
 │   │   │   └── 📄 MestreDaClave.tsx
 │   │   └── 📁 simulado/ # Simulado oficial do método MSA com validação Zod e feedbacks sonoros
+│   │       ├── 📁 components/
+│   │       │   ├── 📄 QuestionFeedbackModal.test.tsx
+│   │       │   ├── 📄 QuestionFeedbackModal.tsx
+│   │       │   ├── 📄 SimuladoMenu.test.tsx
+│   │       │   └── 📄 SimuladoMenu.tsx
 │   │       ├── 📁 questions/ # Bancos de questões Zod em JSON (q_f01 a q_f05)
 │   │       │   ├── 📄 q_f01.json
 │   │       │   ├── 📄 q_f02.json
@@ -117,6 +132,9 @@ issa-academy/
 │   │       │   ├── 📄 q_f16.json
 │   │       │   ├── 📄 schema.test.ts
 │   │       │   └── 📄 schema.ts
+│   │       ├── 📁 utils/
+│   │       │   ├── 📄 feedbackReporter.test.ts
+│   │       │   └── 📄 feedbackReporter.ts
 │   │       ├── 📄 SimuladoMsa.test.ts
 │   │       └── 📄 SimuladoMsa.tsx
 │   ├── 📁 test/
@@ -124,6 +142,7 @@ issa-academy/
 │   ├── 📄 App.tsx
 │   ├── 📄 index.css
 │   └── 📄 main.tsx
+├── 📄 .env
 ├── 📄 .env.example
 ├── 📄 .gitignore
 ├── 📄 FLUXO_USUARIO.md # Mapa de fluxo UX e navegação
@@ -141,4 +160,4 @@ issa-academy/
 ```
 
 ---
-*Gerado automaticamente em: 18/10/2026, 06:22:13*
+*Gerado automaticamente em: 29/10/2026, 04:07:36*

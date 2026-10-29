@@ -388,5 +388,239 @@
         "feedback": "Incorreto. 'Majestoso' significa 'soando de modo imponente'."
       }
     ]
+  },
+  {
+    "id": "f16_q011",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual é a diferença de execução entre a Vírgula Maior (vírgula normal) e a Vírgula Menor (vírgula pequena) na partitura dos hinos?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.1 Frases e semifrases",
+      "pagina": 136
+    },
+    "opcoes": [
+      {
+        "texto": "A vírgula maior indica silêncio de 2 compassos e a vírgula menor indica mudança de clave.",
+        "correta": false,
+        "feedback": "Incorreto. Nenhuma vírgula de respiração adiciona compassos extras nem altera claves."
+      },
+      {
+        "texto": "A vírgula menor é exclusiva para organistas e a maior para os instrumentos de sopro.",
+        "correta": false,
+        "feedback": "Incorreto. As vírgulas orientam a respiração e fraseado de toda a congregação e orquestra."
+      },
+      {
+        "texto": "A Vírgula Maior indica uma respiração normal (geralmente ao final de uma frase completa), enquanto a Vírgula Menor indica uma respiração curta (rápida, entre semifrases, sem alterar o andamento).",
+        "correta": true,
+        "feedback": "Correto! Conforme ensinado desde a Fase 3 e aprofundado na Fase 16, a vírgula maior representa a respiração normal e a menor a respiração curta."
+      },
+      {
+        "texto": "Ambas exigem parada total do metrônomo por 3 segundos.",
+        "correta": false,
+        "feedback": "Incorreto. A pulsação métrica deve permanecer perfeitamente contínua durante as respirações."
+      }
+    ]
+  },
+  {
+    "id": "f16_q012",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são os hinos citados no MSA como exemplos típicos de execução com caráter 'Solene' (soando com grandiosidade)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Hinos 260 e 351.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 260 e 351 são exemplos da indicação 'Com humildade'."
+      },
+      {
+        "texto": "Hinos 61 e 169.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 61 é exemplo de 'Com submissão' e o 169 busca inspiração na poesia."
+      },
+      {
+        "texto": "Hino 147 exclusivamente.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 147 é o exemplo clássico de 'Com júbilo'."
+      },
+      {
+        "texto": "Hinos 96 ('Vinde, ó irmãos!') e 299 ('Em nome do nosso Redentor').",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 96 e 299 são exemplos oficiais citados no MSA para a indicação interpretativa 'Solene' (grandiosidade e reverência solene)."
+      }
+    ]
+  },
+  {
+    "id": "f16_q013",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são os hinos apresentados no MSA como exemplos da indicação interpretativa 'Majestoso' (soando de modo imponente)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Hinos 135 ('Bendito seja o Deus vivente') e 367 ('De Deus tu és eleita').",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 135 e 367 são destacados no MSA como modelos da indicação 'Majestoso', devendo soar de modo imponente e triunfante."
+      },
+      {
+        "texto": "Hinos 38 e 176.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 38 e 176 são exemplos de 'Com veneração'."
+      },
+      {
+        "texto": "Hinos 208 e 377.",
+        "correta": false,
+        "feedback": "Incorreto. Estes são hinos acéfalos estudados na Fase 13."
+      },
+      {
+        "texto": "Hinos 15 e 157.",
+        "correta": false,
+        "feedback": "Incorreto. Estes hinos possuem indicação de poco rallentando na Fase 15."
+      }
+    ]
+  },
+  {
+    "id": "f16_q014",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Qual hino do Hinário 5 é o exemplo clássico citado no MSA para a indicação interpretativa 'Com júbilo' (soando com contentamento)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Hino 38.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 38 é interpretado com veneração."
+      },
+      {
+        "texto": "Hino 147 ('É bom louvar ao Criador').",
+        "correta": true,
+        "feedback": "Correto! O Hino 147 é o exemplo por excelência no MSA de interpretação 'Com júbilo', expressando alegria santa e contentamento no louvor a Deus."
+      },
+      {
+        "texto": "Hino 61.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 61 é 'Com submissão'."
+      },
+      {
+        "texto": "Hino 96.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 96 é 'Solene'."
+      }
+    ]
+  },
+  {
+    "id": "f16_q015",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Quais são os hinos apresentados na Fase 16.3 do MSA como exemplos da indicação interpretativa 'Com humildade' (soando com leveza)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.3 Indicações interpretativas",
+      "pagina": 138
+    },
+    "opcoes": [
+      {
+        "texto": "Hinos 96 e 299.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 96 e 299 são exemplos de 'Solene'."
+      },
+      {
+        "texto": "Hinos 135 e 367.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 135 e 367 são exemplos de 'Majestoso'."
+      },
+      {
+        "texto": "Hinos 260 ('Sou servo inútil, ó Deus bendito') e 351 ('A Palavra do Senhor é semente').",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 260 e 351 (além do 142 inspirado pela poesia) são exemplos oficiais do MSA para 'Com humildade', exigindo toque leve, suave e reverente."
+      },
+      {
+        "texto": "Hino 147 exclusivamente.",
+        "correta": false,
+        "feedback": "Incorreto. O Hino 147 é 'Com júbilo'."
+      }
+    ]
+  },
+  {
+    "id": "f16_q016",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Em relação à finalidade última do aprendizado musical no GEM e na CCB segundo a conclusão da Fase 16 do MSA, qual é a postura que deve coroar toda a técnica do músico e da organista?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 16,
+      "item": "16.2 Interpretação musical",
+      "pagina": 137
+    },
+    "opcoes": [
+      {
+        "texto": "Buscar exibicionismo individual, demonstrando virtuosismo e velocidade superior aos outros músicos.",
+        "correta": false,
+        "feedback": "Incorreto. A vaidade e o exibicionismo são contrários à doutrina e ao espírito do louvor a Deus."
+      },
+      {
+        "texto": "Tocar tão alto quanto possível para que o instrumento seja ouvido da rua.",
+        "correta": false,
+        "feedback": "Incorreto. O som deve ser equilibrado para auxiliar no canto da congregação."
+      },
+      {
+        "texto": "Substituir a oração pessoal pelo estudo mecânico da teoria musical.",
+        "correta": false,
+        "feedback": "Incorreto. A espiritualidade e a oração são o alicerce fundamental do serviço sacro."
+      },
+      {
+        "texto": "Colocar toda a técnica e o conhecimento musical a serviço do louvor sincero a Deus, tocando com humildade, reverência e santa comunhão para auxiliar a congregação no cantar harmonioso e edificante dos hinos.",
+        "correta": true,
+        "feedback": "Correto! Esse é o propósito sublime ensinado em todo o método MSA: consagrar a música como instrumento de adoração verdadeira, união da irmandade e exaltação ao Criador."
+      }
+    ]
   }
 ]

@@ -310,5 +310,317 @@
         "feedback": "Correto! Em ambos a nota é articulada na parte fraca, mas na síncopa ela se prolonga sobre a parte forte seguinte, enquanto no contratempo a parte forte é preenchida por pausa."
       }
     ]
+  },
+  {
+    "id": "f12_q009",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Como se classifica uma síncopa quando a ligadura de valor une a última nota de um compasso (tempo fraco) à primeira nota do compasso seguinte (tempo forte)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Síncopa de Compasso (ou entre compassos).",
+        "correta": true,
+        "feedback": "Correto! A síncopa pode ocorrer dentro do mesmo compasso ou através da barra de compasso, ligando o último tempo fraco de um compasso ao 1º tempo forte do compasso seguinte."
+      },
+      {
+        "texto": "Contratempo Composto.",
+        "correta": false,
+        "feedback": "Incorreto. Não há pausa no tempo forte; há sustentação de som através da ligadura, caracterizando a síncopa."
+      },
+      {
+        "texto": "Fermata em barra de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. A ligadura entre notas de mesma altura une as durações, formando uma síncopa."
+      },
+      {
+        "texto": "Ritornello sincopado.",
+        "correta": false,
+        "feedback": "Incorreto. Ritornello é um sinal de repetição de trecho musical."
+      }
+    ]
+  },
+  {
+    "id": "f12_q010",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "No Hinário 5, os Hinos 7 e 43 são frequentemente citados no estudo da Fase 12 por conterem qual característica rítmica específica?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "São os únicos hinos com compassos em 12/8.",
+        "correta": false,
+        "feedback": "Incorreto. Há diversos hinos em 12/8 no hinário."
+      },
+      {
+        "texto": "Apresentam trechos com síncopas bem definidas em sua condução melódica.",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 7 e 43 trazem exemplos práticos claros de notas sincopadas no Hinário 5."
+      },
+      {
+        "texto": "São hinos que não possuem barra final de compasso.",
+        "correta": false,
+        "feedback": "Incorreto. Todos os hinos possuem barra final."
+      },
+      {
+        "texto": "Devem ser tocados exclusivamente no andamento Adagio.",
+        "correta": false,
+        "feedback": "Incorreto. Cada hino possui sua marcação metronômica própria indicada no cabeçalho."
+      }
+    ]
+  },
+  {
+    "id": "f12_q011",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Em um compasso 4/4, na primeira parte do 1º tempo há uma pausa de colcheia, e na segunda parte há uma nota colcheia. O mesmo padrão repete-se nos tempos 2, 3 e 4. Como se classifica esse contratempo?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.2 Contratempo",
+      "pagina": 112
+    },
+    "opcoes": [
+      {
+        "texto": "Contratempo Irregular.",
+        "correta": false,
+        "feedback": "Incorreto. A pausa e a nota têm a mesma duração (ambas são colcheias), o que caracteriza o contratempo Regular."
+      },
+      {
+        "texto": "Síncopa de tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Como o som inicia na parte fraca e a parte forte é ocupada por pausa (sem prolongamento), trata-se de Contratempo."
+      },
+      {
+        "texto": "Contratempo Regular.",
+        "correta": true,
+        "feedback": "Correto! Como a pausa na parte forte (colcheia) e a nota na parte fraca (colcheia) têm a mesma duração, trata-se de Contratempo Regular."
+      },
+      {
+        "texto": "Tercina mista.",
+        "correta": false,
+        "feedback": "Incorreto. Trata-se de subdivisão binária normal em contratempo."
+      }
+    ]
+  },
+  {
+    "id": "f12_q012",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a principal consequência auditiva da Síncopa na percepção musical do ouvinte?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Faz com que a música fique instantaneamente fora de tom.",
+        "correta": false,
+        "feedback": "Incorreto. A síncopa é um fenômeno de ritmo/duração e não altera a tonalidade das notas."
+      },
+      {
+        "texto": "Elimina a necessidade de bater o metrônomo durante todo o hino.",
+        "correta": false,
+        "feedback": "Incorreto. A pulsação metronômica deve permanecer rigorosamente constante."
+      },
+      {
+        "texto": "Transforma o compasso quaternário em compasso ternário.",
+        "correta": false,
+        "feedback": "Incorreto. A fórmula de compasso permanece inalterada."
+      },
+      {
+        "texto": "Provoca uma sensação de deslocamento ou antecipação momentânea do apoio rítmico, transferindo a sensação de ênfase para um ponto onde naturalmente haveria um tempo ou parte fraca.",
+        "correta": true,
+        "feedback": "Correto! Esse deslocamento momentâneo da expectativa de apoio é a essência do efeito estético da síncopa."
+      }
+    ]
+  },
+  {
+    "id": "f12_q013",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Considere em compasso 4/4 uma nota colcheia na 2ª metade do 2º tempo ligada a uma semínima pontuada no 3º tempo. Essa síncopa é classificada como:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Síncopa Irregular, pois as notas unidas pela ligadura de valor possuem durações diferentes (colcheia de 1/2 tempo ligada a semínima pontuada de 1 tempo e 1/2).",
+        "correta": true,
+        "feedback": "Correto! Como as parcelas da síncopa têm durações desiguais (colcheia ≠ semínima pontuada), a síncopa é classificada como Irregular."
+      },
+      {
+        "texto": "Síncopa Regular, pois a soma das duas notas totaliza 2 tempos exatos.",
+        "correta": false,
+        "feedback": "Incorreto. A classificação em Regular ou Irregular não depende da soma ser redonda, mas sim de as parcelas unidas terem durações iguais ou diferentes."
+      },
+      {
+        "texto": "Contratempo Irregular com ponto de aumento.",
+        "correta": false,
+        "feedback": "Incorreto. Trata-se de prolongamento de nota por ligadura sem pausas, o que define a síncopa."
+      },
+      {
+        "texto": "Compasso alternado composto.",
+        "correta": false,
+        "feedback": "Incorreto. É um evento rítmico dentro da fórmula 4/4."
+      }
+    ]
+  },
+  {
+    "id": "f12_q014",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Durante a realização da leitura métrica ou solfejo de uma lição com síncopas, qual erro comum o candidato deve evitar com relação ao movimento de condução da mão?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Solfejar com voz sussurrada sem emitir som.",
+        "correta": false,
+        "feedback": "Incorreto. O erro principal na síncopa reside na estabilidade da marcação métrica."
+      },
+      {
+        "texto": "Parar a mão no ar ou hesitar no movimento de condução no tempo forte enquanto a nota sincopada está sendo sustentada.",
+        "correta": true,
+        "feedback": "Correto! A mão que conduz o solfejo deve marcar o tempo forte com firmeza e continuidade mesmo que a voz/instrumento esteja sustentando uma nota iniciada no tempo fraco."
+      },
+      {
+        "texto": "Olhar para a partitura enquanto bate o tempo.",
+        "correta": false,
+        "feedback": "Incorreto. Olhar para a partitura é a prática correta e recomendada."
+      },
+      {
+        "texto": "Utilizar a respiração diafragmática.",
+        "correta": false,
+        "feedback": "Incorreto. A respiração diafragmática correta é incentivada em todos os estudos."
+      }
+    ]
+  },
+  {
+    "id": "f12_q015",
+    "ativo": true,
+    "dificuldade": "facil",
+    "pontos": 15,
+    "tipo": "texto",
+    "pergunta": "Em qual situação o contratempo é denominado 'Contratempo de Tempo' (ou contratempo entre tempos inteiros)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.2 Contratempo",
+      "pagina": 112
+    },
+    "opcoes": [
+      {
+        "texto": "Quando a pausa e a nota ocorrem ambas dentro da mesma fração de tempo de uma semicolcheia.",
+        "correta": false,
+        "feedback": "Incorreto. Esse é um contratempo de fração/subdivisão."
+      },
+      {
+        "texto": "Quando a pausa ocupa uma linha suplementar inteira.",
+        "correta": false,
+        "feedback": "Incorreto. Linhas suplementares são usadas para notas de frequências extremas, não para classificação de contratempo."
+      },
+      {
+        "texto": "Quando a pausa preenche um tempo inteiro forte (ex.: o 1º tempo em 2/4 ou 4/4) e a nota preenche um tempo inteiro fraco (ex.: o 2º tempo).",
+        "correta": true,
+        "feedback": "Correto! Quando a pausa e a nota abrangem tempos inteiros de compasso (e não apenas metades ou frações de tempo), temos um contratempo de tempos."
+      },
+      {
+        "texto": "Quando o contratempo é executado no metrônomo a 120 BPM.",
+        "correta": false,
+        "feedback": "Incorreto. A velocidade não define a classificação do contratempo."
+      }
+    ]
+  },
+  {
+    "id": "f12_q016",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Assinale a alternativa que resume com exatidão a regra pedagógica do MSA sobre a acentuação de notas sincopadas nos cultos e reuniões da CCB:",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 12,
+      "item": "12.1 Síncopa",
+      "pagina": 111
+    },
+    "opcoes": [
+      {
+        "texto": "Deve-se bater o pé com força a cada síncopa para avisar a congregação.",
+        "correta": false,
+        "feedback": "Incorreto. Bater os pés no chão de forma ruidosa é proibido nos serviços sagrados."
+      },
+      {
+        "texto": "Toda síncopa exige uma acentuação forçada em sforzato (sfz) ou martelada.",
+        "correta": false,
+        "feedback": "Incorreto. O MSA rejeita a acentuação forte nas síncopas dos hinos sacros."
+      },
+      {
+        "texto": "Deve-se suprimir a nota sincopada e substituí-la por uma pausa de igual valor.",
+        "correta": false,
+        "feedback": "Incorreto. As notas escritas devem ser executadas com fidelidade à partitura."
+      },
+      {
+        "texto": "A síncopa deve ser executada com naturalidade, sustentação precisa e sonoridade sacra, sem acentuações agressivas ou descompassadas que alterem o caráter reverente do hino.",
+        "correta": true,
+        "feedback": "Correto! Nos hinos da CCB a síncopa preserva a reverência do ambiente sagrado, evitando ataques bruscos comuns em estilos populares."
+      }
+    ]
   }
 ]

@@ -466,5 +466,161 @@
         "feedback": "Correto! Basta observar o número superior: 2, 3 e 4 indicam compassos simples; 6, 9 e 12 indicam compassos compostos."
       }
     ]
+  },
+  {
+    "id": "f11_q013",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Como se define a 'Prosódia Musical' e qual a sua relação com o acento métrico dos compassos nos hinos sacros?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.1 Acento métrico",
+      "pagina": 98
+    },
+    "opcoes": [
+      {
+        "texto": "É o correto casamento entre o acento tônico das palavras da poesia e o acento métrico natural (tempo forte) dos compassos musicais.",
+        "correta": true,
+        "feedback": "Correto! A prosódia musical garante que a sílaba tônica das palavras coincida com os tempos fortes ou partes fortes do compasso, permitindo uma declamação cantada natural e expressiva."
+      },
+      {
+        "texto": "É a técnica de cantar as notas do contralto uma oitava acima do soprano.",
+        "correta": false,
+        "feedback": "Incorreto. Prosódia refere-se ao casamento entre acentuação poética e métrica musical."
+      },
+      {
+        "texto": "É a obrigatoriedade de usar metrônomo analógico mecânico de pêndulo.",
+        "correta": false,
+        "feedback": "Incorreto. O tipo de metrônomo não se relaciona com o conceito de prosódia."
+      },
+      {
+        "texto": "É a contagem dos tempos exclusivamente em compassos ternários simples.",
+        "correta": false,
+        "feedback": "Incorreto. A prosódia se aplica a qualquer fórmula de compasso e poesia."
+      }
+    ]
+  },
+  {
+    "id": "f11_q014",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "Dentre os hinos do Hinário 5, quais são os três hinos oficiais que possuem compassos alternados escritos de forma alternada a cada compasso para facilitar a leitura e a regência?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.4 Compasso alternado",
+      "pagina": 105
+    },
+    "opcoes": [
+      {
+        "texto": "Hinos 1, 2 e 3.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 1, 2 e 3 são compassos simples convencionais."
+      },
+      {
+        "texto": "Hinos 342, 346 e 415.",
+        "correta": true,
+        "feedback": "Correto! Os Hinos 342, 346 e 415 são os três exemplos oficiais citados no MSA de hinos com fórmulas de compasso alternadas compasso a compasso."
+      },
+      {
+        "texto": "Hinos 208, 377 e 422.",
+        "correta": false,
+        "feedback": "Incorreto. 208 e 377 são hinos acéfalos, e o 422 tem mudança de velocidade entre estrofe e coro."
+      },
+      {
+        "texto": "Hinos 15, 157 e 378.",
+        "correta": false,
+        "feedback": "Incorreto. Os Hinos 15, 157 e 378 são exemplos de hinos com indicação de poco rallentando na Fase 15."
+      }
+    ]
+  },
+  {
+    "id": "f11_q015",
+    "ativo": true,
+    "dificuldade": "media",
+    "pontos": 20,
+    "tipo": "texto",
+    "pergunta": "Qual é a Unidade de Tempo (U.T.) e a Unidade de Compasso (U.C.) na fórmula de compasso 12/8 (quaternário composto)?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.3 Compasso composto",
+      "pagina": 103
+    },
+    "opcoes": [
+      {
+        "texto": "U.T.: Colcheia simples (𝅘𝅥𝅮); U.C.: Semibreve simples (𝅝).",
+        "correta": false,
+        "feedback": "Incorreto. No 12/8 a colcheia é o pulso ou movimento da subdivisão, e a U.T. é a figura pontuada que preenche cada um dos 4 tempos."
+      },
+      {
+        "texto": "U.T.: Mínima (𝅗𝅥); U.C.: Breve pontuada.",
+        "correta": false,
+        "feedback": "Incorreto. O denominador 8 indica a colcheia como base da subdivisão ternária."
+      },
+      {
+        "texto": "U.T.: Semínima Pontuada (𝅘𝅥.); U.C.: Semibreve Pontuada (𝅝.).",
+        "correta": true,
+        "feedback": "Correto! Em 12/8 (4 tempos compostos), cada tempo é preenchido por uma Semínima Pontuada (𝅘𝅥.) e o compasso inteiro soma uma Semibreve Pontuada (𝅝.)."
+      },
+      {
+        "texto": "U.T.: Semínima simples (𝅘𝅥); U.C.: Semibreve simples (𝅝).",
+        "correta": false,
+        "feedback": "Incorreto. Essas são as unidades do compasso simples 4/4."
+      }
+    ]
+  },
+  {
+    "id": "f11_q016",
+    "ativo": true,
+    "dificuldade": "dificil",
+    "pontos": 25,
+    "tipo": "texto",
+    "pergunta": "No Hino 422 do Hinário 5 ('Bem-aventurança'), o que ocorre de excepcional entre a estrofe e o coro em relação ao andamento e à fórmula de compasso?",
+    "imagemUrl": null,
+    "audioUrl": null,
+    "referencia": {
+      "livro": "MSA",
+      "periodo": 4,
+      "fase": 11,
+      "item": "11.4 Compasso alternado",
+      "pagina": 106
+    },
+    "opcoes": [
+      {
+        "texto": "O hino muda de tonalidade maior para menor no coro.",
+        "correta": false,
+        "feedback": "Incorreto. Todos os hinos do Hinário 5 estão em tonalidades maiores."
+      },
+      {
+        "texto": "O coro deve ser cantado sem acompanhamento instrumental (a cappella).",
+        "correta": false,
+        "feedback": "Incorreto. A orquestra e o órgão acompanham normalmente."
+      },
+      {
+        "texto": "A estrofe é em compasso binário e o coro é em compasso quinário.",
+        "correta": false,
+        "feedback": "Incorreto. Não há compasso quinário no Hinário 5."
+      },
+      {
+        "texto": "O hino apresenta indicações métricas e de velocidades distintas escritas para a estrofe e para o coro, exigindo ajuste metronômico específico na passagem.",
+        "correta": true,
+        "feedback": "Correto! O Hino 422 é uma exceção notável no Hinário 5 por trazer expressamente velocidades diferentes para a estrofe e para o coro."
+      }
+    ]
   }
 ]

@@ -116,4 +116,20 @@ describe('Zod Schema Validation & Data Blindage (schema.ts)', () => {
 
     consoleSpy.mockRestore();
   });
+
+  it('should support WrongAnswerRecord structure with optional questionId and reference', () => {
+    const wrongRecord = {
+      questionId: 'f05_q001',
+      question: 'Qual a definição de compasso?',
+      correctAnswer: 'Divisão métrica do tempo musical',
+      reference: {
+        fase: 5,
+        periodo: 2,
+        pagina: 42,
+      },
+    };
+
+    expect(wrongRecord.questionId).toBe('f05_q001');
+    expect(wrongRecord.reference?.fase).toBe(5);
+  });
 });
