@@ -40,6 +40,7 @@ if [ "${1:-}" = "--push" ]; then
 
   # Atualiza MAPA_RAIZ.md e package-lock.json
   node .agents/skills/map-builder/scripts/generate-map.js
+  rm -f package-lock.json
   npm install --package-lock-only --no-audit --no-fund
 
   git add -A
