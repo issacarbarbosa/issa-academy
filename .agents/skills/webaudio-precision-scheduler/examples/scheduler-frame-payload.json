@@ -1,0 +1,22 @@
+{
+  "currentBeat": 4.5,
+  "elapsedSeconds": 4.15,
+  "totalSeconds": 40.61,
+  "currentMeasureNumber": 2,
+  "currentBeatInMeasure": 1,
+  "activeSliceIds": ["slice_m2_b0"],
+  "activeNotes": [
+    {
+      "id": "note_m2_n0",
+      "midi": 67,
+      "frequency": 391.995,
+      "pitchLabel": "G4",
+      "durationBeats": 2,
+      "isRest": false
+    }
+  ],
+  "isCountingIn": false,
+  "countInBeat": null,
+  "countInTotalBeats": 4,
+  "isPlaying": true
+}

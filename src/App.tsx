@@ -24,6 +24,7 @@ const AulasMsa = React.lazy(() =>
 const AdminDashboard = React.lazy(() =>
   import('./modules/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard })),
 );
+const PartiturasStudio = React.lazy(() => import('./modules/partituras/PartiturasStudio'));
 
 function MainLayout() {
   const location = useLocation();
@@ -58,6 +59,8 @@ function MainLayout() {
   }, [navigate]);
 
   const isMestreDaClave = location.pathname === '/mestre-da-clave';
+  const isPartituras = location.pathname === '/partituras';
+  const isImmersiveModule = isMestreDaClave || isPartituras;
   const isHome = location.pathname === '/';
   const isAdminRoute = location.pathname === '/admin';
 
@@ -69,7 +72,7 @@ function MainLayout() {
       id="app-root"
     >
       {/* ==================== BANNER DE ANÚNCIO GLOBAL ==================== */}
-      {!isMestreDaClave && siteConfig?.announcementBanner?.enabled && (
+      {!isImmersiveModule && siteConfig?.announcementBanner?.enabled && (
         <div className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-600 text-white px-4 py-2 text-xs font-black flex items-center justify-center gap-2 text-center shadow-inner relative z-50">
           <Bell size={14} className="text-amber-300 shrink-0" />
           <span>{siteConfig.announcementBanner.text}</span>
@@ -102,7 +105,7 @@ function MainLayout() {
       )}
 
       {/* ==================== GLOBAL APP HEADER ==================== */}
-      {!isMestreDaClave && (
+      {!isImmersiveModule && (
         <header className="h-[70px] border-b-2 border-slate-200 bg-white flex mobile-landscape-hidden items-center justify-between px-6 md:px-8 sticky top-0 z-40 shadow-sm">
           <button
             onClick={() => navigate('/')}
@@ -157,6 +160,7 @@ function MainLayout() {
           <Routes>
             <Route path="/" element={<WelcomeHome />} />
             <Route path="/aulas" element={<AulasMsa />} />
+            <Route path="/partituras" element={<PartiturasStudio />} />
             <Route
               path="/mestre-da-clave"
               element={
@@ -173,29 +177,31 @@ function MainLayout() {
       </div>
 
       {/* ==================== BOTTOM STATUS BAR ==================== */}
-      <footer className="h-10 bg-[#1a3c5a] mobile-landscape-hidden flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
-        <div className="flex items-center gap-2">
-          <span>{siteConfig?.footerText || 'Issa Academy • Mestre da Clave, Aulas & Simulado MSA'}</span>
-          {/* Acesso discreto ao Admin via cadeado no rodapé */}
-          {!isAdminRoute && (
-            <button
-              onClick={() => navigate('/admin')}
-              className="opacity-40 hover:opacity-100 transition-opacity p-0.5 text-slate-300 cursor-pointer"
-              title="Acesso de Administrador (Ctrl+Shift+A)"
-            >
-              <Lock size={11} />
-            </button>
-          )}
-        </div>
-        <div className="flex gap-4">
-          <span className="hidden md:inline">CCB • Método de Teoria e Solfejo</span>
-          <span className="hidden md:inline opacity-50">|</span>
-          <span>Nível: Digital</span>
-        </div>
-      </footer>
+      {!isPartituras && (
+        <footer className="h-10 bg-[#1a3c5a] mobile-landscape-hidden flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
+          <div className="flex items-center gap-2">
+            <span>{siteConfig?.footerText || 'Issa Academy • Mestre da Clave, Aulas & Simulado MSA'}</span>
+            {/* Acesso discreto ao Admin via cadeado no rodapé */}
+            {!isAdminRoute && (
+              <button
+                onClick={() => navigate('/admin')}
+                className="opacity-40 hover:opacity-100 transition-opacity p-0.5 text-slate-300 cursor-pointer"
+                title="Acesso de Administrador (Ctrl+Shift+A)"
+              >
+                <Lock size={11} />
+              </button>
+            )}
+          </div>
+          <div className="flex gap-4">
+            <span className="hidden md:inline">CCB • Método de Teoria e Solfejo</span>
+            <span className="hidden md:inline opacity-50">|</span>
+            <span>Nível: Digital</span>
+          </div>
+        </footer>
+      )}
 
       {/* Barra Flutuante de Administração e Modal de Edição Rápida */}
-      <AdminFloatingBar />
+      {!isImmersiveModule && <AdminFloatingBar />}
       <QuickEditModal onUpdated={loadConfig} />
     </div>
   );

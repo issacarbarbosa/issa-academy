@@ -224,3 +224,38 @@ CREATE POLICY "Admin pode excluir feedbacks"
   ON public.question_feedbacks FOR DELETE
   TO authenticated
   USING (public.is_admin());
+
+-- 6. Tabela de Repertório de Partituras MusicXML (MSA & Hinário 5 CCB)
+CREATE TABLE IF NOT EXISTS public.musicxml_scores (
+  id TEXT PRIMARY KEY,
+  payload JSONB NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE public.musicxml_scores ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Leitura pública de partituras" ON public.musicxml_scores;
+CREATE POLICY "Leitura pública de partituras"
+  ON public.musicxml_scores FOR SELECT
+  TO public
+  USING (true);
+
+DROP POLICY IF EXISTS "Admin pode inserir partituras" ON public.musicxml_scores;
+CREATE POLICY "Admin pode inserir partituras"
+  ON public.musicxml_scores FOR INSERT
+  TO authenticated
+  WITH CHECK (public.is_admin());
+
+DROP POLICY IF EXISTS "Admin pode atualizar partituras" ON public.musicxml_scores;
+CREATE POLICY "Admin pode atualizar partituras"
+  ON public.musicxml_scores FOR UPDATE
+  TO authenticated
+  USING (public.is_admin())
+  WITH CHECK (public.is_admin());
+
+DROP POLICY IF EXISTS "Admin pode excluir partituras" ON public.musicxml_scores;
+CREATE POLICY "Admin pode excluir partituras"
+  ON public.musicxml_scores FOR DELETE
+  TO authenticated
+  USING (public.is_admin());
+

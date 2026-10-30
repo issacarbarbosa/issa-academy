@@ -6,7 +6,7 @@ import { useAdmin } from '../../core/contexts/AdminContext';
 import { contentStore, SiteConfig } from '../../core/services/contentStore';
 
 interface WelcomeHomeProps {
-  onNavigate?: (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa') => void;
+  onNavigate?: (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa' | 'partituras') => void;
 }
 
 export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
@@ -18,7 +18,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
     contentStore.getSiteConfig().then((cfg) => setSiteConfig(cfg));
   }, []);
 
-  const handleNav = (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa') => {
+  const handleNav = (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa' | 'partituras') => {
     if (onNavigate) {
       onNavigate(view);
       return;
@@ -28,6 +28,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       aulas: '/aulas',
       mestre_da_clave: '/mestre-da-clave',
       simulado_msa: '/simulado',
+      partituras: '/partituras',
     };
     navigate(routes[view] || '/');
   };
@@ -67,8 +68,8 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Main grid containing the 3 cards: Aulas MSA, Mestre da Clave e Simulado MSA */}
-      <main className="flex-1 max-w-xl md:max-w-4xl mx-auto w-full px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+      {/* Main grid containing the 4 cards: Aulas MSA, Partituras & Hinário, Mestre da Clave e Simulado MSA */}
+      <main className="flex-1 max-w-xl md:max-w-5xl mx-auto w-full px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* CARD 1: AULAS & LIÇÕES TEÓRICAS MSA */}
         <button
           id="card-nav-aulas"
@@ -98,7 +99,40 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </div>
         </button>
 
-        {/* CARD 2: MESTRE DA CLAVE */}
+        {/* CARD 2: ESTÚDIO DE PARTITURAS & HINÁRIO 5 */}
+        <button
+          id="card-nav-partituras"
+          onClick={() => handleNav('partituras')}
+          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-3xl p-5 flex flex-col justify-between hover:border-amber-500 hover:bg-amber-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm min-h-[170px]"
+        >
+          <div className="flex items-start justify-between w-full">
+            <div className="w-[60px] h-[60px] rounded-2xl bg-amber-500 flex items-center justify-center shadow-md shadow-amber-500/20 overflow-visible shrink-0">
+              <img
+                src={getAssetUrl('assets/fufu-violino.png')}
+                alt="Fufu Estúdio de Partituras"
+                className="w-full h-full object-contain transform scale-[1.35] -translate-y-1 drop-shadow-md"
+              />
+            </div>
+            <span className="bg-amber-500 text-slate-950 font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              Estúdio
+            </span>
+          </div>
+
+          <div className="mt-3 flex-1">
+            <div className="text-base font-black text-slate-800 flex items-center justify-between">
+              <span>Partituras & Hinário</span>
+              <ChevronRight
+                size={18}
+                className="text-slate-300 group-hover:text-amber-600 transition-colors shrink-0"
+              />
+            </div>
+            <div className="text-xs text-slate-500 font-bold mt-1 line-clamp-2">
+              Solfejo interativo do MSA e Hinário 5 CCB com piano didático
+            </div>
+          </div>
+        </button>
+
+        {/* CARD 3: MESTRE DA CLAVE */}
         <button
           id="card-nav-mestre"
           onClick={() => handleNav('mestre_da_clave')}
@@ -131,7 +165,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </div>
         </button>
 
-        {/* CARD 3: SIMULADO MSA */}
+        {/* CARD 4: SIMULADO MSA */}
         <button
           id="card-nav-simulado"
           onClick={() => handleNav('simulado_msa')}

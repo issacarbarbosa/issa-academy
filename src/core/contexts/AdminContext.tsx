@@ -34,13 +34,30 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 const LOCAL_ADMIN_STORAGE_KEY = 'issa_admin_session_v2';
+const LOCAL_ADMIN_MODE_KEY = 'issa_admin_view_mode_v2';
 const LOCAL_PREVIEW_SECRET = 'issa2026';
 
 export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [user, setUser] = useState<AdminUser | null>(null);
-  const [mode, setMode] = useState<AdminViewMode>('aluno');
+  const [mode, setModeState] = useState<AdminViewMode>(() => {
+    try {
+      const saved = localStorage.getItem(LOCAL_ADMIN_MODE_KEY);
+      return saved === 'edicao' || saved === 'aluno' ? saved : 'edicao';
+    } catch {
+      return 'edicao';
+    }
+  });
   const [activeEditTarget, setActiveEditTarget] = useState<AdminEditTarget | null>(null);
+
+  const setMode = (nextMode: AdminViewMode) => {
+    setModeState(nextMode);
+    try {
+      localStorage.setItem(LOCAL_ADMIN_MODE_KEY, nextMode);
+    } catch {
+      // Ignore storage error
+    }
+  };
 
   const handleAuthenticatedUser = async (authUser: {
     id: string;
@@ -81,6 +98,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       name: authUser.user_metadata?.full_name || userEmail,
     });
     setIsAdmin(true);
+    const savedMode = localStorage.getItem(LOCAL_ADMIN_MODE_KEY);
+    setMode(savedMode === 'aluno' ? 'aluno' : 'edicao');
   };
 
   // Restaura sessão existente e trata tokens na URL
@@ -135,9 +154,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     // Em produção, nunca permite sessão local sem credenciais reais
     if (import.meta.env.PROD) {
       localStorage.removeItem(LOCAL_ADMIN_STORAGE_KEY);
+      localStorage.removeItem(LOCAL_ADMIN_MODE_KEY);
       setUser(null);
       setIsAdmin(false);
-      setMode('aluno');
+      setModeState('aluno');
       return;
     }
 
@@ -147,15 +167,17 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         const parsed = JSON.parse(stored);
         setUser(parsed);
         setIsAdmin(true);
+        const savedMode = localStorage.getItem(LOCAL_ADMIN_MODE_KEY);
+        setModeState(savedMode === 'aluno' ? 'aluno' : 'edicao');
       } else {
         setUser(null);
         setIsAdmin(false);
-        setMode('aluno');
+        setModeState('aluno');
       }
     } catch {
       setUser(null);
       setIsAdmin(false);
-      setMode('aluno');
+      setModeState('aluno');
     }
   };
 
@@ -184,6 +206,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       localStorage.setItem(LOCAL_ADMIN_STORAGE_KEY, JSON.stringify(localUser));
       setUser(localUser);
       setIsAdmin(true);
+      setMode('edicao');
       return { success: true };
     }
 
@@ -245,6 +268,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       localStorage.setItem(LOCAL_ADMIN_STORAGE_KEY, JSON.stringify(localUser));
       setUser(localUser);
       setIsAdmin(true);
+      setMode('edicao');
       return true;
     }
     return false;
@@ -255,9 +279,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       await supabase.auth.signOut();
     }
     localStorage.removeItem(LOCAL_ADMIN_STORAGE_KEY);
+    localStorage.removeItem(LOCAL_ADMIN_MODE_KEY);
     setUser(null);
     setIsAdmin(false);
-    setMode('aluno');
+    setModeState('aluno');
     setActiveEditTarget(null);
   };
 

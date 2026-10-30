@@ -1,5 +1,6 @@
 {
-  "name": "Issa Academy",
-  "description": "Plataforma de ensino musical gamificado CCB com o jogo Mestre da Clave e o Simulado MSA oficial com gabarito e cronômetro.",
-  "requestFramePermissions": []
+  "name": "SliceScore Studio — Estudo Musical Interativo",
+  "description": "Plataforma interativa de estudo musical estilo Soundslice com renderização MusicXML (OSMD), sintetizador Web Audio API, metrônomo com count-in, loop de compassos e sincronização visual de notas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

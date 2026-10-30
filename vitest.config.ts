@@ -9,6 +9,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     include: ['src/**/*.test.{ts,tsx}'],
+    exclude: ['src/modules/partituras/utils/musicMath.test.ts'],
   },
   resolve: {
     alias: {

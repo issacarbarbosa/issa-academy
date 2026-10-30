@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Check, CheckCircle2, X, XCircle, Clock, Flag } from 'lucide-react';
+import { Check, CheckCircle2, X, XCircle, Clock, Flag, Edit3, Save } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAdmin } from '../../core/contexts/AdminContext';
+import { contentStore } from '../../core/services/contentStore';
 import {
   SimuladoQuestion,
   SimuladoQuestionOption,
@@ -186,6 +188,7 @@ export async function loadQuestionBankForPeriods(selectedPeriods: Set<number>): 
 
 export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
   const navigate = useNavigate();
+  const { isAdmin, mode } = useAdmin();
   const handleBack = onBack || (() => navigate('/'));
 
   // Estados de Configuração e Modalidade
@@ -196,6 +199,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
   const [quizState, setQuizState] = useState<'MENU' | 'LOADING' | 'QUIZ' | 'RESULTS'>('MENU');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showExitConfirm, setShowExitConfirm] = useState<boolean>(false);
+  const [editingQuestion, setEditingQuestion] = useState<SimuladoQuestion | null>(null);
 
   // Modal de Feedback
   const [feedbackQuestion, setFeedbackQuestion] = useState<{
@@ -468,6 +472,25 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
             <span className="absolute -top-3.5 -left-2.5 w-9 h-9 bg-indigo-600 text-white font-black text-xs flex items-center justify-center rounded-xl border-2 border-white shadow shadow-indigo-600/20 rotate-[-5deg]">
               {currentIndex + 1}
             </span>
+
+            {isAdmin && mode === 'edicao' && (
+              <button
+                type="button"
+                data-testid="simulado-inline-edit-question-btn"
+                onClick={() =>
+                  setEditingQuestion({
+                    ...currentQuestion,
+                    opcoes: currentQuestion.opcoes.map((o) => ({ ...o })),
+                  })
+                }
+                className="absolute -top-3 right-3 px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-900 text-[11px] font-black shadow flex items-center gap-1 cursor-pointer"
+                title="Editar esta questão diretamente na tela"
+              >
+                <Edit3 size={12} />
+                <span>✏️ Editar Questão ({currentQuestion.id})</span>
+              </button>
+            )}
+
             <p className="text-slate-700 font-bold leading-relaxed text-sm sm:text-base">
               {formatText(currentQuestion.pergunta)}
             </p>
@@ -743,6 +766,133 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
         onClose={() => setFeedbackQuestion(null)}
         onFeedbackSubmitted={(id) => setReportedIds((prev) => new Set([...prev, id]))}
       />
+
+      {/* Modal de Edição In-Loco de Questão (Exclusivo Admin em Modo Edição) */}
+      {editingQuestion && (
+        <div
+          data-testid="simulado-inline-edit-modal"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in"
+        >
+          <div className="bg-white rounded-3xl shadow-2xl border-2 border-slate-200 max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative text-left">
+            <button
+              type="button"
+              onClick={() => setEditingQuestion(null)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+
+            <h3 className="text-lg font-black text-[#1a3c5a] mb-4">
+              Editar Questão In-Loco:{' '}
+              <span className="font-mono text-indigo-600">{editingQuestion.id}</span>
+            </h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                  Enunciado da Pergunta
+                </label>
+                <textarea
+                  data-testid="simulado-edit-pergunta-input"
+                  value={editingQuestion.pergunta}
+                  onChange={(e) =>
+                    setEditingQuestion({ ...editingQuestion, pergunta: e.target.value })
+                  }
+                  rows={3}
+                  className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-medium text-slate-800"
+                />
+              </div>
+
+              <div className="pt-2 border-t border-slate-200">
+                <span className="text-xs font-black uppercase text-slate-600 block mb-3">
+                  Alternativas (Marque a correta):
+                </span>
+                <div className="space-y-3">
+                  {editingQuestion.opcoes.map((opcao, optIdx) => (
+                    <div
+                      key={optIdx}
+                      className={`p-3 rounded-2xl border-2 ${
+                        opcao.correta
+                          ? 'bg-emerald-50/70 border-emerald-400'
+                          : 'bg-slate-50 border-slate-200'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <input
+                          type="radio"
+                          name="inline-correta-radio"
+                          checked={opcao.correta}
+                          onChange={() => {
+                            const updated = editingQuestion.opcoes.map((o, idx) => ({
+                              ...o,
+                              correta: idx === optIdx,
+                            }));
+                            setEditingQuestion({ ...editingQuestion, opcoes: updated });
+                          }}
+                          className="w-4 h-4 text-emerald-600 cursor-pointer"
+                        />
+                        <span className="text-xs font-black uppercase text-slate-700">
+                          Opção {String.fromCharCode(65 + optIdx)}{' '}
+                          {opcao.correta && (
+                            <strong className="text-emerald-700">(Correta ✓)</strong>
+                          )}
+                        </span>
+                      </div>
+
+                      <input
+                        type="text"
+                        value={opcao.texto}
+                        onChange={(e) => {
+                          const updated = [...editingQuestion.opcoes];
+                          updated[optIdx] = { ...updated[optIdx], texto: e.target.value };
+                          setEditingQuestion({ ...editingQuestion, opcoes: updated });
+                        }}
+                        className="w-full px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-medium mb-1.5 bg-white text-slate-800"
+                      />
+
+                      <input
+                        type="text"
+                        value={opcao.feedback || ''}
+                        onChange={(e) => {
+                          const updated = [...editingQuestion.opcoes];
+                          updated[optIdx] = { ...updated[optIdx], feedback: e.target.value };
+                          setEditingQuestion({ ...editingQuestion, opcoes: updated });
+                        }}
+                        placeholder="Feedback pedagógico..."
+                        className="w-full px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-600 bg-white"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setEditingQuestion(null)}
+                  className="px-4 py-2 text-slate-500 font-bold text-xs cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  data-testid="simulado-save-question-btn"
+                  onClick={async () => {
+                    await contentStore.saveQuestion(editingQuestion);
+                    setQuestions((prev) =>
+                      prev.map((q) => (q.id === editingQuestion.id ? editingQuestion : q))
+                    );
+                    setEditingQuestion(null);
+                  }}
+                  className="flex items-center gap-2 px-6 py-2.5 bg-[#58cc02] hover:bg-[#46a302] text-white font-black text-xs rounded-xl shadow cursor-pointer"
+                >
+                  <Save size={16} /> Salvar Questão
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../core/contexts/AdminContext';
 import {
   contentStore,
@@ -8,6 +9,18 @@ import {
 import { isSupabaseConfigured } from '../../core/services/supabaseClient';
 import { MsaLesson, LessonBlock } from '../aulas/types';
 import { SimuladoQuestion } from '../simulado/questions/schema';
+import { PresetScore, MsaClefType } from '../partituras/types/music';
+import {
+  loadCatalogFromStorage,
+  loadHiddenPresetIds,
+  reimportScoreMusicXmlInStorage,
+  updateScoreMetadataInStorage,
+  deleteScoreFromStorage,
+  restoreDefaultScoreInStorage,
+  restoreHiddenFactoryScoresInStorage,
+  downloadScoreMusicXmlFile,
+} from '../partituras/data/sampleScores';
+import { MSA_OFFICIAL_CLEFS, HYMNAL_EDITION_SHORT_LABELS } from '../partituras/utils/musicMath';
 import {
   LayoutDashboard,
   BookOpen,
@@ -17,6 +30,7 @@ import {
   Palette,
   CloudUpload,
   Download,
+  Upload,
   Plus,
   Trash2,
   Edit2,
@@ -26,9 +40,13 @@ import {
   Save,
   X,
   FileSpreadsheet,
+  Music2,
+  RotateCcw,
+  ExternalLink,
 } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const {
     isAdmin,
     user,
@@ -48,7 +66,7 @@ export const AdminDashboard: React.FC = () => {
 
   // Estados de Navegação do Dashboard
   const [activeTab, setActiveTab] = useState<
-    'overview' | 'lessons' | 'questions' | 'feedbacks' | 'game' | 'site'
+    'overview' | 'scores' | 'lessons' | 'questions' | 'feedbacks' | 'game' | 'site'
   >('overview');
 
   // Dados do Store
@@ -56,6 +74,19 @@ export const AdminDashboard: React.FC = () => {
   const [lessons, setLessons] = useState<MsaLesson[]>([]);
   const [questions, setQuestions] = useState<SimuladoQuestion[]>([]);
   const [feedbacks, setFeedbacks] = useState<QuestionFeedbackRecord[]>([]);
+  const [catalogScores, setCatalogScores] = useState<PresetScore[]>([]);
+  const [hiddenScoresCount, setHiddenScoresCount] = useState<number>(0);
+
+  // Estados de Gestão de Partituras & Hinário
+  const [scoreCollectionFilter, setScoreCollectionFilter] = useState<'all' | 'msa' | 'hinario5'>('all');
+  const [scoreSearch, setScoreSearch] = useState<string>('');
+  const [editingScoreMeta, setEditingScoreMeta] = useState<PresetScore | null>(null);
+  const scoreXmlInputRef = useRef<HTMLInputElement | null>(null);
+  const [pendingXmlTarget, setPendingXmlTarget] = useState<{ scoreId: string; clef?: MsaClefType } | null>(null);
+  const restoreBackupInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Confirmação Inline (sem window.confirm / window.alert)
+  const [confirmActionKey, setConfirmActionKey] = useState<string | null>(null);
 
   // Estados de Edição de Lições
   const [filterFaseLesson, setFilterFaseLesson] = useState<number>(1);
@@ -73,14 +104,14 @@ export const AdminDashboard: React.FC = () => {
   // Estados de Sincronização Cloud
   const [syncStatus, setSyncStatus] = useState<{
     loading: boolean;
-    result?: { success: boolean; questionsCount: number; lessonsCount: number; error?: string };
+    result?: { success: boolean; questionsCount: number; lessonsCount: number; scoresCount?: number; error?: string };
   }>({ loading: false });
 
   const [notification, setNotification] = useState<string | null>(null);
 
   const showNotification = (msg: string) => {
     setNotification(msg);
-    setTimeout(() => setNotification(null), 3000);
+    setTimeout(() => setNotification(null), 3500);
   };
 
   const loadAllData = async () => {
@@ -94,6 +125,8 @@ export const AdminDashboard: React.FC = () => {
     setLessons(less);
     setQuestions(qList);
     setFeedbacks(fList);
+    setCatalogScores(loadCatalogFromStorage());
+    setHiddenScoresCount(loadHiddenPresetIds().length);
   };
 
   useEffect(() => {
@@ -262,16 +295,15 @@ export const AdminDashboard: React.FC = () => {
 
   // ==================== DASHBOARD AUTENTICADO ====================
   const handleSeedSupabase = async () => {
-    if (!window.confirm('Deseja sincronizar todas as 552 questões, 16 fases e configurações para o Supabase agora?')) {
-      return;
-    }
     setSyncStatus({ loading: true });
     const res = await contentStore.seedInitialDataToSupabase();
     setSyncStatus({ loading: false, result: res });
     if (res.success) {
-      showNotification(`✔ Sincronização concluída: ${res.questionsCount} questões e ${res.lessonsCount} lições enviadas!`);
+      showNotification(
+        `✔ Sincronização concluída: ${res.questionsCount} questões, ${res.lessonsCount} lições e ${res.scoresCount ?? 0} partituras enviadas!`
+      );
     } else {
-      alert(`Falha na sincronização: ${res.error}`);
+      showNotification(`⚠️ Falha na sincronização: ${res.error}`);
     }
   };
 
@@ -284,12 +316,54 @@ export const AdminDashboard: React.FC = () => {
     a.download = `issa-academy-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showNotification('✔ Backup JSON baixado com sucesso!');
+    showNotification('✔ Backup JSON completo baixado com sucesso!');
+  };
+
+  const handleRestoreBackupFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const res = await contentStore.restoreFullBackupJson(text);
+      if (res.success) {
+        await loadAllData();
+        showNotification(
+          `✔ Backup restaurado (${res.lessonsCount} lições, ${res.questionsCount} questões, ${res.scoresCount} partituras)!`
+        );
+      } else {
+        showNotification(`⚠️ Erro ao restaurar backup: ${res.error}`);
+      }
+    } finally {
+      e.target.value = '';
+    }
+  };
+
+  const handleScoreXmlFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !pendingXmlTarget) return;
+    try {
+      const text = await file.text();
+      if (text.includes('<score-partwise') || text.includes('<score-timewise')) {
+        const next = reimportScoreMusicXmlInStorage(
+          catalogScores,
+          pendingXmlTarget.scoreId,
+          text,
+          pendingXmlTarget.clef
+        );
+        setCatalogScores(next);
+        showNotification('✔ MusicXML atualizado no catálogo com sucesso!');
+      } else {
+        showNotification('⚠️ Arquivo inválido: selecione um arquivo .musicxml ou .xml válido.');
+      }
+    } finally {
+      setPendingXmlTarget(null);
+      e.target.value = '';
+    }
   };
 
   const handleExportFeedbacksCsv = () => {
     if (feedbacks.length === 0) {
-      alert('Nenhum feedback registrado para exportar.');
+      showNotification('Nenhum feedback registrado para exportar.');
       return;
     }
 
@@ -365,13 +439,38 @@ export const AdminDashboard: React.FC = () => {
           </h1>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 flex-wrap">
+          <input
+            ref={restoreBackupInputRef}
+            type="file"
+            accept=".json,application/json"
+            onChange={handleRestoreBackupFileChange}
+            className="hidden"
+          />
+          <input
+            ref={scoreXmlInputRef}
+            type="file"
+            accept=".musicxml,.xml"
+            onChange={handleScoreXmlFileChange}
+            className="hidden"
+          />
+
           <button
             onClick={() => handleExportBackup()}
+            data-testid="admin-export-backup-btn"
             className="flex items-center gap-1.5 px-3.5 py-2 bg-[#f7f9fa] hover:bg-slate-100 text-slate-700 font-black text-xs rounded-xl border border-slate-200 shadow-sm cursor-pointer"
-            title="Exportar backup completo de todo o banco em JSON"
+            title="Exportar backup completo de todo o banco (lições, questões, partituras e configurações) em JSON"
           >
-            <Download size={14} /> Backup JSON
+            <Download size={14} /> Exportar Backup JSON
+          </button>
+
+          <button
+            onClick={() => restoreBackupInputRef.current?.click()}
+            data-testid="admin-restore-backup-btn"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-black text-xs rounded-xl border border-indigo-200 shadow-sm cursor-pointer"
+            title="Restaurar backup JSON salvo anteriormente"
+          >
+            <Upload size={14} /> Restaurar Backup JSON
           </button>
 
           <button
@@ -394,6 +493,18 @@ export const AdminDashboard: React.FC = () => {
           }`}
         >
           <LayoutDashboard size={16} /> Visão Geral & Cloud
+        </button>
+
+        <button
+          onClick={() => setActiveTab('scores')}
+          data-testid="admin-tab-scores"
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl font-black text-xs whitespace-nowrap transition-all cursor-pointer border-2 ${
+            activeTab === 'scores'
+              ? 'bg-neutral-900 text-amber-400 border-neutral-900 shadow-sm'
+              : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
+          }`}
+        >
+          <Music2 size={16} /> Partituras &amp; Hinário ({catalogScores.length})
         </button>
 
         <button
@@ -608,19 +719,36 @@ export const AdminDashboard: React.FC = () => {
                     >
                       <Edit2 size={16} />
                     </button>
-                    <button
-                      onClick={async () => {
-                        if (window.confirm(`Deseja realmente excluir a lição "${lesson.titulo}"?`)) {
-                          await contentStore.deleteLesson(lesson.id);
-                          loadAllData();
-                          showNotification('Lição excluída com sucesso.');
-                        }
-                      }}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all cursor-pointer"
-                      title="Excluir lição"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                    {confirmActionKey === `del-lesson-${lesson.id}` ? (
+                      <div className="flex items-center gap-1 bg-red-50 border border-red-200 px-2 py-1 rounded-xl">
+                        <span className="text-[11px] font-black text-red-800">Excluir?</span>
+                        <button
+                          onClick={async () => {
+                            await contentStore.deleteLesson(lesson.id);
+                            setConfirmActionKey(null);
+                            loadAllData();
+                            showNotification('Lição excluída com sucesso.');
+                          }}
+                          className="px-2 py-0.5 bg-red-600 text-white rounded-lg text-[10px] font-black cursor-pointer"
+                        >
+                          Sim
+                        </button>
+                        <button
+                          onClick={() => setConfirmActionKey(null)}
+                          className="px-1.5 py-0.5 text-slate-600 text-[10px] font-bold cursor-pointer"
+                        >
+                          Não
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setConfirmActionKey(`del-lesson-${lesson.id}`)}
+                        className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all cursor-pointer"
+                        title="Excluir lição"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -960,18 +1088,35 @@ export const AdminDashboard: React.FC = () => {
                     >
                       <Edit2 size={13} /> Editar
                     </button>
-                    <button
-                      onClick={async () => {
-                        if (window.confirm(`Deseja excluir a questão ${q.id}?`)) {
-                          await contentStore.deleteQuestion(q.id);
-                          loadAllData();
-                          showNotification('Questão excluída.');
-                        }
-                      }}
-                      className="p-1.5 text-red-400 hover:text-red-600 cursor-pointer"
-                    >
-                      <Trash2 size={15} />
-                    </button>
+                    {confirmActionKey === `del-q-${q.id}` ? (
+                      <div className="flex items-center gap-1 bg-red-50 border border-red-200 px-2 py-1 rounded-xl">
+                        <span className="text-[10px] font-black text-red-800">Excluir?</span>
+                        <button
+                          onClick={async () => {
+                            await contentStore.deleteQuestion(q.id);
+                            setConfirmActionKey(null);
+                            loadAllData();
+                            showNotification('Questão excluída.');
+                          }}
+                          className="px-2 py-0.5 bg-red-600 text-white rounded-lg text-[10px] font-black cursor-pointer"
+                        >
+                          Sim
+                        </button>
+                        <button
+                          onClick={() => setConfirmActionKey(null)}
+                          className="px-1.5 py-0.5 text-slate-600 text-[10px] font-bold cursor-pointer"
+                        >
+                          Não
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setConfirmActionKey(`del-q-${q.id}`)}
+                        className="p-1.5 text-red-400 hover:text-red-600 cursor-pointer"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -1230,7 +1375,7 @@ export const AdminDashboard: React.FC = () => {
                           setActiveTab('questions');
                           setEditingQuestion(target);
                         } else {
-                          alert(`Questão ${fb.question_id} não encontrada no banco.`);
+                          showNotification(`⚠️ Questão ${fb.question_id} não encontrada no banco.`);
                         }
                       }}
                       className="flex items-center gap-1.5 px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs rounded-xl shadow cursor-pointer"
@@ -1450,6 +1595,395 @@ export const AdminDashboard: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* ABA: PARTITURAS & HINÁRIO (CATÁLOGO MUSICXML) */}
+      {activeTab === 'scores' && (
+        <div className="space-y-6 animate-in fade-in" data-testid="admin-scores-panel">
+          <div className="bg-white p-4 rounded-2xl border-2 border-slate-200 flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm">
+            <div className="flex items-center gap-2 flex-wrap w-full md:w-auto">
+              <div className="relative flex-1 md:w-64">
+                <Search size={16} className="absolute left-3 top-2.5 text-slate-400" />
+                <input
+                  type="text"
+                  value={scoreSearch}
+                  onChange={(e) => setScoreSearch(e.target.value)}
+                  placeholder="Buscar lição do MSA ou hino..."
+                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              <select
+                value={scoreCollectionFilter}
+                onChange={(e) =>
+                  setScoreCollectionFilter(e.target.value as 'all' | 'msa' | 'hinario5')
+                }
+                className="px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold"
+              >
+                <option value="all">Todas as Coleções ({catalogScores.length})</option>
+                <option value="msa">
+                  MSA — Lições ({catalogScores.filter((s) => s.collection === 'msa').length})
+                </option>
+                <option value="hinario5">
+                  Hinário 5 CCB ({catalogScores.filter((s) => s.collection === 'hinario5').length})
+                </option>
+              </select>
+
+              {hiddenScoresCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const restored = restoreHiddenFactoryScoresInStorage();
+                    setCatalogScores(restored);
+                    setHiddenScoresCount(0);
+                    showNotification('✔ Partituras de fábrica restauradas ao catálogo!');
+                  }}
+                  className="px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-black flex items-center gap-1.5 cursor-pointer"
+                >
+                  <RotateCcw size={14} /> Restaurar {hiddenScoresCount} oculta(s)
+                </button>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => navigate('/partituras')}
+              className="flex items-center gap-2 px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-black text-xs rounded-xl shadow cursor-pointer whitespace-nowrap"
+            >
+              <ExternalLink size={15} /> Abrir Estúdio de Partituras
+            </button>
+          </div>
+
+          {/* Lista de Partituras e Hinos */}
+          <div className="bg-white rounded-3xl border-2 border-slate-200 overflow-hidden shadow-sm">
+            <div className="divide-y divide-slate-100 max-h-[600px] overflow-y-auto">
+              {catalogScores
+                .filter((s) => {
+                  if (scoreCollectionFilter !== 'all' && s.collection !== scoreCollectionFilter)
+                    return false;
+                  if (scoreSearch.trim()) {
+                    const q = scoreSearch.toLowerCase();
+                    return (
+                      s.title.toLowerCase().includes(q) ||
+                      s.id.toLowerCase().includes(q) ||
+                      String(s.number) === q
+                    );
+                  }
+                  return true;
+                })
+                .map((score) => {
+                  const isMsaSolfejo =
+                    score.collection === 'msa' && score.msaPhase === 'solfejo';
+                  const delScoreKey = `del-score-${score.id}`;
+
+                  return (
+                    <div
+                      key={score.id}
+                      className="p-4 hover:bg-slate-50 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-3"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
+                              score.collection === 'msa'
+                                ? 'bg-amber-100 text-amber-900'
+                                : 'bg-indigo-100 text-indigo-800'
+                            }`}
+                          >
+                            {score.collection === 'msa'
+                              ? `MSA · Lição ${score.number}`
+                              : `Hino ${score.number}${
+                                  score.edition
+                                    ? ` · ${HYMNAL_EDITION_SHORT_LABELS[score.edition]}`
+                                    : ''
+                                }`}
+                          </span>
+                          <span className="font-mono text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                            {score.timeSignature} · ♩ = {score.defaultBpm}
+                          </span>
+                          {score.hasAdminOverride && (
+                            <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+                              Personalizada
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm font-black text-slate-800 truncate">
+                          {score.title}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 flex-wrap shrink-0">
+                        {/* Cobertura de Claves para Solfejo MSA */}
+                        {isMsaSolfejo &&
+                          MSA_OFFICIAL_CLEFS.map((clefOpt) => {
+                            const hasXml = Boolean(
+                              score.xmlByClef?.[clefOpt.value] ||
+                                (clefOpt.value === 'sol' && score.xml)
+                            );
+                            return (
+                              <button
+                                key={clefOpt.value}
+                                type="button"
+                                onClick={() => {
+                                  setPendingXmlTarget({
+                                    scoreId: score.id,
+                                    clef: clefOpt.value,
+                                  });
+                                  scoreXmlInputRef.current?.click();
+                                }}
+                                title={`Substituir MusicXML (${clefOpt.label})`}
+                                className={`px-2 py-1 rounded-lg border text-[11px] font-bold flex items-center gap-1 cursor-pointer ${
+                                  hasXml
+                                    ? 'bg-slate-100 border-slate-300 text-slate-800 hover:bg-slate-200'
+                                    : 'bg-slate-50 border-dashed border-slate-300 text-slate-400'
+                                }`}
+                              >
+                                <span>{clefOpt.shortLabel}</span>
+                                <Upload size={11} />
+                              </button>
+                            );
+                          })}
+
+                        {!isMsaSolfejo && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPendingXmlTarget({ scoreId: score.id });
+                              scoreXmlInputRef.current?.click();
+                            }}
+                            className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl flex items-center gap-1 cursor-pointer"
+                            title="Substituir arquivo MusicXML"
+                          >
+                            <Upload size={13} /> MusicXML
+                          </button>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => setEditingScoreMeta({ ...score })}
+                          className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl flex items-center gap-1 cursor-pointer"
+                          title="Editar metadados (título, número, compasso e BPM)"
+                        >
+                          <Edit2 size={13} /> Editar
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => downloadScoreMusicXmlFile(score)}
+                          className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl cursor-pointer"
+                          title="Baixar arquivo .musicxml"
+                        >
+                          <Download size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => navigate(`/partituras?scoreId=${score.id}`)}
+                          className="px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl flex items-center gap-1 cursor-pointer"
+                          title="Abrir esta partitura no Estúdio Interativo"
+                        >
+                          <ExternalLink size={13} /> Abrir
+                        </button>
+
+                        {score.hasAdminOverride && !score.isCustomCreated && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const next = restoreDefaultScoreInStorage(
+                                catalogScores,
+                                score.id
+                              );
+                              setCatalogScores(next);
+                              showNotification(
+                                `✔ Padrão de "${score.title}" restaurado!`
+                              );
+                            }}
+                            className="p-1.5 text-amber-600 hover:bg-amber-50 rounded-xl cursor-pointer"
+                            title="Restaurar MusicXML padrão de fábrica"
+                          >
+                            <RotateCcw size={14} />
+                          </button>
+                        )}
+
+                        {confirmActionKey === delScoreKey ? (
+                          <div className="flex items-center gap-1 bg-red-50 border border-red-200 px-2 py-1 rounded-xl">
+                            <span className="text-[10px] font-black text-red-800">
+                              Excluir?
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const next = deleteScoreFromStorage(
+                                  catalogScores,
+                                  score.id
+                                );
+                                setCatalogScores(next);
+                                setHiddenScoresCount(loadHiddenPresetIds().length);
+                                setConfirmActionKey(null);
+                                showNotification(`"${score.title}" removida.`);
+                              }}
+                              className="px-2 py-0.5 bg-red-600 text-white rounded-lg text-[10px] font-black cursor-pointer"
+                            >
+                              Sim
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setConfirmActionKey(null)}
+                              className="px-1.5 py-0.5 text-slate-600 text-[10px] font-bold cursor-pointer"
+                            >
+                              Não
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setConfirmActionKey(delScoreKey)}
+                            className="p-1.5 text-red-400 hover:text-red-600 cursor-pointer"
+                            title="Excluir partitura"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+
+          {/* Modal de Edição de Metadados da Partitura */}
+          {editingScoreMeta && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in">
+              <div className="bg-white rounded-3xl shadow-2xl border-2 border-slate-200 max-w-lg w-full p-6 relative">
+                <button
+                  type="button"
+                  onClick={() => setEditingScoreMeta(null)}
+                  className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+
+                <h3 className="text-lg font-black text-[#1a3c5a] mb-4">
+                  Editar Metadados da Partitura
+                </h3>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                      Título da Obra
+                    </label>
+                    <input
+                      type="text"
+                      value={editingScoreMeta.title}
+                      onChange={(e) =>
+                        setEditingScoreMeta({
+                          ...editingScoreMeta,
+                          title: e.target.value,
+                        })
+                      }
+                      className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-bold"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                        {editingScoreMeta.collection === 'msa' ? 'Nº Lição' : 'Nº Hino'}
+                      </label>
+                      <input
+                        type="number"
+                        min={1}
+                        max={480}
+                        value={editingScoreMeta.number}
+                        onChange={(e) =>
+                          setEditingScoreMeta({
+                            ...editingScoreMeta,
+                            number: Number(e.target.value),
+                          })
+                        }
+                        className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-mono font-bold"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                        Compasso
+                      </label>
+                      <select
+                        value={editingScoreMeta.timeSignature}
+                        onChange={(e) =>
+                          setEditingScoreMeta({
+                            ...editingScoreMeta,
+                            timeSignature: e.target.value,
+                          })
+                        }
+                        className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-mono font-bold"
+                      >
+                        <option value="4/4">4/4</option>
+                        <option value="3/4">3/4</option>
+                        <option value="2/4">2/4</option>
+                        <option value="6/8">6/8</option>
+                        <option value="9/8">9/8</option>
+                        <option value="12/8">12/8</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                        BPM (♩)
+                      </label>
+                      <input
+                        type="number"
+                        min={30}
+                        max={240}
+                        value={editingScoreMeta.defaultBpm}
+                        onChange={(e) =>
+                          setEditingScoreMeta({
+                            ...editingScoreMeta,
+                            defaultBpm: Number(e.target.value),
+                          })
+                        }
+                        className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-mono font-bold"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                    <button
+                      type="button"
+                      onClick={() => setEditingScoreMeta(null)}
+                      className="px-4 py-2 text-slate-500 font-bold text-xs cursor-pointer"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const next = updateScoreMetadataInStorage(
+                          catalogScores,
+                          editingScoreMeta.id,
+                          {
+                            title: editingScoreMeta.title,
+                            number: editingScoreMeta.number,
+                            timeSignature: editingScoreMeta.timeSignature,
+                            defaultBpm: editingScoreMeta.defaultBpm,
+                          }
+                        );
+                        setCatalogScores(next);
+                        setEditingScoreMeta(null);
+                        showNotification('✔ Metadados da partitura salvos!');
+                      }}
+                      className="flex items-center gap-2 px-6 py-2.5 bg-[#1a3c5a] hover:bg-slate-800 text-white font-black text-xs rounded-xl shadow cursor-pointer"
+                    >
+                      <Save size={16} /> Salvar Alterações
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
+

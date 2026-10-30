@@ -1,0 +1,22 @@
+{
+  "loopConfig": {
+    "enabled": true,
+    "startMeasure": 1,
+    "endMeasure": 2,
+    "startBeat": 2.0,
+    "endBeat": 6.0
+  },
+  "isFocusIsolated": false,
+  "startHandleGeometry": {
+    "x": 218.4,
+    "y": 54.0,
+    "height": 82.0,
+    "systemIndex": 0
+  },
+  "endHandleGeometry": {
+    "x": 492.8,
+    "y": 54.0,
+    "height": 82.0,
+    "systemIndex": 0
+  }
+}

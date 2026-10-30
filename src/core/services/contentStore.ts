@@ -497,6 +497,7 @@ class ContentStore {
     success: boolean;
     questionsCount: number;
     lessonsCount: number;
+    scoresCount?: number;
     error?: string;
   }> {
     if (!isSupabaseConfigured || !supabase) {
@@ -560,10 +561,33 @@ class ContentStore {
         if (qError) throw new Error(`Erro no lote de questões (${i}): ${qError.message}`);
       }
 
+      // 4. Sincroniza Partituras & Hinário personalizados no Supabase (se a tabela musicxml_scores existir)
+      let scoresCount = 0;
+      try {
+        const { loadCatalogFromStorage } = await import(
+          '../../modules/partituras/data/sampleScores'
+        );
+        const catalog = loadCatalogFromStorage().filter(
+          (s) => s.isCustomCreated || s.hasAdminOverride
+        );
+        scoresCount = catalog.length;
+        if (catalog.length > 0) {
+          const scoreRows = catalog.map((s) => ({
+            id: s.id,
+            payload: s,
+            updated_at: new Date().toISOString(),
+          }));
+          await supabase.from('musicxml_scores').upsert(scoreRows, { onConflict: 'id' });
+        }
+      } catch {
+        // Ignora silenciosamente caso a tabela opcional musicxml_scores ainda não exista
+      }
+
       return {
         success: true,
         questionsCount: questions.length,
         lessonsCount: lessons.length,
+        scoresCount,
       };
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
@@ -584,17 +608,106 @@ class ContentStore {
       this.getFeedbacks(),
     ]);
 
+    let catalogScores: unknown[] = [];
+    let hiddenPresetIds: string[] = [];
+    try {
+      const { loadCatalogFromStorage, loadHiddenPresetIds } = await import(
+        '../../modules/partituras/data/sampleScores'
+      );
+      catalogScores = loadCatalogFromStorage().filter(
+        (s) => s.isCustomCreated || s.hasAdminOverride
+      );
+      hiddenPresetIds = loadHiddenPresetIds();
+    } catch {
+      // Fallback
+    }
+
     const backup = {
-      version: '1.2.0',
+      version: '1.3.0',
       exportedAt: new Date().toISOString(),
       siteConfig: config,
       lessons,
       questions,
       feedbacks,
+      catalogScores,
+      hiddenPresetIds,
     };
 
     return JSON.stringify(backup, null, 2);
   }
+
+  async restoreFullBackupJson(jsonString: string): Promise<{
+    success: boolean;
+    lessonsCount: number;
+    questionsCount: number;
+    scoresCount: number;
+    error?: string;
+  }> {
+    try {
+      const parsed = JSON.parse(jsonString);
+      if (!parsed || typeof parsed !== 'object') {
+        return {
+          success: false,
+          lessonsCount: 0,
+          questionsCount: 0,
+          scoresCount: 0,
+          error: 'Arquivo JSON inválido.',
+        };
+      }
+
+      if (parsed.siteConfig && typeof parsed.siteConfig === 'object') {
+        await this.saveSiteConfig({ ...DEFAULT_SITE_CONFIG, ...parsed.siteConfig });
+      }
+
+      let lessonsCount = 0;
+      if (Array.isArray(parsed.lessons)) {
+        localStorage.setItem(STORAGE_KEYS.LESSONS, JSON.stringify(parsed.lessons));
+        lessonsCount = parsed.lessons.length;
+      }
+
+      let questionsCount = 0;
+      if (Array.isArray(parsed.questions)) {
+        try {
+          localStorage.setItem(STORAGE_KEYS.QUESTIONS, JSON.stringify(parsed.questions));
+        } catch {
+          // Ignore quota
+        }
+        questionsCount = parsed.questions.length;
+      }
+
+      if (Array.isArray(parsed.feedbacks)) {
+        localStorage.setItem(STORAGE_KEYS.FEEDBACKS, JSON.stringify(parsed.feedbacks));
+      }
+
+      let scoresCount = 0;
+      if (Array.isArray(parsed.catalogScores)) {
+        const { persistCatalogToStorage, persistHiddenPresetIds } = await import(
+          '../../modules/partituras/data/sampleScores'
+        );
+        persistCatalogToStorage(parsed.catalogScores);
+        scoresCount = parsed.catalogScores.length;
+        if (Array.isArray(parsed.hiddenPresetIds)) {
+          persistHiddenPresetIds(parsed.hiddenPresetIds);
+        }
+      }
+
+      return {
+        success: true,
+        lessonsCount,
+        questionsCount,
+        scoresCount,
+      };
+    } catch (err) {
+      return {
+        success: false,
+        lessonsCount: 0,
+        questionsCount: 0,
+        scoresCount: 0,
+        error: err instanceof Error ? err.message : 'Falha ao ler arquivo de backup JSON.',
+      };
+    }
+  }
 }
 
 export const contentStore = new ContentStore();
+

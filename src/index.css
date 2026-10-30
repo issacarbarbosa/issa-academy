@@ -56,3 +56,93 @@ body {
   }
 }
 
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom styling for OSMD SVG container (Módulo Partituras & Hinário) */
+.osmd-canvas-container svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center top;
+}
+
+.osmd-canvas-container .vf-notehead path {
+  transition: fill 60ms ease-out, filter 60ms ease-out;
+}
+
+/* Smooth horizontal CSS transition when activating, adjusting, or deactivating Focus Mode */
+.score-focus-stage-transition {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    max-width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center top;
+  will-change: transform, opacity;
+}
+
+.focus-smooth-measure-zone {
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease-out;
+}
+
+.focus-smooth-annotation {
+  transition:
+    left 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease-out;
+}
+
+/* Smooth organic CSS transitions for Playhead Cursor & Measure Shading */
+.playhead-cursor-smooth {
+  transition:
+    transform 95ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 160ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 150ms ease-out;
+}
+
+.playhead-cursor-measure-hop {
+  transition:
+    transform 165ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease-out;
+}
+
+.measure-shade-smooth {
+  transition:
+    transform 175ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 175ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 175ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-focus-stage-transition,
+  .focus-smooth-measure-zone,
+  .focus-smooth-annotation,
+  .playhead-cursor-smooth,
+  .playhead-cursor-measure-hop,
+  .measure-shade-smooth {
+    transition: none !important;
+  }
+}
+
+

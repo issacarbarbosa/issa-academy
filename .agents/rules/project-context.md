@@ -35,26 +35,30 @@ O projeto segue o padrão monorepo dividido em `core` e `modules`. O agente deve
 
 ### 2. Fronteira `src/modules/`
 - **Regra:** Domínios de negócio isolados e interfaces do usuário vivem aqui:
-  - `src/modules/home/`: Tela de entrada (`WelcomeHome.tsx`) com seleção de modo e apresentação do mascote Fufu.
+  - `src/modules/home/`: Tela de entrada (`WelcomeHome.tsx`) com seleção dos 4 módulos principais e apresentação do mascote Fufu.
+  - `src/modules/aulas/`: Trilha teórica das 16 Fases e 4 Períodos do MSA (`AulasMsa.tsx`) com videoaulas integradas.
+  - `src/modules/partituras/`: Estúdio interativo de partituras MusicXML estilo Soundslice (`PartiturasStudio.tsx`) para lições de Leitura Rítmica e Solfejo do MSA (3 claves) e Hinário 5 CCB, com som exclusivo de **Piano de Cauda Didático (`'acoustic-grand'`)**, filosofia minimalista estrita (**"Menos é mais"**) e ferramentas visuais de cordas (`ViolinFingerboard` e `Dedilhado e arcadas`) exclusivas no Hinário de Cordas (`edition === 'cordas'`).
   - `src/modules/mestre-da-clave/`: Jogo interativo de leitura musical em pauta Canvas a 60fps, com física e partículas desacopladas em `engine/gameEntities.ts`.
   - `src/modules/simulado/`: Simulado oficial do método MSA com bancos de dados JSON em `questions/`, validação Zod e reações sonoras.
+  - `src/modules/admin/`: Painel Administrativo Híbrido (`AdminDashboard.tsx`) autenticado via Google OAuth + Supabase (`admin_whitelist`).
 
 ### 3. Roteamento Declarativo e PWA Offline-First
 - **Regra de Roteamento:** O roteamento da SPA deve ser gerido de forma declarativa por `react-router-dom` com `<HashRouter>` (devido ao suporte à hospedagem estática no GitHub Pages).
-- **Code Splitting:** Todas as telas de topo (`WelcomeHome`, `MestreDaClave`, `SimuladoMsa`) devem ser importadas assincronamente via `React.lazy` e encapsuladas com `<Suspense>` em `App.tsx` para garantir carregamento leve (chunks dedicados).
+- **Code Splitting:** Todas as telas de topo (`WelcomeHome`, `AulasMsa`, `PartiturasStudio`, `MestreDaClave`, `SimuladoMsa`, `AdminDashboard`) devem ser importadas assincronamente via `React.lazy` e encapsuladas com `<Suspense>` em `App.tsx` para garantir carregamento leve (chunks dedicados).
 - **Componentes Autônomos:** Os módulos e views devem consumir hooks do roteador (`useNavigate`, `useLocation`) com propriedades opcionais de callback.
 - **PWA e Cache:** O manifesto da aplicação (`manifest.webmanifest`) e as estratégias de cache Workbox são configurados em `vite.config.ts`.
 
-### 4. Blindagem de Dados (Zod) e Testes Co-localizados (Vitest)
+### 4. Blindagem de Dados (Zod) e Testes Co-localizados
 - **Validação Estrita de Schemas:** Todo carregamento dinâmico ou externo de dados (ex.: arquivos JSON em `questions/`) DEVE ser validado com schemas Zod antes de ser consumido pelo estado da aplicação. É proibido o uso de `any` para tipar dados externos.
-- **Testes Unitários Co-localizados:** Todos os testes unitários (`*.test.ts` ou `*.test.tsx`) devem residir na mesma pasta que o código fonte que estão testando, rodando sob o framework Vitest no ambiente JSDOM.
+- **Testes Unitários Co-localizados:** Todos os testes unitários (`*.test.ts` ou `*.test.tsx`) devem residir na mesma pasta que o código fonte que estão testando (`src/modules/partituras/utils/musicMath.test.ts` e suíte Vitest).
 
 ---
 
 ## 🔊 Restrições do Motor de Áudio (Web Audio API)
-Os sons de notas e instrumentos virtuais são sintetizados em tempo real, baseados nas lógicas presentes em `@src/core/utils/audio.ts` e `@src/core/utils/notesData.ts`.
-- Para especificações completas de síntese acústica (onda `triangle`, filtro passa-baixa adaptativo por key tracking, envelope ADSR, acordes de reforço com fundamental + oitava harmônica), consulte a skill `.agents/skills/rhythm-audio-engine/SKILL.md`.
-- **Harmonia Pedagógica**: O motor de áudio deve sempre preservar a pureza diatônica do exercício em curso, sendo proibido disparar acordes cromáticos fixos que insiram acidentes (sustenidos/bemóis) estranhos à escala sendo ensinada.
+Os sons de notas e instrumentos virtuais são sintetizados em tempo real, baseados nas lógicas presentes em `@src/core/utils/audio.ts`, `@src/core/utils/notesData.ts` e `@src/modules/partituras/services/AudioScheduler.ts`.
+- Para especificações completas de síntese acústica do jogo e simulado, consulte `.agents/skills/rhythm-audio-engine/SKILL.md`.
+- Para o **Estúdio de Partituras (`src/modules/partituras/`)**, consulte `.agents/skills/webaudio-precision-scheduler/SKILL.md`, `.agents/skills/osmd-score-synchronization/SKILL.md` e `.agents/skills/soundslice-minimalist-ux/SKILL.md`. O **Piano de Cauda Didático (`'acoustic-grand'`)** é o timbre exclusivo e universal de todas as lições do MSA e Hinos, tocando estritamente as notas escritas no MusicXML.
+- **Harmonia Pedagógica**: O motor de áudio deve sempre preservar a pureza diatônica do exercício em curso, sendo proibido disparar acordes cromáticos fixos ou notas não escritas na partitura.
 
 ---
 

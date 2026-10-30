@@ -121,7 +121,7 @@ describe('ContentStore (Camada de Dados Unificada)', () => {
     const backupJson = await contentStore.exportFullBackupJson();
     expect(typeof backupJson).toBe('string');
     const parsed = JSON.parse(backupJson);
-    expect(parsed.version).toBe('1.2.0');
+    expect(parsed.version).toBe('1.3.0');
     expect(parsed.siteConfig).toBeDefined();
     expect(parsed.lessons).toBeDefined();
     expect(parsed.questions).toBeDefined();

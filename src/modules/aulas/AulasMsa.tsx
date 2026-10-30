@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { contentStore } from '../../core/services/contentStore';
-import { MsaLesson } from './types';
+import { MsaLesson, LessonBlock } from './types';
 import { useAdmin } from '../../core/contexts/AdminContext';
 import { getAssetUrl } from '../../core/utils/paths';
 import {
@@ -13,6 +13,10 @@ import {
   Award,
   Video,
   Edit3,
+  Plus,
+  Trash2,
+  Save,
+  X,
 } from 'lucide-react';
 
 export const AulasMsa: React.FC = () => {
@@ -24,6 +28,7 @@ export const AulasMsa: React.FC = () => {
   const [selectedFase, setSelectedFase] = useState<number>(1);
   const [lessons, setLessons] = useState<MsaLesson[]>([]);
   const [activeLesson, setActiveLesson] = useState<MsaLesson | null>(null);
+  const [editingLesson, setEditingLesson] = useState<MsaLesson | null>(null);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -210,10 +215,31 @@ export const AulasMsa: React.FC = () => {
               </h2>
               {isAdmin && mode === 'edicao' && (
                 <button
-                  onClick={() => navigate('/admin')}
-                  className="flex items-center gap-1 text-[11px] font-black text-amber-700 bg-amber-100 hover:bg-amber-200 px-2 py-0.5 rounded-lg border border-amber-300 cursor-pointer"
+                  onClick={() => {
+                    const newId = `fase_${String(selectedFase).padStart(2, '0')}_licao_${Date.now()}`;
+                    setEditingLesson({
+                      id: newId,
+                      periodo: (selectedFase <= 3 ? 1 : selectedFase <= 5 ? 2 : selectedFase <= 9 ? 3 : 4) as 1 | 2 | 3 | 4,
+                      fase: selectedFase,
+                      ordem: lessons.length + 1,
+                      topico: `${selectedFase}.${lessons.length + 1}`,
+                      titulo: 'Nova Lição Didática',
+                      resumo: 'Breve resumo do conteúdo desta lição.',
+                      blocos: [
+                        {
+                          id: 'b1',
+                          type: 'text',
+                          title: 'Introdução ao Conceito',
+                          content: 'Explique aqui a teoria do MSA de forma clara e objetiva.',
+                        },
+                      ],
+                      ativo: true,
+                    });
+                  }}
+                  data-testid="aulas-inline-new-lesson-btn"
+                  className="flex items-center gap-1 text-[11px] font-black text-amber-800 bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded-lg border border-amber-300 cursor-pointer"
                 >
-                  <Edit3 size={11} /> Gerenciar
+                  <Plus size={12} /> Nova Lição
                 </button>
               )}
             </div>
@@ -291,22 +317,36 @@ export const AulasMsa: React.FC = () => {
                   </h2>
                 </div>
 
-                {/* Botão de Conclusão */}
-                <button
-                  onClick={() => toggleLessonComplete(activeLesson.id)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer shrink-0 ${
-                    completedIds.includes(activeLesson.id)
-                      ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm'
-                      : 'bg-[#f7f9fa] hover:bg-slate-100 text-slate-600 border border-slate-300'
-                  }`}
-                >
-                  <CheckCircle2 size={16} />
-                  <span>
-                    {completedIds.includes(activeLesson.id)
-                      ? 'Concluída ✓'
-                      : 'Marcar como Concluída'}
-                  </span>
-                </button>
+                {/* Ações do Topo da Lição: Editar In-Loco (Admin) + Marcar como Concluída */}
+                <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                  {isAdmin && mode === 'edicao' && (
+                    <button
+                      type="button"
+                      data-testid="aulas-inline-edit-lesson-btn"
+                      onClick={() => setEditingLesson({ ...activeLesson })}
+                      className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-black text-xs shadow-sm cursor-pointer"
+                    >
+                      <Edit3 size={14} />
+                      <span>✏️ Editar Lição</span>
+                    </button>
+                  )}
+
+                  <button
+                    onClick={() => toggleLessonComplete(activeLesson.id)}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer shrink-0 ${
+                      completedIds.includes(activeLesson.id)
+                        ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm'
+                        : 'bg-[#f7f9fa] hover:bg-slate-100 text-slate-600 border border-slate-300'
+                    }`}
+                  >
+                    <CheckCircle2 size={16} />
+                    <span>
+                      {completedIds.includes(activeLesson.id)
+                        ? 'Concluída ✓'
+                        : 'Marcar como Concluída'}
+                    </span>
+                  </button>
+                </div>
               </div>
 
               {/* Resumo da Lição */}
@@ -422,6 +462,229 @@ export const AulasMsa: React.FC = () => {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Modal de Edição In-Loco de Lição (Quando Admin está com Modo Edição ativo) */}
+      {editingLesson && (
+        <div
+          data-testid="aulas-inline-edit-modal"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in"
+        >
+          <div className="bg-white rounded-3xl shadow-2xl border-2 border-slate-200 max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+            <button
+              type="button"
+              onClick={() => setEditingLesson(null)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+
+            <h3 className="text-lg font-black text-[#1a3c5a] mb-4">
+              Editar Lição na Tela (Fase {editingLesson.fase})
+            </h3>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                    Tópico Oficial
+                  </label>
+                  <input
+                    type="text"
+                    value={editingLesson.topico}
+                    onChange={(e) =>
+                      setEditingLesson({ ...editingLesson, topico: e.target.value })
+                    }
+                    className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                    YouTube Video ID
+                  </label>
+                  <input
+                    type="text"
+                    value={editingLesson.youtubeVideoId || ''}
+                    onChange={(e) =>
+                      setEditingLesson({
+                        ...editingLesson,
+                        youtubeVideoId: e.target.value || undefined,
+                      })
+                    }
+                    placeholder="Ex: ALHIyHtGHQs"
+                    className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-bold"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                  Título da Lição
+                </label>
+                <input
+                  type="text"
+                  data-testid="aulas-edit-title-input"
+                  value={editingLesson.titulo}
+                  onChange={(e) =>
+                    setEditingLesson({ ...editingLesson, titulo: e.target.value })
+                  }
+                  className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black text-slate-500 uppercase mb-1">
+                  Resumo da Lição
+                </label>
+                <textarea
+                  value={editingLesson.resumo}
+                  onChange={(e) =>
+                    setEditingLesson({ ...editingLesson, resumo: e.target.value })
+                  }
+                  rows={2}
+                  className="w-full px-3 py-2 rounded-xl border-2 border-slate-200 text-sm font-medium"
+                />
+              </div>
+
+              {/* Blocos */}
+              <div className="pt-3 border-t border-slate-200">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-black uppercase text-slate-600">
+                    Blocos de Conteúdo ({editingLesson.blocos.length})
+                  </span>
+                  <div className="flex gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock: LessonBlock = {
+                          id: `b_${Date.now()}`,
+                          type: 'text',
+                          title: 'Novo Tópico',
+                          content: 'Texto explicativo do conceito...',
+                        };
+                        setEditingLesson({
+                          ...editingLesson,
+                          blocos: [...editingLesson.blocos, newBlock],
+                        });
+                      }}
+                      className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-bold cursor-pointer"
+                    >
+                      + Texto
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock: LessonBlock = {
+                          id: `b_${Date.now()}`,
+                          type: 'fufu_tip',
+                          title: 'Dica do Fufu 🎶',
+                          content: 'Dica amigável do mascote...',
+                        };
+                        setEditingLesson({
+                          ...editingLesson,
+                          blocos: [...editingLesson.blocos, newBlock],
+                        });
+                      }}
+                      className="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-lg text-[11px] font-bold cursor-pointer"
+                    >
+                      + Dica Fufu
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newBlock: LessonBlock = {
+                          id: `b_${Date.now()}`,
+                          type: 'msa_rule',
+                          title: 'Regra Oficial do MSA',
+                          content: 'Regra oficial do MSA...',
+                        };
+                        setEditingLesson({
+                          ...editingLesson,
+                          blocos: [...editingLesson.blocos, newBlock],
+                        });
+                      }}
+                      className="px-2.5 py-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 rounded-lg text-[11px] font-bold cursor-pointer"
+                    >
+                      + Regra MSA
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {editingLesson.blocos.map((bloco, bIdx) => (
+                    <div
+                      key={bloco.id || bIdx}
+                      className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 relative"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] font-black uppercase text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">
+                          {bloco.type}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const filtered = editingLesson.blocos.filter((_, i) => i !== bIdx);
+                            setEditingLesson({ ...editingLesson, blocos: filtered });
+                          }}
+                          className="text-red-500 hover:text-red-700 cursor-pointer"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        value={bloco.title || ''}
+                        onChange={(e) => {
+                          const updatedBlocos = [...editingLesson.blocos];
+                          updatedBlocos[bIdx] = { ...updatedBlocos[bIdx], title: e.target.value };
+                          setEditingLesson({ ...editingLesson, blocos: updatedBlocos });
+                        }}
+                        placeholder="Título do bloco"
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold mb-2 bg-white"
+                      />
+                      <textarea
+                        value={bloco.content}
+                        onChange={(e) => {
+                          const updatedBlocos = [...editingLesson.blocos];
+                          updatedBlocos[bIdx] = { ...updatedBlocos[bIdx], content: e.target.value };
+                          setEditingLesson({ ...editingLesson, blocos: updatedBlocos });
+                        }}
+                        rows={3}
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium bg-white"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setEditingLesson(null)}
+                  className="px-4 py-2 text-slate-500 font-bold text-xs cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  data-testid="aulas-save-lesson-btn"
+                  onClick={async () => {
+                    await contentStore.saveLesson(editingLesson);
+                    const updatedList = await contentStore.getLessons(selectedFase);
+                    setLessons(updatedList);
+                    const refreshed =
+                      updatedList.find((l) => l.id === editingLesson.id) ?? editingLesson;
+                    setActiveLesson(refreshed);
+                    setEditingLesson(null);
+                  }}
+                  className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs rounded-xl shadow cursor-pointer"
+                >
+                  <Save size={16} /> Salvar Lição
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
