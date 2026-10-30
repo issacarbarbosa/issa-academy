@@ -13,7 +13,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
   const navigate = useNavigate();
   const { isAdmin, mode, openEditTarget } = useAdmin();
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
-  const showPartituras = Boolean(import.meta.env.DEV || isAdmin);
+  const showPartituras = Boolean(import.meta.env.DEV);
 
   useEffect(() => {
     contentStore.getSiteConfig().then((cfg) => setSiteConfig(cfg));
@@ -78,8 +78,8 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       >
 
         {/* CARD 2: ESTÚDIO DE PARTITURAS & HINÁRIO 5 */}
-        <button
-          id="card-nav-partituras"
+        {showPartituras && (
+          <button id="card-nav-partituras"
           onClick={() => handleNav('partituras')}
           className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-3xl p-5 flex flex-col justify-between hover:border-amber-500 hover:bg-amber-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm min-h-[170px]"
         >
@@ -109,6 +109,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
             </div>
           </div>
         </button>
+        )}
 
         {/* CARD 2: MESTRE DA CLAVE */}
         <button

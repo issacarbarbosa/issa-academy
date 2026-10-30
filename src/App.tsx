@@ -156,7 +156,7 @@ function MainLayout() {
         >
           <Routes>
             <Route path="/" element={<WelcomeHome />} />
-            <Route path="/partituras" element={import.meta.env.DEV || isAdmin ? <PartiturasStudio /> : <Navigate to="/" replace />} />
+            <Route path="/partituras" element={import.meta.env.DEV ? <PartiturasStudio /> : <Navigate to="/" replace />} />
             <Route
               path="/mestre-da-clave"
               element={
@@ -176,7 +176,7 @@ function MainLayout() {
       {!isPartituras && (
         <footer className="h-10 bg-[#1a3c5a] mobile-landscape-hidden flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
           <div className="flex items-center gap-2">
-            <span>{siteConfig?.footerText || 'Issa Academy • Mestre da Clave, Aulas & Simulado MSA'}</span>
+            <span>{siteConfig?.footerText || 'Issa Academy • Mestre da Clave & Simulado MSA'}</span>
             {/* Acesso discreto ao Admin via cadeado no rodapé */}
             {!isAdminRoute && (
               <button
