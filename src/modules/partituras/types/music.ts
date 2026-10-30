@@ -136,6 +136,10 @@ export interface MeasureBoundingBox {
   width: number;
   height: number;
   systemIndex: number;
+  /** Exact Y pixel coordinate of the 5th (top) staff line of the pentagram */
+  staffTopY?: number;
+  /** Exact Y pixel coordinate of the 1st (bottom) staff line of the pentagram */
+  staffBottomY?: number;
 }
 
 export interface LoopConfig {

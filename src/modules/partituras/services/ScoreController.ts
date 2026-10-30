@@ -198,7 +198,7 @@ export class ScoreController {
     fullScoreTotalMeasures: number;
   }> {
     if (options.zoom !== undefined) {
-      this.zoom = Math.max(0.6, Math.min(1.8, Number(options.zoom.toFixed(2))));
+      this.zoom = Math.max(0.55, Math.min(2.2, Number(options.zoom.toFixed(2))));
     }
     if (options.horizontalNotation !== undefined) {
       this.horizontalNotation = options.horizontalNotation;
@@ -247,11 +247,7 @@ export class ScoreController {
       this.fullScoreTotalMeasures = totalOriginalMeasures;
     }
 
-    const rules = (this.osmd as any).EngravingRules || (this.osmd as any).rules;
-    if (rules) {
-      rules.RenderSingleHorizontalStaffline = Boolean(this.horizontalNotation);
-      rules.RenderPartNames = false;
-    }
+    this.applyEngravingRules();
 
     await this.osmd.load(xmlToLoad);
     this.osmd.Zoom = this.zoom;
@@ -269,6 +265,35 @@ export class ScoreController {
       fullScoreTotalMeasures:
         this.fullScoreTotalMeasures || this.measures.length,
     };
+  }
+
+  /**
+   * Configures OSMD EngravingRules dynamically for Mobile First vs Desktop so
+   * lateral whitespace is minimized on small screens and notes/annotations have maximum room.
+   */
+  private applyEngravingRules(): void {
+    if (!this.osmd) return;
+    const rules = (this.osmd as any).EngravingRules || (this.osmd as any).rules;
+    if (!rules) return;
+
+    const containerWidth =
+      this.container?.clientWidth ||
+      (typeof window !== 'undefined' ? window.innerWidth : 1024);
+    const isCompactMobile = containerWidth < 640;
+
+    rules.RenderSingleHorizontalStaffline = Boolean(this.horizontalNotation);
+    rules.RenderPartNames = false;
+    rules.PageLeftMargin = isCompactMobile ? 0.45 : 1.6;
+    rules.PageRightMargin = isCompactMobile ? 0.45 : 1.6;
+    rules.PageTopMargin = isCompactMobile ? 3.3 : 3.5;
+    rules.PageBottomMargin = isCompactMobile ? 1.4 : 1.8;
+    rules.SystemLeftMargin = 0;
+    rules.SystemRightMargin = 0;
+    rules.MinimumDistanceBetweenSystems = isCompactMobile ? 5.8 : 6.0;
+    rules.ClefLeftMargin = isCompactMobile ? 0.25 : 0.5;
+    rules.ClefRightMargin = isCompactMobile ? 0.35 : 0.65;
+    rules.KeyRightMargin = isCompactMobile ? 0.3 : 0.6;
+    rules.TimeSigNoteDistance = isCompactMobile ? 0.45 : 0.8;
   }
 
   /**
@@ -311,8 +336,9 @@ export class ScoreController {
     if (!this.osmd || !this.currentXml) {
       return { measures: this.measures, slices: this.slices };
     }
-    this.zoom = Math.max(0.6, Math.min(1.8, Number(newZoom.toFixed(2))));
+    this.zoom = Math.max(0.55, Math.min(2.2, Number(newZoom.toFixed(2))));
     this.clearAllNoteHighlights();
+    this.applyEngravingRules();
     this.osmd.Zoom = this.zoom;
     this.osmd.render();
     this.applyMsaSvgPostProcessing();
@@ -339,6 +365,7 @@ export class ScoreController {
       return { measures: this.measures, slices: this.slices };
     }
     this.clearAllNoteHighlights();
+    this.applyEngravingRules();
     this.osmd.Zoom = this.zoom;
     this.osmd.render();
     this.applyMsaSvgPostProcessing();
@@ -823,6 +850,8 @@ export class ScoreController {
       let maxX = -Infinity;
       let minY = Infinity;
       let maxY = -Infinity;
+      let minStaffAbsY = Infinity;
+      let maxStaffAbsY = -Infinity;
       let systemIndex = 0;
 
       for (let sIdx = 0; sIdx < staffMeasures.length; sIdx++) {
@@ -833,10 +862,19 @@ export class ScoreController {
         const absX = ps.AbsolutePosition?.x ?? 0;
         const absY = ps.AbsolutePosition?.y ?? 0;
 
+        if (absY < minStaffAbsY) minStaffAbsY = absY;
+        if (absY > maxStaffAbsY) maxStaffAbsY = absY;
+
+        // OSMD's 5-line staff always spans [absY .. absY + 4.0].
+        // When a measure only has a low whole note (e.g. Ré4), ps.BorderTop is positive (+3..+4),
+        // which would place minY inside the staff lines unless clamped above the 5th line.
+        const safeBorderTop = Math.min(-0.8, ps.BorderTop ?? -1);
+        const safeBorderBottom = Math.max(4.8, ps.BorderBottom ?? ps.Size?.height ?? 5);
+
         const left = absX + (ps.BorderLeft ?? 0);
         const right = absX + (ps.BorderRight ?? ps.Size?.width ?? 10);
-        const top = absY + (ps.BorderTop ?? -1);
-        const bottom = absY + (ps.BorderBottom ?? ps.Size?.height ?? 5);
+        const top = absY + safeBorderTop;
+        const bottom = absY + safeBorderBottom;
 
         if (left < minX) minX = left;
         if (right > maxX) maxX = right;
@@ -848,13 +886,20 @@ export class ScoreController {
         }
       }
 
-      const paddedMinY = minY - 2.8;
-      const paddedMaxY = maxY + 1.1;
+      const effectiveStaffTopUnits = Number.isFinite(minStaffAbsY) ? minStaffAbsY : minY + 1;
+      const effectiveStaffBottomUnits = Number.isFinite(maxStaffAbsY)
+        ? maxStaffAbsY + 4.0
+        : maxY - 1;
+
+      const paddedMinY = Math.min(minY - 2.6, effectiveStaffTopUnits - 3.6);
+      const paddedMaxY = Math.max(maxY + 1.1, effectiveStaffBottomUnits + 1.8);
 
       const boxX = offsetLeft + minX * unitToPxX;
       const boxY = offsetTop + paddedMinY * unitToPxY;
       const boxWidth = Math.max(24, (maxX - minX) * unitToPxX);
       const boxHeight = Math.max(44, (paddedMaxY - paddedMinY) * unitToPxY);
+      const staffTopY = offsetTop + effectiveStaffTopUnits * unitToPxY;
+      const staffBottomY = offsetTop + effectiveStaffBottomUnits * unitToPxY;
 
       const measureNumber =
         this.renderedMeasureNumbers[mIdx] ??
@@ -874,6 +919,8 @@ export class ScoreController {
         width: boxWidth,
         height: boxHeight,
         systemIndex,
+        staffTopY,
+        staffBottomY,
       });
 
       const sliceByBeatMap = new Map<string, {
@@ -1026,15 +1073,27 @@ export class ScoreController {
       runningScoreBeats += measureDurationBeats;
     }
 
-    const systemBounds = new Map<number, { minY: number; maxBottom: number }>();
+    const systemBounds = new Map<
+      number,
+      { minY: number; maxBottom: number; minStaffTopY: number; maxStaffBottomY: number }
+    >();
     for (const m of extractedMeasures) {
       const bottom = m.y + m.height;
+      const sTop = m.staffTopY ?? m.y + 34;
+      const sBottom = m.staffBottomY ?? bottom - 14;
       const current = systemBounds.get(m.systemIndex);
       if (!current) {
-        systemBounds.set(m.systemIndex, { minY: m.y, maxBottom: bottom });
+        systemBounds.set(m.systemIndex, {
+          minY: m.y,
+          maxBottom: bottom,
+          minStaffTopY: sTop,
+          maxStaffBottomY: sBottom,
+        });
       } else {
         current.minY = Math.min(current.minY, m.y);
         current.maxBottom = Math.max(current.maxBottom, bottom);
+        current.minStaffTopY = Math.min(current.minStaffTopY, sTop);
+        current.maxStaffBottomY = Math.max(current.maxStaffBottomY, sBottom);
       }
     }
     for (const m of extractedMeasures) {
@@ -1042,6 +1101,8 @@ export class ScoreController {
       if (sys) {
         m.y = sys.minY;
         m.height = sys.maxBottom - sys.minY;
+        m.staffTopY = sys.minStaffTopY;
+        m.staffBottomY = sys.maxStaffBottomY;
       }
     }
 

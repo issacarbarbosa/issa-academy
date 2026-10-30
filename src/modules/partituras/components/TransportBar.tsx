@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Play,
   Pause,
@@ -162,6 +162,61 @@ export const TransportBar: React.FC<TransportBarProps> = ({
   onResetAllVoices,
 }) => {
   const [activePopover, setActivePopover] = useState<'none' | 'speed' | 'metronome' | 'voices'>('none');
+  const [bottomClipOffset, setBottomClipOffset] = useState<number>(0);
+  const viewportProbeRef = useRef<HTMLDivElement | null>(null);
+
+  // Detecta automaticamente quando o iframe do Google AI Studio ou barra do navegador mobile
+  // corta a base da viewport ao expandir a tela, elevando a barra de transporte para ficar 100% visível.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    let ioClip = 0;
+
+    const computeVisualViewportClip = () => {
+      const vv = window.visualViewport;
+      if (!vv) return 0;
+      return Math.max(0, Math.round(window.innerHeight - (vv.offsetTop + vv.height)));
+    };
+
+    const updateOffset = () => {
+      const vvClip = computeVisualViewportClip();
+      const nextOffset = Math.min(180, Math.max(0, ioClip, vvClip));
+      setBottomClipOffset((prev) => (Math.abs(prev - nextOffset) >= 2 ? nextOffset : prev));
+    };
+
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined' && viewportProbeRef.current) {
+      const thresholds = Array.from({ length: 41 }, (_, i) => Number((i / 40).toFixed(3)));
+      observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry) return;
+          if (entry.intersectionRatio > 0 && entry.intersectionRatio < 0.995) {
+            ioClip = Math.max(
+              0,
+              Math.round(entry.boundingClientRect.bottom - entry.intersectionRect.bottom)
+            );
+          } else {
+            ioClip = 0;
+          }
+          updateOffset();
+        },
+        { root: null, threshold: thresholds }
+      );
+      observer.observe(viewportProbeRef.current);
+    }
+
+    updateOffset();
+    window.addEventListener('resize', updateOffset);
+    window.visualViewport?.addEventListener('resize', updateOffset);
+    window.visualViewport?.addEventListener('scroll', updateOffset);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', updateOffset);
+      window.visualViewport?.removeEventListener('resize', updateOffset);
+      window.visualViewport?.removeEventListener('scroll', updateOffset);
+    };
+  }, [isFullscreen]);
 
   const togglePopover = (target: 'speed' | 'metronome' | 'voices') => {
     if (isSettingsOpen) {
@@ -188,9 +243,17 @@ export const TransportBar: React.FC<TransportBarProps> = ({
 
   const speedPercent = Math.round((bpm / Math.max(30, baseBpm)) * 100);
   const hasMultiVoices = Boolean(voices && voices.length > 1);
+  const popoverBottomPx = 66 + bottomClipOffset;
 
   return (
     <>
+      {/* Sonda invisível para detectar corte inferior em iframes expandidos (ex.: Google AI Studio Mobile) */}
+      <div
+        ref={viewportProbeRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10 opacity-0"
+      />
+
       {/* 0. MULTI-VOICE MIXER POPOVER (Vozes / Pentagramas da Partitura) */}
       {activePopover === 'voices' && hasMultiVoices && voices && (
         <>
@@ -203,7 +266,8 @@ export const TransportBar: React.FC<TransportBarProps> = ({
             role="dialog"
             aria-label="Mixer de Vozes da Partitura"
             data-testid="voices-popover"
-            className="fixed bottom-[66px] right-3 sm:right-36 z-50 w-[300px] max-w-[calc(100vw-24px)] bg-white text-[#1F2937] border border-[#E5E7EB] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] p-4 space-y-3 select-none"
+            style={{ bottom: `${popoverBottomPx}px` }}
+            className="fixed right-3 sm:right-36 z-50 w-[300px] max-w-[calc(100vw-24px)] bg-white text-[#1F2937] border border-[#E5E7EB] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] p-4 space-y-3 select-none"
           >
             <div className="flex items-center justify-between">
               <span className="text-[13px] font-bold text-zinc-900">
@@ -281,7 +345,8 @@ export const TransportBar: React.FC<TransportBarProps> = ({
             role="dialog"
             aria-label="Velocidade e Treino de Velocidade"
             data-testid="speed-popover"
-            className="fixed bottom-[66px] right-3 sm:right-28 z-50 w-[300px] max-w-[calc(100vw-24px)] bg-white text-[#1F2937] border border-[#E5E7EB] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] p-4 space-y-3.5 select-none"
+            style={{ bottom: `${popoverBottomPx}px` }}
+            className="fixed right-3 sm:right-28 z-50 w-[300px] max-w-[calc(100vw-24px)] bg-white text-[#1F2937] border border-[#E5E7EB] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] p-4 space-y-3.5 select-none"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -450,7 +515,8 @@ export const TransportBar: React.FC<TransportBarProps> = ({
             role="dialog"
             aria-label="Metrônomo e Contagem Regressiva"
             data-testid="metronome-popover"
-            className="fixed bottom-[66px] right-3 sm:right-12 z-50 w-[264px] max-w-[calc(100vw-24px)] bg-white text-[#1F2937] border border-[#E5E7EB] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] p-4 space-y-3 select-none"
+            style={{ bottom: `${popoverBottomPx}px` }}
+            className="fixed right-3 sm:right-12 z-50 w-[264px] max-w-[calc(100vw-24px)] bg-white text-[#1F2937] border border-[#E5E7EB] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] p-4 space-y-3 select-none"
           >
             <div className="flex items-center gap-3">
               <button
@@ -572,7 +638,8 @@ export const TransportBar: React.FC<TransportBarProps> = ({
             aria-modal="true"
             aria-label="Personalizar Layout e Notação"
             data-testid="settings-popover"
-            className="fixed bottom-[64px] right-2 sm:right-4 z-50 w-[332px] sm:w-[364px] max-w-[calc(100vw-16px)] max-h-[78vh] overflow-y-auto bg-white text-[#1F2937] border border-[#E5E7EB] rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.22)] p-4 space-y-4 select-none"
+            style={{ bottom: `${popoverBottomPx - 2}px` }}
+            className="fixed right-2 sm:right-4 z-50 w-[332px] sm:w-[364px] max-w-[calc(100vw-16px)] max-h-[78vh] overflow-y-auto bg-white text-[#1F2937] border border-[#E5E7EB] rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.22)] p-4 space-y-4 select-none"
           >
             {/* Section 1: Personalizar layout */}
             <div className="space-y-2.5">
@@ -605,8 +672,8 @@ export const TransportBar: React.FC<TransportBarProps> = ({
                   <input
                     type="range"
                     aria-label="Zoom da partitura"
-                    min={0.65}
-                    max={1.55}
+                    min={0.55}
+                    max={2.2}
                     step={0.05}
                     value={zoom}
                     onChange={(e) => onZoomChange(Number(e.target.value))}
@@ -872,7 +939,12 @@ export const TransportBar: React.FC<TransportBarProps> = ({
       {/* MINIMALIST SOUNDSLICE DARK CHARCOAL BOTTOM BAR (#2B2C30) */}
       <footer
         aria-label="Barra de Transporte Musical"
-        className="fixed bottom-0 left-0 right-0 z-40 bg-[#2B2C30] text-white select-none shadow-[0_-2px_10px_rgba(0,0,0,0.18)]"
+        style={bottomClipOffset > 0 ? { marginBottom: `${bottomClipOffset}px` } : undefined}
+        className={`relative w-full shrink-0 z-40 bg-[#2B2C30] text-white select-none touch-manipulation shadow-[0_-2px_10px_rgba(0,0,0,0.18)] ${
+          isFullscreen
+            ? 'pb-[max(env(safe-area-inset-bottom,0px),10px)] sm:pb-0'
+            : 'pb-[env(safe-area-inset-bottom,0px)]'
+        }`}
       >
         <div className="w-full h-[2px] bg-[#1F2023] overflow-hidden">
           <div
@@ -881,9 +953,9 @@ export const TransportBar: React.FC<TransportBarProps> = ({
           />
         </div>
 
-        <div className="max-w-[1440px] mx-auto px-2.5 sm:px-5 h-[56px] flex items-center justify-between gap-1.5 sm:gap-3">
+        <div className="max-w-[1440px] mx-auto px-2 sm:px-5 h-[56px] flex items-center justify-between gap-1 sm:gap-3">
           {/* Left: White Circular Play Button + Time + Inline Beat Indicator */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             <button
               type="button"
               onClick={onTogglePlay}
@@ -964,15 +1036,18 @@ export const TransportBar: React.FC<TransportBarProps> = ({
                 onClick={() => togglePopover('voices')}
                 aria-label="Selecionar vozes ou pentagramas do hino"
                 aria-expanded={activePopover === 'voices'}
-                className={`h-9 sm:h-10 px-2.5 sm:px-3 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors shrink-0 ${
+                className={`h-9 sm:h-10 px-2 sm:px-3 rounded-lg flex items-center gap-1 cursor-pointer transition-colors shrink-0 ${
                   activePopover === 'voices' || activeStaffIndices.length < voices.length
                     ? 'bg-[#111214] text-amber-400 border border-amber-400/40'
                     : 'bg-[#191A1D] hover:bg-[#111214] text-white'
                 }`}
               >
                 <Sliders className="w-3.5 h-3.5" />
-                <span className="text-[12.5px] font-semibold">
-                  Vozes ({activeStaffIndices.length}/{voices.length})
+                <span className="hidden min-[440px]:inline text-[12px] sm:text-[12.5px] font-semibold">
+                  Vozes
+                </span>
+                <span className="text-[11px] sm:text-[12px] font-semibold tabular-nums">
+                  ({activeStaffIndices.length}/{voices.length})
                 </span>
               </button>
             )}
@@ -984,7 +1059,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
               onClick={() => togglePopover('speed')}
               aria-label="Ajustar andamento BPM e treino de velocidade"
               aria-expanded={activePopover === 'speed'}
-              className={`h-9 sm:h-10 px-2.5 sm:px-3 rounded-lg flex items-center gap-1 cursor-pointer transition-colors shrink-0 ${
+              className={`h-9 sm:h-10 px-2 sm:px-3 rounded-lg flex items-center gap-0.5 sm:gap-1 cursor-pointer transition-colors shrink-0 ${
                 activePopover === 'speed' || speedTraining.enabled
                   ? 'bg-[#111214] text-amber-400 border border-amber-400/40'
                   : 'bg-[#191A1D] hover:bg-[#111214] text-white'
@@ -993,7 +1068,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
               <span className="text-[13px] sm:text-[14px] font-bold tabular-nums tracking-tight">
                 {bpm}
               </span>
-              <span className="text-[11px] font-medium text-gray-300">BPM</span>
+              <span className="text-[10.5px] sm:text-[11px] font-medium text-gray-300">BPM</span>
               <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
             </button>
 
@@ -1051,7 +1126,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
                 }
                 aria-pressed={showViolinNeck}
                 title="Espelho visual do braço do violino"
-                className={`h-9 sm:h-10 px-2.5 sm:px-3 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
+                className={`h-9 sm:h-10 px-2 sm:px-3 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
                   showViolinNeck
                     ? 'bg-[#191A1D] text-amber-400 border border-amber-400/40'
                     : 'bg-[#191A1D]/70 hover:bg-[#191A1D] text-gray-200 hover:text-white'
@@ -1114,13 +1189,19 @@ export const TransportBar: React.FC<TransportBarProps> = ({
               )}
             </button>
 
-            {/* 5. Fullscreen Toggle Button */}
+            {/* 5. Fullscreen Toggle Button (Visible on both Mobile and Desktop) */}
             <button
               type="button"
+              data-testid="transport-fullscreen-btn"
               onClick={onToggleFullscreen}
               aria-label={isFullscreen ? 'Sair da tela cheia' : 'Tela cheia'}
+              aria-pressed={isFullscreen}
               title={isFullscreen ? 'Sair da tela cheia' : 'Tela cheia'}
-              className="hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 rounded-lg items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+              className={`flex w-9 h-9 sm:w-10 sm:h-10 rounded-lg items-center justify-center transition-colors cursor-pointer shrink-0 ${
+                isFullscreen
+                  ? 'bg-[#191A1D] text-amber-400 border border-amber-400/40'
+                  : 'text-gray-300 hover:text-white hover:bg-white/10'
+              }`}
             >
               {isFullscreen ? (
                 <Minimize2 className="w-4 h-4 sm:w-5 sm:h-5" />

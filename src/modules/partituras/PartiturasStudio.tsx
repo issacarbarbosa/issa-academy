@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../core/contexts/AdminContext';
+import { useScreenWakeLock } from '../../core/hooks/useScreenWakeLock';
 import { TopBar } from './components/TopBar';
 import { TransportBar } from './components/TransportBar';
 import { ViolinFingerboard } from './components/ViolinFingerboard';
@@ -116,6 +117,9 @@ export default function PartiturasStudio() {
   const [isCountingIn, setIsCountingIn] = useState<boolean>(false);
   const [countInBeat, setCountInBeat] = useState<number | null>(null);
   const [countInTotalBeats, setCountInTotalBeats] = useState<number>(4);
+
+  // Mantém a tela do celular acesa (Screen Wake Lock API + fallback de vídeo invisível) enquanto o player estiver tocando
+  const { acquireWakeLock, releaseWakeLock } = useScreenWakeLock(isPlaying || isCountingIn);
   const [bpm, setBpm] = useState<number>(PRESET_SCORES[0].defaultBpm);
   const [speedTraining, setSpeedTraining] = useState<SpeedTrainingConfig>({
     enabled: false,
@@ -163,6 +167,8 @@ export default function PartiturasStudio() {
   const [draggingHandle, setDraggingHandle] = useState<'start' | 'end' | 'canvas' | null>(null);
 
   // Core Engine Refs
+  const studioRootRef = useRef<HTMLDivElement | null>(null);
+  const mainScrollRef = useRef<HTMLElement | null>(null);
   const scoreControllerRef = useRef<ScoreController | null>(null);
   const audioSchedulerRef = useRef<AudioScheduler | null>(null);
   const osmdContainerRef = useRef<HTMLDivElement | null>(null);
@@ -182,7 +188,21 @@ export default function PartiturasStudio() {
     anchorStartBeat: number;
     anchorEndBeat: number;
     hasDragged: boolean;
+    pointerType: string;
   } | null>(null);
+  const zoomRef = useRef<number>(zoom);
+  const activeSliceIdsRef = useRef<string[]>(activeSliceIds);
+  const pinchStateRef = useRef<{
+    startDist: number | null;
+    startZoom: number;
+    lastRenderTime: number;
+    pendingZoom: number | null;
+  }>({
+    startDist: null,
+    startZoom: zoom,
+    lastRenderTime: 0,
+    pendingZoom: null,
+  });
 
   // Direct DOM refs for 60fps Playhead Cursor & Measure Shading
   const playheadRef = useRef<HTMLDivElement | null>(null);
@@ -195,6 +215,14 @@ export default function PartiturasStudio() {
     () => catalogScores.find((p) => p.id === activePresetId) ?? catalogScores[0],
     [catalogScores, activePresetId]
   );
+
+  useEffect(() => {
+    zoomRef.current = zoom;
+  }, [zoom]);
+
+  useEffect(() => {
+    activeSliceIdsRef.current = activeSliceIds;
+  }, [activeSliceIds]);
 
   useEffect(() => {
     noteHighlightColorRef.current = noteHighlightColor;
@@ -283,12 +311,11 @@ export default function PartiturasStudio() {
         }
       } else if (measureBox.systemIndex !== lastScrolledSystemRef.current) {
         lastScrolledSystemRef.current = measureBox.systemIndex;
-        if (stageWrapperRef.current) {
-          const stageTop = stageWrapperRef.current.getBoundingClientRect().top + window.scrollY;
-          const targetScrollY = stageTop + measureBox.y - 120;
-          if (Math.abs(window.scrollY - targetScrollY) > 150) {
-            window.scrollTo({
-              top: Math.max(0, targetScrollY),
+        if (mainScrollRef.current) {
+          const targetScrollY = Math.max(0, measureBox.y - 72);
+          if (Math.abs(mainScrollRef.current.scrollTop - targetScrollY) > 110) {
+            mainScrollRef.current.scrollTo({
+              top: targetScrollY,
               behavior: 'smooth',
             });
           }
@@ -383,9 +410,14 @@ export default function PartiturasStudio() {
 
     initDefaultScore();
 
+    let lastViewportWidth = window.innerWidth;
     const handleResize = () => {
       if (!scoreControllerRef.current || !audioSchedulerRef.current) return;
+      // Ignore vertical-only resizes caused by mobile browser address bar hiding/showing
+      if (Math.abs(window.innerWidth - lastViewportWidth) < 20) return;
+      lastViewportWidth = window.innerWidth;
       const responsiveZoom = window.innerWidth < 640 ? 0.92 : 1.08;
+      zoomRef.current = responsiveZoom;
       setZoom(responsiveZoom);
       const updated = scoreControllerRef.current.setZoom(responsiveZoom);
       setMeasures(updated.measures);
@@ -418,15 +450,17 @@ export default function PartiturasStudio() {
       ) {
         e.preventDefault();
         if (isPlaying) {
+          void releaseWakeLock();
           audioSchedulerRef.current?.pause();
         } else {
+          void acquireWakeLock();
           audioSchedulerRef.current?.start();
         }
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isPlaying]);
+  }, [isPlaying, acquireWakeLock, releaseWakeLock]);
 
   // Helper to apply a beat-level loop configuration and sync with AudioScheduler
   const applyBeatLoop = useCallback(
@@ -509,8 +543,18 @@ export default function PartiturasStudio() {
         applyBeatLoop(currentBounds.startBeat, clampedEnd, true);
       } else if (draggingHandle === 'canvas' && canvasDragMetaRef.current) {
         const meta = canvasDragMetaRef.current;
-        const dist = Math.hypot(e.clientX - meta.startX, e.clientY - meta.startY);
-        if (dist > 10) {
+        const dx = e.clientX - meta.startX;
+        const dy = e.clientY - meta.startY;
+        const dist = Math.hypot(dx, dy);
+
+        if (meta.pointerType === 'touch') {
+          // On touch screens, finger movement on the canvas is vertical/horizontal scrolling,
+          // NEVER accidental loop activation. Loop is toggled via the bottom bar [↻ Loop] button
+          // and adjusted via the Lollipop Handles.
+          if (dist > 10) {
+            meta.hasDragged = true;
+          }
+        } else if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy) * 1.5) {
           meta.hasDragged = true;
           const dragStartCandidate = controller.getBeatAtPoint(relX, relY, 'start');
           const dragEndCandidate = controller.getBeatAtPoint(relX, relY, 'end');
@@ -532,13 +576,15 @@ export default function PartiturasStudio() {
         const meta = canvasDragMetaRef.current;
         if (!meta.hasDragged) {
           audioSchedulerRef.current?.seekToBeat(meta.anchorStartBeat);
-        } else if (!isPlaying) {
+          updateVisualSynchronization(meta.anchorStartBeat, []);
+        } else if (meta.pointerType !== 'touch' && !isPlaying) {
           const bounds = getLoopBeatBounds(
             loopRef.current,
             measuresRef.current,
             scoreControllerRef.current?.getTotalBeats() ?? 4
           );
           audioSchedulerRef.current?.seekToBeat(bounds.startBeat);
+          updateVisualSynchronization(bounds.startBeat, []);
         }
       }
       canvasDragMetaRef.current = null;
@@ -553,7 +599,7 @@ export default function PartiturasStudio() {
       window.removeEventListener('pointerup', handlePointerUp);
       window.removeEventListener('pointercancel', handlePointerUp);
     };
-  }, [draggingHandle, applyBeatLoop, isPlaying]);
+  }, [draggingHandle, applyBeatLoop, isPlaying, updateVisualSynchronization]);
 
   // Carrega uma partitura do catálogo (Hino ou Lição do MSA), buscando o MusicXML referente à clave selecionada
   const loadScoreFromPresetObject = async (
@@ -818,8 +864,10 @@ export default function PartiturasStudio() {
   const handleTogglePlay = () => {
     if (!audioSchedulerRef.current) return;
     if (isPlaying) {
+      void releaseWakeLock();
       audioSchedulerRef.current.pause();
     } else {
+      void acquireWakeLock();
       audioSchedulerRef.current.start();
     }
   };
@@ -840,21 +888,25 @@ export default function PartiturasStudio() {
     audioSchedulerRef.current?.setSpeedTraining(nextConfig);
   };
 
-  const handleZoomChange = (nextZoom: number) => {
-    if (!scoreControllerRef.current || !audioSchedulerRef.current) return;
-    const clampedZoom = Math.max(0.65, Math.min(1.55, Number(nextZoom.toFixed(2))));
-    setZoom(clampedZoom);
-    const updated = scoreControllerRef.current.setZoom(clampedZoom);
-    setMeasures(updated.measures);
-    setSlices([...updated.slices]);
-    audioSchedulerRef.current.setScoreData(
-      updated.measures,
-      updated.slices,
-      scoreControllerRef.current.getTotalBeats(),
-      true
-    );
-    updateVisualSynchronization(currentBeatRef.current, activeSliceIds);
-  };
+  const handleZoomChange = useCallback(
+    (nextZoom: number) => {
+      if (!scoreControllerRef.current || !audioSchedulerRef.current) return;
+      const clampedZoom = Math.max(0.55, Math.min(2.2, Number(nextZoom.toFixed(2))));
+      zoomRef.current = clampedZoom;
+      setZoom(clampedZoom);
+      const updated = scoreControllerRef.current.setZoom(clampedZoom);
+      setMeasures(updated.measures);
+      setSlices([...updated.slices]);
+      audioSchedulerRef.current.setScoreData(
+        updated.measures,
+        updated.slices,
+        scoreControllerRef.current.getTotalBeats(),
+        true
+      );
+      updateVisualSynchronization(currentBeatRef.current, activeSliceIdsRef.current);
+    },
+    [updateVisualSynchronization]
+  );
 
   const handleHorizontalNotationChange = async (enabled: boolean) => {
     if (!scoreControllerRef.current || !audioSchedulerRef.current) return;
@@ -1073,19 +1125,125 @@ export default function PartiturasStudio() {
     audioSchedulerRef.current?.setVolume(volume, nextMuted);
   };
 
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false);
+      }
+    };
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isFullscreen]);
+
   const handleToggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen?.().catch(() => {});
+    if (!isFullscreen) {
       setIsFullscreen(true);
+      const targetEl = studioRootRef.current ?? document.documentElement;
+      if (!document.fullscreenElement && typeof targetEl.requestFullscreen === 'function') {
+        targetEl
+          .requestFullscreen({ navigationUI: 'hide' })
+          .catch(() => {
+            // Se o navegador restringir requestFullscreen no elemento, mantém o modo expandido in-app
+          });
+      }
     } else {
-      document.exitFullscreen?.().catch(() => {});
       setIsFullscreen(false);
+      if (document.fullscreenElement && typeof document.exitFullscreen === 'function') {
+        document.exitFullscreen().catch(() => {});
+      }
     }
   };
 
-  // Pointer down on the score stage: click-to-seek OR click-and-drag to create a loop directly on the score
+  // Native continuous two-finger Pinch-to-Zoom on the score stage (Soundslice-style: single fluid gesture)
+  useEffect(() => {
+    const stageEl = stageWrapperRef.current;
+    if (!stageEl) return;
+
+    const getTouchDistance = (touches: TouchList) => {
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.hypot(dx, dy);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        canvasDragMetaRef.current = null;
+        setDraggingHandle(null);
+        pinchStateRef.current.startDist = Math.max(16, getTouchDistance(e.touches));
+        pinchStateRef.current.startZoom = zoomRef.current;
+        pinchStateRef.current.pendingZoom = null;
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const ps = pinchStateRef.current;
+        const currentDist = Math.max(16, getTouchDistance(e.touches));
+        if (ps.startDist === null) {
+          ps.startDist = currentDist;
+          ps.startZoom = zoomRef.current;
+          ps.pendingZoom = null;
+          return;
+        }
+
+        // Responsive sensitivity curve so a single 2-finger spread/pinch sweeps smoothly across 55%..220%
+        const rawRatio = currentDist / ps.startDist;
+        const curvedRatio = Math.pow(rawRatio, 1.35);
+        const targetZoom = Math.max(
+          0.55,
+          Math.min(2.2, Number((ps.startZoom * curvedRatio).toFixed(2)))
+        );
+        ps.pendingZoom = targetZoom;
+
+        const now = performance.now();
+        if (now - ps.lastRenderTime >= 55 && Math.abs(targetZoom - zoomRef.current) >= 0.02) {
+          ps.lastRenderTime = now;
+          handleZoomChange(targetZoom);
+        }
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      const ps = pinchStateRef.current;
+      if (ps.startDist !== null && e.touches.length < 2) {
+        if (ps.pendingZoom !== null && Math.abs(ps.pendingZoom - zoomRef.current) >= 0.01) {
+          handleZoomChange(ps.pendingZoom);
+        }
+        ps.startDist = null;
+        ps.pendingZoom = null;
+      }
+    };
+
+    stageEl.addEventListener('touchstart', onTouchStart, { passive: false });
+    stageEl.addEventListener('touchmove', onTouchMove, { passive: false });
+    stageEl.addEventListener('touchend', onTouchEnd);
+    stageEl.addEventListener('touchcancel', onTouchEnd);
+
+    return () => {
+      stageEl.removeEventListener('touchstart', onTouchStart);
+      stageEl.removeEventListener('touchmove', onTouchMove);
+      stageEl.removeEventListener('touchend', onTouchEnd);
+      stageEl.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [handleZoomChange]);
+
+  // Pointer down on the score stage: tap/click-to-seek (or desktop mouse drag to create a loop)
   const handleScorePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!scoreControllerRef.current || !osmdContainerRef.current) return;
+    if (!e.isPrimary) {
+      canvasDragMetaRef.current = null;
+      setDraggingHandle(null);
+      return;
+    }
     const rect = osmdContainerRef.current.getBoundingClientRect();
     const relX = e.clientX - rect.left;
     const relY = e.clientY - rect.top;
@@ -1099,6 +1257,7 @@ export default function PartiturasStudio() {
       anchorStartBeat,
       anchorEndBeat: Math.max(anchorStartBeat + 0.5, anchorEndBeat),
       hasDragged: false,
+      pointerType: e.pointerType || 'mouse',
     };
     setDraggingHandle('canvas');
   };
@@ -1178,66 +1337,32 @@ export default function PartiturasStudio() {
   const showAnyAnnotations =
     effectiveShowPitchNames || effectiveShowFingering || effectiveShowRhythmCounts;
 
-  // #22: Prevenção invisível de bloqueio de tela (Screen Wake Lock API) durante o estudo na estante
-  useEffect(() => {
-    let wakeLockSentinel: { release: () => Promise<void> } | null = null;
-    let isCancelled = false;
-
-    const requestWakeLock = async () => {
-      if (isCancelled || typeof navigator === 'undefined') return;
-      const nav = navigator as Navigator & {
-        wakeLock?: { request: (type: 'screen') => Promise<{ release: () => Promise<void> }> };
-      };
-      if (!nav.wakeLock || document.visibilityState !== 'visible') return;
-      try {
-        wakeLockSentinel = await nav.wakeLock.request('screen');
-      } catch {
-        // Ignorado silenciosamente se o navegador/dispositivo restringir Wake Lock sem gesto prévio
-      }
-    };
-
-    void requestWakeLock();
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        void requestWakeLock();
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => {
-      isCancelled = true;
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      if (wakeLockSentinel) {
-        void wakeLockSentinel.release().catch(() => {});
-      }
-    };
-  }, [activePresetId, isPlaying]);
-
   return (
     <div
       id="top"
-      className={`min-h-screen flex flex-col bg-white text-[#1F2937] ${
-        effectiveShowViolinNeck ? 'pb-[200px]' : 'pb-[64px]'
-      }`}
+      ref={studioRootRef}
+      data-fullscreen={isFullscreen ? 'true' : 'false'}
+      className="fixed inset-0 w-full h-[100dvh] max-h-full overflow-hidden flex flex-col bg-white text-[#1F2937]"
     >
-      {/* 1. Barra Superior Única (48px — "Menos é mais") */}
-      <TopBar
-        presets={catalogScores}
-        activePresetId={activePresetId}
-        scoreTitle={scoreTitle}
-        isCustomUpload={Boolean(customFileName)}
-        activeMsaClef={msaClef}
-        userRole={userRole}
-        isAdmin={isAdmin}
-        onUserRoleChange={handleUserRoleChange}
-        onOpenRepertoirePanel={() => setIsRepertoireOpen(true)}
-        onSelectPreset={handleSelectPreset}
-        onReimportScoreXml={handleReimportScoreXml}
-        onMsaClefChange={handleMsaClefChange}
-        onBackToHome={() => navigate('/')}
-        onOpenAdminDashboard={() => navigate('/admin')}
-      />
+      {/* 1. Barra Superior Única (48px — oculta automaticamente em Modo Tela Cheia para maximizar a partitura) */}
+      {!isFullscreen && (
+        <TopBar
+          presets={catalogScores}
+          activePresetId={activePresetId}
+          scoreTitle={scoreTitle}
+          isCustomUpload={Boolean(customFileName)}
+          activeMsaClef={msaClef}
+          userRole={userRole}
+          isAdmin={isAdmin}
+          onUserRoleChange={handleUserRoleChange}
+          onOpenRepertoirePanel={() => setIsRepertoireOpen(true)}
+          onSelectPreset={handleSelectPreset}
+          onReimportScoreXml={handleReimportScoreXml}
+          onMsaClefChange={handleMsaClefChange}
+          onBackToHome={() => navigate('/')}
+          onOpenAdminDashboard={() => navigate('/admin')}
+        />
+      )}
 
       {/* Painel Amigável de Navegação de Repertório (MSA & Hinário 5) e Gestão Admin */}
       <RepertoirePanelModal
@@ -1260,8 +1385,12 @@ export default function PartiturasStudio() {
         onRestoreHiddenFactoryScores={handleRestoreHiddenFactoryScores}
       />
 
-      {/* 2. Pure White Full-Bleed Sheet Music Canvas (Minimalist: "Menos é mais") */}
-      <main className="flex-1 w-full max-w-[1180px] mx-auto px-1 sm:px-6 pt-3 pb-16 bg-white">
+      {/* 2. Pure White Full-Bleed Sheet Music Scroll Stage (Minimalist: "Menos é mais") */}
+      <main
+        ref={mainScrollRef}
+        className="flex-1 min-h-0 w-full overflow-y-auto overflow-x-hidden bg-white"
+      >
+        <div className="w-full max-w-[1180px] mx-auto px-0 sm:px-5 pt-2 sm:pt-3 pb-10 bg-white">
         {showScoreTitle && (
           <div className="px-4 pt-2 pb-1 text-center">
             <h1 className="text-xl font-bold text-[#111827] tracking-tight">
@@ -1292,8 +1421,8 @@ export default function PartiturasStudio() {
           data-testid="score-stage-surface"
           data-focus-isolated={isFocusIsolated ? 'true' : 'false'}
           data-focus-transitioning={isFocusTransitioning ? 'true' : 'false'}
-          className={`score-focus-stage-transition relative bg-white text-[#111827] cursor-pointer select-none min-h-[480px] pt-5 pb-6 ${
-            isFocusIsolated ? 'px-2 sm:px-6' : 'px-1 sm:px-4'
+          className={`score-focus-stage-transition relative bg-white text-[#111827] cursor-pointer select-none touch-pan-y min-h-[480px] pt-4 sm:pt-5 pb-6 ${
+            isFocusIsolated ? 'px-1 sm:px-6' : 'px-0.5 sm:px-4'
           } ${horizontalNotation ? 'overflow-x-auto' : 'overflow-x-hidden'}`}
         >
           {isScoreLoading && (
@@ -1514,138 +1643,238 @@ export default function PartiturasStudio() {
             />
 
             {/* 4. Pedagogical Solfege (Dó, Ré, Mi, Fá♯, Sol, Lá, Si), Violin Fingering (Cordas) & Rhythm Counts Overlay */}
-            {showAnyAnnotations && measures.length > 0 && (
-              <div
-                data-testid="pedagogical-annotations-layer"
-                className="pointer-events-none absolute inset-0 z-20"
-              >
-                {slices.map((slice) => {
-                  const mBox = measures[slice.measureIndex];
-                  if (!mBox) return null;
-                  const primaryNote =
-                    slice.notes.find(
-                      (n) => !n.isRest && activeStaffIndices.includes(n.staffIndex ?? 0)
-                    ) ?? slice.notes.find((n) => !n.isRest);
-                  if (!primaryNote) return null;
+            {showAnyAnnotations && measures.length > 0 && (() => {
+              // Scale all pedagogical annotations proportionally with score zoom (Soundslice-style)
+              const annScale = Math.max(0.65, Math.min(2.2, zoom));
 
-                  const noteX = mBox.x + slice.relativeXInMeasure * mBox.width;
-                  const ann = midiToPedagogicalAnnotation(primaryNote.midi);
-                  const rhythmLabel = formatRhythmCount(slice.startBeatInMeasure);
-                  const isDownBowStart =
-                    slice.startBeatInMeasure < 0.05 &&
-                    (mBox.measureNumber === 1 ||
-                      mBox.measureNumber === 5 ||
-                      mBox.measureNumber === 9);
-                  const isPhraseBreathEnd =
-                    (mBox.measureNumber === 4 || mBox.measureNumber === 8) &&
-                    slice.startBeatInMeasure + slice.durationBeats >=
-                      mBox.durationBeats - 0.1;
-                  const isSliceActive = activeSliceIds.includes(slice.id);
+              // Anti-collision horizontal pass per measure so labels never overlap at any zoom
+              const adjustedXBySliceId = new Map<string, number>();
+              for (const mBox of measures) {
+                const mSlices = slices.filter(
+                  (s) =>
+                    s.measureIndex === mBox.measureIndex &&
+                    s.notes.some((n) => !n.isRest)
+                );
+                if (mSlices.length === 0) continue;
 
-                  return (
-                    <React.Fragment key={`ann_${slice.id}`}>
-                      <div
-                        data-testid={`note-annotation-${slice.id}`}
-                        data-active={isSliceActive ? 'true' : 'false'}
-                        style={{
-                          left: `${noteX}px`,
-                          top: `${Math.max(
-                            0,
-                            mBox.y - (effectiveShowRhythmCounts ? 14 : 2)
-                          )}px`,
-                        }}
-                        className={`focus-smooth-annotation absolute -translate-x-1/2 flex flex-col items-center leading-none select-none ${
-                          isSliceActive ? 'scale-110' : ''
-                        }`}
-                      >
-                        {/* Rhythm Counts (1, +, 2, 3, 4) */}
-                        {effectiveShowRhythmCounts && (
-                          <span
-                            data-testid={`rhythm-count-${slice.id}`}
-                            className="text-[11px] font-mono font-bold text-[#6B7280] mb-[2px]"
-                          >
-                            {rhythmLabel}
-                          </span>
-                        )}
+                const positions = mSlices.map((s) => ({
+                  id: s.id,
+                  x: mBox.x + s.relativeXInMeasure * mBox.width,
+                }));
 
-                        {/* Down-bow symbol (⊓) at phrase start (Hinário de Cordas) */}
-                        {effectiveShowFingering && isDownBowStart && (
+                const minGap = Math.max(
+                  16,
+                  Math.min(
+                    Math.floor((mBox.width - 16) / Math.max(1, mSlices.length)),
+                    Math.round(22 * annScale)
+                  )
+                );
+                for (let i = 1; i < positions.length; i++) {
+                  if (positions[i].x - positions[i - 1].x < minGap) {
+                    positions[i].x = positions[i - 1].x + minGap;
+                  }
+                }
+                const maxAllowedX = mBox.x + mBox.width - Math.round(10 * annScale);
+                if (positions[positions.length - 1].x > maxAllowedX) {
+                  const overflow = positions[positions.length - 1].x - maxAllowedX;
+                  for (let i = 0; i < positions.length; i++) {
+                    positions[i].x = Math.max(
+                      mBox.x + Math.round(8 * annScale),
+                      positions[i].x - overflow
+                    );
+                  }
+                  for (let i = 1; i < positions.length; i++) {
+                    if (positions[i].x - positions[i - 1].x < minGap - 1) {
+                      positions[i].x = positions[i - 1].x + (minGap - 1);
+                    }
+                  }
+                }
+                for (const p of positions) {
+                  adjustedXBySliceId.set(p.id, p.x);
+                }
+              }
+
+              const solfegeFontPx = Number((13 * annScale).toFixed(1));
+              const fingerFontPx = Number((12.5 * annScale).toFixed(1));
+              const circledFingerBoxPx = Math.round(16 * annScale);
+              const circledFingerFontPx = Number((10.5 * annScale).toFixed(1));
+              const rhythmFontPx = Number((11 * annScale).toFixed(1));
+              const bowWidthPx = Number((11 * annScale).toFixed(1));
+              const bowHeightPx = Number((9 * annScale).toFixed(1));
+              const stackGapPx = Math.max(1.5, Number((2 * annScale).toFixed(1)));
+              const sharpWidthPx = Number((8 * annScale).toFixed(1));
+              const sharpHeightPx = Number((12 * annScale).toFixed(1));
+              const commaWidthPx = Number((9 * annScale).toFixed(1));
+              const commaHeightPx = Number((13 * annScale).toFixed(1));
+
+              return (
+                <div
+                  data-testid="pedagogical-annotations-layer"
+                  className="pointer-events-none absolute inset-0 z-20"
+                >
+                  {slices.map((slice) => {
+                    const mBox = measures[slice.measureIndex];
+                    if (!mBox) return null;
+                    const primaryNote =
+                      slice.notes.find(
+                        (n) => !n.isRest && activeStaffIndices.includes(n.staffIndex ?? 0)
+                      ) ?? slice.notes.find((n) => !n.isRest);
+                    if (!primaryNote) return null;
+
+                    const noteX =
+                      adjustedXBySliceId.get(slice.id) ??
+                      mBox.x + slice.relativeXInMeasure * mBox.width;
+                    const ann = midiToPedagogicalAnnotation(primaryNote.midi);
+                    const rhythmLabel = formatRhythmCount(slice.startBeatInMeasure);
+                    const isDownBowStart =
+                      slice.startBeatInMeasure < 0.05 &&
+                      (mBox.measureNumber === 1 ||
+                        mBox.measureNumber === 5 ||
+                        mBox.measureNumber === 9);
+                    const isPhraseBreathEnd =
+                      (mBox.measureNumber === 4 || mBox.measureNumber === 8) &&
+                      slice.startBeatInMeasure + slice.durationBeats >=
+                        mBox.durationBeats - 0.1;
+                    const isSliceActive = activeSliceIds.includes(slice.id);
+
+                    // Standardized anchor above the 5th (top) line of the pentagram (staffTopY)
+                    // Using -translate-y-full guarantees the bottom of the annotation stack
+                    // ALWAYS sits cleanly outside and above the 5 staff lines in every measure!
+                    const staffTopY = mBox.staffTopY ?? mBox.y + 38 * annScale;
+                    const clearanceAboveTopLine = Math.max(4, Math.round(5.5 * annScale));
+                    const annotationBottomAnchorY = Math.max(
+                      18,
+                      staffTopY - clearanceAboveTopLine
+                    );
+
+                    return (
+                      <React.Fragment key={`ann_${slice.id}`}>
+                        <div
+                          data-testid={`note-annotation-${slice.id}`}
+                          data-active={isSliceActive ? 'true' : 'false'}
+                          style={{
+                            left: `${noteX}px`,
+                            top: `${annotationBottomAnchorY}px`,
+                            gap: `${stackGapPx}px`,
+                          }}
+                          className={`focus-smooth-annotation absolute -translate-x-1/2 -translate-y-full origin-bottom flex flex-col items-center leading-none select-none ${
+                            isSliceActive ? 'scale-110' : ''
+                          }`}
+                        >
+                          {/* Rhythm Counts (1, +, 2, 3, 4) */}
+                          {effectiveShowRhythmCounts && (
+                            <span
+                              data-testid={`rhythm-count-${slice.id}`}
+                              style={{ fontSize: `${rhythmFontPx}px` }}
+                              className="font-mono font-bold text-[#6B7280]"
+                            >
+                              {rhythmLabel}
+                            </span>
+                          )}
+
+                          {/* Accented Portuguese Solfege (Dó, Ré, Mi, Fá♯, Sol, Lá, Si) */}
+                          {effectiveShowPitchNames && (
+                            <span
+                              data-testid={`solfege-label-${slice.id}`}
+                              style={{ fontSize: `${solfegeFontPx}px` }}
+                              className={`inline-flex items-center font-medium tracking-tight whitespace-nowrap ${
+                                isSliceActive
+                                  ? 'text-[#3B82F6] font-bold'
+                                  : 'text-[#111827]'
+                              }`}
+                            >
+                              {ann.solfege.includes('♯') ? (
+                                <>
+                                  <span>{ann.solfege.replace('♯', '')}</span>
+                                  <svg
+                                    viewBox="0 0 10 14"
+                                    style={{
+                                      width: `${sharpWidthPx}px`,
+                                      height: `${sharpHeightPx}px`,
+                                    }}
+                                    className="ml-[0.5px] -mt-[1px] currentColor"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                  >
+                                    <line x1="3.2" y1="1.5" x2="3.2" y2="12.5" strokeWidth="1.2" />
+                                    <line x1="6.8" y1="0.8" x2="6.8" y2="11.8" strokeWidth="1.2" />
+                                    <line x1="1.2" y1="5.4" x2="8.8" y2="3.8" strokeWidth="1.6" />
+                                    <line x1="1.2" y1="9.6" x2="8.8" y2="8.0" strokeWidth="1.6" />
+                                  </svg>
+                                </>
+                              ) : (
+                                ann.solfege
+                              )}
+                            </span>
+                          )}
+
+                          {/* Down-bow symbol (⊓) at phrase start (Hinário de Cordas — Soundslice order: Solfege -> Bow -> Finger) */}
+                          {effectiveShowFingering && isDownBowStart && (
+                            <svg
+                              viewBox="0 0 12 10"
+                              style={{
+                                width: `${bowWidthPx}px`,
+                                height: `${bowHeightPx}px`,
+                              }}
+                              className="text-[#111827]"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.7"
+                            >
+                              <path d="M1.5 9V1.5H10.5V9" />
+                            </svg>
+                          )}
+
+                          {/* Colored Violin Fingering Number (0, 1, 2, 3) — Hinário de Cordas */}
+                          {effectiveShowFingering && (
+                            <span
+                              data-testid={`fingering-label-${slice.id}`}
+                              style={{
+                                color: ann.color,
+                                fontSize: ann.circled
+                                  ? `${circledFingerFontPx}px`
+                                  : `${fingerFontPx}px`,
+                                width: ann.circled ? `${circledFingerBoxPx}px` : undefined,
+                                height: ann.circled ? `${circledFingerBoxPx}px` : undefined,
+                              }}
+                              className={`font-bold leading-none ${
+                                ann.circled
+                                  ? 'rounded-full border border-current flex items-center justify-center'
+                                  : ''
+                              }`}
+                            >
+                              {ann.finger}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Breath mark comma (,) at end of Measure 4 & Measure 8 — strictly ABOVE the 5th staff line (Soundslice style) */}
+                        {effectiveShowFingering && isPhraseBreathEnd && (
                           <svg
-                            viewBox="0 0 12 10"
-                            className="w-[10px] h-[8px] text-[#111827] mb-[2px]"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
+                            data-testid={`breath-comma-${mBox.measureNumber}`}
+                            viewBox="0 0 12 16"
+                            style={{
+                              left: `${Math.max(
+                                noteX + Math.round(12 * annScale),
+                                mBox.x + mBox.width - Math.max(4, Math.round(4.5 * annScale))
+                              )}px`,
+                              top: `${annotationBottomAnchorY}px`,
+                              width: `${commaWidthPx}px`,
+                              height: `${commaHeightPx}px`,
+                            }}
+                            className="focus-smooth-annotation absolute -translate-x-1/2 -translate-y-full text-[#2563EB] select-none"
+                            fill="currentColor"
                           >
-                            <path d="M1.5 9V1.5H10.5V9" />
+                            <path d="M6.2 2.2c1.8 0 3.1 1.3 3.1 3.2 0 2.7-1.7 5.5-4.6 7.4-.5.3-1.1-.2-.8-.7 1.6-1.5 2.5-3.1 2.6-4.5-.3.2-.7.2-1.1.2-1.5 0-2.6-1.1-2.6-2.7 0-1.6 1.3-2.9 3.4-2.9z" />
                           </svg>
                         )}
-
-                        {/* Accented Portuguese Solfege (Dó, Ré, Mi, Fá♯, Sol, Lá, Si) */}
-                        {effectiveShowPitchNames && (
-                          <span
-                            data-testid={`solfege-label-${slice.id}`}
-                            className={`inline-flex items-center text-[12.5px] sm:text-[13.5px] font-medium tracking-tight mb-[2px] whitespace-nowrap ${
-                              isSliceActive
-                                ? 'text-[#3B82F6] font-bold'
-                                : 'text-[#111827]'
-                            }`}
-                          >
-                            {ann.solfege.includes('♯') ? (
-                              <>
-                                <span>{ann.solfege.replace('♯', '')}</span>
-                                <svg
-                                  viewBox="0 0 10 14"
-                                  className="w-[8px] h-[12px] ml-[0.5px] -mt-[1px] currentColor"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeLinecap="round"
-                                >
-                                  <line x1="3.2" y1="1.5" x2="3.2" y2="12.5" strokeWidth="1.2" />
-                                  <line x1="6.8" y1="0.8" x2="6.8" y2="11.8" strokeWidth="1.2" />
-                                  <line x1="1.2" y1="5.4" x2="8.8" y2="3.8" strokeWidth="1.6" />
-                                  <line x1="1.2" y1="9.6" x2="8.8" y2="8.0" strokeWidth="1.6" />
-                                </svg>
-                              </>
-                            ) : (
-                              ann.solfege
-                            )}
-                          </span>
-                        )}
-
-                        {/* Colored Violin Fingering Number (0, 1, 2, 3) — Hinário de Cordas */}
-                        {effectiveShowFingering && (
-                          <span
-                            data-testid={`fingering-label-${slice.id}`}
-                            style={{ color: ann.color }}
-                            className={`text-[12px] sm:text-[13px] font-bold leading-none ${
-                              ann.circled
-                                ? 'w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10.5px]'
-                                : ''
-                            }`}
-                          >
-                            {ann.finger}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Breath mark comma (,) at end of Measure 4 & Measure 8 */}
-                      {effectiveShowFingering && isPhraseBreathEnd && (
-                        <span
-                          style={{
-                            left: `${mBox.x + mBox.width - 10}px`,
-                            top: `${Math.max(4, mBox.y + 12)}px`,
-                          }}
-                          className="focus-smooth-annotation absolute text-[22px] font-serif font-bold text-[#111827] leading-none select-none"
-                        >
-                          ,
-                        </span>
-                      )}
-                    </React.Fragment>
-                  );
-                })}
-              </div>
-            )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+              );
+            })()}
 
             {/* 5. OpenSheetMusicDisplay SVG Mount Container */}
             <div
@@ -1783,6 +2012,7 @@ export default function PartiturasStudio() {
             )}
           </div>
         )}
+        </div>
       </main>
 
       {/* 2.5. Interactive Violin Fingerboard Mirror (Disponível no Hinário de Cordas) */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, AlertCircle, BookOpen, Layers } from 'lucide-react';
+import { Check, AlertCircle, BookOpen, Layers, Maximize2, Minimize2 } from 'lucide-react';
 import { getAssetUrl } from '../../../core/utils/paths';
 
 export interface PhaseInfo {
@@ -39,6 +39,8 @@ interface SimuladoMenuProps {
   errorMessage: string | null;
   onStartQuiz: () => void;
   onBack: () => void;
+  isFullscreen?: boolean;
+  onToggleFullscreen?: () => void;
 }
 
 export const SimuladoMenu: React.FC<SimuladoMenuProps> = ({
@@ -53,6 +55,8 @@ export const SimuladoMenu: React.FC<SimuladoMenuProps> = ({
   errorMessage,
   onStartQuiz,
   onBack,
+  isFullscreen = false,
+  onToggleFullscreen,
 }) => {
   const allPeriodsChecked = [1, 2, 3, 4].every((p) => selectedPeriods.has(p));
   const allPhasesChecked = MSA_PHASES_CATALOG.every((item) => selectedPhases.has(item.fase));
@@ -62,9 +66,28 @@ export const SimuladoMenu: React.FC<SimuladoMenuProps> = ({
 
   return (
     <div
-      className="max-w-xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade"
+      className="max-w-xl mx-auto w-full px-4 sm:px-6 py-5 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade relative"
       id="simulado-menu"
     >
+      {onToggleFullscreen && (
+        <div className="flex justify-end mb-1">
+          <button
+            type="button"
+            data-testid="simulado-menu-fullscreen-btn"
+            onClick={onToggleFullscreen}
+            title={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
+            aria-label={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
+            className={`inline-flex items-center gap-1.5 px-3 py-2 min-h-[40px] rounded-xl border text-xs font-extrabold transition-all cursor-pointer ${
+              isFullscreen
+                ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300 shadow-xs'
+                : 'bg-white hover:bg-slate-100 text-slate-600 border-slate-200 shadow-xs'
+            }`}
+          >
+            {isFullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
+            <span>{isFullscreen ? 'Sair da Tela Cheia' : 'Tela Cheia'}</span>
+          </button>
+        </div>
+      )}
       <img
         src={getAssetUrl('assets/fufu-capa-simulado.png')}
         className="w-20 sm:w-28 h-auto mx-auto mb-2.5 drop-shadow-lg animate-float"

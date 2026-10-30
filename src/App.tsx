@@ -8,20 +8,50 @@ import { QuickEditModal } from './core/components/QuickEditModal';
 import { contentStore, SiteConfig } from './core/services/contentStore';
 import { GraduationCap, ArrowLeft, Youtube, Bell, Lock } from 'lucide-react';
 
-// Code Splitting via React.lazy e Suspense
+// Helper para recuperar automaticamente de falhas transitórias de importação dinâmica (ex.: durante restart do servidor Vite ou oscilação de rede mobile)
+async function retryDynamicImport<T>(
+  factory: () => Promise<T>,
+  retries = 3,
+  intervalMs = 600,
+): Promise<T> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await factory();
+    } catch (err) {
+      lastError = err;
+      if (attempt < retries) {
+        await new Promise((resolve) => setTimeout(resolve, intervalMs));
+      }
+    }
+  }
+  throw lastError;
+}
+
+// Code Splitting via React.lazy com auto-retry e Suspense
 const WelcomeHome = React.lazy(() =>
-  import('./modules/home/WelcomeHome').then((m) => ({ default: m.WelcomeHome })),
+  retryDynamicImport(() =>
+    import('./modules/home/WelcomeHome').then((m) => ({ default: m.WelcomeHome })),
+  ),
 );
 const MestreDaClave = React.lazy(() =>
-  import('./modules/mestre-da-clave/MestreDaClave').then((m) => ({ default: m.MestreDaClave })),
+  retryDynamicImport(() =>
+    import('./modules/mestre-da-clave/MestreDaClave').then((m) => ({ default: m.MestreDaClave })),
+  ),
 );
 const SimuladoMsa = React.lazy(() =>
-  import('./modules/simulado/SimuladoMsa').then((m) => ({ default: m.SimuladoMsa })),
+  retryDynamicImport(() =>
+    import('./modules/simulado/SimuladoMsa').then((m) => ({ default: m.SimuladoMsa })),
+  ),
 );
 const AdminDashboard = React.lazy(() =>
-  import('./modules/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard })),
+  retryDynamicImport(() =>
+    import('./modules/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard })),
+  ),
 );
-const PartiturasStudio = React.lazy(() => import('./modules/partituras/PartiturasStudio'));
+const PartiturasStudio = React.lazy(() =>
+  retryDynamicImport(() => import('./modules/partituras/PartiturasStudio')),
+);
 
 function MainLayout() {
   const location = useLocation();

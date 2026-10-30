@@ -9,8 +9,12 @@ description: Use this skill when modifying OpenSheetMusicDisplay (OSMD) SVG rend
 Padronizar a extração geométrica de compassos e notas do `opensheetmusicdisplay` (OSMD), a coloração dinâmica das cabeças de nota no SVG, o cálculo de coordenadas para as alças arrastáveis de loop (por tempo/nota) e o isolamento real de compassos no Modo Foco.
 
 ## Procedimento Passo a Passo
-1. **Extração de `MeasureBoundingBox` e `ScoreSliceEvent`:**
-   - Percorra `osmd.GraphicSheet.MeasureList` para calcular `{ x, y, width, height, systemIndex, startBeatInScore, durationBeats }` multiplicando `PositionAndShape` por `10 * zoom`.
+1. **Extração de `MeasureBoundingBox` (`staffTopY` / `staffBottomY`) e `ScoreSliceEvent`:**
+   - Percorra `osmd.GraphicSheet.MeasureList` para calcular `{ x, y, width, height, systemIndex, startBeatInScore, durationBeats, staffTopY, staffBottomY }` multiplicando `PositionAndShape` por `10 * zoom`.
+   - Garanta que `ps.BorderTop` seja limitado a `Math.min(-0.8, ps.BorderTop ?? -1)` e `ps.BorderBottom` a `Math.max(4.8, ps.BorderBottom ?? 5)` para que compassos contendo apenas semibreves graves (`Ré4`, `Sol4`) nunca tenham `minY` dentro do pentagrama.
+   - Ancore todas as anotações pedagógicas (`Dó, Ré...`, arcadas `⊓`, dedilhados `0, 1, 2, 3` e vírgula de respiração SVG `[data-testid="breath-comma-*"]`) em `staffTopY - clearance` com `-translate-y-full`, escalonando proporcionalmente todas as fontes e dimensões por `annScale = clamp(zoom, 0.65, 2.2)` e mantendo-as sempre 100% fora e acima da 5ª linha do pentagrama.
+   - Armazene o estado do gesto de pinça (*Pinch-to-Zoom*) em `pinchStateRef` (`useRef`) e memorize `handleZoomChange` (`useCallback`) para que um único gesto contínuo de 2 dedos percorra todo o intervalo `55%..220%` sem perder a referência inicial durante re-renderizações do React.
+   - Em viewports mobile (`< 640px`), configure `EngravingRules` com `PageLeftMargin = 0.45` e `PageRightMargin = 0.45` para aproveitar 96% da largura da tela.
    - Vincule os elementos `.vf-stavenote` reais do DOM SVG às fatias temporais (`ScoreSliceEvent`) ordenadas por coordenada X dentro de cada compasso.
 2. **Coloração Dinâmica da Cabeça da Nota (`.vf-notehead path`):**
    - Ao ativar um `sliceId`, localize `.vf-notehead path, .vf-notehead use` dentro do `.vf-stavenote` correspondente, salve o atributo original em `data-orig-fill` e aplique a cor de destaque (`#3B82F6`, `#EAB308` ou `#10B981`).

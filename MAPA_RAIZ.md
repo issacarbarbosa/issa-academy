@@ -80,6 +80,8 @@ issa-academy/
 │       └── 📄 ADR-004-msa-clef-remapping-and-ccb-orchestra-catalog.md
 ├── 📁 public/ # Assets estáticos musicais, mascote Fufu e ícones do PWA
 │   └── 📁 assets/
+│       ├── 📁 aistudio/
+│       │   └── 📄 image_d932f560.png
 │       ├── 📄 Issa_Academy-Fufu.png
 │       ├── 📄 fufu-acerto-aplausos.png
 │       ├── 📄 fufu-acerto-esperto.png
@@ -126,8 +128,11 @@ issa-academy/
 │   │   ├── 📁 data/
 │   │   │   └── 📄 initialLessons.ts
 │   │   ├── 📁 hooks/ # Hooks utilitários reutilizáveis (useMobileOrientation, useLocalStorage)
+│   │   │   ├── 📄 useFullscreen.ts
 │   │   │   ├── 📄 useLocalStorage.ts
-│   │   │   └── 📄 useMobileOrientation.ts
+│   │   │   ├── 📄 useMobileOrientation.ts
+│   │   │   ├── 📄 useScreenWakeLock.test.tsx
+│   │   │   └── 📄 useScreenWakeLock.ts
 │   │   ├── 📁 services/ # Camada de dados unificada Supabase Cloud + Offline (contentStore, supabaseClient)
 │   │   │   ├── 📄 contentStore.test.ts
 │   │   │   ├── 📄 contentStore.ts
@@ -217,7 +222,6 @@ issa-academy/
 │   └── 📄 main.tsx
 ├── 📁 supabase/ # Schema SQL e políticas Row Level Security (RLS) do banco PostgreSQL no Supabase
 │   └── 📄 schema.sql
-├── 📄 .env
 ├── 📄 .env.example
 ├── 📄 .gitignore
 ├── 📄 AGENTS.md # Regras globais do workspace, invariantes musicais e definição de subagentes

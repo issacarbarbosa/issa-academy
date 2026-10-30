@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — Arquitetura Viva do Ecossistema Issa Academy (v1.4.1)
+# ARCHITECTURE.md — Arquitetura Viva do Ecossistema Issa Academy (v1.5.1)
 
 ## 1. Visão Geral do Sistema
 O **Issa Academy** é uma Single Page Application (SPA) modular e offline-first (PWA) em **React 19 + TypeScript + Tailwind CSS v4** voltada ao ensino gamificado e interativo do **MSA (Método Simplificado de Aprendizagem Musical)** e do **Hinário 5 da CCB**.
@@ -7,13 +7,12 @@ O projeto opera em **arquitetura de desenvolvimento híbrida (`Google AI Studio 
 
 ---
 
-## 2. Diagrama Geral dos 6 Módulos e Camada de Dados (`flowchart TD`)
+## 2. Diagrama Geral dos Módulos e Camada de Dados (`flowchart TD`)
 
 ```mermaid
 flowchart TD
-    subgraph Router["Roteador Declarativo (src/App.tsx — HashRouter + React.lazy)"]
+    subgraph Router["Roteador Declarativo (src/App.tsx — HashRouter + React.lazy + retryDynamicImport)"]
         Home["🏠 Home (WelcomeHome.tsx — /#/)"]
-        Aulas["📚 Aulas do MSA (AulasMsa.tsx — /#/aulas)"]
         Partituras["🎼 Estúdio de Partituras & Hinário 5 (PartiturasStudio.tsx — /#/partituras)"]
         Mestre["🎮 Mestre da Clave (MestreDaClave.tsx — /#/mestre-da-clave)"]
         Simulado["📝 Simulado MSA 552q (SimuladoMsa.tsx — /#/simulado)"]
@@ -24,10 +23,12 @@ flowchart TD
         AdminCtx["AdminContext.tsx (Google OAuth PKCE + Whitelist + Modo Edição)"]
         ContentStore["contentStore.ts (Sincronização Híbrida Supabase ⇄ localStorage)"]
         CoreAudio["audio.ts & notesData.ts (Síntese Web Audio Jogo/Simulado)"]
+        WakeLock["useScreenWakeLock.ts (Wake Lock 4 Camadas: W3C + Vídeo H.264/VP8 + Live Canvas/Audio)"]
+        FullscreenHook["useFullscreen.ts (Fullscreen API navigationUI:hide + Lock Landscape + Fallback CSS)"]
     end
 
     subgraph PartiturasEngine["Motores do Estúdio de Partituras (src/modules/partituras/)"]
-        ScoreCtrl["ScoreController.ts (OSMD SVG, Leitura Rítmica 1º Espaço F4, Isolamento Modo Foco)"]
+        ScoreCtrl["ScoreController.ts (OSMD SVG, Pinça Contínua 55%-220%, Vírgulas Acima da Pauta)"]
         AudioSched["AudioScheduler.ts (Lookahead Web Audio, Piano de Cauda Didático Universal)"]
         MusicMath["musicMath.ts (Funções Puras: BPM, MIDI, Solfejo pt-BR, 3 Claves Oficiais)"]
         SampleScores["sampleScores.ts (Catálogo MSA 22 Lições + Hinário 5 + Sync Supabase)"]
@@ -38,7 +39,6 @@ flowchart TD
         GitHub["GitHub (issacarbarbosa/issa-academy)\nGitHub Actions ➔ GitHub Pages"]
     end
 
-    Home --> Aulas
     Home --> Partituras
     Home --> Mestre
     Home --> Simulado

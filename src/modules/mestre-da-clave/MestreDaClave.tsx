@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Pause } from 'lucide-react';
+import { Pause, Maximize2, Minimize2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { initAudio, playLevelUpFanfare, playRewardChord, playError } from '../../core/utils/audio';
 import { getAssetUrl } from '../../core/utils/paths';
 import { useLocalStorage } from '../../core/hooks/useLocalStorage';
+import { useFullscreen } from '../../core/hooks/useFullscreen';
+import { useScreenWakeLock } from '../../core/hooks/useScreenWakeLock';
 import {
   FloatText,
   GameParticle,
@@ -30,6 +32,11 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
   const handleBack = onBack || (() => navigate('/'));
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const screenRootRef = useRef<HTMLDivElement | null>(null);
+
+  const { isFullscreen, toggleFullscreen } = useFullscreen(screenRootRef, {
+    lockLandscape: true,
+  });
 
   // Estados de Clave e Recordes
   const [selectedClef, setSelectedClef] = useState<ClefType>('sol');
@@ -45,6 +52,7 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
 
   // Estados do Jogo
   const [gameState, setGameState] = useState<'START' | 'PLAYING' | 'PAUSED' | 'GAMEOVER'>('START');
+  useScreenWakeLock(gameState === 'PLAYING');
   const [score, setScore] = useState<number>(0);
   const [level, setLevel] = useState<number>(1);
   const [lives, setLives] = useState<number>(3);
@@ -561,7 +569,8 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col bg-white text-slate-800 font-sans overflow-hidden z-40"
+      ref={screenRootRef}
+      className="fixed inset-0 w-full h-[100dvh] max-h-full flex flex-col bg-white text-slate-800 font-sans overflow-hidden z-40"
       id="mestre-da-clave-screen"
     >
       {/* XP Bar */}
@@ -597,15 +606,40 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
           </div>
         </div>
 
-        <button
-          onClick={handlePauseToggle}
-          disabled={gameState !== 'PLAYING'}
-          className={`flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2.5 min-h-[40px] sm:min-h-[44px] rounded-xl border border-slate-200 transition-all cursor-pointer ${
-            gameState !== 'PLAYING' ? 'opacity-50 pointer-events-none' : ''
-          }`}
-        >
-          <Pause size={12} className="sm:w-3.5 sm:h-3.5" /> <span>Pausa ({pausesLeft})</span>
-        </button>
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <button
+            type="button"
+            data-testid="mestre-fullscreen-btn"
+            onClick={toggleFullscreen}
+            title={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
+            aria-label={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
+            className={`flex items-center justify-center gap-1 font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3 py-1.5 sm:py-2.5 min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] rounded-xl border transition-all cursor-pointer ${
+              isFullscreen
+                ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300 shadow-xs'
+                : 'bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-200'
+            }`}
+          >
+            {isFullscreen ? (
+              <Minimize2 size={14} className="sm:w-4 sm:h-4 shrink-0" />
+            ) : (
+              <Maximize2 size={14} className="sm:w-4 sm:h-4 shrink-0" />
+            )}
+            <span className="hidden lg:inline">
+              {isFullscreen ? 'Sair da Tela Cheia' : 'Tela Cheia'}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handlePauseToggle}
+            disabled={gameState !== 'PLAYING'}
+            className={`flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2.5 min-h-[40px] sm:min-h-[44px] rounded-xl border border-slate-200 transition-all cursor-pointer ${
+              gameState !== 'PLAYING' ? 'opacity-50 pointer-events-none' : ''
+            }`}
+          >
+            <Pause size={12} className="sm:w-3.5 sm:h-3.5" /> <span>Pausa ({pausesLeft})</span>
+          </button>
+        </div>
       </div>
 
       {/* Game/Canvas display container */}

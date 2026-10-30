@@ -4,15 +4,37 @@ Todas as alterações notáveis, refatorações, marcos arquiteturais e correç�
 
 ---
 
-## [1.5.0] - 2026-10-30 (Planejamento Estrat�gico, Oculta��o de M�dulos N�o Lan�ados & Quality Gate)
+## [1.5.1] - 2026-10-30 (UX Mobile First, Pinça de Zoom Contínua, Tela Cheia Universal & Prevenção de Bloqueio de Tela)
+
+### Adicionado
+- **Prevenção de Bloqueio de Tela em 4 Camadas (`src/core/hooks/useScreenWakeLock.ts` & `useScreenWakeLock.test.tsx`)**:
+  - Combina W3C `navigator.wakeLock.request("screen")`, micro-vídeo HTML5 `24x24px` em primeiro plano codificado em `H.264 Constrained Baseline + AAC` (MP4) e `VP8 + Opus` (WebM), stream ao vivo `canvas.captureStream(10)` + `AudioContext.createMediaStreamDestination()` e watchdog de `400ms` para manter a tela acesa em Android/iOS (inclusive dentro do iframe do Google AI Studio) enquanto o player do Estúdio de Partituras, a partida do Mestre da Clave ou o questionário do Simulado MSA estão ativos.
+- **Hook Universal de Tela Cheia (`src/core/hooks/useFullscreen.ts`)**:
+  - Expansão programática via `requestFullscreen({ navigationUI: "hide" })` com ocultação automática da barra inferior do Google AI Studio (`Chat | Preview | Artifacts`) no mobile, trava opcional de orientação paisagem (`lockLandscape`) e fallback CSS imersivo (`100dvh`).
+  - Integrado ao cabeçalho HUD do **Mestre da Clave (`MestreDaClave.tsx`)**, ao Menu/Quiz/Resultados do **Simulado MSA (`SimuladoMsa.tsx` & `SimuladoMenu.tsx`)** e ao App-Shell Flexbox do **Estúdio de Partituras (`PartiturasStudio.tsx` & `TransportBar.tsx`)**.
+- **Auto-Retry em Importações Dinâmicas (`src/App.tsx`)**:
+  - Função `retryDynamicImport` encapsulando todos os `React.lazy` das rotas principais para recuperar automaticamente de oscilações de rede mobile ou reinicializações do servidor de desenvolvimento.
+
 ### Modificado
-- **Oculta��o do Est�dio de Partituras em Produ��o**:
-  - O card e rota do m�dulo (/#/partituras) agora s�o ativados exclusivamente em desenvolvimento local (import.meta.env.DEV) ou para o administrador (isAdmin), preservando uma visualiza��o limpa e focada em produ��o para os alunos at� a importa��o completa do acervo MusicXML.
-- **Remo��o do M�dulo Tempor�rio de Aulas do MSA**:
-  - C�digo do m�dulo descontinuado da base ativa (src/modules/aulas/) at� que as aulas p�s-fase 3 sejam gravadas; tipagens promovidas para src/core/types/lessons.ts e dados para src/core/data/initialLessons.ts.
-  - Home simplificada para os dois m�dulos oficiais est�veis: **Mestre da Clave** e **Simulado MSA** (mais o Est�dio em modo dev/admin).
-- **Planejamento Estrat�gico Expandido (ROADMAP.md)**:
-  - Detalhamento de 7 Sprints: Migra��o para Cloudflare Pages com reposit�rio privado, Pipeline MusicXML via MuseScore/OMR, Escuta e Afina��o em Tempo Real (estilo Tonestro), Login de Alunos & Monetiza��o, IA Educacional Google AI Studio com cards anotados SVG, e Expans�o para Viola/Celo e �rg�o.
+- **Estúdio de Partituras (`src/modules/partituras/`) — Experiência Mobile First Estilo Soundslice**:
+  - **Pinça de Zoom Contínua em Gesto Único (`55%` a `220%`)**: Controle fluido de aproximação e afastamento com 2 dedos (`pinchStateRef`) sem necessidade de retirar os dedos da tela, preservando `TopBar` e `TransportBar` fixas.
+  - **Escalonamento Proporcional de Anotações (`annScale`)**: Nomes das notas (`Dó, Ré, Mi...`), dedilhados (`0, 1, 2, 3`, `②`), arcadas (`⊓`) e contagens rítmicas aumentam e diminuem proporcionalmente ao zoom da partitura.
+  - **Vírgulas de Respiração SVG e Anotações 100% Acima do Pentagrama**: Ancoragem vertical padronizada (`staffTopY - clearance`) garantindo que todas as vírgulas de respiração (`[data-testid="breath-comma-*"]`) e anotações fiquem fora e acima da 5ª linha em todos os compassos.
+  - **Aproveitamento Lateral Mobile (+67% de largura útil)**: Redução das margens laterais do OSMD em viewports mobile (`PageLeftMargin = 0.45`, `PageRightMargin = 0.45`).
+  - **App-Shell Flexbox em Tela Cheia**: Refatoração do container principal (`studioRootRef`), `TransportBar` e `ViolinFingerboard` para manter a barra inferior 100% visível no rodapé ao expandir a tela no celular.
+
+---
+
+## [1.5.0] - 2026-10-30 (Planejamento Estratégico, Ocultação de Módulos Não Lançados & Quality Gate)
+
+### Modificado
+- **Ocultação do Estúdio de Partituras em Produção**:
+  - O card e rota do módulo (`/#/partituras`) agora são ativados exclusivamente em desenvolvimento local (`import.meta.env.DEV`) ou para o administrador (`isAdmin`), preservando uma visualização limpa e focada em produção para os alunos até a importação completa do acervo MusicXML.
+- **Remoção do Módulo Temporário de Aulas do MSA**:
+  - Código do módulo descontinuado da base ativa (`src/modules/aulas/`) até que as aulas pós-fase 3 sejam gravadas; tipagens promovidas para `src/core/types/lessons.ts` e dados para `src/core/data/initialLessons.ts`.
+  - Home simplificada para os dois módulos oficiais estáveis: **Mestre da Clave** e **Simulado MSA** (mais o Estúdio em modo dev/admin).
+- **Planejamento Estratégico Expandido (`ROADMAP.md`)**:
+  - Detalhamento de 7 Sprints: Migração para Cloudflare Pages com repositório privado, Pipeline MusicXML via MuseScore/OMR, Escuta e Afinação em Tempo Real (estilo Tonestro), Login de Alunos & Monetização, IA Educacional Google AI Studio com cards anotados SVG, e Expansão para Viola/Celo e Órgão.
 
 ---
 

@@ -4,7 +4,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 
 ---
 
-## 🧭 Estado Atual dos Módulos Principais (v1.5.0)
+## 🧭 Estado Atual dos Módulos Principais (v1.5.1)
 
 ### 1. 🏠 Home (`WelcomeHome.tsx`)
 - [x] Apresentação do mascote Fufu com animações e saudações contextuais.
@@ -26,6 +26,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Sistema de recordes independentes por clave persistidos em `localStorage`.
 - [x] Atalhos de teclado físico no desktop (`1-7`, `C-B`, `Espaço`/`Esc`).
 - [x] Guarda de orientação móvel (`OrientationGuard`) com saída de emergência.
+- [x] Botão **Tela Cheia (`[ ⛶ ]`)** integrado ao HUD superior (`useFullscreen.ts` com `navigationUI: 'hide'` e trava automática de paisagem `lockLandscape`) + prevenção de bloqueio de tela (`useScreenWakeLock`) durante a partida.
 
 ### 4. 📝 Simulado MSA (`SimuladoMsa.tsx`)
 - [x] Dual-Mode: "Por Período (20 questões)" vs. "Por Fase (10 questões)".
@@ -33,6 +34,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Duplo sorteio estocástico uniforme Fisher-Yates (questões e alternativas A/B/C/D).
 - [x] Síntese de áudio Web Audio API para acertos (arpejo) e erros (dissonância grave).
 - [x] Central de feedbacks integrada ao Supabase com persistência local e exportação CSV.
+- [x] Modo Prova em **Tela Cheia (`[ ⛶ ]`)** no Menu, Cabeçalho do Quiz e Resultados (ocultando cabeçalhos globais e a barra inferior do Google AI Studio no mobile) + prevenção de bloqueio de tela (`useScreenWakeLock`) durante a resolução das questões.
 
 ### 5. 🛡️ Painel de Administrador & CMS Híbrido (`AdminDashboard.tsx`)
 - [x] Acesso exclusivo do admin via `/#/admin` ou atalho `Ctrl+Shift+A` autenticado via Google OAuth 2.0 + Supabase (`admin_whitelist`).
@@ -58,18 +60,18 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 ---
 
 ### 🎻 Sprint 2: Estúdio de Partituras — Quality Gate & UX Mobile First
-- [ ] **Otimização Mobile First & Responsividade:**
-  - [ ] Redimensionamento das barras (`TopBar` fixa em 48px e `TransportBar` enxuta) com área de toque mínima de 44px para dedos.
-  - [ ] Tratamento fino da rotação para modo paisagem (landscape) e visualização sem rolagem excessiva.
-- [ ] **Reorganização de Controles e Minimalismo Soundslice:**
-  - [ ] Reposicionar controles de execução (Play/Pause, Metrônomo, BPM, Vozes e Loop) em ordem ergonômica natural.
-  - [ ] Eliminar popovers redundantes e manter opções avançadas consolidadas em `"Personalizar notação"`.
-- [ ] **Sincronia do Cursor & Performance a 60fps:**
-  - [ ] Corrigir pequenos saltos de cursor na troca de sistema/quebra de linha e no reinício de loops.
-  - [ ] Calibrar o sombreamento de compasso (`measureShadeRef`) por mutação DOM direta sem re-render do React.
-- [ ] **Interface da Partitura (OSMD):**
-  - [ ] Calibração responsiva de zoom automático conforme a largura da tela.
-  - [ ] Ajustar espaçamento horizontal de notas em lições com semicolcheias e colcheias rápidas.
+- [x] **Otimização Mobile First, Pinça de Zoom Contínua & Aproveitamento Lateral:**
+  - [x] Redução drástica das margens laterais do OSMD no mobile (`PageLeftMargin = 0.45`, `PageRightMargin = 0.45`), aumentando em +67% a largura útil dos pentagramas em telas pequenas.
+  - [x] Gesto de pinça contínuo com 2 dedos (*Continuous Single-Gesture Pinch-to-Zoom*, `55%` a `220%`) estilo Soundslice: o aluno posiciona os dois dedos uma única vez e controla todo o intervalo de aumento e redução em um movimento único e fluido (`pinchStateRef` imune a re-renderizações do React), mantendo `TopBar` e `TransportBar` fixas.
+  - [x] Escalonamento proporcional de todas as anotações pedagógicas junto com o zoom (`annScale`): nomes das notas (`Dó, Ré, Mi...`), dedilhados (`0, 1, 2, 3`, `②`), arcadas (`⊓`), contagens rítmicas e vírgulas de respiração aumentam e diminuem proporcionalmente à partitura.
+  - [x] Distinção entre toque/rolagem mobile e criação de Loop: tocar ou rolar a partitura com o dedo no celular apenas move o cursor ou rola a folha, sem ativar o Loop acidentalmente.
+  - [x] Botão **Tela cheia (`[ ⛶ ]`)** visível e acessível na barra de transporte inferior tanto no Mobile quanto no Desktop.
+  - [x] **Prevenção de Bloqueio de Tela (*Screen Wake Lock*):** Manutenção automática da tela acesa enquanto o reprodutor ou contagem regressiva estiverem ativos (`useScreenWakeLock.ts` combinando W3C `navigator.wakeLock.request('screen')` + fallback de micro-vídeo HTML5 para iOS/iframes), liberando o descanso normal da tela assim que o player é pausado.
+- [x] **Padronização Geométrica de Anotações e Vírgulas de Respiração Acima do Pentagrama (OSMD):**
+  - [x] Ancoragem vertical padronizada (`staffTopY - clearance` + `-translate-y-full`) garantindo que nomes das notas (`Dó, Ré, Mi...`), arcadas (`⊓`), dedilhado (`0, 1, 2, 3`) e vírgulas de respiração SVG (`[data-testid="breath-comma-*"]`) fiquem sempre 100% fora e acima da 5ª linha do pentagrama em todos os compassos, na ordem visual Soundslice (`Solfejo → Arcada ⊓ → Dedilhado`).
+  - [x] Sombreamento de compasso (`measureShadeRef`) cobrindo integralmente as 5 linhas do pentagrama e as anotações superiores.
+- [ ] **Próximos Refinamentos do Estúdio (Em Andamento):**
+  - [ ] Tratamento fino de visualização em modo paisagem (*landscape*) e calibração contínua de espaçamento em passagens com semicolcheias.
 
 ---
 

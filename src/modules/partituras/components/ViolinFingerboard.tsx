@@ -52,7 +52,7 @@ export const ViolinFingerboard: React.FC<ViolinFingerboardProps> = ({
     <section
       aria-label="Violino Visual Interativo"
       data-testid="visual-violin-panel"
-      className="fixed bottom-[58px] left-0 right-0 z-35 bg-white/98 backdrop-blur-xs border-t border-[#D1D5DB] shadow-[0_-4px_16px_rgba(0,0,0,0.08)] select-none px-3 sm:px-6 py-2.5"
+      className="relative w-full shrink-0 z-35 bg-white/98 backdrop-blur-xs border-t border-[#D1D5DB] shadow-[0_-4px_16px_rgba(0,0,0,0.08)] select-none px-3 sm:px-6 py-2.5"
     >
       <div className="max-w-[1180px] mx-auto">
         <div className="flex items-center justify-between mb-1.5">
