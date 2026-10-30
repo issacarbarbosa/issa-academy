@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { stopAllNotes } from './core/utils/audio';
 import { OrientationGuard } from './core/components/OrientationGuard';
 import { AdminProvider, useAdmin } from './core/contexts/AdminContext';
@@ -17,9 +17,6 @@ const MestreDaClave = React.lazy(() =>
 );
 const SimuladoMsa = React.lazy(() =>
   import('./modules/simulado/SimuladoMsa').then((m) => ({ default: m.SimuladoMsa })),
-);
-const AulasMsa = React.lazy(() =>
-  import('./modules/aulas/AulasMsa').then((m) => ({ default: m.AulasMsa })),
 );
 const AdminDashboard = React.lazy(() =>
   import('./modules/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard })),
@@ -159,8 +156,7 @@ function MainLayout() {
         >
           <Routes>
             <Route path="/" element={<WelcomeHome />} />
-            <Route path="/aulas" element={<AulasMsa />} />
-            <Route path="/partituras" element={<PartiturasStudio />} />
+            <Route path="/partituras" element={import.meta.env.DEV || isAdmin ? <PartiturasStudio /> : <Navigate to="/" replace />} />
             <Route
               path="/mestre-da-clave"
               element={

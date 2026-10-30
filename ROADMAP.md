@@ -4,19 +4,20 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 
 ---
 
-## 🧭 Estado Atual dos Módulos Principais
+## 🧭 Estado Atual dos Módulos Principais (v1.5.0)
 
 ### 1. 🏠 Home (`WelcomeHome.tsx`)
 - [x] Apresentação do mascote Fufu com animações e saudações contextuais.
-- [x] Seleção de modos: Aulas do MSA (Teoria), Mestre da Clave (Jogo) e Simulado MSA (Quiz).
+- [x] Grid enxuto de 3 cards principais: **Estúdio de Partituras & Hinário 5**, **Mestre da Clave** e **Simulado MSA**.
 - [x] Link direto para o canal oficial [@issacarbarbosa](https://www.youtube.com/@issacarbarbosa).
-- [x] Edição in-place de textos e fala do Fufu via modo Admin.
+- [x] Edição in-place de textos e fala do Fufu via modo Admin (`AdminContext`).
 
-### 2. 📚 Aulas & Lições do MSA (`AulasMsa.tsx`)
-- [x] Novo módulo de trilha teórica das 16 Fases e 4 Períodos do MSA.
-- [x] Videoaulas do canal oficial @issacarbarbosa integradas com player responsivo.
-- [x] Blocos modulares: Explicação Didática, Dicas do Fufu, Regras Oficiais do MSA e figuras.
-- [x] Botão de conclusão com persistência e atalho direto "Treinar no Simulado".
+### 2. 🎼 Estúdio de Partituras & Hinário 5 CCB (`PartiturasStudio.tsx`)
+- [x] Leitor e reprodutor interativo MusicXML estilo Soundslice minimalista ("Menos é mais").
+- [x] Motor universal de **Piano de Cauda Didático (`'acoustic-grand'`)** com multi-samples Salamander Grand Piano V3 (`A1`–`C7`), modelagem física de 3 cordas uníssonas em estéreo, ataque percussivo claro de martelo (`18ms`) e sustentação fiel à duração escrita.
+- [x] Catálogo com 22 lições de solfejo e leitura rítmica do MSA nas 3 claves oficiais (`𝄞 Sol`, `𝄡 Dó`, `𝄢 Fá`) + Hinos do Hinário 5 CCB.
+- [x] Ferramentas pedagógicas visuais do **Hinário de Cordas (`edition === 'cordas'`)**: Braço do Violino interativo (`ViolinFingerboard`) e Dedilhado colorido com arcadas (`⊓`).
+- [x] Loop com alças arrastáveis na partitura (Lollipop Handles), Modo Foco de compassos, Metrônomo + Count-in condicional, Treino de Velocidade progressivo e sincronização híbrida `Supabase (public.musicxml_scores) + localStorage`.
 
 ### 3. 🎮 Mestre da Clave (`MestreDaClave.tsx`)
 - [x] Renderização vetorial profissional SMuFL (Bravura / W3C) para Claves de Sol (2ª linha), Fá (4ª linha) e Dó (3ª linha).
@@ -34,40 +35,116 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Central de feedbacks integrada ao Supabase com persistência local e exportação CSV.
 
 ### 5. 🛡️ Painel de Administrador & CMS Híbrido (`AdminDashboard.tsx`)
-- [x] Acesso exclusivo do admin via `/admin` ou atalho `Ctrl+Shift+A` (site 100% sem login para alunos).
+- [x] Acesso exclusivo do admin via `/#/admin` ou atalho `Ctrl+Shift+A` autenticado via Google OAuth 2.0 + Supabase (`admin_whitelist`).
 - [x] Barra flutuante `AdminFloatingBar`: alternância em 1 clique entre `Visão Aluno` e `Modo Edição`.
-- [x] 6 Abas completas: Visão Geral, Gestor de Lições, Gestor de 552+ Questões, Central de Feedbacks, Configurações do Jogo e Textos/Banners Globais.
-- [x] Sincronizador 1-clique para popular o banco Supabase na nuvem e exportador de backup JSON.
-- [x] Script de migração PostgreSQL com RLS (`supabase/schema.sql`) e keepalive (`supabase-keepalive.yml`).
-- [x] Infraestrutura Supabase Cloud (`pcwmafuykwqxoivedpbn`), migração SQL executada, seed completo de 553 questões e secrets integrados no GitHub Actions.
-- [x] Otimização de fluxo e redirecionamento de autenticação OAuth Google e Magic Link no `AdminContext.tsx` apontando diretamente para `#/admin`.
-- [x] Autenticação Social Google OAuth 2.0 configurada no Google Cloud Platform (`Issa Academy Web`) e ativada no Supabase Auth (`ENABLED`).
-- [x] Blindagem Completa de Segurança e Hardening: PKCE ativo com limpeza de tokens na URL, verificação estrita de whitelist no frontend, bloqueio de preview local em produção, constraints anti-flood no RLS (`schema.sql`), sanitização contra CSV Injection / URL injection e 0 CVEs em pacotes de produção.
+- [x] Gestor de Questões do Simulado, Gestor de Partituras MusicXML, Central de Feedbacks e Configurações Globais do Site.
+- [x] Infraestrutura Supabase Cloud (`pcwmafuykwqxoivedpbn`) com RLS blindado, constraints anti-flood e fallback offline.
 
-### 6. 🎼 Estúdio de Partituras & Hinário 5 CCB (`PartiturasStudio.tsx`)
-- [x] Integração modular completa em `src/modules/partituras/` (`/#/partituras`) e 4º Card na Home (`WelcomeHome.tsx`).
-- [x] Motor universal de **Piano de Cauda Didático (`'acoustic-grand'`)** com multi-samples Salamander Grand Piano V3 (`A1`–`C7`), modelagem física de 3 cordas uníssonas em estéreo, ataque percussivo claro de martelo (`18ms`) e sustentação fiel à duração escrita.
-- [x] Catálogo completo com 22 lições do MSA em sequência contínua (Leitura Rítmica no 1º espaço `F4` e Solfejo nas 3 claves `𝄞 Sol`, `𝄡 Dó`, `𝄢 Fá`) + Hinos do Hinário 5 CCB (Cordas, Dó, Si♭ e Mi♭).
-- [x] Ferramentas pedagógicas visuais do **Hinário de Cordas (`edition === 'cordas'`)**: Braço do Violino interativo (`ViolinFingerboard`) e Dedilhado colorido + arcadas (`⊓`).
-- [x] Loop por arraste na partitura (Lollipop Handles), Modo Foco de compassos, Metrônomo + Count-in condicional, Treino de Velocidade progressivo e sincronização híbrida `Supabase (public.musicxml_scores) + localStorage`.
+> **Nota de Arquitetura (v1.5.0):** O módulo de Aulas Teóricas em vídeo foi temporariamente descontinuado da base ativa e arquivado para reimplementação futura, após a gravação das videoaulas das Fases 4 a 16 do canal.
 
 ---
 
-## 🎯 Backlog Ativo & Próximos Passos Sugeridos
+## 🎯 Backlog Ativo & Próximos Sprints Estruturados
 
-- [ ] **Mestre da Clave**:
-  - [ ] Adicionar suporte a armaduras de clave selecionáveis (treino de notas com acidentes fixos $\sharp$ e $\flat$).
-  - [ ] Modo "Treino Livre" sem perda de vidas para iniciantes.
-- [ ] **Simulado MSA**:
-  - [ ] Modo "Exame Simulado Oficial CCB" com tempo limite global de 40 minutos e nota mínima de 70% para aprovação.
-  - [ ] Filtro de questões por tags (ex: #Hinos, #Solfejo, #CompassosCompostos).
-- [ ] **Assinatura SaaS & Contas de Alunos**:
-  - [ ] Login Google OAuth para alunos (`student_profiles`) com progresso sincronizado na nuvem e controle de assinatura.
+### 🚀 Sprint 1: Infraestrutura & Segurança Máxima (Cloudflare Pages + Repo Privado)
+- [ ] **Tornar Repositório Privado no GitHub:**
+  - [ ] Alterar visibilidade do repositório `issacarbarbosa/issa-academy` para **Privado** para blindar a propriedade intelectual, partituras e bancos de questões.
+- [ ] **Migração para Cloudflare Pages (Cenário 1 — Conexão Direta):**
+  - [ ] Conectar repositório privado na Cloudflare Pages com build automático nativo (`npm run build`, pasta `dist`).
+  - [ ] Desativar antigo workflow `.github/workflows/deploy.yml` (economizando 100% da cota mensal de 2.000 minutos do GitHub Actions).
+  - [ ] Configurar arquivo `public/_redirects` com `/* /index.html 200` para garantir roteamento SPA sem erro 404 em recarregamento.
+  - [ ] Manter Quality Gate rigoroso no Antigravity local (`node .agents/skills/deploy-helper/scripts/pre-deploy-check.js`) antes de todo `git push`.
 
 ---
 
-## 📈 Histórico Recente de Entregas (Últimas 3 Versões)
+### 🎻 Sprint 2: Estúdio de Partituras — Quality Gate & UX Mobile First
+- [ ] **Otimização Mobile First & Responsividade:**
+  - [ ] Redimensionamento das barras (`TopBar` fixa em 48px e `TransportBar` enxuta) com área de toque mínima de 44px para dedos.
+  - [ ] Tratamento fino da rotação para modo paisagem (landscape) e visualização sem rolagem excessiva.
+- [ ] **Reorganização de Controles e Minimalismo Soundslice:**
+  - [ ] Reposicionar controles de execução (Play/Pause, Metrônomo, BPM, Vozes e Loop) em ordem ergonômica natural.
+  - [ ] Eliminar popovers redundantes e manter opções avançadas consolidadas em `"Personalizar notação"`.
+- [ ] **Sincronia do Cursor & Performance a 60fps:**
+  - [ ] Corrigir pequenos saltos de cursor na troca de sistema/quebra de linha e no reinício de loops.
+  - [ ] Calibrar o sombreamento de compasso (`measureShadeRef`) por mutação DOM direta sem re-render do React.
+- [ ] **Interface da Partitura (OSMD):**
+  - [ ] Calibração responsiva de zoom automático conforme a largura da tela.
+  - [ ] Ajustar espaçamento horizontal de notas em lições com semicolcheias e colcheias rápidas.
 
-- **2026-10-30 (v1.4.1)**: Auditoria global de documentação (`GEMINI.md`, `AGENTS.md`, `ARCHITECTURE.md`, `README.md`, `FLUXO_USUARIO.md`, `CHANGELOG.md`, `MAPA_RAIZ.md`), criação da skill e script `.agents/skills/github-hybrid-sync/scripts/sync-check.sh` com protocolo obrigatório de check-in no GitHub no início de cada conversa (`Google AI Studio ⇄ GitHub ⇄ Antigravity`), e blindagem dos 108 testes unitários (`90 Vitest + 18 musicMath`).
-- **2026-10-29 (v1.4.0)**: Fusão arquitetural do módulo **Estúdio de Partituras & Hinário 5 (`src/modules/partituras/`)** ao ecossistema **Issa Academy**, com 4º Card na Home (`WelcomeHome.tsx`), Piano de Cauda Didático Universal, Braço do Violino e Dedilhado no Hinário de Cordas, tabela `public.musicxml_scores` no `supabase/schema.sql`, unificação das skills Antigravity em `.agents/skills/` e fluxo Git bidirecional.
-- **2026-10-29 (v1.3.0)**: Painel de Administrador Híbrido (`AdminDashboard.tsx`), Barra Flutuante de Alternância (`AdminFloatingBar`), Novo Módulo de Aulas do MSA (`AulasMsa.tsx`), Camada de Dados Unificada Supabase/Offline (`contentStore.ts`), Central de Feedbacks com exportação CSV e 90 testes unitários aprovados.
+---
+
+### 🎼 Sprint 3: Pipeline de Conversão de PDFs do Hinário e MSA para MusicXML
+- [ ] **Plano A (Acervo Digital MuseScore / MIDI da Comunidade CCB):**
+  - [ ] Mapear arquivos `.mscz` e `.mid` já digitados por músicos e organistas da CCB.
+  - [ ] Criar script de exportação em lote (`mscore -f -o output.musicxml input.mscz`) para gerar os 480 hinos e lições do MSA com metadados corretos.
+- [ ] **Plano B (Pipeline OMR / IA com Audiveris + Gemini Vision):**
+  - [ ] Desenvolver pipeline de reconhecimento ótico de partituras (OMR) para escanear os PDFs oficiais da CCB caso edições específicas não tenham arquivos digitais prontos.
+  - [ ] Validar fidelidade estrita: armaduras de clave oficiais, compassos, ligaduras e respirações `,`.
+- [ ] **Importador em Lote para o Estúdio:**
+  - [ ] Ferramenta no Painel Admin para subir múltiplos arquivos `.musicxml` de uma vez com categorização automática (Hino, Lição, Clave e Instrumento).
+
+---
+
+### 🎙️ Sprint 4: Escuta & Afinação em Tempo Real (Estilo Tonestro / Yousician)
+- [ ] **Benchmark Comparativo Detalhado:**
+  - [ ] Elaborar documento de análise das melhores práticas dos aplicativos líderes de mercado:
+    - **Tonestro:** Precisão de afinação em cents, cursor guiado por áudio e partitura interativa em tempo real.
+    - **Yousician:** Gamificação por precisão ("Perfeito", "Bom", "Atrasado").
+    - **Tomplay & Soundslice:** Layout de partituras e usabilidade profissional.
+- [ ] **Motor de Detecção de Pitch e Ritmo (Web Audio API / AudioWorklet):**
+  - [ ] Implementar algoritmo de detecção de frequência fundamental (YIN / McLeod Pitch Method) de baixa latência direto no microfone do navegador.
+  - [ ] Comparação em tempo real entre a frequência tocada pelo aluno e a nota esperada da partitura.
+- [ ] **Retorno Visual Instantâneo:**
+  - [ ] Nota iluminada em **verde** quando afinada (dentro da tolerância de $\pm 25$ cents) e no tempo correto.
+  - [ ] Nota destacada em **vermelho/âmbar** quando sustenizada/bemolizada ou fora da pulsação.
+
+---
+
+### 👥 Sprint 5: Contas de Alunos & Modelos de Monetização (Plano Pago)
+- [ ] **Autenticação de Alunos:**
+  - [ ] Login social do aluno (Google OAuth e Magic Link) via Supabase Auth integrado ao frontend.
+  - [ ] Perfil do aluno (`student_profiles`) com sincronização de progresso, lições concluídas e pontuação.
+- [ ] **Avaliação e Escolha do Modelo de Negócio (Decisão Estratégica):**
+  - [ ] *Opção A: Freemium* — Acesso básico gratuito; recursos avançados (hinário completo de cordas, afinador em tempo real e avaliações por vídeo com IA) no Plano Pro.
+  - [ ] *Opção B: Planos Segmentados* — Plano Aluno (acessível, ex: R$ 14,90/mês) e Plano Instrutor/Regional (gestão de turmas e acompanhamento de alunos do polo).
+  - [ ] *Opção C: Período de Testes (Trial de 7 dias)* — 7 dias livres seguidos por assinatura.
+- [ ] **Gateway de Pagamento Brasileiro:**
+  - [ ] Integração com Asaas ou Mercado Pago para cobrança recorrente via **Pix Instantâneo** e Cartão de Crédito.
+  - [ ] Webhook de ativação/cancelamento automático de assinatura vinculado ao ID do usuário no Supabase.
+
+---
+
+### 🤖 Sprint 6: IA Educacional com Google AI Studio (Avaliação de Vídeos e Tutoria)
+- [ ] **Integração com Gemini 2.0 Flash no Google AI Studio:**
+  - [ ] Configuração de chave segura via Cloudflare Workers / Supabase Edge Functions (zero exposição no frontend).
+  - [ ] Ativação de **Context Caching** para regras do MSA, rubricas da CCB e gabaritos de partitura, reduzindo custos em até 80%.
+  - [ ] Uso de **Structured Outputs (JSON Schema)** com coordenadas normalizadas 2D (`[ymin, xmin, ymax, xmax]`).
+- [ ] **Filtro de Atividade (Audio-Visual Gating):**
+  - [ ] Descartar tempo morto de afinação ou preparação inicial do aluno; avaliar postura e técnica exclusivamente durante a emissão das notas.
+- [ ] **Cards Anotados de Feedback (`<AnnotatedFeedbackCard />`):**
+  - [ ] Renderizar o frame exato do desvio técnico com camadas vetoriais SVG (linha verde de referência do arco paralelo ao cavalete, seta vermelha de correção de inclinação, destaque do pulso).
+  - [ ] Opção de exportação do card em imagem leve para envio direto aos pais ou alunos pelo WhatsApp.
+- [ ] **Loop de Aprendizado Contínuo com o Professor (`teacher_corrections`):**
+  - [ ] O professor revisa o feedback no Painel Admin; ajustes feitos pelo professor alimentam a memória da IA para que ela nunca repita o erro nas próximas avaliações.
+
+---
+
+### 🎻 Sprint 7: Expansão de Instrumentos e Braços Visuais
+- [ ] **Aprimoramento do Braço do Violino (`ViolinFingerboard.tsx`):**
+  - [ ] Melhorar nitidez das cordas (`Sol, Ré, Lá, Mi`), indicação de posições ($1ª$ a $3ª$ posição) e arpejos.
+- [ ] **Mapeamento por Facilidade de Implementação:**
+  - [ ] **Prioridade 1 (Mais fácil — 90% reuso de código):**
+    - **Viola** (Clave de Dó na 3ª linha — cordas `Dó, Sol, Ré, Lá`).
+    - **Violoncelo** (Clave de Fá na 4ª linha — cordas `Dó, Sol, Ré, Lá`).
+  - [ ] **Prioridade 2 (Intermediário):**
+    - **Órgão Eletrônico / Teclado Virtual (Piano Roll)** com visualização de teclado superior, inferior e pedaleira para as organistas da CCB.
+  - [ ] **Prioridade 3 (Especializado):**
+    - **Sopros da CCB (Flauta, Clarinete, Trompete, Saxofone)** com diagramas interativos de digitação de chaves e pistões.
+
+---
+
+## 📈 Histórico Recente de Entregas
+
+- **2026-10-30 (v1.5.0)**: Planejamento estratégico geral (`ROADMAP.md` expandido em 7 Sprints), remoção completa do módulo temporário de Aulas do MSA (Home com 3 cards limpos), tipagens promovidas para `src/core/types/lessons.ts` e `src/core/data/initialLessons.ts`, 104 testes unitários aprovados e build Vite de produção validado.
+- **2026-10-30 (v1.4.1)**: Auditoria global de documentação (`GEMINI.md`, `AGENTS.md`, `ARCHITECTURE.md`, `README.md`, `FLUXO_USUARIO.md`, `CHANGELOG.md`, `MAPA_RAIZ.md`), criação da skill `.agents/skills/github-hybrid-sync/` com protocolo obrigatório de check-in no início de cada conversa, e blindagem multiplataforma (`optionalDependencies` para Windows/Linux).
+- **2026-10-29 (v1.4.0)**: Fusão arquitetural do módulo **Estúdio de Partituras & Hinário 5 (`src/modules/partituras/`)** ao ecossistema **Issa Academy**, com Piano de Cauda Didático Universal, Braço do Violino e Dedilhado no Hinário de Cordas, tabela `public.musicxml_scores` no Supabase e fluxo Git bidirecional.

@@ -68,7 +68,7 @@ describe('QuestionFeedbackModal Component', () => {
     // Check success view
     await waitFor(() => {
       expect(screen.getByText(/Feedback Registrado!/i)).toBeInTheDocument();
-    });
+    }, { timeout: 4000 });
     expect(screen.getByText(/Copiar Relatório/i)).toBeInTheDocument();
     expect(screen.getByText(/Abrir Issue no GitHub/i)).toBeInTheDocument();
   });

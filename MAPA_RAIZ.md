@@ -123,6 +123,8 @@ issa-academy/
 │   │   │   └── 📄 index.ts
 │   │   ├── 📁 contexts/ # Contexto global de autenticação e modo de edição do Administrador (AdminContext)
 │   │   │   └── 📄 AdminContext.tsx
+│   │   ├── 📁 data/
+│   │   │   └── 📄 initialLessons.ts
 │   │   ├── 📁 hooks/ # Hooks utilitários reutilizáveis (useMobileOrientation, useLocalStorage)
 │   │   │   ├── 📄 useLocalStorage.ts
 │   │   │   └── 📄 useMobileOrientation.ts
@@ -130,6 +132,8 @@ issa-academy/
 │   │   │   ├── 📄 contentStore.test.ts
 │   │   │   ├── 📄 contentStore.ts
 │   │   │   └── 📄 supabaseClient.ts
+│   │   ├── 📁 types/
+│   │   │   └── 📄 lessons.ts
 │   │   ├── 📁 utils/ # Motores lógicos e utilitários globais (audio.ts, notesData.ts, paths.ts)
 │   │   │   ├── 📄 audio.test.ts
 │   │   │   ├── 📄 audio.ts
@@ -142,12 +146,6 @@ issa-academy/
 │   │   ├── 📁 admin/ # Painel Administrativo e CMS Híbrido (AdminDashboard)
 │   │   │   ├── 📄 AdminDashboard.test.tsx
 │   │   │   └── 📄 AdminDashboard.tsx
-│   │   ├── 📁 aulas/ # Trilha teórica interativa das 16 Fases e 4 Períodos do MSA (AulasMsa)
-│   │   │   ├── 📁 data/
-│   │   │   │   └── 📄 initialLessons.ts
-│   │   │   ├── 📄 AulasMsa.test.tsx
-│   │   │   ├── 📄 AulasMsa.tsx
-│   │   │   └── 📄 types.ts
 │   │   ├── 📁 home/ # Tela inicial de boas-vindas com 4 cards de estudo e mascote Fufu (WelcomeHome)
 │   │   │   └── 📄 WelcomeHome.tsx
 │   │   ├── 📁 mestre-da-clave/ # Jogo interativo de leitura musical em pauta Canvas 60fps (Sol, Fá e Dó)
@@ -219,6 +217,7 @@ issa-academy/
 │   └── 📄 main.tsx
 ├── 📁 supabase/ # Schema SQL e políticas Row Level Security (RLS) do banco PostgreSQL no Supabase
 │   └── 📄 schema.sql
+├── 📄 .env
 ├── 📄 .env.example
 ├── 📄 .gitignore
 ├── 📄 AGENTS.md # Regras globais do workspace, invariantes musicais e definição de subagentes

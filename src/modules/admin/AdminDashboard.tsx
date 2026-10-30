@@ -7,7 +7,7 @@ import {
   QuestionFeedbackRecord,
 } from '../../core/services/contentStore';
 import { isSupabaseConfigured } from '../../core/services/supabaseClient';
-import { MsaLesson, LessonBlock } from '../aulas/types';
+import { MsaLesson, LessonBlock } from '../../core/types/lessons';
 import { SimuladoQuestion } from '../simulado/questions/schema';
 import { PresetScore, MsaClefType } from '../partituras/types/music';
 import {

@@ -6,26 +6,26 @@ import { useAdmin } from '../../core/contexts/AdminContext';
 import { contentStore, SiteConfig } from '../../core/services/contentStore';
 
 interface WelcomeHomeProps {
-  onNavigate?: (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa' | 'partituras') => void;
+  onNavigate?: (view: 'home' | 'partituras' | 'mestre_da_clave' | 'simulado_msa') => void;
 }
 
 export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
   const navigate = useNavigate();
   const { isAdmin, mode, openEditTarget } = useAdmin();
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
+  const showPartituras = Boolean(import.meta.env.DEV || isAdmin);
 
   useEffect(() => {
     contentStore.getSiteConfig().then((cfg) => setSiteConfig(cfg));
   }, []);
 
-  const handleNav = (view: 'home' | 'aulas' | 'mestre_da_clave' | 'simulado_msa' | 'partituras') => {
+  const handleNav = (view: 'home' | 'partituras' | 'mestre_da_clave' | 'simulado_msa') => {
     if (onNavigate) {
       onNavigate(view);
       return;
     }
     const routes: Record<string, string> = {
       home: '/',
-      aulas: '/aulas',
       mestre_da_clave: '/mestre-da-clave',
       simulado_msa: '/simulado',
       partituras: '/partituras',
@@ -69,35 +69,13 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
       </div>
 
       {/* Main grid containing the 4 cards: Aulas MSA, Partituras & Hinário, Mestre da Clave e Simulado MSA */}
-      <main className="flex-1 max-w-xl md:max-w-5xl mx-auto w-full px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {/* CARD 1: AULAS & LIÇÕES TEÓRICAS MSA */}
-        <button
-          id="card-nav-aulas"
-          onClick={() => handleNav('aulas')}
-          className="w-full text-left bg-[#f7f9fa] border-2 border-slate-200 rounded-3xl p-5 flex flex-col justify-between hover:border-indigo-500 hover:bg-indigo-50/20 active:scale-[0.98] transition-all cursor-pointer relative group shadow-sm min-h-[170px]"
-        >
-          <div className="flex items-start justify-between w-full">
-            <div className="w-[60px] h-[60px] rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/20 shrink-0">
-              <BookOpen size={30} />
-            </div>
-            <span className="bg-indigo-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-              Aulas
-            </span>
-          </div>
-
-          <div className="mt-3 flex-1">
-            <div className="text-base font-black text-slate-800 flex items-center justify-between">
-              <span>Aulas do MSA</span>
-              <ChevronRight
-                size={18}
-                className="text-slate-300 group-hover:text-indigo-600 transition-colors shrink-0"
-              />
-            </div>
-            <div className="text-xs text-slate-500 font-bold mt-1 line-clamp-2">
-              Teoria do MSA passo a passo com videoaulas do canal @issacarbarbosa
-            </div>
-          </div>
-        </button>
+      <main
+        className={`flex-1 mx-auto w-full px-6 py-8 grid gap-5 ${
+          showPartituras
+            ? 'max-w-xl md:max-w-4xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+            : 'max-w-xl md:max-w-3xl grid-cols-1 sm:grid-cols-2'
+        }`}
+      >
 
         {/* CARD 2: ESTÚDIO DE PARTITURAS & HINÁRIO 5 */}
         <button
@@ -132,7 +110,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </div>
         </button>
 
-        {/* CARD 3: MESTRE DA CLAVE */}
+        {/* CARD 2: MESTRE DA CLAVE */}
         <button
           id="card-nav-mestre"
           onClick={() => handleNav('mestre_da_clave')}
@@ -165,7 +143,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           </div>
         </button>
 
-        {/* CARD 4: SIMULADO MSA */}
+        {/* CARD 3: SIMULADO MSA */}
         <button
           id="card-nav-simulado"
           onClick={() => handleNav('simulado_msa')}

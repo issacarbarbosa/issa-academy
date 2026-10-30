@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { contentStore, DEFAULT_SITE_CONFIG } from './contentStore';
-import { MsaLesson } from '../../modules/aulas/types';
+import { MsaLesson } from '../types/lessons';
 import { SimuladoQuestion } from '../../modules/simulado/questions/schema';
 
 describe('ContentStore (Camada de Dados Unificada)', () => {

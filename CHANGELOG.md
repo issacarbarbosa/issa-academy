@@ -4,6 +4,18 @@ Todas as alteraÃ§Ãµes notÃ¡veis, refatoraÃ§Ãµes, marcos arquiteturais e correÃ§Ã
 
 ---
 
+## [1.5.0] - 2026-10-30 (Planejamento Estratégico, Ocultação de Módulos Não Lançados & Quality Gate)
+### Modificado
+- **Ocultação do Estúdio de Partituras em Produção**:
+  - O card e rota do módulo (/#/partituras) agora são ativados exclusivamente em desenvolvimento local (import.meta.env.DEV) ou para o administrador (isAdmin), preservando uma visualização limpa e focada em produção para os alunos até a importação completa do acervo MusicXML.
+- **Remoção do Módulo Temporário de Aulas do MSA**:
+  - Código do módulo descontinuado da base ativa (src/modules/aulas/) até que as aulas pós-fase 3 sejam gravadas; tipagens promovidas para src/core/types/lessons.ts e dados para src/core/data/initialLessons.ts.
+  - Home simplificada para os dois módulos oficiais estáveis: **Mestre da Clave** e **Simulado MSA** (mais o Estúdio em modo dev/admin).
+- **Planejamento Estratégico Expandido (ROADMAP.md)**:
+  - Detalhamento de 7 Sprints: Migração para Cloudflare Pages com repositório privado, Pipeline MusicXML via MuseScore/OMR, Escuta e Afinação em Tempo Real (estilo Tonestro), Login de Alunos & Monetização, IA Educacional Google AI Studio com cards anotados SVG, e Expansão para Viola/Celo e Órgão.
+
+---
+
 ## [1.4.1] - 2026-10-30 (SincronizaÃ§Ã£o HÃ­brida AI Studio â‡„ GitHub â‡„ Antigravity & Auditoria Global)
 ### Adicionado
 - **Skill e AutomaÃ§Ã£o de SincronizaÃ§Ã£o HÃ­brida (`.agents/skills/github-hybrid-sync/`)**:

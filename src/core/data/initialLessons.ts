@@ -1,4 +1,4 @@
-import { MsaLesson } from '../types';
+import { MsaLesson } from '../types/lessons';
 
 export const INITIAL_MSA_LESSONS: MsaLesson[] = [
   // ==================== 1º PERÍODO (FASES 1 A 3) ====================
@@ -422,3 +422,4 @@ export const INITIAL_MSA_LESSONS: MsaLesson[] = [
     ],
   },
 ];
+

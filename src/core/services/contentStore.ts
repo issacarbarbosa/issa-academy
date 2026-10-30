@@ -1,6 +1,6 @@
 import { supabase, isSupabaseConfigured } from './supabaseClient';
-import { MsaLesson } from '../../modules/aulas/types';
-import { INITIAL_MSA_LESSONS } from '../../modules/aulas/data/initialLessons';
+import { MsaLesson } from '../types/lessons';
+import { INITIAL_MSA_LESSONS } from '../data/initialLessons';
 import { SimuladoQuestion } from '../../modules/simulado/questions/schema';
 
 // Imports estáticos dos 16 bancos de questões para seed inicial e fallback offline
