@@ -1,31 +1,49 @@
 ---
-trigger: model_decision
-description: Leia esta regra ao criar commits, analisar o histórico do git ou preparar Pull Requests.
+trigger: always_on
+description: Regra sempre ativa para conferência obrigatória do GitHub no início de cada conversa, fluxo híbrido AI Studio ⇄ GitHub ⇄ Antigravity, padrão de commits e Quality Gate.
 ---
 
-# Regras de Git & Commits
+# Regras de Git, Commits & Sincronização Híbrida (`AI Studio ⇄ GitHub ⇄ Antigravity`)
 
-## Padrão de Commits
-- Sempre crie commits seguindo o padrão **Conventional Commits** (`feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `perf:`).
-- Use letras minúsculas na descrição (ex: `feat: add clef selector in game`).
-- Faça commits atômicos, pequenos e focados em apenas uma alteração lógica por vez.
-- Evite commits genéricos como "update code" ou "bug fix".
+## 1. Filosofia de Trabalho Dual (Google AI Studio + Google Antigravity)
+Este projeto opera em **arquitetura híbrida de desenvolvimento** combinando o **Google AI Studio** e o **Google Antigravity (IDE Local)** sobre o mesmo repositório oficial (`https://github.com/issacarbarbosa/issa-academy.git`, branch `main`):
+- **Google AI Studio:** Aproveitado para iterações visuais rápidas, ajustes multimodais de UI/UX, síntese sonora Web Audio API e pré-visualização em nuvem.
+- **Google Antigravity:** Aproveitado para engenharia local profunda, execução de hooks nativos (`.agents/hooks/`), refatorações em larga escala e automação via CLI local.
 
-## Geração de Pull Requests (PRs)
-- Antes de criar um PR ou finalizar o desenvolvimento, analise o histórico do git usando `git log` ou `git diff`.
-- Escreva um resumo conciso contendo as mudanças efetuadas, justificativas técnicas e testes validados.
+---
 
-## Portão de Qualidade antes do Commit (Quality Gate)
-- Antes de realizar qualquer commit local ou entregar uma funcionalidade, execute o ciclo de validação para garantir a integridade do código:
-  1. **Checagem de Tipos:** `npm run typecheck`
+## 2. Check-in Obrigatório no Início de CADA Nova Conversa
+**REGRA INEGOCIÁVEL:** Sempre que uma nova conversa/sessão for iniciada (seja no **Google AI Studio** ou no **Antigravity**), na **primeira resposta ou ação**, o agente DEVE verificar se o projeto local está sincronizado com a versão mais recente da branch `main` no GitHub:
+
+1. Execute o script automatizado de conferência:
+   ```bash
+   bash .agents/skills/github-hybrid-sync/scripts/sync-check.sh
+   ```
+2. O que o script faz automaticamente:
+   - Caso o ambiente (como o container do AI Studio) tenha iniciado sem a pasta `.git`, ele inicializa o repositório Git local, adiciona o remoto `origin` (`https://github.com/issacarbarbosa/issa-academy.git`) e busca `origin/main`.
+   - Compara o `HEAD` local com `origin/main`.
+   - Caso haja commits mais novos no GitHub feitos no outro ambiente, aplica a atualização (`git pull --rebase origin main` ou sincronização limpa) para **jamais sobrescrever** trabalho feito na outra ferramenta.
+
+---
+
+## 3. Como Enviar Atualizações para o GitHub (`git push`)
+- **No Antigravity (IDE Local):**
+  - Após aprovar o Quality Gate, execute `git push origin main` usando as credenciais locais do Git.
+- **No Google AI Studio (Container Cloud):**
+  - Utilize a variável de ambiente `$GITHUB_TOKEN` configurada na aba **Secrets** do AI Studio:
+    ```bash
+    bash .agents/skills/github-hybrid-sync/scripts/sync-check.sh --push "feat: descrição concisa da mudança"
+    ```
+  - **Atenção ao Escopo do Token (`workflow`):** Tokens clássicos do GitHub com escopo apenas `repo` (sem `workflow`) são rejeitados pelo GitHub se o commit alterar arquivos dentro de `.github/workflows/`. Portanto, no AI Studio, mantenha `.github/workflows/deploy.yml` inalterado em relação a `origin/main` e mantenha `package-lock.json` atualizado via `npm install --package-lock-only`.
+
+---
+
+## 4. Padrão de Commits & Portão de Qualidade (Quality Gate)
+- Sempre crie commits seguindo o padrão **Conventional Commits** (`feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `perf:`) com descrição em letras minúsculas.
+- Antes de realizar qualquer commit ou push, execute obrigatoriamente o ciclo de validação (`node .agents/skills/deploy-helper/scripts/pre-deploy-check.js`):
+  1. **Checagem de Tipos:** `npm run typecheck` (`tsc --noEmit`)
   2. **Linter:** `npm run lint`
-  3. **Testes Unitários:** `npm run test` e `npx --yes tsx --test src/modules/partituras/utils/musicMath.test.ts`
-  4. **Build de Produção:** `npm run build`
-- Se qualquer uma das etapas falhar, corrija os erros antes de prosseguir com o commit.
-
-## Sincronização Bidirecional (`Google AI Studio ⇄ GitHub ⇄ Antigravity`)
-Este repositório opera em fluxo híbrido entre o **Google AI Studio** e o **Antigravity (IDE Local)**:
-1. **Check-in de Entrada (`git fetch && git status`):** Ao iniciar qualquer sessão de trabalho (no AI Studio ou no Antigravity), verifique se há commits novos na branch `main` do GitHub (`git pull --rebase origin main`) antes de editar arquivos para nunca sobrescrever alterações feitas no outro ambiente.
-2. **Proteção de Segredos Locais (`.env`):** Nunca faça commit de `.env` nem sobrescreva variáveis locais ao sincronizar.
-3. **Documentação Viva Obrigatória:** Atualize `ROADMAP.md` (e `MAPA_RAIZ.md` quando novas pastas/módulos forem criados) antes de encerrar o commit, garantindo que o agente do outro ambiente tenha contexto imediato.
-
+  3. **Testes Unitários (108 testes):** `npm run test` (Vitest 90 testes + `musicMath.test.ts` 18 testes)
+  4. **Build de Produção + PWA:** `npm run build`
+  5. **Documentação Viva:** Atualize `ROADMAP.md` (e execute `npm run map` se arquivos/pastas foram criados ou removidos).
+- **Proteção de Segredos (`.env`):** Nunca versione arquivos `.env` ou chaves privadas no Git.

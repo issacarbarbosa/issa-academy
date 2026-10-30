@@ -8,21 +8,24 @@ Esta regra define o escopo, as restrições arquiteturais, a stack de software, 
 
 ---
 
-## 🎯 Objetivo do Projeto
-O **Issa Academy** é uma plataforma educacional gamificada de ensino musical voltada para o método **MSA (Método Simplificado de Aprendizagem Musical)** da Congregação Cristã no Brasil (CCB), com foco na preparação de candidatos a músicos e organistas.
+## 🎯 Objetivo do Projeto & Sinergia de Ambientes (`AI Studio ⇄ GitHub ⇄ Antigravity`)
+O **Issa Academy** é uma plataforma educacional gamificada e interativa de ensino musical voltada para o método **MSA (Método Simplificado de Aprendizagem Musical)** e para o **Hinário 5 da Congregação Cristã no Brasil (CCB)**, com foco na formação de candidatos a músicos e organistas.
+
+- **Desenvolvimento Híbrido em Dois Ambientes:** O projeto é construído de forma contínua alternando entre o **Google AI Studio** (prototipagem em nuvem, testes multimodais e ajustes rápidos de interface/áudio) e o **Google Antigravity** (engenharia local profunda, hooks automatizados e CLI local).
+- **Conferência Obrigatória no GitHub a Cada Novo Chat:** Ao iniciar qualquer nova conversa em qualquer um dos dois ambientes, o agente deve obrigatoriamente verificar se o código local está sincronizado com a versão mais recente da branch `main` no GitHub (`https://github.com/issacarbarbosa/issa-academy.git`) rodando `bash .agents/skills/github-hybrid-sync/scripts/sync-check.sh`.
 
 ---
 
 ## 🛠️ Stack Tecnológica
-- **Framework**: React 19 (SPA puramente frontend) + Vite 6
-- **Estilos**: Tailwind CSS v4 (Light theme, cores "juicy" vibrantes)
-- **Animações**: Motion / Framer Motion
-- **Sons**: Web Audio API (Síntese acústica dinâmica em tempo de execução via `src/core/utils/audio.ts`)
-- **Tipagem**: TypeScript (Strict Mode e `"noImplicitAny": true`) + Zod para validação em tempo de execução
+- **Framework**: React 19 (SPA puramente frontend) + Vite 8 + `opensheetmusicdisplay` (OSMD)
+- **Estilos**: Tailwind CSS v4 (Tema claro Juicy/Gamificado nos módulos gerais + Minimalismo Soundslice `"Menos é mais"` no Estúdio de Partituras)
+- **Animações**: Motion / Framer Motion + Mutação direta `requestAnimationFrame` a 60fps no cursor de partitura e no Canvas 2D
+- **Sons**: Web Audio API nativa (`src/core/utils/audio.ts` para Simulado/Jogo e `src/modules/partituras/services/AudioScheduler.ts` com **Piano de Cauda Didático Universal** multi-samples Salamander C5 + modelagem física estéreo)
+- **Tipagem & Banco Cloud**: TypeScript (Strict Mode e `"noImplicitAny": true`) + Zod + Supabase Cloud (`pcwmafuykwqxoivedpbn`) com fallback offline em `localStorage`
 - **Infraestrutura & Hospedagem**:
-  - **Hospedagem & CI/CD**: GitHub Pages com pipeline automatizado via GitHub Actions (`.github/workflows/deploy.yml`)
+  - **Hospedagem & CI/CD**: GitHub Pages (`https://issacarbarbosa.github.io/issa-academy/`) com pipeline automatizado via GitHub Actions (`.github/workflows/deploy.yml`)
   - **Analytics**: Google Analytics 4 (`G-LF25LGNKEJ`) + Microsoft Clarity (`ujlb9c5vzi`)
-- **Arquitetura**: Desmembramento modular em domínios isolados (`src/modules/home`, `mestre-da-clave`, `simulado`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), resolução dinâmica de assets via `getAssetUrl` (respeitando `BASE_URL` em subdiretórios no GitHub Pages), e testes unitários co-localizados via Vitest (`*.test.ts`).
+- **Arquitetura**: Desmembramento modular em 6 domínios isolados (`src/modules/home`, `aulas`, `partituras`, `mestre-da-clave`, `simulado`, `admin`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), resolução dinâmica de assets via `getAssetUrl` e 108 testes unitários co-localizados (`Vitest` + `node:test`).
 
 ---
 

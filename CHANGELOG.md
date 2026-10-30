@@ -4,6 +4,28 @@ Todas as alterações notáveis, refatorações, marcos arquiteturais e correç�
 
 ---
 
+## [1.4.1] - 2026-10-30 (Sincronização Híbrida AI Studio ⇄ GitHub ⇄ Antigravity & Auditoria Global)
+### Adicionado
+- **Skill e Automação de Sincronização Híbrida (`.agents/skills/github-hybrid-sync/`)**:
+  - Script executável `sync-check.sh` para conferência obrigatória no início de cada conversa (no Google AI Studio e no Google Antigravity) contra `https://github.com/issacarbarbosa/issa-academy.git` (`main`) e publicação direta via `GITHUB_TOKEN`.
+  - Protocolo obrigatório de início de conversa documentado em `GEMINI.md`, `AGENTS.md`, `.agents/rules/git-workflow.md` (`trigger: always_on`) e `.agents/rules/project-context.md`.
+- **Portão de Qualidade Unificado (108 Testes Unitários)**:
+  - Integração das 14 suítes Vitest (90 testes) + suíte `node:test` do Estúdio de Partituras (`musicMath.test.ts`, 18 testes) no comando `npm run test`.
+  - Sincronização de `package-lock.json` e tipagem estrita (`NotePayload`, `VoicePartInfo`, `ScoreRenderOptions` e preview sonoro no `ViolinFingerboard`) para aprovação 100% no GitHub Actions.
+
+---
+
+## [1.4.0] - 2026-10-29 (Fusão Arquitetural do Estúdio de Partituras & Hinário 5 CCB)
+### Adicionado
+- **Módulo Estúdio de Partituras & Hinário 5 (`src/modules/partituras/` — `/#/partituras`)**:
+  - 4º Card na Home (`WelcomeHome.tsx`) integrando o leitor interativo MusicXML (`opensheetmusicdisplay`) ao ecossistema Issa Academy.
+  - **Motor Universal de Piano de Cauda Didático (`'acoustic-grand'`)** com amostras Salamander Grand Piano V3 (`A1`–`C7`), modelagem física de 3 cordas uníssonas em estéreo, ataque claro de martelo (`18ms`) e sustentação fiel à nota escrita.
+  - **Catálogo MSA & Hinário 5 CCB**: 22 lições do MSA em sequência contínua (Leitura Rítmica no 1º espaço `F4` e Solfejo nas 3 claves `𝄞 Sol`, `𝄡 Dó`, `𝄢 Fá`) + Hinos do Hinário 5 CCB.
+  - **Ferramentas Visuais do Hinário de Cordas (`edition === 'cordas'`)**: Braço do Violino (`ViolinFingerboard.tsx`) e Dedilhado colorido + arcadas (`⊓`).
+  - **Persistência Híbrida Cloud**: Tabela `public.musicxml_scores` adicionada em `supabase/schema.sql` com políticas RLS para overrides de partituras pelo Administrador.
+
+---
+
 ## [1.3.0] - 2026-10-29 (Painel Admin Híbrido, Módulo de Aulas MSA & Supabase)
 ### Adicionado
 - **Painel de Administrador Central (`src/modules/admin/AdminDashboard.tsx`)**:

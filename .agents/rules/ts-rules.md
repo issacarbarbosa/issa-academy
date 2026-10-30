@@ -7,17 +7,17 @@ globs: **/*.ts, **/*.tsx
 
 ## Stack Padrão do Projeto
 - **TypeScript**: Strict Mode e `"noImplicitAny": true` obrigatórios.
-- **React 19 (SPA)**: Vite 6 + React Router v7 (`<HashRouter>` e `React.lazy`).
+- **React 19 (SPA)**: Vite 8 + React Router v7 (`<HashRouter>` e `React.lazy`) + `opensheetmusicdisplay` (OSMD).
 - **PWA**: Offline-First (`vite-plugin-pwa` + Workbox).
-- **Estilos**: Tailwind CSS v4 (Cores vibrantes, tema claro).
+- **Estilos**: Tailwind CSS v4 (Tema claro Juicy nos módulos gerais + Minimalismo Soundslice no Estúdio de Partituras).
 - **Blindagem de Dados**: Zod (validação estrita de schemas em tempo de execução via `schema.ts`).
-- **Testes**: Vitest + Testing Library (testes unitários co-localizados no ambiente JSDOM).
+- **Testes**: Vitest + Testing Library (ambiente JSDOM) + `node:test` para matemática musical pura (`musicMath.test.ts`).
 
 ## Padrões Arquiteturais
-- **Organização Modular por Feature:** A pasta `src/modules/` abriga os domínios isolados (`home/`, `mestre-da-clave/`, `simulado/`). Cada módulo encapsula seus componentes, lógica de jogo ou simulado, dados locais e testes.
+- **Organização Modular por Feature:** A pasta `src/modules/` abriga os 6 domínios isolados (`home/`, `aulas/`, `partituras/`, `mestre-da-clave/`, `simulado/`, `admin/`). Cada módulo encapsula seus componentes, lógica de domínio, dados locais e testes.
 - **Roteamento Declarativo e Code Splitting:** A navegação reside em `App.tsx` via `<HashRouter>` e `<Routes>`. Telas principais utilizam `React.lazy` com `<Suspense>`. Telas de rota priorizam `useNavigate()` e `useLocation()`.
 - **Blindagem Sem `any`:** O uso do tipo `any` é proibido. Dados dinâmicos/externos (como arquivos JSON em `questions/*.json`) devem ser validados com schemas Zod (`validateQuestionBank`).
-- **Testes Co-localizados:** Todos os testes unitários (`*.test.ts` ou `*.test.tsx`) devem residir na mesma pasta que o código testado (ex.: `notesData.test.ts` ao lado de `notesData.ts`, `schema.test.ts` ao lado de `schema.ts`).
+- **Testes Co-localizados:** Todos os testes unitários (`*.test.ts` ou `*.test.tsx`) devem residir na mesma pasta que o código testado (ex.: `musicMath.test.ts` ao lado de `musicMath.ts`, `notesData.test.ts` ao lado de `notesData.ts`, `schema.test.ts` ao lado de `schema.ts`).
 
 ## Convenções de Nomenclatura
 - Componentes: `PascalCase.tsx` (ex.: `MestreDaClave.tsx`, `SimuladoMsa.tsx`)

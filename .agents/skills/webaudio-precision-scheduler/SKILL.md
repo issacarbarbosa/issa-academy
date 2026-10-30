@@ -29,5 +29,6 @@ Garantir reprodução sonora realista de **Piano de Cauda Didático (`'acoustic-
 - Exemplo de payload emitido a cada frame: [`examples/scheduler-frame-payload.json`](./examples/scheduler-frame-payload.json)
 
 ## Passos de Validação
-1. Execute `npx --yes tsx --test src/utils/musicMath.test.ts` para validar conversões BPM/segundos e MIDI/frequência.
-2. Execute `compile_applet` para confirmar ausência de erros TypeScript em `src/services/AudioScheduler.ts`.
+1. Execute `npx --yes tsx --test src/modules/partituras/utils/musicMath.test.ts` (ou `npm run test`) para validar conversões BPM/segundos e MIDI/frequência.
+2. Execute `npm run typecheck` e `compile_applet` para confirmar ausência de erros TypeScript em `src/modules/partituras/services/AudioScheduler.ts`.
+

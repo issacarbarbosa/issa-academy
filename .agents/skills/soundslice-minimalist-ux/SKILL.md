@@ -25,12 +25,13 @@ Manter a interface do SliceScore Studio rigorosamente alinhada ao design minimal
    - Modo Foco Isolado: Exibe **`Compassos [ X | − | + ] até [ Y | − | + ] ✕`**.
 5. **Barra de Transporte Inferior (`#2B2C30`):**
    - Esquerda: Botão circular branco de Play/Pause, botão Reiniciar, cronômetro `00:00 / 00:40` e pulsos de tempo `1 2 3 4`.
-   - Direita: `[ Vozes ]` (quando polifônico), `[ 65 BPM ▾ ]`, `[ ↻ Loop ]`, `[ Dó ]` (nomes das notas), `[ 🎻 Violino ]`, `[ Metrônomo ]`, `[ Tela cheia ]` e `[ Opções ]`.
+   - Direita: `[ Vozes ]` (quando polifônico), `[ 65 BPM ▾ ]`, `[ ↻ Loop ]`, `[ Violino ]` (exclusivo no Hinário de Cordas `edition === 'cordas'`), `[ Metrônomo ]`, `[ Tela cheia ]` e `[ Opções ]` (onde ficam `"Nomes das notas (Dó, Ré...)"` e `"Dedilhado e arcadas"`).
 
 ## Divulgação Progressiva
 - Glossário e mapeamento de terminologia musical EN -> PT-BR: [`references/ptbr-musical-terminology.md`](./references/ptbr-musical-terminology.md)
 
 ## Passos de Validação
-1. Execute os testes unitários com `npx --yes tsx --test src/utils/musicMath.test.ts`.
+1. Execute os testes unitários com `npx --yes tsx --test src/modules/partituras/utils/musicMath.test.ts`.
 2. Compile o projeto com `compile_applet`.
-3. Inspecione a aplicação em `http://localhost:3000` via `playwright-cli` confirmando a barra superior única de `48px`, ausência de controles duplicados e grade compacta no repertório.
+3. Inspecione a aplicação em `http://localhost:3000/#/partituras` via `playwright-cli` confirmando a barra superior única de `48px`, ausência de controles duplicados e grade compacta no repertório.
+

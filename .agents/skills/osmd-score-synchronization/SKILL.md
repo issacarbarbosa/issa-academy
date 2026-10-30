@@ -29,7 +29,8 @@ Padronizar a extração geométrica de compassos e notas do `opensheetmusicdispl
 
 ## Passos de Validação
 1. Execute os testes unitários de matemática musical e limites de loop:
-   `npx --yes tsx --test src/utils/musicMath.test.ts`
+   `npx --yes tsx --test src/modules/partituras/utils/musicMath.test.ts`
 2. Compile o projeto TypeScript para garantir tipagem estrita:
-   `compile_applet`
-3. Verifique no navegador que clicar em `Loop` renderiza `[data-testid="loop-handle-start"]` e `[data-testid="loop-handle-end"]`, e clicar em `Foco` renderiza apenas os compassos selecionados.
+   `npm run typecheck` e `compile_applet`
+3. Verifique no navegador (`/#/partituras`) que clicar em `Loop` renderiza `[data-testid="loop-handle-start"]` e `[data-testid="loop-handle-end"]`, e clicar em `Foco` renderiza apenas os compassos selecionados.
+
