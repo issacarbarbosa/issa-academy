@@ -6,6 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(({ mode }) => {
   const isGitHubPages = process.env.GITHUB_ACTIONS === 'true' && mode === 'production';
+  const isDev = mode === 'development';
   return {
     base: isGitHubPages ? '/issa-academy/' : '/',
     plugins: [
@@ -19,11 +20,11 @@ export default defineConfig(({ mode }) => {
         includeAssets: ['icons/*.png'],
         manifest: {
           id: isGitHubPages ? '/issa-academy/' : '/',
-          name: 'Issa Academy - Ensino Musical CCB',
-          short_name: 'Issa Academy',
+          name: isDev ? 'Issa Academy [DEV]' : 'Issa Academy - Ensino Musical CCB',
+          short_name: isDev ? 'Issa (Dev)' : 'Issa Academy',
           description: 'Plataforma gratuita de ensino musical gamificado focada no método MSA da CCB. Simulados, leitura rítmica e solfejo.',
           lang: 'pt-BR',
-          theme_color: '#1a3c5a',
+          theme_color: isDev ? '#d97706' : '#1a3c5a',
           background_color: '#ffffff',
           display: 'standalone',
           orientation: 'any',

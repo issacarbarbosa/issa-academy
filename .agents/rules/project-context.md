@@ -25,7 +25,7 @@ O **Issa Academy** é uma plataforma educacional gamificada e interativa de ensi
 - **Infraestrutura & Hospedagem**:
   - **Hospedagem & CI/CD**: GitHub Pages (`https://issacarbarbosa.github.io/issa-academy/`) com pipeline automatizado via GitHub Actions (`.github/workflows/deploy.yml`)
   - **Analytics**: Google Analytics 4 (`G-LF25LGNKEJ`) + Microsoft Clarity (`ujlb9c5vzi`)
-- **Arquitetura**: Desmembramento modular em 6 domínios isolados (`src/modules/home`, `aulas`, `partituras`, `mestre-da-clave`, `simulado`, `admin`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), resolução dinâmica de assets via `getAssetUrl` e 108 testes unitários co-localizados (`Vitest` + `node:test`).
+- **Arquitetura**: Desmembramento modular em 6 domínios isolados (`src/modules/home`, `aulas`, `partituras`, `mestre-da-clave`, `simulado`, `admin`), roteamento declarativo (`react-router-dom` com `<HashRouter>` e `React.lazy` para Code Splitting), PWA offline-first com Workbox (`vite-plugin-pwa`), blindagem de schemas JSON via Zod (`schema.ts`), resolução dinâmica de assets via `getAssetUrl` e 110 testes unitários co-localizados (`Vitest` + `node:test`).
 
 ---
 
@@ -49,7 +49,7 @@ O projeto segue o padrão monorepo dividido em `core` e `modules`. O agente deve
 - **Regra de Roteamento:** O roteamento da SPA deve ser gerido de forma declarativa por `react-router-dom` com `<HashRouter>` (devido ao suporte à hospedagem estática no GitHub Pages).
 - **Code Splitting:** Todas as telas de topo (`WelcomeHome`, `AulasMsa`, `PartiturasStudio`, `MestreDaClave`, `SimuladoMsa`, `AdminDashboard`) devem ser importadas assincronamente via `React.lazy` e encapsuladas com `<Suspense>` em `App.tsx` para garantir carregamento leve (chunks dedicados).
 - **Componentes Autônomos:** Os módulos e views devem consumir hooks do roteador (`useNavigate`, `useLocation`) com propriedades opcionais de callback.
-- **PWA e Cache:** O manifesto da aplicação (`manifest.webmanifest`) e as estratégias de cache Workbox são configurados em `vite.config.ts`.
+- **PWA Dual-Mode e App Shell (`100dvh`):** O manifesto (`manifest.webmanifest`) em `vite.config.ts` diferencia automaticamente Produção (`Issa Academy`, `#1a3c5a`) de Desenvolvimento Local (`Issa (Dev)`, `#d97706` + badge `[DEV LOCAL]`), permitindo ambos instalados lado a lado no celular. É proibido usar `requestFullscreen()` no mobile; todas as views imersivas usam `100dvh` + `useScreenWakeLock`.
 
 ### 4. Blindagem de Dados (Zod) e Testes Co-localizados
 - **Validação Estrita de Schemas:** Todo carregamento dinâmico ou externo de dados (ex.: arquivos JSON em `questions/`) DEVE ser validado com schemas Zod antes de ser consumido pelo estado da aplicação. É proibido o uso de `any` para tipar dados externos.
@@ -70,3 +70,4 @@ Para garantir a melhor experiência responsiva, toda validação visual do agent
 1. **Mobile Portrait (390x844px)**: Testar o encaixe vertical da Home, Simulado e a ativação bloqueante do guarda de orientação em views horizontais.
 2. **Mobile Landscape (844x390px)**: Testar as telas musicais e jogos na orientação horizontal (após simulação de rotação do aparelho).
 3. **Desktop (1280x800px)**: Testar a adaptação final para monitores grandes.
+4. **Dispositivo Físico Real via Wi-Fi ADB (`http://localhost:3000/`)**: Padronizado em `localhost:3000` via `adb reverse tcp:3000 tcp:3000` (consulte a skill global `android-pwa-wireless-debug`), dispensando túneis Cloudflare.

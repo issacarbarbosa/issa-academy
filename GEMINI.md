@@ -53,6 +53,7 @@ Este projeto é desenvolvido em **fluxo híbrido colaborativo (`Google AI Studio
 - `canvas-playtest`: Testes de performance 60fps, HiDPI e responsividade do Canvas 2D.
 - `map-builder`: Geração automatizada e idempotente de `MAPA_RAIZ.md` (`npm run map`).
 - `deploy-helper`: Portão de qualidade pré-deploy (`node .agents/skills/deploy-helper/scripts/pre-deploy-check.js`).
+- `android-pwa-wireless-debug` *(Skill Global em `~/.gemini/config/skills/`)*: Depuração em celular real via ADB Wi-Fi (`adb reverse tcp:3000 tcp:3000` padronizado em `http://localhost:3000/` sem Cloudflare Tunnel), coexistência Dual-PWA (`Issa Academy` vs `Issa (Dev)`), App Shell `100dvh` sem `requestFullscreen()` e desbloqueio de fila WebAPK na Play Store (`EnterpriseSetupConstraint` / Perfil de Trabalho `u10`).
 
 ---
 
@@ -60,4 +61,4 @@ Este projeto é desenvolvido em **fluxo híbrido colaborativo (`Google AI Studio
 - **Som Universal de Piano de Cauda Didático no Estúdio de Partituras:** O piano (`'acoustic-grand'`) é o som exclusivo de todas as lições do MSA e Hinos em `src/modules/partituras/`, sem seletor de instrumento de áudio e **jamais** tocando acordes ou notas não escritas na partitura.
 - **Ferramentas Visuais do Violino no Hinário de Cordas:** No **Hinário de Cordas (`edition === 'cordas'`)**, ficam disponíveis o **Braço do Violino (`ViolinFingerboard`)** na barra inferior e o **Dedilhado e arcadas (`0, 1, 2, 3, 4` e `⊓`)** na personalização de notação.
 - **Nomes das Notas Apenas na Personalização:** O controle `"Nomes das notas (Dó, Ré...)"` fica exclusivamente dentro do menu `"Personalizar notação"` (sem botão `[Dó]` na barra inferior), usando sempre acentuação gráfica correta (`Dó, Ré, Mi, Fá, Fá♯, Sol, Lá, Si`).
-- **Sempre** validar alterações executando `npm run typecheck`, `npm run test` (que roda os 90 testes Vitest + 18 testes `musicMath.test.ts`) e `npm run build`.
+- **Sempre** validar alterações executando `npm run typecheck`, `npm run test` (que roda os 92 testes Vitest + 18 testes `musicMath.test.ts`) e `npm run build`.

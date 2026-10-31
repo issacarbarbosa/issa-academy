@@ -145,9 +145,16 @@ function MainLayout() {
               <GraduationCap size={22} className="text-white" />
             </div>
             <div>
-              <h1 className="text-base md:text-lg font-black tracking-tight text-[#1a3c5a] leading-none">
-                Issa Academy
-              </h1>
+              <div className="flex items-center gap-2">
+                <h1 className="text-base md:text-lg font-black tracking-tight text-[#1a3c5a] leading-none">
+                  Issa Academy
+                </h1>
+                {import.meta.env.DEV && (
+                  <span className="px-1.5 py-0.5 bg-amber-500 text-white rounded-md text-[9px] font-black tracking-wider uppercase shadow-xs">
+                    DEV LOCAL
+                  </span>
+                )}
+              </div>
               <p className="text-[10px] text-amber-600 uppercase tracking-widest font-black mt-0.5">
                 Ensino Musical de Excelência
               </p>

@@ -39,6 +39,9 @@
 - **Stack:** React 19 + TypeScript (Strict Mode) + Vite + Tailwind CSS v4 (`@import "tailwindcss";`) + `opensheetmusicdisplay` (OSMD) + Web Audio API nativa + Supabase JS + Zod + `lucide-react`.
 - **Bibliotecas Proibidas:** Não adicionar bibliotecas pesadas de síntese externa (ex.: Tone.js) quando o sintetizador polifônico nativo Web Audio API (`AudioScheduler.ts` e `audio.ts`) suprir a necessidade com menor latência. Não usar `window.alert` ou `window.open`.
 - **Tratamento de Erros:** Falhas de parsing de arquivos `.musicxml` / `.xml` devem ser capturadas graciosamente no estado `loadError`, oferecendo botão imediato de restauração da partitura padrão.
+- **App Shell Nativo (Proibido `requestFullscreen` no Mobile):** Jamais utilizar `document.documentElement.requestFullscreen()` em módulos mobile; utilize layout `100dvh` (`h-dvh`), `viewport-fit=cover`, PWA `display: 'standalone'` e `useScreenWakeLock`, mantendo cabeçalhos (`TopBar`) e barras (`TransportBar`) sempre acessíveis e sem o toast invasivo do Android (*"Para sair da tela cheia..."*).
+- **Coexistência Dual-PWA (`Issa Academy` vs `Issa (Dev)`):** Em `vite.config.ts` e `src/App.tsx`, o ambiente de desenvolvimento (`mode === 'development'`) gera manifesto com `short_name: 'Issa (Dev)'`, `theme_color: '#d97706'` e badge `[DEV LOCAL]` no cabeçalho, permitindo coexistir no mesmo celular com o WebAPK de produção (`Issa Academy`, `#1a3c5a`).
+- **Visibilidade do Estúdio em Produção (`canAccessPartituras`):** O módulo `PartiturasStudio` é sempre visível em `localhost` / AI Studio e, em produção (`issacarbarbosa.github.io`), visível exclusivamente para administradores autenticados (`isAdmin === true`).
 - **Respostas no Chat:** Não exibir no chat o conteúdo completo dos códigos alterados; edite os arquivos diretamente via ferramentas e apresente apenas o resumo objetivo e o *Painel de Sincronização do Projeto*.
 
 ---
@@ -68,3 +71,9 @@
 - **System Prompt:** "Você garante a sincronia contínua entre o Google AI Studio, o GitHub (`issacarbarbosa/issa-academy`) e o Google Antigravity. No início de cada nova conversa, confira se o workspace local está atualizado com `origin/main` via `bash .agents/skills/github-hybrid-sync/scripts/sync-check.sh`. Antes de qualquer commit/push, execute o Quality Gate (`npm run typecheck && npm run test && npm run build`), atualize `ROADMAP.md` e `MAPA_RAIZ.md` (`npm run map`) e sincronize `package-lock.json`."
 - **Triggers:** Início de qualquer nova conversa, solicitações de push/pull para o GitHub, preparação de releases ou alternância de trabalho entre AI Studio e Antigravity.
 - **Tool Requirements:** Execução de terminal (`run_command`), script `.agents/skills/github-hybrid-sync/scripts/sync-check.sh` e script `.agents/skills/deploy-helper/scripts/pre-deploy-check.js`.
+
+### Subagente 5: `Mobile PWA & Wireless ADB Specialist`
+- **Role:** `Mobile PWA & Wireless ADB Specialist`
+- **System Prompt:** "Você é especialista em PWA Android (WebAPK), depuração sem fio via ADB (`adb reverse tcp:3000 tcp:3000`), coexistência Dual-PWA (`Issa Academy` vs `Issa (Dev)`) e experiência App Shell nativo (`100dvh` sem `requestFullscreen`). Utilize a skill global `android-pwa-wireless-debug` (`~/.gemini/config/skills/android-pwa-wireless-debug/SKILL.md`) e o binário permanente `C:\Users\T-Gamer\.gemini\config\tools\platform-tools\adb.exe` para diagnosticar travamentos da Google Play Store (`Finsky` / `EnterpriseSetupConstraint` de Perfil de Trabalho `u10`) e validar alterações diretamente em celulares físicos via `http://localhost:3000/` sem túneis externos."
+- **Triggers:** Testes em celular físico via Wi-Fi, falhas de instalação PWA/WebAPK, ajustes em `vite.config.ts` (`VitePWA`), `usePwaInstall.ts` ou layout mobile `100dvh`.
+- **Tool Requirements:** Execução de terminal (`run_command`) e scripts da skill global `android-pwa-wireless-debug`.

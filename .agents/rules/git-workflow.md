@@ -43,7 +43,7 @@ Este projeto opera em **arquitetura híbrida de desenvolvimento** combinando o *
 - Antes de realizar qualquer commit ou push, execute obrigatoriamente o ciclo de validação (`node .agents/skills/deploy-helper/scripts/pre-deploy-check.js`):
   1. **Checagem de Tipos:** `npm run typecheck` (`tsc --noEmit`)
   2. **Linter:** `npm run lint`
-  3. **Testes Unitários (108 testes):** `npm run test` (Vitest 90 testes + `musicMath.test.ts` 18 testes)
+  3. **Testes Unitários (110 testes):** `npm run test` (Vitest 92 testes + `musicMath.test.ts` 18 testes)
   4. **Build de Produção + PWA:** `npm run build`
   5. **Documentação Viva:** Atualize `ROADMAP.md` (e execute `npm run map` se arquivos/pastas foram criados ou removidos).
 - **Proteção de Segredos (`.env`):** Nunca versione arquivos `.env` ou chaves privadas no Git.

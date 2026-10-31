@@ -4,6 +4,32 @@ Todas as alterações notáveis, refatorações, marcos arquiteturais e correç�
 
 ---
 
+## [1.5.3] - 2026-10-31 (Dual-PWA Dev vs Prod, Padronização Localhost via ADB Wi-Fi & Desbloqueio WebAPK)
+
+### Adicionado
+- **Diferenciação Automática Dual-PWA (`vite.config.ts` & `src/App.tsx`)**:
+  - Em modo de desenvolvimento (`mode === 'development'`), o manifesto PWA exporta `name: 'Issa Academy [DEV]'`, `short_name: 'Issa (Dev)'` e `theme_color: '#d97706'` (âmbar), além do badge visual `[DEV LOCAL]` no cabeçalho global.
+  - Em produção (`mode === 'production'`), preserva o nome oficial `Issa Academy` e tema azul-marinho (`#1a3c5a`), permitindo instalar e diferenciar ambos os aplicativos simultaneamente na tela inicial do celular.
+- **Skill Global `android-pwa-wireless-debug` (`~/.gemini/config/skills/android-pwa-wireless-debug/`)**:
+  - Runbook e scripts PowerShell reutilizáveis entre projetos para conexão ADB por Wi-Fi sem cabo USB, túnel reverso persistente (`adb reverse tcp:3000 tcp:3000` em `http://localhost:3000/` dispensando túneis Cloudflare) e resolução automática da trava `EnterpriseSetupConstraint` (`User 10` / `clouddpc`) na Google Play Store (`Finsky`).
+
+---
+
+## [1.5.2] - 2026-10-30 (Instalação PWA Nativa em 1 Toque, App Shell 100dvh sem Fullscreen Toast & Estúdio Admin)
+
+### Adicionado
+- **Instalação PWA em 1 Toque (`src/core/hooks/usePwaInstall.ts` & `src/core/components/PwaInstallModal.tsx`)**:
+  - Captura síncrona antecipada do evento `beforeinstallprompt` no `<head>` do `index.html` (`window.__deferredPwaPrompt`), botão `Instalar App` no cabeçalho global e banner interativo na Home com modal instrutivo fallback.
+  - Geração de ícones PNG quadrados exatos (`192x192`, `512x512` e `maskable`) em `public/icons/` e precache enxuto (`328 KB`) no Workbox para aprovação imediata no servidor WebAPK do Google.
+
+### Modificado
+- **Eliminação Definitiva do Popup de Tela Cheia no Mobile (`100dvh` App Shell)**:
+  - Remoção de todas as chamadas `requestFullscreen()` e do arquivo `useFullscreen.ts`, eliminando o aviso invasivo do sistema Android (*"Para sair da tela cheia, arraste de cima para baixo..."*) e garantindo que `TopBar` e `TransportBar` nunca desapareçam.
+- **Visibilidade Inteligente do Estúdio de Partituras em Produção (`canAccessPartituras`)**:
+  - Liberado automaticamente em `localhost` / Google AI Studio e, em produção (`issacarbarbosa.github.io`), habilitado para administradores autenticados (`isAdmin === true`) enquanto permanece oculto para alunos comuns.
+
+---
+
 ## [1.5.1] - 2026-10-30 (UX Mobile First, Pinça de Zoom Contínua, Tela Cheia Universal & Prevenção de Bloqueio de Tela)
 
 ### Adicionado
