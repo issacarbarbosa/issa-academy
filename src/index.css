@@ -5,10 +5,21 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+html,
+body,
+#root {
+  min-height: 100dvh;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior-y: none;
+}
+
 body {
   background-color: #ffffff;
   font-family: var(--font-sans);
   color: #334155;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @keyframes float {
@@ -45,15 +56,6 @@ body {
 
 .animate-slide {
   animation: slide 0.25s ease-out forwards;
-}
-
-@media (orientation: landscape) and (max-height: 500px) {
-  .mobile-landscape-hidden {
-    display: none !important;
-  }
-  .mobile-landscape-only {
-    display: flex !important;
-  }
 }
 
 .tabular-nums {
@@ -144,5 +146,3 @@ body {
     transition: none !important;
   }
 }
-
-

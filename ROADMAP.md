@@ -18,6 +18,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Catálogo com 22 lições de solfejo e leitura rítmica do MSA nas 3 claves oficiais (`𝄞 Sol`, `𝄡 Dó`, `𝄢 Fá`) + Hinos do Hinário 5 CCB.
 - [x] Ferramentas pedagógicas visuais do **Hinário de Cordas (`edition === 'cordas'`)**: Braço do Violino interativo (`ViolinFingerboard`) e Dedilhado colorido com arcadas (`⊓`).
 - [x] Loop com alças arrastáveis na partitura (Lollipop Handles), Modo Foco de compassos, Metrônomo + Count-in condicional, Treino de Velocidade progressivo e sincronização híbrida `Supabase (public.musicxml_scores) + localStorage`.
+- [x] Controle de acesso inteligente: visível sempre em ambiente Local/Dev e Google AI Studio, e em produção visível exclusivamente para Administradores autenticados (`canAccessPartituras`), com TopBar e TransportBar permanentemente visíveis (sem botões redundantes de tela cheia).
 
 ### 3. 🎮 Mestre da Clave (`MestreDaClave.tsx`)
 - [x] Renderização vetorial profissional SMuFL (Bravura / W3C) para Claves de Sol (2ª linha), Fá (4ª linha) e Dó (3ª linha).
@@ -26,7 +27,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Sistema de recordes independentes por clave persistidos em `localStorage`.
 - [x] Atalhos de teclado físico no desktop (`1-7`, `C-B`, `Espaço`/`Esc`).
 - [x] Guarda de orientação móvel (`OrientationGuard`) com saída de emergência.
-- [x] Botão **Tela Cheia (`[ ⛶ ]`)** integrado ao HUD superior (`useFullscreen.ts` com `navigationUI: 'hide'` e trava automática de paisagem `lockLandscape`) + prevenção de bloqueio de tela (`useScreenWakeLock`) durante a partida.
+- [x] Modo aplicativo imersivo full-viewport (100dvh nativo, sem toasts invasivos do navegador e sem botões redundantes de tela cheia) + prevenção de bloqueio de tela (`useScreenWakeLock`) durante a partida.
 
 ### 4. 📝 Simulado MSA (`SimuladoMsa.tsx`)
 - [x] Dual-Mode: "Por Período (20 questões)" vs. "Por Fase (10 questões)".
@@ -34,7 +35,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 - [x] Duplo sorteio estocástico uniforme Fisher-Yates (questões e alternativas A/B/C/D).
 - [x] Síntese de áudio Web Audio API para acertos (arpejo) e erros (dissonância grave).
 - [x] Central de feedbacks integrada ao Supabase com persistência local e exportação CSV.
-- [x] Modo Prova em **Tela Cheia (`[ ⛶ ]`)** no Menu, Cabeçalho do Quiz e Resultados (ocultando cabeçalhos globais e a barra inferior do Google AI Studio no mobile) + prevenção de bloqueio de tela (`useScreenWakeLock`) durante a resolução das questões.
+- [x] Modo imersivo full-viewport (100dvh nativo com cabeçalho de navegação sempre acessível, sem toasts invasivos do navegador e sem botões redundantes de tela cheia) + prevenção de bloqueio de tela (`useScreenWakeLock`) durante a resolução das questões.
 
 ### 5. 🛡️ Painel de Administrador & CMS Híbrido (`AdminDashboard.tsx`)
 - [x] Acesso exclusivo do admin via `/#/admin` ou atalho `Ctrl+Shift+A` autenticado via Google OAuth 2.0 + Supabase (`admin_whitelist`).
@@ -147,6 +148,7 @@ Este documento detalha o estado atual da plataforma, o backlog ativo de próxima
 
 ## 📈 Histórico Recente de Entregas
 
+- **2026-10-30 (v1.5.2)**: Eliminação do toast invasivo do navegador mobile em tela cheia substituindo a Fullscreen API por experiência de App Shell nativo (`100dvh`, `viewport-fit=cover`, PWA standalone); instalação PWA nativa em 1 toque (`usePwaInstall.ts` + captura antecipada de `beforeinstallprompt` no `index.html` e geração de ícones quadrados exatos `192x192`, `512x512` e `maskable` em `public/icons/` corrigindo o travamento do WebAPK em "Instalando..." no Android); remoção de botões redundantes de tela cheia com restauração de barras (`TopBar` e `TransportBar`); liberação do Estúdio para Administradores em produção (`canAccessPartituras = isLocalOrAiStudio || isAdmin`) e 110 testes unitários aprovados.
 - **2026-10-30 (v1.5.0)**: Planejamento estratégico geral (`ROADMAP.md` expandido em 7 Sprints), remoção completa do módulo temporário de Aulas do MSA (Home com 3 cards limpos), tipagens promovidas para `src/core/types/lessons.ts` e `src/core/data/initialLessons.ts`, 104 testes unitários aprovados e build Vite de produção validado.
 - **2026-10-30 (v1.4.1)**: Auditoria global de documentação (`GEMINI.md`, `AGENTS.md`, `ARCHITECTURE.md`, `README.md`, `FLUXO_USUARIO.md`, `CHANGELOG.md`, `MAPA_RAIZ.md`), criação da skill `.agents/skills/github-hybrid-sync/` com protocolo obrigatório de check-in no início de cada conversa, e blindagem multiplataforma (`optionalDependencies` para Windows/Linux).
 - **2026-10-29 (v1.4.0)**: Fusão arquitetural do módulo **Estúdio de Partituras & Hinário 5 (`src/modules/partituras/`)** ao ecossistema **Issa Academy**, com Piano de Cauda Didático Universal, Braço do Violino e Dedilhado no Hinário de Cordas, tabela `public.musicxml_scores` no Supabase e fluxo Git bidirecional.

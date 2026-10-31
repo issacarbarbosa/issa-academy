@@ -71,6 +71,11 @@ issa-academy/
 │   └── 📁 workflows/
 │       ├── 📄 deploy.yml
 │       └── 📄 supabase-keepalive.yml
+├── 📁 dev-dist/
+│   ├── 📄 registerSW.js
+│   ├── 📄 sw.js
+│   ├── 📄 workbox-43e44e5a.js
+│   └── 📄 workbox-c3b80602.js
 ├── 📁 docs/ # Documentação técnica complementar e registros de decisão
 │   └── 📁 decisions/ # Registros de Decisão de Arquitetura (ADRs 001 a 004)
 │       ├── 📄 004-radical-minimalism-less-is-more.md
@@ -79,40 +84,43 @@ issa-academy/
 │       ├── 📄 ADR-003-soundslice-minimalist-ui-ptbr.md
 │       └── 📄 ADR-004-msa-clef-remapping-and-ccb-orchestra-catalog.md
 ├── 📁 public/ # Assets estáticos musicais, mascote Fufu e ícones do PWA
-│   └── 📁 assets/
-│       ├── 📁 aistudio/
-│       │   └── 📄 image_d932f560.png
-│       ├── 📄 Issa_Academy-Fufu.png
-│       ├── 📄 fufu-acerto-aplausos.png
-│       ├── 📄 fufu-acerto-esperto.png
-│       ├── 📄 fufu-acerto-festa.png
-│       ├── 📄 fufu-acerto-joinha.png
-│       ├── 📄 fufu-acerto-palmas.png
-│       ├── 📄 fufu-acerto-piscando.png
-│       ├── 📄 fufu-acerto-toca-aqui.png
-│       ├── 📄 fufu-batuta-expontaneo.png
-│       ├── 📄 fufu-batuta.png
-│       ├── 📄 fufu-caneta.png
-│       ├── 📄 fufu-capa-home-pagge.png
-│       ├── 📄 fufu-capa-mestre-da-clave.png
-│       ├── 📄 fufu-capa-simulado.png
-│       ├── 📄 fufu-casaco.png
-│       ├── 📄 fufu-chapeu.png
-│       ├── 📄 fufu-comemorando-trofeu-G-clave.png
-│       ├── 📄 fufu-comemorando-trofeu-gabarito.png
-│       ├── 📄 fufu-erro-acontece.png
-│       ├── 📄 fufu-erro-carinho.png
-│       ├── 📄 fufu-erro-encorajador.png
-│       ├── 📄 fufu-erro-nao-desista.png
-│       ├── 📄 fufu-erro-presente.png
-│       ├── 📄 fufu-erro-tapinha.png
-│       ├── 📄 fufu-neutro.png
-│       ├── 📄 fufu-oculos.png
-│       ├── 📄 fufu-pensativo.png
-│       ├── 📄 fufu-prancheta.png
-│       ├── 📄 fufu-violino.png
-│       ├── 📄 social-home.png
-│       └── 📄 social-whatsapp.png
+│   ├── 📁 assets/
+│   │   ├── 📄 Issa_Academy-Fufu.png
+│   │   ├── 📄 fufu-acerto-aplausos.png
+│   │   ├── 📄 fufu-acerto-esperto.png
+│   │   ├── 📄 fufu-acerto-festa.png
+│   │   ├── 📄 fufu-acerto-joinha.png
+│   │   ├── 📄 fufu-acerto-palmas.png
+│   │   ├── 📄 fufu-acerto-piscando.png
+│   │   ├── 📄 fufu-acerto-toca-aqui.png
+│   │   ├── 📄 fufu-batuta-expontaneo.png
+│   │   ├── 📄 fufu-batuta.png
+│   │   ├── 📄 fufu-caneta.png
+│   │   ├── 📄 fufu-capa-home-pagge.png
+│   │   ├── 📄 fufu-capa-mestre-da-clave.png
+│   │   ├── 📄 fufu-capa-simulado.png
+│   │   ├── 📄 fufu-casaco.png
+│   │   ├── 📄 fufu-chapeu.png
+│   │   ├── 📄 fufu-comemorando-trofeu-G-clave.png
+│   │   ├── 📄 fufu-comemorando-trofeu-gabarito.png
+│   │   ├── 📄 fufu-erro-acontece.png
+│   │   ├── 📄 fufu-erro-carinho.png
+│   │   ├── 📄 fufu-erro-encorajador.png
+│   │   ├── 📄 fufu-erro-nao-desista.png
+│   │   ├── 📄 fufu-erro-presente.png
+│   │   ├── 📄 fufu-erro-tapinha.png
+│   │   ├── 📄 fufu-neutro.png
+│   │   ├── 📄 fufu-oculos.png
+│   │   ├── 📄 fufu-pensativo.png
+│   │   ├── 📄 fufu-prancheta.png
+│   │   ├── 📄 fufu-violino.png
+│   │   ├── 📄 social-home.png
+│   │   └── 📄 social-whatsapp.png
+│   └── 📁 icons/
+│       ├── 📄 apple-touch-icon.png
+│       ├── 📄 icon-192.png
+│       ├── 📄 icon-512.png
+│       └── 📄 icon-maskable-512.png
 ├── 📁 scripts/ # Scripts de integração e automação (Google Apps Script Webhook e Seed Supabase)
 │   ├── 📄 google-sheets-feedback-webhook.gs
 │   └── 📄 seed-supabase.mjs
@@ -121,6 +129,7 @@ issa-academy/
 │   │   ├── 📁 components/ # Componentes UI globais reutilizáveis (OrientationGuard, AdminFloatingBar, QuickEditModal)
 │   │   │   ├── 📄 AdminFloatingBar.tsx
 │   │   │   ├── 📄 OrientationGuard.tsx
+│   │   │   ├── 📄 PwaInstallModal.tsx
 │   │   │   ├── 📄 QuickEditModal.tsx
 │   │   │   └── 📄 index.ts
 │   │   ├── 📁 contexts/ # Contexto global de autenticação e modo de edição do Administrador (AdminContext)
@@ -128,9 +137,10 @@ issa-academy/
 │   │   ├── 📁 data/
 │   │   │   └── 📄 initialLessons.ts
 │   │   ├── 📁 hooks/ # Hooks utilitários reutilizáveis (useMobileOrientation, useLocalStorage)
-│   │   │   ├── 📄 useFullscreen.ts
 │   │   │   ├── 📄 useLocalStorage.ts
 │   │   │   ├── 📄 useMobileOrientation.ts
+│   │   │   ├── 📄 usePwaInstall.test.tsx
+│   │   │   ├── 📄 usePwaInstall.ts
 │   │   │   ├── 📄 useScreenWakeLock.test.tsx
 │   │   │   └── 📄 useScreenWakeLock.ts
 │   │   ├── 📁 services/ # Camada de dados unificada Supabase Cloud + Offline (contentStore, supabaseClient)
@@ -222,6 +232,7 @@ issa-academy/
 │   └── 📄 main.tsx
 ├── 📁 supabase/ # Schema SQL e políticas Row Level Security (RLS) do banco PostgreSQL no Supabase
 │   └── 📄 schema.sql
+├── 📄 .env
 ├── 📄 .env.example
 ├── 📄 .gitignore
 ├── 📄 AGENTS.md # Regras globais do workspace, invariantes musicais e definição de subagentes

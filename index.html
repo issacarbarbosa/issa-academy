@@ -2,9 +2,25 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#1a3c5a" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/Issa_Academy-Fufu.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!-- Captura antecipada do prompt nativo de instalação (dispara antes do React montar) -->
+    <script>
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        window.__issaInstallPrompt = e;
+        window.dispatchEvent(new Event('issa-install-ready'));
+      });
+      window.addEventListener('appinstalled', function () {
+        window.__issaInstallPrompt = null;
+      });
+    </script>
     
     <!-- Título Otimizado para SEO -->
     <title>Issa Academy | Mestre da Clave & Simulado MSA CCB</title>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, BookOpen, Edit3 } from 'lucide-react';
+import { ChevronRight, Edit3, Smartphone, X } from 'lucide-react';
+import { usePwaInstall } from '../../core/hooks/usePwaInstall';
 import { useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../core/utils/paths';
 import { useAdmin } from '../../core/contexts/AdminContext';
@@ -11,9 +12,11 @@ interface WelcomeHomeProps {
 
 export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
   const navigate = useNavigate();
-  const { isAdmin, mode, openEditTarget } = useAdmin();
+  const { isAdmin, mode, openEditTarget, canAccessPartituras } = useAdmin();
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
-  const showPartituras = Boolean(import.meta.env.DEV);
+  const showPartituras = canAccessPartituras;
+  const { canInstall, installApp } = usePwaInstall();
+  const [isBannerDismissed, setIsBannerDismissed] = useState<boolean>(false);
 
   useEffect(() => {
     contentStore.getSiteConfig().then((cfg) => setSiteConfig(cfg));
@@ -68,7 +71,46 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Main grid containing the 4 cards: Aulas MSA, Partituras & Hinário, Mestre da Clave e Simulado MSA */}
+      {/* Main grid containing the cards: Partituras & Hinário, Mestre da Clave e Simulado MSA */}
+      {/* Banner Educativo de Instalação PWA (Aparece apenas para quem ainda NÃO instalou) */}
+      {canInstall && !isBannerDismissed && (
+        <div className="max-w-xl md:max-w-4xl mx-auto w-full px-6 pt-4 pb-0 animate-fade">
+          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl p-4 shadow-lg flex items-center justify-between gap-3 relative border border-emerald-400/30">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+                <Smartphone className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black text-white leading-tight">
+                  Usar como Aplicativo no Celular
+                </h3>
+                <p className="text-xs text-emerald-100 font-semibold mt-0.5">
+                  Oculta a barra do navegador e abre direto em tela cheia!
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={installApp}
+                className="px-4 py-2 bg-white text-emerald-800 font-black text-xs rounded-xl shadow-md hover:bg-emerald-50 active:scale-95 transition-transform cursor-pointer"
+              >
+                Instalar
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsBannerDismissed(true)}
+                className="p-1.5 text-emerald-200 hover:text-white rounded-lg cursor-pointer"
+                aria-label="Dispensar aviso de instalação"
+                title="Dispensar"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main
         className={`flex-1 mx-auto w-full px-6 py-8 grid gap-5 ${
           showPartituras
@@ -77,7 +119,7 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
         }`}
       >
 
-        {/* CARD 2: ESTÚDIO DE PARTITURAS & HINÁRIO 5 */}
+        {/* CARD 1: ESTÚDIO DE PARTITURAS & HINÁRIO 5 */}
         {showPartituras && (
           <button id="card-nav-partituras"
           onClick={() => handleNav('partituras')}
@@ -200,34 +242,34 @@ export const WelcomeHome: React.FC<WelcomeHomeProps> = ({ onNavigate }) => {
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
-          </a>
-          <a
-            href="https://www.facebook.com/issacarbarbosa"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-colors shadow-xs"
-            title="Facebook"
-            aria-label="Facebook"
-          >
-            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.6 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z" />
-            </svg>
-          </a>
-          <a
-            href={siteConfig?.youtubeUrl || 'https://www.youtube.com/@issacarbarbosa'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-red-600 transition-colors shadow-xs"
-            title="YouTube"
-            aria-label="YouTube"
-          >
-            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-            </svg>
-          </a>
-        </div>
-      </footer>
-    </div>
+          </svg>
+        </a>
+        <a
+          href="https://www.facebook.com/issacarbarbosa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-colors shadow-xs"
+          title="Facebook"
+          aria-label="Facebook"
+        >
+          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.6 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z" />
+          </svg>
+        </a>
+        <a
+          href={siteConfig?.youtubeUrl || 'https://www.youtube.com/@issacarbarbosa'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-11 h-11 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-red-600 transition-colors shadow-xs"
+          title="YouTube"
+          aria-label="YouTube"
+        >
+          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </div>
   );
 };

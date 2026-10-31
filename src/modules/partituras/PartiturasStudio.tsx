@@ -109,7 +109,6 @@ export default function PartiturasStudio() {
   const [highlightBar, setHighlightBar] = useState<boolean>(true);
   const [highlightNotes, setHighlightNotes] = useState<boolean>(true);
   const [noteHighlightColor, setNoteHighlightColor] = useState<string>('#3B82F6');
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [showViolinNeck, setShowViolinNeck] = useState<boolean>(false);
 
   // Playback & Transport State
@@ -1125,42 +1124,6 @@ export default function PartiturasStudio() {
     audioSchedulerRef.current?.setVolume(volume, nextMuted);
   };
 
-  useEffect(() => {
-    const onFullscreenChange = () => {
-      setIsFullscreen(Boolean(document.fullscreenElement));
-    };
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isFullscreen) {
-        setIsFullscreen(false);
-      }
-    };
-    document.addEventListener('fullscreenchange', onFullscreenChange);
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [isFullscreen]);
-
-  const handleToggleFullscreen = () => {
-    if (!isFullscreen) {
-      setIsFullscreen(true);
-      const targetEl = studioRootRef.current ?? document.documentElement;
-      if (!document.fullscreenElement && typeof targetEl.requestFullscreen === 'function') {
-        targetEl
-          .requestFullscreen({ navigationUI: 'hide' })
-          .catch(() => {
-            // Se o navegador restringir requestFullscreen no elemento, mantém o modo expandido in-app
-          });
-      }
-    } else {
-      setIsFullscreen(false);
-      if (document.fullscreenElement && typeof document.exitFullscreen === 'function') {
-        document.exitFullscreen().catch(() => {});
-      }
-    }
-  };
-
   // Native continuous two-finger Pinch-to-Zoom on the score stage (Soundslice-style: single fluid gesture)
   useEffect(() => {
     const stageEl = stageWrapperRef.current;
@@ -1341,11 +1304,10 @@ export default function PartiturasStudio() {
     <div
       id="top"
       ref={studioRootRef}
-      data-fullscreen={isFullscreen ? 'true' : 'false'}
+      data-fullscreen="false"
       className="fixed inset-0 w-full h-[100dvh] max-h-full overflow-hidden flex flex-col bg-white text-[#1F2937]"
     >
       {/* 1. Barra Superior Única (48px — oculta automaticamente em Modo Tela Cheia para maximizar a partitura) */}
-      {!isFullscreen && (
         <TopBar
           presets={catalogScores}
           activePresetId={activePresetId}
@@ -1362,7 +1324,6 @@ export default function PartiturasStudio() {
           onBackToHome={() => navigate('/')}
           onOpenAdminDashboard={() => navigate('/admin')}
         />
-      )}
 
       {/* Painel Amigável de Navegação de Repertório (MSA & Hinário 5) e Gestão Admin */}
       <RepertoirePanelModal
@@ -2084,8 +2045,6 @@ export default function PartiturasStudio() {
         onHorizontalNotationChange={handleHorizontalNotationChange}
         zoom={zoom}
         onZoomChange={handleZoomChange}
-        isFullscreen={isFullscreen}
-        onToggleFullscreen={handleToggleFullscreen}
         voices={ !customFileName ? activePresetObj?.voices : undefined }
         activeStaffIndices={activeStaffIndices}
         onToggleStaffVoice={handleToggleStaffVoice}

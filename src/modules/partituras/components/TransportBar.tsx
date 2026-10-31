@@ -8,8 +8,6 @@ import {
   Minus,
   Plus,
   ChevronDown,
-  Maximize2,
-  Minimize2,
   Sliders,
 } from 'lucide-react';
 import {
@@ -85,8 +83,6 @@ interface TransportBarProps {
   onHorizontalNotationChange: (enabled: boolean) => void;
   zoom: number;
   onZoomChange: (zoom: number) => void;
-  isFullscreen: boolean;
-  onToggleFullscreen: () => void;
   // Multi-Voice Mixer (Vozes / Pentagramas)
   voices?: VoicePartInfo[];
   activeStaffIndices: number[];
@@ -153,8 +149,6 @@ export const TransportBar: React.FC<TransportBarProps> = ({
   onHorizontalNotationChange,
   zoom,
   onZoomChange,
-  isFullscreen,
-  onToggleFullscreen,
   voices,
   activeStaffIndices,
   onToggleStaffVoice,
@@ -216,7 +210,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
       window.visualViewport?.removeEventListener('resize', updateOffset);
       window.visualViewport?.removeEventListener('scroll', updateOffset);
     };
-  }, [isFullscreen]);
+  }, []);
 
   const togglePopover = (target: 'speed' | 'metronome' | 'voices') => {
     if (isSettingsOpen) {
@@ -940,11 +934,7 @@ export const TransportBar: React.FC<TransportBarProps> = ({
       <footer
         aria-label="Barra de Transporte Musical"
         style={bottomClipOffset > 0 ? { marginBottom: `${bottomClipOffset}px` } : undefined}
-        className={`relative w-full shrink-0 z-40 bg-[#2B2C30] text-white select-none touch-manipulation shadow-[0_-2px_10px_rgba(0,0,0,0.18)] ${
-          isFullscreen
-            ? 'pb-[max(env(safe-area-inset-bottom,0px),10px)] sm:pb-0'
-            : 'pb-[env(safe-area-inset-bottom,0px)]'
-        }`}
+        className="relative w-full shrink-0 z-40 bg-[#2B2C30] text-white select-none touch-manipulation shadow-[0_-2px_10px_rgba(0,0,0,0.18)] pb-[max(env(safe-area-inset-bottom,0px),4px)]"
       >
         <div className="w-full h-[2px] bg-[#1F2023] overflow-hidden">
           <div
@@ -1186,27 +1176,6 @@ export const TransportBar: React.FC<TransportBarProps> = ({
                 >
                   123
                 </span>
-              )}
-            </button>
-
-            {/* 5. Fullscreen Toggle Button (Visible on both Mobile and Desktop) */}
-            <button
-              type="button"
-              data-testid="transport-fullscreen-btn"
-              onClick={onToggleFullscreen}
-              aria-label={isFullscreen ? 'Sair da tela cheia' : 'Tela cheia'}
-              aria-pressed={isFullscreen}
-              title={isFullscreen ? 'Sair da tela cheia' : 'Tela cheia'}
-              className={`flex w-9 h-9 sm:w-10 sm:h-10 rounded-lg items-center justify-center transition-colors cursor-pointer shrink-0 ${
-                isFullscreen
-                  ? 'bg-[#191A1D] text-amber-400 border border-amber-400/40'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {isFullscreen ? (
-                <Minimize2 className="w-4 h-4 sm:w-5 sm:h-5" />
-              ) : (
-                <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" />
               )}
             </button>
 

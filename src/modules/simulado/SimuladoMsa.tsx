@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Check,
   CheckCircle2,
@@ -8,8 +8,6 @@ import {
   Flag,
   Edit3,
   Save,
-  Maximize2,
-  Minimize2,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../core/contexts/AdminContext';
@@ -23,7 +21,6 @@ import {
 } from './questions/schema';
 import { playSuccessSound, playErrorSound } from '../../core/utils/audio';
 import { getAssetUrl } from '../../core/utils/paths';
-import { useFullscreen } from '../../core/hooks/useFullscreen';
 import { useScreenWakeLock } from '../../core/hooks/useScreenWakeLock';
 import { SimuladoMenu, MSA_PHASES_CATALOG } from './components/SimuladoMenu';
 import { QuestionFeedbackModal } from './components/QuestionFeedbackModal';
@@ -203,8 +200,6 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
   const navigate = useNavigate();
   const { isAdmin, mode } = useAdmin();
   const handleBack = onBack || (() => navigate('/'));
-  const simuladoRootRef = useRef<HTMLDivElement | null>(null);
-  const { isFullscreen, toggleFullscreen } = useFullscreen(simuladoRootRef);
 
   // Estados de Configuração e Modalidade
   const [quizMode, setQuizMode] = useState<'period' | 'phase'>('period');
@@ -383,10 +378,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
 
   return (
     <div
-      ref={simuladoRootRef}
-      className={`flex flex-col bg-slate-50 font-sans overflow-y-auto ${
-        isFullscreen ? 'fixed inset-0 z-50 w-full h-[100dvh]' : 'flex-1 h-full'
-      }`}
+      className="flex-1 flex flex-col bg-slate-50 font-sans overflow-y-auto h-full"
       id="simulado-msa-root"
     >
       {/* TELA DE MENU INICIAL */}
@@ -403,8 +395,6 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
           errorMessage={errorMessage}
           onStartQuiz={handleStartQuiz}
           onBack={handleBack}
-          isFullscreen={isFullscreen}
-          onToggleFullscreen={toggleFullscreen}
         />
       )}
 
@@ -456,20 +446,6 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
                 </span>{' '}
                 / {questions.length}
               </div>
-              <button
-                type="button"
-                data-testid="simulado-fullscreen-btn"
-                onClick={toggleFullscreen}
-                title={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
-                aria-label={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
-                className={`w-11 h-11 flex items-center justify-center rounded-xl transition-all cursor-pointer border shrink-0 ${
-                  isFullscreen
-                    ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300 shadow-xs'
-                    : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-800 border-slate-200'
-                }`}
-              >
-                {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
-              </button>
             </div>
           </div>
 
@@ -615,7 +591,7 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
 
                 <div className="text-xs font-semibold leading-relaxed">
                   {selectedOption.feedback && (
-                    <p className="italic mb-1.5">"{formatText(selectedOption.feedback)}"</p>
+                    <p className="italic mb-1.5">&quot;{formatText(selectedOption.feedback)}&quot;</p>
                   )}
 
                   {!selectedOption.correta && (
@@ -696,23 +672,6 @@ export function SimuladoMsa({ onBack }: SimuladoMsaProps) {
           className="max-w-md mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 flex-1 flex flex-col justify-center text-center animate-fade"
           id="simulado-resultados"
         >
-          <div className="flex justify-end mb-1">
-            <button
-              type="button"
-              data-testid="simulado-results-fullscreen-btn"
-              onClick={toggleFullscreen}
-              title={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
-              aria-label={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 min-h-[40px] rounded-xl border text-xs font-extrabold transition-all cursor-pointer ${
-                isFullscreen
-                  ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300 shadow-xs'
-                  : 'bg-white hover:bg-slate-100 text-slate-600 border-slate-200 shadow-xs'
-              }`}
-            >
-              {isFullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
-              <span>{isFullscreen ? 'Sair da Tela Cheia' : 'Tela Cheia'}</span>
-            </button>
-          </div>
           <img
             src={resultImg}
             className="w-28 sm:w-32 h-auto mx-auto mb-3 drop-shadow-lg animate-float"

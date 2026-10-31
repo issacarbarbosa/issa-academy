@@ -13,32 +13,45 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['assets/*.png', 'assets/*.svg'],
+        devOptions: {
+          enabled: true,
+        },
+        includeAssets: ['icons/*.png'],
         manifest: {
+          id: isGitHubPages ? '/issa-academy/' : '/',
           name: 'Issa Academy - Ensino Musical CCB',
           short_name: 'Issa Academy',
           description: 'Plataforma gratuita de ensino musical gamificado focada no método MSA da CCB. Simulados, leitura rítmica e solfejo.',
+          lang: 'pt-BR',
           theme_color: '#1a3c5a',
           background_color: '#ffffff',
           display: 'standalone',
+          orientation: 'any',
+          start_url: isGitHubPages ? '/issa-academy/' : '/',
+          scope: isGitHubPages ? '/issa-academy/' : '/',
           icons: [
-            {
-              src: 'assets/social-whatsapp.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'any maskable'
-            },
-            {
-              src: 'assets/Issa_Academy-Fufu.png',
-              sizes: '192x192',
-              type: 'image/png'
-            }
+            { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+            { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+            { src: 'icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
           ]
         },
         workbox: {
+          skipWaiting: true,
+          clientsClaim: true,
           maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+          globPatterns: ['index.html', 'manifest.webmanifest', 'icons/*.png'],
           runtimeCaching: [
+            {
+              urlPattern: /\.(?:js|css|json|png|svg|ico|woff2?)$/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'issa-app-assets',
+                expiration: {
+                  maxEntries: 120,
+                  maxAgeSeconds: 60 * 60 * 24 * 30
+                }
+              }
+            },
             {
               urlPattern: /^https:\/\/www\.youtube\.com\/.*/i,
               handler: 'NetworkOnly'

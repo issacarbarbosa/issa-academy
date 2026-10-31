@@ -6,7 +6,9 @@ import { AdminProvider, useAdmin } from './core/contexts/AdminContext';
 import { AdminFloatingBar } from './core/components/AdminFloatingBar';
 import { QuickEditModal } from './core/components/QuickEditModal';
 import { contentStore, SiteConfig } from './core/services/contentStore';
-import { GraduationCap, ArrowLeft, Youtube, Bell, Lock } from 'lucide-react';
+import { GraduationCap, ArrowLeft, Youtube, Bell, Lock, Smartphone } from 'lucide-react';
+import { usePwaInstall } from './core/hooks/usePwaInstall';
+import { PwaInstallModal } from './core/components/PwaInstallModal';
 
 // Helper para recuperar automaticamente de falhas transitórias de importação dinâmica (ex.: durante restart do servidor Vite ou oscilação de rede mobile)
 async function retryDynamicImport<T>(
@@ -56,7 +58,8 @@ const PartiturasStudio = React.lazy(() =>
 function MainLayout() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAdmin, mode, openEditTarget } = useAdmin();
+  const { isAdmin, mode, openEditTarget, isAuthReady, canAccessPartituras } = useAdmin();
+  const { canInstall, installApp, showInstructionsModal, closeInstructionsModal } = usePwaInstall();
 
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
 
@@ -133,7 +136,7 @@ function MainLayout() {
 
       {/* ==================== GLOBAL APP HEADER ==================== */}
       {!isImmersiveModule && (
-        <header className="h-[70px] border-b-2 border-slate-200 bg-white flex mobile-landscape-hidden items-center justify-between px-6 md:px-8 sticky top-0 z-40 shadow-sm">
+        <header className="h-[70px] border-b-2 border-slate-200 bg-white flex items-center justify-between px-6 md:px-8 sticky top-0 z-40 shadow-sm">
           <button
             onClick={() => navigate('/')}
             className="flex items-center gap-2.5 text-left text-decoration-none bg-transparent border-0 cursor-pointer p-0"
@@ -153,6 +156,16 @@ function MainLayout() {
 
           {/* Header Actions */}
           <div className="flex items-center gap-2.5">
+            {canInstall && (
+              <button
+                type="button"
+                onClick={installApp}
+                className="flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white border-b-4 border-emerald-800 active:border-b-0 active:translate-y-0.5 rounded-xl text-xs font-black transition-all shadow-md cursor-pointer animate-pulse"
+                title="Instalar aplicativo na tela inicial do celular"
+              >
+                <Smartphone size={16} /> Instalar App
+              </button>
+            )}
             {!isHome && (
               <button
                 onClick={() => navigate(-1)}
@@ -186,7 +199,21 @@ function MainLayout() {
         >
           <Routes>
             <Route path="/" element={<WelcomeHome />} />
-            <Route path="/partituras" element={import.meta.env.DEV ? <PartiturasStudio /> : <Navigate to="/" replace />} />
+            <Route
+              path="/partituras"
+              element={
+                !isAuthReady ? (
+                  <div className="flex-1 flex flex-col items-center justify-center p-12 text-slate-400 font-extrabold text-sm gap-3 animate-pulse">
+                    <div className="w-10 h-10 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin"></div>
+                    <span>Carregando ambiente musical...</span>
+                  </div>
+                ) : canAccessPartituras ? (
+                  <PartiturasStudio />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              }
+            />
             <Route
               path="/mestre-da-clave"
               element={
@@ -204,7 +231,7 @@ function MainLayout() {
 
       {/* ==================== BOTTOM STATUS BAR ==================== */}
       {!isPartituras && (
-        <footer className="h-10 bg-[#1a3c5a] mobile-landscape-hidden flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
+        <footer className="h-10 bg-[#1a3c5a] flex items-center justify-between px-6 text-[10px] font-black text-slate-300 uppercase tracking-widest shrink-0 shadow">
           <div className="flex items-center gap-2">
             <span>{siteConfig?.footerText || 'Issa Academy • Mestre da Clave & Simulado MSA'}</span>
             {/* Acesso discreto ao Admin via cadeado no rodapé */}
@@ -229,6 +256,10 @@ function MainLayout() {
       {/* Barra Flutuante de Administração e Modal de Edição Rápida */}
       {!isImmersiveModule && <AdminFloatingBar />}
       <QuickEditModal onUpdated={loadConfig} />
+      <PwaInstallModal
+        isOpen={showInstructionsModal}
+        onClose={closeInstructionsModal}
+      />
     </div>
   );
 }

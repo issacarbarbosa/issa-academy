@@ -29,6 +29,8 @@ interface AdminContextType {
   loginWithGoogle: () => Promise<{ success: boolean; error?: string }>;
   loginLocalPreview: (password: string) => boolean;
   logout: () => Promise<void>;
+  isAuthReady: boolean;
+  canAccessPartituras: boolean;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -40,6 +42,7 @@ const LOCAL_PREVIEW_SECRET = 'issa2026';
 export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [user, setUser] = useState<AdminUser | null>(null);
+  const [isAuthReady, setIsAuthReady] = useState<boolean>(false);
   const [mode, setModeState] = useState<AdminViewMode>(() => {
     try {
       const saved = localStorage.getItem(LOCAL_ADMIN_MODE_KEY);
@@ -49,6 +52,13 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
   });
   const [activeEditTarget, setActiveEditTarget] = useState<AdminEditTarget | null>(null);
+
+  const isLocalOrAiStudio =
+    Boolean(import.meta.env.DEV) ||
+    (typeof window !== 'undefined' &&
+      window.location.hostname !== 'issacarbarbosa.github.io');
+
+  const canAccessPartituras = isLocalOrAiStudio || isAdmin;
 
   const setMode = (nextMode: AdminViewMode) => {
     setModeState(nextMode);
@@ -81,6 +91,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           setUser(null);
           setIsAdmin(false);
           setMode('aluno');
+          setIsAuthReady(true);
           return;
         }
       } catch {
@@ -88,6 +99,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         setUser(null);
         setIsAdmin(false);
         setMode('aluno');
+        setIsAuthReady(true);
         return;
       }
     }
@@ -100,6 +112,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setIsAdmin(true);
     const savedMode = localStorage.getItem(LOCAL_ADMIN_MODE_KEY);
     setMode(savedMode === 'aluno' ? 'aluno' : 'edicao');
+    setIsAuthReady(true);
   };
 
   // Restaura sessão existente e trata tokens na URL
@@ -132,6 +145,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         } else {
           checkLocalSession();
         }
+      }).catch(() => {
+        checkLocalSession();
       });
 
       const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -158,6 +173,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setUser(null);
       setIsAdmin(false);
       setModeState('aluno');
+      setIsAuthReady(true);
       return;
     }
 
@@ -178,6 +194,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setUser(null);
       setIsAdmin(false);
       setModeState('aluno');
+    } finally {
+      setIsAuthReady(true);
     }
   };
 
@@ -207,6 +225,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setUser(localUser);
       setIsAdmin(true);
       setMode('edicao');
+      setIsAuthReady(true);
       return { success: true };
     }
 
@@ -269,6 +288,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setUser(localUser);
       setIsAdmin(true);
       setMode('edicao');
+      setIsAuthReady(true);
       return true;
     }
     return false;
@@ -284,6 +304,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setIsAdmin(false);
     setModeState('aluno');
     setActiveEditTarget(null);
+    setIsAuthReady(true);
   };
 
   const openEditTarget = (target: AdminEditTarget) => {
@@ -309,6 +330,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         loginWithGoogle,
         loginLocalPreview,
         logout,
+        isAuthReady,
+        canAccessPartituras,
       }}
     >
       {children}

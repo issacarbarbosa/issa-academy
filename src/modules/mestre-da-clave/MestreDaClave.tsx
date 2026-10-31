@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Pause, Maximize2, Minimize2 } from 'lucide-react';
+import { Pause } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { initAudio, playLevelUpFanfare, playRewardChord, playError } from '../../core/utils/audio';
 import { getAssetUrl } from '../../core/utils/paths';
 import { useLocalStorage } from '../../core/hooks/useLocalStorage';
-import { useFullscreen } from '../../core/hooks/useFullscreen';
 import { useScreenWakeLock } from '../../core/hooks/useScreenWakeLock';
 import {
   FloatText,
@@ -33,10 +32,6 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const screenRootRef = useRef<HTMLDivElement | null>(null);
-
-  const { isFullscreen, toggleFullscreen } = useFullscreen(screenRootRef, {
-    lockLandscape: true,
-  });
 
   // Estados de Clave e Recordes
   const [selectedClef, setSelectedClef] = useState<ClefType>('sol');
@@ -607,28 +602,6 @@ export function MestreDaClave({ onBack }: MestreDaClaveProps) {
         </div>
 
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <button
-            type="button"
-            data-testid="mestre-fullscreen-btn"
-            onClick={toggleFullscreen}
-            title={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
-            aria-label={isFullscreen ? 'Sair da tela cheia' : 'Expandir para tela cheia'}
-            className={`flex items-center justify-center gap-1 font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3 py-1.5 sm:py-2.5 min-h-[40px] sm:min-h-[44px] min-w-[40px] sm:min-w-[44px] rounded-xl border transition-all cursor-pointer ${
-              isFullscreen
-                ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300 shadow-xs'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-200'
-            }`}
-          >
-            {isFullscreen ? (
-              <Minimize2 size={14} className="sm:w-4 sm:h-4 shrink-0" />
-            ) : (
-              <Maximize2 size={14} className="sm:w-4 sm:h-4 shrink-0" />
-            )}
-            <span className="hidden lg:inline">
-              {isFullscreen ? 'Sair da Tela Cheia' : 'Tela Cheia'}
-            </span>
-          </button>
-
           <button
             type="button"
             onClick={handlePauseToggle}
